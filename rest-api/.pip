@@ -1,5 +1,11 @@
 Flask
 Flask-JWT-Extended
+Flask-SQLAlchemy
+Flask-Migrate
 Marshmallow
+SQLAlchemy
 python-dotenv
 pytest
+pylint
+pylint-flask
+pylint-flask-sqlalchemy

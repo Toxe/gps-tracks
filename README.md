@@ -6,9 +6,16 @@
   - Python 3
   - Flask
   - Flask-JWT-Extended
+  - Flask-SQLAlchemy
+  - Flask-Migrate
   - Marshmallow
+  - SQLAlchemy
+  - SQLite
   - python-dotenv
   - pytest
+  - pylint
+  - pylint-flask
+  - pylint-flask-sqlalchemy
 
 ## Setup local development version
 
