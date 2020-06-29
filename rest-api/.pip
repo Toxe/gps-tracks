@@ -2,6 +2,7 @@ Flask
 Flask-JWT-Extended
 Flask-SQLAlchemy
 Flask-Migrate
+flask-shell-ipython
 Marshmallow
 SQLAlchemy
 python-dotenv
@@ -11,3 +12,4 @@ pylint-flask
 pylint-flask-sqlalchemy
 click
 wheel
+ipython

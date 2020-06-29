@@ -8,6 +8,7 @@
   - Flask-JWT-Extended
   - Flask-SQLAlchemy
   - Flask-Migrate
+  - flask-shell-ipython
   - Marshmallow
   - SQLAlchemy
   - SQLite
@@ -18,6 +19,7 @@
   - pylint-flask-sqlalchemy
   - Click
   - Wheel
+  - IPython
 
 ## Setup local development version
 
