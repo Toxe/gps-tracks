@@ -16,6 +16,8 @@
   - pylint
   - pylint-flask
   - pylint-flask-sqlalchemy
+  - Click
+  - Wheel
 
 ## Setup local development version
 

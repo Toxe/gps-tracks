@@ -9,3 +9,5 @@ pytest
 pylint
 pylint-flask
 pylint-flask-sqlalchemy
+click
+wheel
