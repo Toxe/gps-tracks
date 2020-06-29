@@ -19,3 +19,6 @@ def create_app(config_class=Config):
     jwt.init_app(app)
 
     return app
+
+
+from app import models
