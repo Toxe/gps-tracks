@@ -1,5 +1,6 @@
 from app import db
 from werkzeug.security import generate_password_hash, check_password_hash
+from marshmallow import Schema, fields, validate
 
 
 class User(db.Model):
@@ -16,3 +17,13 @@ class User(db.Model):
 
     def check_password(self, password):
         return check_password_hash(self.password, password)
+
+
+class UserSchema(Schema):
+    id       = fields.Int(validate=validate.Range(min=1), missing=0)
+    username = fields.Str(required=True, validate=validate.Length(min=2))
+    email    = fields.Str(required=True, validate=validate.Email(), load_only=True)
+    password = fields.Str(required=True, load_only=True)
+
+
+user_schema = UserSchema()
