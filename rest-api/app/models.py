@@ -23,7 +23,7 @@ class UserSchema(Schema):
     id       = fields.Int(validate=validate.Range(min=1), missing=0)
     username = fields.Str(required=True, validate=validate.Length(min=2))
     email    = fields.Str(required=True, validate=validate.Email(), load_only=True)
-    password = fields.Str(required=True, load_only=True)
+    password = fields.Str(required=True, validate=validate.Length(min=4), load_only=True)
 
 
 user_schema = UserSchema()
