@@ -56,4 +56,22 @@ class UserSchema(Schema):
     password = fields.Str(required=True, validate=validate.Length(min=4), load_only=True)
 
 
+class TrackSchema(Schema):
+    id             = fields.Integer(required=True)
+    user_id        = fields.Integer(required=True)
+    gpxfile_id     = fields.Integer(required=True)
+    title          = fields.String(required=True)
+    time_start     = fields.DateTime(required=True)
+    time_end       = fields.DateTime(required=True)
+    length2d       = fields.Float(required=True)
+    length3d       = fields.Float(required=True)
+    max_speed      = fields.Float(required=True)
+    avg_speed      = fields.Float(required=True)
+    total_uphill   = fields.Float(required=True)
+    total_downhill = fields.Float(required=True)
+    moving_time    = fields.Float(required=True)
+    stopped_time   = fields.Float(required=True)
+
+
 user_schema = UserSchema()
+track_schema = TrackSchema()
