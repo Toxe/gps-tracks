@@ -3,7 +3,7 @@ from flask_jwt_extended import jwt_required, get_jwt_identity
 from app import db
 from app.api import bp
 from app.models import User, user_schema
-from app.errors import error_response
+from app.errors.handlers import error_response
 from marshmallow import ValidationError
 
 

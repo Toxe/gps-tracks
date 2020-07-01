@@ -1,4 +1,4 @@
-from app.errors import error_response
+from app.errors.handlers import error_response
 
 
 def test_error_response_has_all_basic_fields(app):

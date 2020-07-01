@@ -7,7 +7,7 @@ from flask_jwt_extended import (
 from app import jwt
 from app.auth import bp
 from app.models import User, user_schema
-from app.errors import error_response
+from app.errors.handlers import error_response
 
 
 blacklist = set()
