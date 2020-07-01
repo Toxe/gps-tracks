@@ -26,6 +26,8 @@ def create_user():
         data = user_schema.loads(request.data)
     except ValidationError as err:
         return error_response(400, err.messages)
+    if "id" in data and data["id"] != 0:
+        return error_response(400)
     if User.query.filter_by(username=data["username"]).first():
         return error_response(400, "User already exists.")
     if User.query.filter_by(email=data["email"]).first():
