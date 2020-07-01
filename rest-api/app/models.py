@@ -10,6 +10,7 @@ class User(db.Model):
     email    = db.Column(db.String(128), index=True, unique=True)
     password = db.Column(db.String(128))
     gpxfiles = db.relationship("GPXFile", backref="owner", lazy="dynamic")
+    tracks   = db.relationship("Track", backref="owner", lazy="dynamic")
     def set_password(self, password):
         self.password = generate_password_hash(password)
     def check_password(self, password):
@@ -24,8 +25,28 @@ class GPXFile(db.Model):
     user_id       = db.Column(db.Integer, db.ForeignKey("user.id"))
     filename      = db.Column(db.String(255))
     time_imported = db.Column(db.DateTime, default=datetime.utcnow)
+    tracks        = db.relationship("Track", backref="file", lazy="dynamic")
     def __repr__(self):
         return "<GPXFile:{}>".format(self.id)
+
+
+class Track(db.Model):
+    id             = db.Column(db.Integer, primary_key=True)
+    user_id        = db.Column(db.Integer, db.ForeignKey("user.id"))
+    gpxfile_id     = db.Column(db.Integer, db.ForeignKey("gpxfile.id"))
+    title          = db.Column(db.String(255))
+    time_start     = db.Column(db.DateTime)
+    time_end       = db.Column(db.DateTime)
+    length2d       = db.Column(db.Float)
+    length3d       = db.Column(db.Float)
+    max_speed      = db.Column(db.Float)
+    avg_speed      = db.Column(db.Float)
+    total_uphill   = db.Column(db.Float)
+    total_downhill = db.Column(db.Float)
+    moving_time    = db.Column(db.Float)
+    stopped_time   = db.Column(db.Float)
+    def __repr__(self):
+        return "<Track:{} gpxfile={}>".format(self.id, self.gpxfile_id)
 
 
 class UserSchema(Schema):
