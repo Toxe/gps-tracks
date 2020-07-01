@@ -14,9 +14,7 @@ def get_users():
 
 @bp.route("/users/<int:id>", methods=["GET"])
 def get_user(id):
-    user = User.query.get(id)
-    if user is None:
-        return error_response(404)
+    user = User.query.get_or_404(id)
     return jsonify(user_schema.dump(user))
 
 
@@ -54,9 +52,7 @@ def update_user(id):
     # "id" in request data is optional but if "id" was provided then it has to match the resource id
     if data["id"] != 0 and data["id"] != id:
         return error_response(400, "Request data id has to match resource id.")
-    user = User.query.get(id)
-    if user is None:
-        return error_response(404)
+    user = User.query.get_or_404(id)
     check_user = User.query.filter_by(username=data["username"]).first()
     if check_user and check_user.id != id:
         return error_response(400, "User already exists.")
@@ -76,9 +72,7 @@ def update_user(id):
 def delete_user(id):
     if id != get_jwt_identity():
         return error_response(403)
-    user = User.query.get(id)
-    if user is None:
-        return error_response(404)
+    user = User.query.get_or_404(id)
     db.session.delete(user)
     db.session.commit()
     return "", 204
