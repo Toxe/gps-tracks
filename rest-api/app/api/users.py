@@ -71,8 +71,7 @@ def update_user(id):
     user.set_password(data["password"])
     db.session.add(user)
     db.session.commit()
-    response = jsonify(user_schema.dump(user))
-    return response
+    return jsonify(user_schema.dump(user))
 
 
 @bp.route("/users/<int:id>", methods=["DELETE"])
