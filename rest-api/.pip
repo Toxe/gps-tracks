@@ -13,3 +13,4 @@ pylint-flask-sqlalchemy
 click
 wheel
 ipython
+gpxpy
