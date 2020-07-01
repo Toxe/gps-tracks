@@ -118,6 +118,20 @@ def test_update_user(client, auth, with_example_users):
     assert data["username"] == "new-name"
 
 
+def test_update_user_fails_if_username_is_already_taken(client, auth, with_example_users):
+    auth.login("user1@example.com", "password1")
+    r = client.put("/api/users/{}".format(auth.id), headers=auth.headers, json={"username": "user2", "email": "user1@example.com", "password": "????"})
+    assert r.status_code == 400
+    assert r.get_json().get("message") == "User already exists."
+
+
+def test_update_user_fails_if_email_is_already_taken(client, auth, with_example_users):
+    auth.login("user1@example.com", "password1")
+    r = client.put("/api/users/{}".format(auth.id), headers=auth.headers, json={"username": "user1", "email": "user2@example.com", "password": "????"})
+    assert r.status_code == 400
+    assert r.get_json().get("message") == "User already exists."
+
+
 def test_update_user_without_login(client, with_example_users):
     assert client.put("/api/users/1", json={"username": "user1", "email": "user1@example.com", "password": "secret"}).status_code == 401
 
