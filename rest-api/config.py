@@ -12,3 +12,4 @@ class Config(object):
     JWT_ERROR_MESSAGE_KEY = "error"
     JWT_BLACKLIST_ENABLED = True
     JWT_BLACKLIST_TOKEN_CHECKS = ["access", "refresh"]
+    GPXFILES_FOLDER = os.environ.get("GPXFILES_FOLDER") or os.path.join(basedir, "gpxfiles")
