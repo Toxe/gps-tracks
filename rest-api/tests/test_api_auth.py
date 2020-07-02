@@ -1,4 +1,5 @@
 from flask_jwt_extended import decode_token
+from tests.example_data_fixtures import example_users
 
 
 def test_login(client, example_users):

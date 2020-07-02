@@ -1,6 +1,6 @@
-import pytest
 from app.models import User
 from flask_jwt_extended import create_access_token
+from tests.example_data_fixtures import example_users
 
 
 def test_get_users(client, example_users):
