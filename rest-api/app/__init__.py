@@ -1,3 +1,4 @@
+import os
 from flask import Flask
 from config import Config
 from flask_sqlalchemy import SQLAlchemy
@@ -14,6 +15,9 @@ def create_app(config_class=Config):
     app = Flask(__name__)
     app.config.from_object(config_class)
 
+    # create gpxfiles folder if it doesn't exist
+    create_directory_if_necessary(app.config["GPXFILES_FOLDER"])
+
     db.init_app(app)
     migrate.init_app(app, db)
     jwt.init_app(app)
@@ -28,6 +32,11 @@ def create_app(config_class=Config):
     app.register_blueprint(auth_bp, url_prefix="/auth")
 
     return app
+
+
+def create_directory_if_necessary(dirname):
+    if not os.path.isdir(dirname):
+        os.mkdir(dirname, 0o700)
 
 
 from app import models
