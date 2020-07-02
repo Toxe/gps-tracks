@@ -56,6 +56,13 @@ class UserSchema(Schema):
     password = fields.Str(required=True, validate=validate.Length(min=4), load_only=True)
 
 
+class GPXFileSchema(Schema):
+    id            = fields.Integer(required=True)
+    user_id       = fields.Integer(required=True)
+    filename      = fields.String(required=True)
+    time_imported = fields.DateTime(required=True)
+
+
 class TrackSchema(Schema):
     id             = fields.Integer(required=True)
     user_id        = fields.Integer(required=True)
@@ -74,4 +81,5 @@ class TrackSchema(Schema):
 
 
 user_schema = UserSchema()
+gpxfile_schema = GPXFileSchema()
 track_schema = TrackSchema()
