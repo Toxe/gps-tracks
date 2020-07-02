@@ -1,7 +1,7 @@
 from flask import jsonify
 from app.errors import bp
 from werkzeug.http import HTTP_STATUS_CODES
-from werkzeug.exceptions import NotFound, InternalServerError
+from werkzeug.exceptions import NotFound, MethodNotAllowed, InternalServerError
 
 
 def error_response(status_code, message=None):
@@ -16,6 +16,11 @@ def error_response(status_code, message=None):
 @bp.app_errorhandler(NotFound)
 def not_found_error(error):
     return error_response(NotFound.code)
+
+
+@bp.app_errorhandler(MethodNotAllowed)
+def method_not_allowed_error(error):
+    return error_response(MethodNotAllowed.code)
 
 
 @bp.app_errorhandler(InternalServerError)
