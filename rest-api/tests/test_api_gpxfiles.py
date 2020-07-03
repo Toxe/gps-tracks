@@ -1,6 +1,16 @@
+import os
 from io import BytesIO
+from flask import current_app
 from app.models import GPXFile, Track
 from tests.example_data_fixtures import example_users, example_gpxfiles
+
+
+def directory_is_empty(dirname):
+    return len(os.listdir(dirname)) == 0
+
+
+def gpxfile_exists(gpxfiles_folder, gpxfile_id):
+    return os.path.isfile(os.path.join(gpxfiles_folder, "{}.gpx".format(gpxfile_id)))
 
 
 def test_get_gpxfiles(client, example_users, example_gpxfiles):
@@ -38,9 +48,10 @@ def test_upload_gpxfile(client, example_users):
         assert data["id"] > 0
         assert "Location" in r.headers
         assert r.headers.get("Location").endswith("/api/users/1/gpxfiles/{}".format(data["id"]))
-        # make sure database object were created
+        # make sure database objects and files were created
         assert len(GPXFile.query.all()) == 1
         assert len(Track.query.all()) == 1
+        assert gpxfile_exists(current_app.config["GPXFILES_FOLDER"], data["id"])
 
 
 def test_upload_without_gpxfile_fails(client, example_users):
@@ -61,9 +72,10 @@ def test_upload_with_bad_gpxfile_fails(client, example_users):
     r = client.post("/api/users/1/gpxfiles", data={"file": (fp, "bad.gpx")})
     assert r.status_code == 400
     assert r.get_json().get("message") == "Unable to import uploaded GPX file."
-    # make sure no database object were created
+    # make sure no database objects or files were created
     assert len(GPXFile.query.all()) == 0
     assert len(Track.query.all()) == 0
+    assert directory_is_empty(current_app.config["GPXFILES_FOLDER"])
 
 
 def test_upload_with_bad_xml_gpxfile_fails(client, example_users):
@@ -71,6 +83,7 @@ def test_upload_with_bad_xml_gpxfile_fails(client, example_users):
     r = client.post("/api/users/1/gpxfiles", data={"file": (fp, "bad.gpx")})
     assert r.status_code == 400
     assert r.get_json().get("message") == "Unable to import uploaded GPX file."
-    # make sure no database object were created
+    # make sure no database objects or files were created
     assert len(GPXFile.query.all()) == 0
     assert len(Track.query.all()) == 0
+    assert directory_is_empty(current_app.config["GPXFILES_FOLDER"])
