@@ -5,6 +5,7 @@ from flask_jwt_extended import decode_token
 
 
 class TestConfig(Config):
+    TESTING = True
     SQLALCHEMY_DATABASE_URI = 'sqlite://'
 
 
@@ -25,8 +26,6 @@ class Authentication:
 @pytest.fixture
 def app():
     app = create_app(TestConfig)
-    app.testing = True
-
     with app.app_context():
         db.create_all()
         yield app
