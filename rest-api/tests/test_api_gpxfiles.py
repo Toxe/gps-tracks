@@ -2,7 +2,9 @@ import os
 from io import BytesIO
 from flask import current_app
 from app.models import GPXFile, Track
+from app.api.gpxfiles import speed_to_kph
 from tests.example_data_fixtures import example_users, example_gpxfiles
+from pytest import approx
 
 
 def directory_is_empty(dirname):
@@ -87,3 +89,9 @@ def test_upload_with_bad_xml_gpxfile_fails(client, example_users):
     assert len(GPXFile.query.all()) == 0
     assert len(Track.query.all()) == 0
     assert directory_is_empty(current_app.config["GPXFILES_FOLDER"])
+
+
+def test_speed_to_kph_works():
+    assert speed_to_kph(0.0) == approx(0.0)
+    assert speed_to_kph(1.0) == approx(3.6)
+    assert speed_to_kph(10.0) == approx(36.0)
