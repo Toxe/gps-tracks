@@ -8,8 +8,7 @@ def jwt_and_matching_user_id_required(fn):
     @wraps(fn)
     def wrapper(*args, **kwargs):
         verify_jwt_in_request()
-        user_id = kwargs.get("user_id")
-        if user_id != get_jwt_identity():
+        if get_jwt_identity() != kwargs.get("user_id"):
             return error_response(403, "Access to user resource denied.")
         return fn(*args, **kwargs)
     return wrapper
