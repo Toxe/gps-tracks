@@ -5,17 +5,20 @@ from flask_jwt_extended import jwt_required, get_jwt_identity
 from app import db
 from app.api import bp
 from app.models import User, GPXFile, Track, gpxfile_schema, track_schema
+from app.auth.decorators import jwt_and_matching_user_id_required
 from app.errors.handlers import error_response
 from werkzeug.utils import secure_filename
 
 
 @bp.route("/users/<int:user_id>/gpxfiles", methods=["GET"])
+@jwt_and_matching_user_id_required
 def get_user_gpxfiles(user_id):
     user = User.query.get_or_404(user_id)
     return jsonify(gpxfile_schema.dump(user.gpxfiles.all(), many=True))
 
 
 @bp.route("/users/<int:user_id>/gpxfiles/<int:gpxfile_id>", methods=["GET"])
+@jwt_and_matching_user_id_required
 def get_user_gpxfile(user_id, gpxfile_id):
     user = User.query.get_or_404(user_id)
     gpxfile = user.gpxfiles.filter_by(id=gpxfile_id).first_or_404()
@@ -23,6 +26,7 @@ def get_user_gpxfile(user_id, gpxfile_id):
 
 
 @bp.route("/users/<int:user_id>/gpxfiles", methods=["POST"])
+@jwt_and_matching_user_id_required
 def upload_user_gpxfile(user_id):
     if "file" not in request.files:
         return error_response(400, "GPX file missing.")

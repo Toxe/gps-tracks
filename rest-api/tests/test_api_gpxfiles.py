@@ -7,6 +7,8 @@ from tests.example_data_fixtures import example_users, example_gpxfiles
 from pytest import approx
 
 
+# ---- helper functions ----
+
 def directory_is_empty(dirname):
     return len(os.listdir(dirname)) == 0
 
@@ -15,35 +17,41 @@ def gpxfile_exists(gpxfiles_folder, gpxfile_id):
     return os.path.isfile(os.path.join(gpxfiles_folder, "{}.gpx".format(gpxfile_id)))
 
 
-def test_get_gpxfiles(client, example_users, example_gpxfiles):
-    r = client.get("/api/users/1/gpxfiles")
+# ---- tests ----
+
+def test_get_gpxfiles(client, auth, example_users, example_gpxfiles):
+    auth.login("user1@example.com", "password1")
+    r = client.get("/api/users/{}/gpxfiles".format(auth.id), headers=auth.headers)
     assert r.status_code == 200
     assert r.is_json
     assert len(r.get_json()) == 2
 
 
-def test_get_gpxfile(client, example_users, example_gpxfiles):
-    r = client.get("/api/users/1/gpxfiles/1")
+def test_get_gpxfile(client, auth, example_users, example_gpxfiles):
+    auth.login("user1@example.com", "password1")
+    r = client.get("/api/users/{}/gpxfiles/1".format(auth.id), headers=auth.headers)
     assert r.status_code == 200
     assert r.is_json
     assert r.get_json().get("id") == 1
 
 
-def test_get_missing_gpxfile(client, example_users, example_gpxfiles):
-    assert client.get("/api/users/1/gpxfiles/99").status_code == 404
+def test_get_missing_gpxfile(client, auth, example_users, example_gpxfiles):
+    auth.login("user1@example.com", "password1")
+    assert client.get("/api/users/{}/gpxfiles/99".format(auth.id), headers=auth.headers).status_code == 404
 
 
-def test_get_gpxfiles_for_missing_user(client, example_users, example_gpxfiles):
-    assert client.get("/api/users/99/gpxfiles").status_code == 404
+def test_get_gpxfiles_without_login(client, example_users, example_gpxfiles):
+    assert client.get("/api/users/99/gpxfiles").status_code == 401
 
 
-def test_get_gpxfile_for_missing_user(client, example_users, example_gpxfiles):
-    assert client.get("/api/users/99/gpxfiles/1").status_code == 404
+def test_get_gpxfile_without_login(client, example_users, example_gpxfiles):
+    assert client.get("/api/users/99/gpxfiles/1").status_code == 401
 
 
-def test_upload_gpxfile(client, example_users):
+def test_upload_gpxfile(client, auth, example_users):
+    auth.login("user1@example.com", "password1")
     with open("tests/example.gpx", "rb") as fp:
-        r = client.post("/api/users/1/gpxfiles", data={"file": fp})
+        r = client.post("/api/users/{}/gpxfiles".format(auth.id), headers=auth.headers, data={"file": fp})
         assert r.status_code == 201
         assert r.is_json
         data = r.get_json()
@@ -56,22 +64,24 @@ def test_upload_gpxfile(client, example_users):
         assert gpxfile_exists(current_app.config["GPXFILES_FOLDER"], data["id"])
 
 
-def test_upload_without_gpxfile_fails(client, example_users):
-    r = client.post("/api/users/1/gpxfiles", json={"some": "thing"})
+def test_upload_without_gpxfile_fails(client, auth, example_users):
+    auth.login("user1@example.com", "password1")
+    r = client.post("/api/users/{}/gpxfiles".format(auth.id), headers=auth.headers, json={"some": "thing"})
     assert r.status_code == 400
     assert r.is_json
     assert r.get_json().get("message") == "GPX file missing."
 
 
-def test_upload_gpxfile_for_non_existing_user_fails(client):
+def test_upload_gpxfile_without_login_fails(client):
     with open("tests/example.gpx", "rb") as fp:
-        r = client.post("/api/users/99/gpxfiles", data={"file": fp})
-        assert r.status_code == 404
+        r = client.post("/api/users/1/gpxfiles", data={"file": fp})
+        assert r.status_code == 401
 
 
-def test_upload_with_bad_gpxfile_fails(client, example_users):
+def test_upload_with_bad_gpxfile_fails(client, auth, example_users):
+    auth.login("user1@example.com", "password1")
     fp = BytesIO("not a gpx file".encode("utf8"))
-    r = client.post("/api/users/1/gpxfiles", data={"file": (fp, "bad.gpx")})
+    r = client.post("/api/users/{}/gpxfiles".format(auth.id), headers=auth.headers, data={"file": (fp, "bad.gpx")})
     assert r.status_code == 400
     assert r.get_json().get("message") == "Unable to import uploaded GPX file."
     # make sure no database objects or files were created
@@ -80,9 +90,10 @@ def test_upload_with_bad_gpxfile_fails(client, example_users):
     assert directory_is_empty(current_app.config["GPXFILES_FOLDER"])
 
 
-def test_upload_with_bad_xml_gpxfile_fails(client, example_users):
+def test_upload_with_bad_xml_gpxfile_fails(client, auth, example_users):
+    auth.login("user1@example.com", "password1")
     fp = BytesIO('<?xml version="1.0" encoding="UTF-8"?><gpx version="1.0">'.encode("utf8"))
-    r = client.post("/api/users/1/gpxfiles", data={"file": (fp, "bad.gpx")})
+    r = client.post("/api/users/{}/gpxfiles".format(auth.id), headers=auth.headers, data={"file": (fp, "bad.gpx")})
     assert r.status_code == 400
     assert r.get_json().get("message") == "Unable to import uploaded GPX file."
     # make sure no database objects or files were created
