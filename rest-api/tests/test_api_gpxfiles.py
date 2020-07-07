@@ -48,6 +48,22 @@ def test_get_gpxfile_without_login(client, example_users, example_gpxfiles):
     assert client.get("/api/users/99/gpxfiles/1").status_code == 401
 
 
+def test_get_gpxfiles_for_different_user_is_forbidden(client, auth, example_users, example_gpxfiles):
+    auth.login("user1@example.com", "password1")
+    r = client.get("/api/users/2/gpxfiles".format(auth.id), headers=auth.headers)
+    assert r.status_code == 403
+    assert r.is_json
+    assert r.get_json().get("message") == "Access to user resource denied."
+
+
+def test_get_gpxfile_for_different_user_is_forbidden(client, auth, example_users, example_gpxfiles):
+    auth.login("user1@example.com", "password1")
+    r = client.get("/api/users/2/gpxfiles/3".format(auth.id), headers=auth.headers)
+    assert r.status_code == 403
+    assert r.is_json
+    assert r.get_json().get("message") == "Access to user resource denied."
+
+
 def test_upload_gpxfile(client, auth, example_users):
     auth.login("user1@example.com", "password1")
     with open("tests/example.gpx", "rb") as fp:
@@ -100,6 +116,19 @@ def test_upload_with_bad_xml_gpxfile_fails(client, auth, example_users):
     assert len(GPXFile.query.all()) == 0
     assert len(Track.query.all()) == 0
     assert directory_is_empty(current_app.config["GPXFILES_FOLDER"])
+
+
+def test_upload_for_different_user_is_forbidden(client, auth, example_users):
+    auth.login("user1@example.com", "password1")
+    with open("tests/example.gpx", "rb") as fp:
+        r = client.post("/api/users/2/gpxfiles".format(auth.id), headers=auth.headers, data={"file": fp})
+        assert r.status_code == 403
+        assert r.is_json
+        assert r.get_json().get("message") == "Access to user resource denied."
+        # make sure no database objects or files were created
+        assert len(GPXFile.query.all()) == 0
+        assert len(Track.query.all()) == 0
+        assert directory_is_empty(current_app.config["GPXFILES_FOLDER"])
 
 
 def test_speed_to_kph_works():
