@@ -85,5 +85,5 @@ def example_tracks():
         moving_time=300,
         stopped_time=0,
     )
-    db.session.add_all([t1, t2])
+    db.session.add_all([t1, t2, t3])
     db.session.commit()
