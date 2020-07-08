@@ -41,6 +41,16 @@ def upload_user_gpxfile(user_id):
     return response
 
 
+@bp.route("/users/<int:user_id>/gpxfiles/<int:gpxfile_id>", methods=["DELETE"])
+@jwt_and_matching_user_id_required
+def delete_user_gpxfile(user_id, gpxfile_id):
+    user = User.query.get_or_404(user_id)
+    gpxfile = user.gpxfiles.filter_by(id=gpxfile_id).first_or_404()
+    db.session.delete(gpxfile)
+    db.session.commit()
+    return "", 204
+
+
 def import_gpxfile(user, file):
     gpx = gpxpy.parse(file)
     gpxfile = GPXFile(owner=user, filename=file.filename)

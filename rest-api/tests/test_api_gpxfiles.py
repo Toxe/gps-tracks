@@ -1,9 +1,9 @@
 import os
 from io import BytesIO
 from flask import current_app
-from app.models import GPXFile, Track
+from app.models import User, GPXFile, Track
 from app.api.gpxfiles import speed_to_kph
-from tests.example_data_fixtures import example_users, example_gpxfiles
+from tests.example_data_fixtures import example_users, example_gpxfiles, example_tracks
 from pytest import approx
 
 
@@ -129,6 +129,36 @@ def test_upload_for_different_user_is_forbidden(client, auth, example_users):
         assert len(GPXFile.query.all()) == 0
         assert len(Track.query.all()) == 0
         assert directory_is_empty(current_app.config["GPXFILES_FOLDER"])
+
+
+def test_delete_gpxfile(client, auth, example_users, example_gpxfiles, example_tracks):
+    auth.login("user1@example.com", "password1")
+    user = User.query.get(auth.id)
+    assert len(user.gpxfiles.all()) == 2
+    assert len(user.tracks.all()) == 3
+    r = client.delete("/api/users/{}/gpxfiles/1".format(auth.id), headers=auth.headers)
+    assert r.status_code == 204
+    # make sure database objects were deleted
+    assert len(user.gpxfiles.all()) == 1
+    assert len(user.tracks.all()) == 1
+
+
+def test_delete_missing_gpxfile(client, auth, example_users, example_gpxfiles, example_tracks):
+    auth.login("user1@example.com", "password1")
+    r = client.delete("/api/users/{}/gpxfiles/99".format(auth.id), headers=auth.headers)
+    assert r.status_code == 404
+
+
+def test_delete_gpxfile_without_login(client, example_users, example_gpxfiles, example_tracks):
+    assert client.delete("/api/users/1/gpxfiles/1").status_code == 401
+
+
+def test_delete_gpxfile_for_different_user_is_forbidden(client, auth, example_users, example_gpxfiles, example_tracks):
+    auth.login("user1@example.com", "password1")
+    r = client.get("/api/users/2/gpxfiles/3".format(auth.id), headers=auth.headers)
+    assert r.status_code == 403
+    assert r.is_json
+    assert r.get_json().get("message") == "Access to user resource denied."
 
 
 def test_speed_to_kph_works():
