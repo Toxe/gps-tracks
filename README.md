@@ -72,6 +72,18 @@ FLASK_ENV=development
 $ flask run
 ```
 
+### Tests
+
+Run either:
+
+```
+pytest
+```
+
+```
+python3 -m pytest
+```
+
 ### Open Flask CLI context
 
 Run IPython shell and execute application commands.
@@ -85,16 +97,32 @@ $ flask shell
 >>> db.session.commit()
 ```
 
-## Tests
+### Example data
 
-Run either:
-
-```
-pytest
-```
+Create a new database with example data:
 
 ```
-python3 -m pytest
+$ flask db upgrade
+$ flask shell
+from datetime import datetime, timedelta
+
+u1 = User(id=1, username="user1", email="user1@example.com")
+u2 = User(id=2, username="user2", email="user2@example.com")
+u1.set_password("password1")
+u2.set_password("password2")
+db.session.add_all([u1, u2])
+db.session.commit()
+
+g1 = GPXFile(id=1, owner=u1, filename="GPXFile 01")
+g2 = GPXFile(id=2, owner=u1, filename="GPXFile 02")
+db.session.add_all([g1, g2])
+db.session.commit()
+
+t1 = Track(id=1, owner=u1, file=g1, title="Track 01", time_start=datetime.utcnow(), time_end=datetime.utcnow() + timedelta(minutes=5), length2d=1000, length3d=1000, max_speed=20, avg_speed=10, total_uphill=50, total_downhill=50, moving_time=300, stopped_time=0)
+t2 = Track(id=2, owner=u1, file=g1, title="Track 02", time_start=datetime.utcnow(), time_end=datetime.utcnow() + timedelta(minutes=5), length2d=1000, length3d=1000, max_speed=20, avg_speed=10, total_uphill=50, total_downhill=50, moving_time=300, stopped_time=0)
+t3 = Track(id=3, owner=u1, file=g2, title="Track 03", time_start=datetime.utcnow(), time_end=datetime.utcnow() + timedelta(minutes=5), length2d=1000, length3d=1000, max_speed=20, avg_speed=10, total_uphill=50, total_downhill=50, moving_time=300, stopped_time=0)
+db.session.add_all([t1, t2, t3])
+db.session.commit()
 ```
 
 ## REST API Routes
