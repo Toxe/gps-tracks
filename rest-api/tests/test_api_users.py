@@ -143,6 +143,12 @@ def test_update_user_ensures_request_data_id_matches_resource_id(client, auth, e
     assert data["message"] == "Request data id has to match resource id."
 
 
+def test_update_different_user_is_forbidden(client, auth, example_users):
+    auth.login("user1@example.com", "password1")
+    r = client.put("/api/users/2", headers=auth.headers, json={"username": "new-name", "email": "new@example.com", "password": "new-pwd"})
+    assert r.status_code == 403
+
+
 def test_delete_user(client, auth, example_users):
     auth.login("user1@example.com", "password1")
     assert client.delete("/api/users/{}".format(auth.id), headers=auth.headers).status_code == 204
@@ -156,3 +162,8 @@ def test_delete_user_that_does_not_exist(client, auth, example_users):
     auth.login("user1@example.com", "password1")
     assert client.delete("/api/users/{}".format(auth.id), headers=auth.headers).status_code == 204
     assert client.delete("/api/users/{}".format(auth.id), headers=auth.headers).status_code == 404
+
+
+def test_delete_different_user_is_forbidden(client, auth, example_users):
+    auth.login("user1@example.com", "password1")
+    assert client.delete("/api/users/2", headers=auth.headers).status_code == 403
