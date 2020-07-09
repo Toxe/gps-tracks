@@ -1,6 +1,6 @@
-from app.models import User
+from app.models import User, GPXFile, Track
 from flask_jwt_extended import create_access_token
-from tests.example_data_fixtures import example_users
+from tests.example_data_fixtures import example_users, example_gpxfiles, example_tracks
 
 
 def test_get_users(client, example_users):
@@ -167,3 +167,13 @@ def test_delete_user_that_does_not_exist(client, auth, example_users):
 def test_delete_different_user_is_forbidden(client, auth, example_users):
     auth.login("user1@example.com", "password1")
     assert client.delete("/api/users/2", headers=auth.headers).status_code == 403
+
+
+def test_delete_user_automatically_deletes_gpxfiles_and_tracks(client, auth, example_users, example_gpxfiles, example_tracks):
+    auth.login("user1@example.com", "password1")
+    assert len(GPXFile.query.all()) == 2
+    assert len(Track.query.all()) == 3
+    assert client.delete("/api/users/{}".format(auth.id), headers=auth.headers).status_code == 204
+    # make sure database objects were deleted
+    assert len(GPXFile.query.all()) == 0
+    assert len(Track.query.all()) == 0
