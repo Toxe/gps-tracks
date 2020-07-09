@@ -133,11 +133,15 @@ def test_delete_gpxfile(client, auth, example_users, example_gpxfiles, example_t
     user = User.query.get(auth.id)
     assert len(user.gpxfiles.all()) == 2
     assert len(user.tracks.all()) == 3
-    r = client.delete("/api/users/{}/gpxfiles/1".format(auth.id), headers=auth.headers)
+    gpxfile = GPXFile.query.get(1)
+    open(gpxfile.static_file_path(), "w").close()
+    assert os.path.isfile(gpxfile.static_file_path())
+    r = client.delete("/api/users/{}/gpxfiles/{}".format(auth.id, gpxfile.id), headers=auth.headers)
     assert r.status_code == 204
-    # make sure database objects were deleted
+    # make sure the static file and database objects were deleted
     assert len(user.gpxfiles.all()) == 1
     assert len(user.tracks.all()) == 1
+    assert not os.path.isfile(gpxfile.static_file_path())
 
 
 def test_delete_missing_gpxfile(client, auth, example_users, example_gpxfiles, example_tracks):

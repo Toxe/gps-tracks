@@ -1,7 +1,10 @@
+import os
+from flask import current_app
 from app import db
 from werkzeug.security import generate_password_hash, check_password_hash
 from marshmallow import Schema, fields, validate
 from datetime import datetime
+from sqlalchemy import event
 
 
 class User(db.Model):
@@ -34,6 +37,12 @@ class GPXFile(db.Model):
             os.remove(filename)
     def __repr__(self):
         return "<GPXFile:{}>".format(self.id)
+
+
+# automatically remove the physical GPX file after a GPXFile database entry has been deleted
+@event.listens_for(GPXFile, "after_delete")
+def gpxfile_after_delete(mapper, connection, gpxfile):
+    gpxfile.delete_static_file()
 
 
 class Track(db.Model):
