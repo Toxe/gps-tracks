@@ -13,10 +13,6 @@ def directory_is_empty(dirname):
     return len(os.listdir(dirname)) == 0
 
 
-def gpxfile_exists(gpxfiles_folder, gpxfile_id):
-    return os.path.isfile(os.path.join(gpxfiles_folder, "{}.gpx".format(gpxfile_id)))
-
-
 # ---- tests ----
 
 def test_get_gpxfiles(client, auth, example_users, example_gpxfiles):
@@ -75,9 +71,10 @@ def test_upload_gpxfile(client, auth, example_users):
         assert "Location" in r.headers
         assert r.headers.get("Location").endswith("/api/users/1/gpxfiles/{}".format(data["id"]))
         # make sure database objects and files were created
-        assert len(GPXFile.query.all()) == 1
-        assert len(Track.query.all()) == 1
-        assert gpxfile_exists(current_app.config["GPXFILES_FOLDER"], data["id"])
+        gpxfile = GPXFile.query.get(data["id"])
+        assert gpxfile is not None
+        assert len(gpxfile.tracks.all()) == 1
+        assert os.path.isfile(gpxfile.static_file_path())
 
 
 def test_upload_without_gpxfile_fails(client, auth, example_users):
