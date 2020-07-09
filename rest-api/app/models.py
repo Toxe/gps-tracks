@@ -26,6 +26,12 @@ class GPXFile(db.Model):
     filename      = db.Column(db.String(255))
     time_imported = db.Column(db.DateTime, default=datetime.utcnow)
     tracks        = db.relationship("Track", backref="file", lazy="dynamic", cascade="all,delete,delete-orphan")
+    def static_file_path(self):
+        return os.path.join(current_app.config["GPXFILES_FOLDER"], "{}.gpx".format(self.id))
+    def delete_static_file(self):
+        filename = self.static_file_path()
+        if os.path.isfile(filename):
+            os.remove(filename)
     def __repr__(self):
         return "<GPXFile:{}>".format(self.id)
 
