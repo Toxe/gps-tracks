@@ -134,13 +134,15 @@ Endpoint                   Methods  Rule
 api.get_users              GET      /api/users
 api.create_user            POST     /api/users
 api.get_user               GET      /api/users/<int:id>
-api.update_user            PUT      /api/users/<int:id>
-api.delete_user            DELETE   /api/users/<int:id>
+api.update_user            PUT      /api/users/<int:user_id>
+api.delete_user            DELETE   /api/users/<int:user_id>
 api.get_user_gpxfiles      GET      /api/users/<int:user_id>/gpxfiles
 api.upload_user_gpxfile    POST     /api/users/<int:user_id>/gpxfiles
 api.get_user_gpxfile       GET      /api/users/<int:user_id>/gpxfiles/<int:gpxfile_id>
+api.delete_user_gpxfile    DELETE   /api/users/<int:user_id>/gpxfiles/<int:gpxfile_id>
 api.get_user_tracks        GET      /api/users/<int:user_id>/tracks
 api.get_user_track         GET      /api/users/<int:user_id>/tracks/<int:track_id>
+api.delete_user_track      DELETE   /api/users/<int:user_id>/tracks/<int:track_id>
 auth.login                 POST     /auth/login
 auth.logout_access_token   DELETE   /auth/logout
 auth.logout_refresh_token  DELETE   /auth/logout2
