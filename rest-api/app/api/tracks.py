@@ -2,7 +2,8 @@ from flask import jsonify
 from flask_jwt_extended import jwt_required, get_jwt_identity
 from app import db
 from app.api import bp
-from app.models import User, Track, track_schema
+from app.models import User, Track
+from app.schemas import track_schema
 from app.auth.decorators import jwt_and_matching_user_id_required
 from app.errors.handlers import error_response
 

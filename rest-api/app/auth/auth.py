@@ -6,7 +6,8 @@ from flask_jwt_extended import (
 )
 from app import jwt
 from app.auth import bp
-from app.models import User, user_schema
+from app.models import User
+from app.schemas import user_schema
 from app.errors.handlers import error_response
 
 

@@ -39,4 +39,4 @@ def create_directory_if_necessary(dirname):
         os.mkdir(dirname, 0o700)
 
 
-from app import models
+from app import models, schemas

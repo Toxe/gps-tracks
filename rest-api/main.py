@@ -1,5 +1,6 @@
 from app import create_app, db
-from app.models import User, GPXFile, Track, user_schema, gpxfile_schema, track_schema
+from app.models import User, GPXFile, Track
+from app.schemas import user_schema, gpxfile_schema, track_schema
 
 
 app = create_app()

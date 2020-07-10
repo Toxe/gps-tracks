@@ -4,7 +4,8 @@ from flask import jsonify, request, url_for, current_app
 from flask_jwt_extended import jwt_required, get_jwt_identity
 from app import db
 from app.api import bp
-from app.models import User, GPXFile, Track, gpxfile_schema, track_schema
+from app.models import User, GPXFile, Track
+from app.schemas import gpxfile_schema, track_schema
 from app.auth.decorators import jwt_and_matching_user_id_required
 from app.errors.handlers import error_response
 from werkzeug.utils import secure_filename
