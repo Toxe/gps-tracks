@@ -1,5 +1,5 @@
 import os
-from flask import current_app
+from flask import current_app, url_for
 from app import db
 from werkzeug.security import generate_password_hash, check_password_hash
 from marshmallow import Schema, fields, validate
@@ -69,6 +69,12 @@ class UserSchema(Schema):
     username = fields.Str(required=True, validate=validate.Length(min=2))
     email    = fields.Str(required=True, validate=validate.Email(), load_only=True)
     password = fields.Str(required=True, validate=validate.Length(min=4), load_only=True)
+    links    = fields.Method("dump_links")
+    def dump_links(self, obj):
+        return {
+            "gpxfiles": url_for("api.get_user_gpxfiles", user_id=obj.id),
+            "tracks": url_for("api.get_user_tracks", user_id=obj.id),
+        }
 
 
 class GPXFileSchema(Schema):
@@ -76,6 +82,11 @@ class GPXFileSchema(Schema):
     user_id       = fields.Integer(required=True)
     filename      = fields.String(required=True)
     time_imported = fields.DateTime(required=True)
+    links         = fields.Method("dump_links")
+    def dump_links(self, obj):
+        return {
+            "owner": url_for("api.get_user", id=obj.user_id),
+        }
 
 
 class TrackSchema(Schema):
@@ -93,6 +104,12 @@ class TrackSchema(Schema):
     total_downhill = fields.Float(required=True)
     moving_time    = fields.Float(required=True)
     stopped_time   = fields.Float(required=True)
+    links          = fields.Method("dump_links")
+    def dump_links(self, obj):
+        return {
+            "owner": url_for("api.get_user", id=obj.user_id),
+            "file": url_for("api.get_user_gpxfile", user_id=obj.user_id, gpxfile_id=obj.gpxfile_id),
+        }
 
 
 user_schema = UserSchema()
