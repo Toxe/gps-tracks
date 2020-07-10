@@ -35,6 +35,15 @@ def test_get_user_does_not_return_password_and_email(client, example_users):
     assert "email" not in user
 
 
+def test_get_user_returns_valid_links(client, auth, example_users, example_gpxfiles, example_tracks):
+    auth.login("user1@example.com", "password1")
+    r = client.get("/api/users/{}".format(auth.id))
+    assert r.status_code == 200
+    data = r.get_json()
+    assert client.get(data["links"]["gpxfiles"], headers=auth.headers).status_code == 200
+    assert client.get(data["links"]["tracks"], headers=auth.headers).status_code == 200
+
+
 def test_create_user(client, example_users):
     r = client.post("/api/users", json={"username": "new-name", "email": "user@example.com", "password": "secret"})
     assert r.status_code == 201

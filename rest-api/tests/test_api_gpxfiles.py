@@ -60,6 +60,14 @@ def test_get_gpxfile_for_different_user_is_forbidden(client, auth, example_users
     assert r.get_json().get("message") == "Access to user resource denied."
 
 
+def test_get_gpxfile_returns_valid_links(client, auth, example_users, example_gpxfiles):
+    auth.login("user1@example.com", "password1")
+    r = client.get("/api/users/{}/gpxfiles/1".format(auth.id), headers=auth.headers)
+    assert r.status_code == 200
+    data = r.get_json()
+    assert client.get(data["links"]["owner"], headers=auth.headers).status_code == 200
+
+
 def test_upload_gpxfile(client, auth, example_users):
     auth.login("user1@example.com", "password1")
     with open("tests/example.gpx", "rb") as fp:
