@@ -49,19 +49,37 @@ def dump_curl_command(cmd):
             params.append("'%s'" % p)
         else:
             params.append(p)
-    return " ".join(params)
+    print("```")
+    print("$", " ".join(params))
+    print("```")
+    print()
 
 
-def save_jwt_tokens(output):
+def dump_curl_response(response_headers, response_data):
+    print("```http")
+    print(response_headers)
+    print()
+    if response_data != "":
+        print(response_data)
+    print("```")
+    print()
+
+
+def save_jwt_tokens(response_data):
     global access_token, refresh_token
-    newline = output.find("\n\n")
-    if newline < 0:
-        raise Exception("No empty line found in curl output: %s" % output)
-    data = json.loads(output[newline:])
+    data = json.loads(response_data)
     if "access_token" in data:
         access_token = data["access_token"]
     if "refresh_token" in data:
         refresh_token = data["refresh_token"]
+
+
+def split_curl_output(curl_output):
+    empty_line = curl_output.find("\n\n")
+    if empty_line < 0:
+        return (curl_output, "")
+    else:
+        return (curl_output[:empty_line], curl_output[empty_line:].strip())
 
 
 def curl(call, silent=False):
@@ -99,20 +117,15 @@ def curl(call, silent=False):
         raise Exception("curl error, exit code: %d" % p.returncode)
     if REGEXP.match(p.stdout) is None:
         raise Exception("Request error:\n%s" % p.stdout)
+    response_headers, response_data = split_curl_output(p.stdout)
     if not silent:
         if "desc" in call:
             print(call["desc"])
             print()
-        print("```")
-        print("$", dump_curl_command(cmd))
-        print("```")
-        print()
-        print("```")
-        print(p.stdout.strip())
-        print("```")
-        print()
+        dump_curl_command(cmd)
+        dump_curl_response(response_headers, response_data)
     if call.get("save_jwt_tokens") is True:
-        save_jwt_tokens(p.stdout)
+        save_jwt_tokens(response_data)
 
 
 def generate_call(call):
