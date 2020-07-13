@@ -123,9 +123,19 @@ def generate_call(call):
     curl(call, silent)
 
 
+def generate_section_summary(calls):
+    print("| Method | Route | Description |")
+    print("| ------ | ----- | ----------- |")
+    for call in calls:
+        if not call.get("silent", False):
+            print("| {} | {} | {} |".format(call["api"][0], call["api"][1], call["title"]))
+    print()
+
+
 def generate_section(section, calls):
     print("### {}".format(section))
     print()
+    generate_section_summary(calls)
     for call in calls:
         generate_call(call)
 
