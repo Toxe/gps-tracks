@@ -14,9 +14,9 @@ def get_users():
     return jsonify(user_schema.dump(User.query.all(), many=True))
 
 
-@bp.route("/users/<int:id>", methods=["GET"])
-def get_user(id):
-    user = User.query.get_or_404(id)
+@bp.route("/users/<int:user_id>", methods=["GET"])
+def get_user(user_id):
+    user = User.query.get_or_404(user_id)
     return jsonify(user_schema.dump(user))
 
 
@@ -38,7 +38,7 @@ def create_user():
     db.session.commit()
     response = jsonify(user_schema.dump(user))
     response.status_code = 201
-    response.headers["Location"] = url_for("api.get_user", id=user.id)
+    response.headers["Location"] = url_for("api.get_user", user_id=user.id)
     return response
 
 

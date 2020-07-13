@@ -33,7 +33,7 @@ class TrackSchema(Schema):
     links          = fields.Method("dump_links")
     def dump_links(self, obj):
         return {
-            "owner": url_for("api.get_user", id=obj.user_id),
+            "owner": url_for("api.get_user", user_id=obj.user_id),
             "file": url_for("api.get_user_gpxfile", user_id=obj.user_id, gpxfile_id=obj.gpxfile_id),
         }
 
@@ -47,7 +47,7 @@ class GPXFileSchema(Schema):
     links         = fields.Method("dump_links")
     def dump_links(self, obj):
         return {
-            "owner": url_for("api.get_user", id=obj.user_id),
+            "owner": url_for("api.get_user", user_id=obj.user_id),
         }
 
 
