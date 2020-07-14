@@ -156,6 +156,11 @@ def generate_section(section, calls):
 def generate_api_examples():
     print("## REST API")
     print()
+    print("- [Authentication](#authentication)")
+    print("- [Users](#users)")
+    print("- [GPX Files](#gpx-files)")
+    print("- [Tracks](#tracks)")
+    print()
     for section in api_calls:
         generate_section(section, api_calls[section])
 
