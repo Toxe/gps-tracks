@@ -87,6 +87,8 @@ python3 -m pytest
 
 ### Create a new SQLite database with example data
 
+This assumes that the REST API server is running at `http://localhost:5000`.
+
 ```
 $ rm gps_tracks.db
 $ flask db upgrade
@@ -104,6 +106,9 @@ Run IPython shell and execute application commands.
 
 ```
 $ flask shell
+```
+
+```python
 from datetime import datetime, timedelta
 
 u1 = User(id=1, username="user1", email="user1@example.com")
