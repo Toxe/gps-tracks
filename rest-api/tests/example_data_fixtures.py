@@ -1,6 +1,7 @@
 import pytest
 from app import db
 from app.models import User, GPXFile, Track
+from app.models import ActivityMode
 from datetime import datetime, timedelta
 
 
@@ -52,6 +53,7 @@ def example_tracks():
         total_downhill=50,
         moving_time=300,
         stopped_time=0,
+        activity_mode=ActivityMode.BIKE,
     )
     t2 = Track(
         id=2,
@@ -68,6 +70,7 @@ def example_tracks():
         total_downhill=50,
         moving_time=300,
         stopped_time=0,
+        activity_mode=ActivityMode.BIKE,
     )
     t3 = Track(
         id=3,
@@ -84,6 +87,7 @@ def example_tracks():
         total_downhill=50,
         moving_time=300,
         stopped_time=0,
+        activity_mode=ActivityMode.HIKING,
     )
     db.session.add_all([t1, t2, t3])
     db.session.commit()
