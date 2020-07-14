@@ -1,9 +1,15 @@
 import os
+from enum import IntEnum
 from flask import current_app
 from app import db
 from werkzeug.security import generate_password_hash, check_password_hash
 from datetime import datetime
 from sqlalchemy import event
+
+
+class ActivityMode(IntEnum):
+    BIKE = 0
+    HIKING = 1
 
 
 class User(db.Model):
@@ -59,5 +65,6 @@ class Track(db.Model):
     total_downhill = db.Column(db.Float)
     moving_time    = db.Column(db.Float)
     stopped_time   = db.Column(db.Float)
+    activity_mode  = db.Column(db.SmallInteger, default=ActivityMode.BIKE)
     def __repr__(self):
         return "<Track:{} gpxfile={}>".format(self.id, self.gpxfile_id)

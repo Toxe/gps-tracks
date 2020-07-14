@@ -1,4 +1,5 @@
 from flask import url_for
+from app.models import ActivityMode
 from marshmallow import Schema, fields, validate
 
 
@@ -30,6 +31,7 @@ class TrackSchema(Schema):
     total_downhill = fields.Float(required=True)
     moving_time    = fields.Float(required=True)
     stopped_time   = fields.Float(required=True)
+    activity_mode  = fields.Integer(required=True, validate=validate.OneOf(ActivityMode))
     links          = fields.Method("dump_links")
     def dump_links(self, obj):
         return {
