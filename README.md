@@ -59,7 +59,7 @@ FLASK_ENV=development
 }
 ```
 
-## Run REST API server
+## REST API server
 
 ### Run development version
 
@@ -85,25 +85,24 @@ pytest
 python3 -m pytest
 ```
 
+### Create a new SQLite database with example data
+
+```
+$ rm gps_tracks.db
+$ flask db upgrade
+$ python scripts/create_example_data.py
+POST /api/users
+POST /api/users
+POST /auth/login [user1@example.com]
+POST /api/users/1/gpxfiles [tests/example.gpx]
+POST /api/users/1/gpxfiles [tests/example.gpx]
+```
+
 ### Open Flask CLI context
 
 Run IPython shell and execute application commands.
 
 ```
-$ flask shell
->>> u = User(username="Test", email="test@example.com")
->>> u
-<User Test>
->>> db.session.add(u)
->>> db.session.commit()
-```
-
-### Example data
-
-Create a new database with example data:
-
-```
-$ flask db upgrade
 $ flask shell
 from datetime import datetime, timedelta
 
