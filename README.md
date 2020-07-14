@@ -20,6 +20,7 @@
   - Click
   - Wheel
   - IPython
+  - Requests
   - gpxpy
 
 ## Setup local development version

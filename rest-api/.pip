@@ -13,4 +13,5 @@ pylint-flask-sqlalchemy
 click
 wheel
 ipython
+requests
 gpxpy
