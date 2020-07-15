@@ -182,18 +182,18 @@ HTTP/1.0 200 OK
 Content-Type: application/json
 Content-Length: 568
 Server: Werkzeug/1.0.1 Python/3.8.3
-Date: Tue, 14 Jul 2020 11:09:41 GMT
+Date: Wed, 15 Jul 2020 09:51:52 GMT
 
 {
-  "access_token": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpYXQiOjE1OTQ3MjQ5ODEsIm5iZiI6MTU5NDcyNDk4MSwianRpIjoiY2ViNDg2ZjItYTVhMy00YTBmLTk4NzgtNTdlYzZmMTc0Mjg2IiwiZXhwIjoxNTk0Nzk2OTgxLCJpZGVudGl0eSI6MSwiZnJlc2giOmZhbHNlLCJ0eXBlIjoiYWNjZXNzIn0.SXvM8zh-zCr5mF72BBO6w49DjoYqHfg85fI0W7zPosY",
-  "refresh_token": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpYXQiOjE1OTQ3MjQ5ODEsIm5iZiI6MTU5NDcyNDk4MSwianRpIjoiNmZhNDY5N2YtNTgwNi00OWE3LTk3MDMtMzhhYTJlY2U0MDMzIiwiZXhwIjoxNTk3MzE2OTgxLCJpZGVudGl0eSI6MSwidHlwZSI6InJlZnJlc2gifQ.AfoXubwCBFk0YTkwBcIXjmNIvUlAFAq3s9R5vkD1VDk"
+  "access_token": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpYXQiOjE1OTQ4MDY3MTIsIm5iZiI6MTU5NDgwNjcxMiwianRpIjoiMmQyZDk2NmUtZWM2MS00ODk3LWI2MWYtOGU3NjdkMzZlZDVlIiwiZXhwIjoxNTk0ODc4NzEyLCJpZGVudGl0eSI6MSwiZnJlc2giOmZhbHNlLCJ0eXBlIjoiYWNjZXNzIn0.t4oBw6LtB-Gw8IJqaPYyOraoDzbrfijSsSMaUUJL6pQ",
+  "refresh_token": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpYXQiOjE1OTQ4MDY3MTIsIm5iZiI6MTU5NDgwNjcxMiwianRpIjoiMWJlMTVhOWUtMGNlNi00ZjkyLTgwZjMtNDM5ZTNkNTFmYWI4IiwiZXhwIjoxNTk3Mzk4NzEyLCJpZGVudGl0eSI6MSwidHlwZSI6InJlZnJlc2gifQ.rDn2CvmX_ncM5x2WQmYPX-_yQdxkGDN7wB3W4Zub3h8"
 }
 ```
 
 ##### `POST` `/auth/refresh`: Refresh access token
 
 ```
-$ curl -i http://localhost:5000/auth/refresh -X POST -H 'Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpYXQiOjE1OTQ3MjQ5ODEsIm5iZiI6MTU5NDcyNDk4MSwianRpIjoiNmZhNDY5N2YtNTgwNi00OWE3LTk3MDMtMzhhYTJlY2U0MDMzIiwiZXhwIjoxNTk3MzE2OTgxLCJpZGVudGl0eSI6MSwidHlwZSI6InJlZnJlc2gifQ.AfoXubwCBFk0YTkwBcIXjmNIvUlAFAq3s9R5vkD1VDk'
+$ curl -i http://localhost:5000/auth/refresh -X POST -H 'Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpYXQiOjE1OTQ4MDY3MTIsIm5iZiI6MTU5NDgwNjcxMiwianRpIjoiMWJlMTVhOWUtMGNlNi00ZjkyLTgwZjMtNDM5ZTNkNTFmYWI4IiwiZXhwIjoxNTk3Mzk4NzEyLCJpZGVudGl0eSI6MSwidHlwZSI6InJlZnJlc2gifQ.rDn2CvmX_ncM5x2WQmYPX-_yQdxkGDN7wB3W4Zub3h8'
 ```
 
 ```http
@@ -201,17 +201,17 @@ HTTP/1.0 200 OK
 Content-Type: application/json
 Content-Length: 293
 Server: Werkzeug/1.0.1 Python/3.8.3
-Date: Tue, 14 Jul 2020 11:09:41 GMT
+Date: Wed, 15 Jul 2020 09:51:52 GMT
 
 {
-  "access_token": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpYXQiOjE1OTQ3MjQ5ODEsIm5iZiI6MTU5NDcyNDk4MSwianRpIjoiOTkxZjNlZTEtZWUyNC00MGUwLTk2YmUtNDBjMGQ2MTQ2ZWYxIiwiZXhwIjoxNTk0Nzk2OTgxLCJpZGVudGl0eSI6MSwiZnJlc2giOmZhbHNlLCJ0eXBlIjoiYWNjZXNzIn0.FjP6FzcOUrzqKk1y2CVvc_YeYZpOWhaE2fhkB-WuxA8"
+  "access_token": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpYXQiOjE1OTQ4MDY3MTIsIm5iZiI6MTU5NDgwNjcxMiwianRpIjoiMjgxNDI4NjItNmNkZC00NTQzLThiZmUtNDQ2ZDM0YjY4YTE0IiwiZXhwIjoxNTk0ODc4NzEyLCJpZGVudGl0eSI6MSwiZnJlc2giOmZhbHNlLCJ0eXBlIjoiYWNjZXNzIn0.HjiizWQXThrUMIosHCBwKgqS6dqzAY6YXuhROJ5Ct-c"
 }
 ```
 
 ##### `DELETE` `/auth/logout`: Logout and revoke access token
 
 ```
-$ curl -i http://localhost:5000/auth/logout -X DELETE -H 'Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpYXQiOjE1OTQ3MjQ5ODEsIm5iZiI6MTU5NDcyNDk4MSwianRpIjoiOTkxZjNlZTEtZWUyNC00MGUwLTk2YmUtNDBjMGQ2MTQ2ZWYxIiwiZXhwIjoxNTk0Nzk2OTgxLCJpZGVudGl0eSI6MSwiZnJlc2giOmZhbHNlLCJ0eXBlIjoiYWNjZXNzIn0.FjP6FzcOUrzqKk1y2CVvc_YeYZpOWhaE2fhkB-WuxA8'
+$ curl -i http://localhost:5000/auth/logout -X DELETE -H 'Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpYXQiOjE1OTQ4MDY3MTIsIm5iZiI6MTU5NDgwNjcxMiwianRpIjoiMjgxNDI4NjItNmNkZC00NTQzLThiZmUtNDQ2ZDM0YjY4YTE0IiwiZXhwIjoxNTk0ODc4NzEyLCJpZGVudGl0eSI6MSwiZnJlc2giOmZhbHNlLCJ0eXBlIjoiYWNjZXNzIn0.HjiizWQXThrUMIosHCBwKgqS6dqzAY6YXuhROJ5Ct-c'
 ```
 
 ```http
@@ -219,7 +219,7 @@ HTTP/1.0 200 OK
 Content-Type: application/json
 Content-Length: 44
 Server: Werkzeug/1.0.1 Python/3.8.3
-Date: Tue, 14 Jul 2020 11:09:41 GMT
+Date: Wed, 15 Jul 2020 09:51:52 GMT
 
 {
   "message": "Successfully logged out."
@@ -229,7 +229,7 @@ Date: Tue, 14 Jul 2020 11:09:41 GMT
 ##### `DELETE` `/auth/logout2`: Logout and revoke refresh token
 
 ```
-$ curl -i http://localhost:5000/auth/logout2 -X DELETE -H 'Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpYXQiOjE1OTQ3MjQ5ODEsIm5iZiI6MTU5NDcyNDk4MSwianRpIjoiNmZhNDY5N2YtNTgwNi00OWE3LTk3MDMtMzhhYTJlY2U0MDMzIiwiZXhwIjoxNTk3MzE2OTgxLCJpZGVudGl0eSI6MSwidHlwZSI6InJlZnJlc2gifQ.AfoXubwCBFk0YTkwBcIXjmNIvUlAFAq3s9R5vkD1VDk'
+$ curl -i http://localhost:5000/auth/logout2 -X DELETE -H 'Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpYXQiOjE1OTQ4MDY3MTIsIm5iZiI6MTU5NDgwNjcxMiwianRpIjoiMWJlMTVhOWUtMGNlNi00ZjkyLTgwZjMtNDM5ZTNkNTFmYWI4IiwiZXhwIjoxNTk3Mzk4NzEyLCJpZGVudGl0eSI6MSwidHlwZSI6InJlZnJlc2gifQ.rDn2CvmX_ncM5x2WQmYPX-_yQdxkGDN7wB3W4Zub3h8'
 ```
 
 ```http
@@ -237,7 +237,7 @@ HTTP/1.0 200 OK
 Content-Type: application/json
 Content-Length: 44
 Server: Werkzeug/1.0.1 Python/3.8.3
-Date: Tue, 14 Jul 2020 11:09:41 GMT
+Date: Wed, 15 Jul 2020 09:51:52 GMT
 
 {
   "message": "Successfully logged out."
@@ -267,7 +267,7 @@ HTTP/1.0 200 OK
 Content-Type: application/json
 Content-Length: 308
 Server: Werkzeug/1.0.1 Python/3.8.3
-Date: Tue, 14 Jul 2020 11:09:41 GMT
+Date: Wed, 15 Jul 2020 09:51:52 GMT
 
 [
   {
@@ -302,7 +302,7 @@ HTTP/1.0 200 OK
 Content-Type: application/json
 Content-Length: 135
 Server: Werkzeug/1.0.1 Python/3.8.3
-Date: Tue, 14 Jul 2020 11:09:41 GMT
+Date: Wed, 15 Jul 2020 09:51:52 GMT
 
 {
   "id": 1,
@@ -326,7 +326,7 @@ Content-Type: application/json
 Content-Length: 138
 Location: http://localhost:5000/api/users/3
 Server: Werkzeug/1.0.1 Python/3.8.3
-Date: Tue, 14 Jul 2020 11:09:42 GMT
+Date: Wed, 15 Jul 2020 09:51:52 GMT
 
 {
   "id": 3,
@@ -343,7 +343,7 @@ Date: Tue, 14 Jul 2020 11:09:42 GMT
 Login required and can only change own data.
 
 ```
-$ curl -i http://localhost:5000/api/users/3 -X PUT -d '{"username": "Shiny new username", "email": "new@example.com", "password": "different password"}' -H 'Content-Type: application/json' -H 'Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpYXQiOjE1OTQ3MjQ5ODIsIm5iZiI6MTU5NDcyNDk4MiwianRpIjoiYzYyNjFhMjctZTk4Zi00ZmIxLWJhMTUtNzFjMmE3YTgxZjhiIiwiZXhwIjoxNTk0Nzk2OTgyLCJpZGVudGl0eSI6MywiZnJlc2giOmZhbHNlLCJ0eXBlIjoiYWNjZXNzIn0.FF1udqBjcgXJBM5-h5oHfUXO_GG2c6aQk9L9LEfWS4c'
+$ curl -i http://localhost:5000/api/users/3 -X PUT -d '{"username": "Shiny new username", "email": "new@example.com", "password": "different password"}' -H 'Content-Type: application/json' -H 'Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpYXQiOjE1OTQ4MDY3MTIsIm5iZiI6MTU5NDgwNjcxMiwianRpIjoiNWY0ODVkOTktMDE5OC00MmE5LWE0YmMtN2I0Mjc4YjNmMjEwIiwiZXhwIjoxNTk0ODc4NzEyLCJpZGVudGl0eSI6MywiZnJlc2giOmZhbHNlLCJ0eXBlIjoiYWNjZXNzIn0.1-nJTWm0Md4xTPAZW-vxsyQwuv71A1hYvU7rtdkDPSA'
 ```
 
 ```http
@@ -351,7 +351,7 @@ HTTP/1.0 200 OK
 Content-Type: application/json
 Content-Length: 148
 Server: Werkzeug/1.0.1 Python/3.8.3
-Date: Tue, 14 Jul 2020 11:09:42 GMT
+Date: Wed, 15 Jul 2020 09:51:52 GMT
 
 {
   "id": 3,
@@ -368,14 +368,14 @@ Date: Tue, 14 Jul 2020 11:09:42 GMT
 Login required and can only delete the current user.
 
 ```
-$ curl -i http://localhost:5000/api/users/3 -X DELETE -H 'Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpYXQiOjE1OTQ3MjQ5ODIsIm5iZiI6MTU5NDcyNDk4MiwianRpIjoiYzYyNjFhMjctZTk4Zi00ZmIxLWJhMTUtNzFjMmE3YTgxZjhiIiwiZXhwIjoxNTk0Nzk2OTgyLCJpZGVudGl0eSI6MywiZnJlc2giOmZhbHNlLCJ0eXBlIjoiYWNjZXNzIn0.FF1udqBjcgXJBM5-h5oHfUXO_GG2c6aQk9L9LEfWS4c'
+$ curl -i http://localhost:5000/api/users/3 -X DELETE -H 'Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpYXQiOjE1OTQ4MDY3MTIsIm5iZiI6MTU5NDgwNjcxMiwianRpIjoiNWY0ODVkOTktMDE5OC00MmE5LWE0YmMtN2I0Mjc4YjNmMjEwIiwiZXhwIjoxNTk0ODc4NzEyLCJpZGVudGl0eSI6MywiZnJlc2giOmZhbHNlLCJ0eXBlIjoiYWNjZXNzIn0.1-nJTWm0Md4xTPAZW-vxsyQwuv71A1hYvU7rtdkDPSA'
 ```
 
 ```http
 HTTP/1.0 204 NO CONTENT
 Content-Type: text/html; charset=utf-8
 Server: Werkzeug/1.0.1 Python/3.8.3
-Date: Tue, 14 Jul 2020 11:09:42 GMT
+Date: Wed, 15 Jul 2020 09:51:52 GMT
 
 ```
 
@@ -391,15 +391,15 @@ Date: Tue, 14 Jul 2020 11:09:42 GMT
 ##### `GET` `/api/users/<user_id>/gpxfiles`: List user GPX files
 
 ```
-$ curl -i http://localhost:5000/api/users/1/gpxfiles -H 'Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpYXQiOjE1OTQ3MjQ5ODIsIm5iZiI6MTU5NDcyNDk4MiwianRpIjoiYTA3YzBjYzktYWViZi00Mjk0LWE1N2EtMmM3ODIyNzg5ZDI0IiwiZXhwIjoxNTk0Nzk2OTgyLCJpZGVudGl0eSI6MSwiZnJlc2giOmZhbHNlLCJ0eXBlIjoiYWNjZXNzIn0.ZLJW-GvdnM3UtfPoW1uC9MwIVvMOWOFS-5y1S9ha2AA'
+$ curl -i http://localhost:5000/api/users/1/gpxfiles -H 'Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpYXQiOjE1OTQ4MDY3MTIsIm5iZiI6MTU5NDgwNjcxMiwianRpIjoiMDlkYzAxOTUtMDAzNi00YWIxLWEzZjEtMjFkZjczYjBhYTIwIiwiZXhwIjoxNTk0ODc4NzEyLCJpZGVudGl0eSI6MSwiZnJlc2giOmZhbHNlLCJ0eXBlIjoiYWNjZXNzIn0.Op_KR9E0wS84DnPECKBhpk_q9qD8KoM-HN9O-YszOe4'
 ```
 
 ```http
 HTTP/1.0 200 OK
 Content-Type: application/json
-Content-Length: 1584
+Content-Length: 1642
 Server: Werkzeug/1.0.1 Python/3.8.3
-Date: Tue, 14 Jul 2020 11:09:42 GMT
+Date: Wed, 15 Jul 2020 09:51:53 GMT
 
 [
   {
@@ -408,9 +408,10 @@ Date: Tue, 14 Jul 2020 11:09:42 GMT
     "links": {
       "owner": "/api/users/1"
     },
-    "time_imported": "2020-07-14T11:09:36.857695",
+    "time_imported": "2020-07-15T09:51:50.321576",
     "tracks": [
       {
+        "activity_mode": 1,
         "avg_speed": 3.0769410345863024,
         "gpxfile_id": 1,
         "id": 1,
@@ -439,9 +440,10 @@ Date: Tue, 14 Jul 2020 11:09:42 GMT
     "links": {
       "owner": "/api/users/1"
     },
-    "time_imported": "2020-07-14T11:09:36.877583",
+    "time_imported": "2020-07-15T09:51:50.339121",
     "tracks": [
       {
+        "activity_mode": 1,
         "avg_speed": 3.0769410345863024,
         "gpxfile_id": 2,
         "id": 2,
@@ -470,15 +472,15 @@ Date: Tue, 14 Jul 2020 11:09:42 GMT
 ##### `GET` `/api/users/<user_id>/gpxfiles/<gpxfile_id>`: Get user GPX file
 
 ```
-$ curl -i http://localhost:5000/api/users/1/gpxfiles/1 -H 'Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpYXQiOjE1OTQ3MjQ5ODIsIm5iZiI6MTU5NDcyNDk4MiwianRpIjoiYTA3YzBjYzktYWViZi00Mjk0LWE1N2EtMmM3ODIyNzg5ZDI0IiwiZXhwIjoxNTk0Nzk2OTgyLCJpZGVudGl0eSI6MSwiZnJlc2giOmZhbHNlLCJ0eXBlIjoiYWNjZXNzIn0.ZLJW-GvdnM3UtfPoW1uC9MwIVvMOWOFS-5y1S9ha2AA'
+$ curl -i http://localhost:5000/api/users/1/gpxfiles/1 -H 'Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpYXQiOjE1OTQ4MDY3MTIsIm5iZiI6MTU5NDgwNjcxMiwianRpIjoiMDlkYzAxOTUtMDAzNi00YWIxLWEzZjEtMjFkZjczYjBhYTIwIiwiZXhwIjoxNTk0ODc4NzEyLCJpZGVudGl0eSI6MSwiZnJlc2giOmZhbHNlLCJ0eXBlIjoiYWNjZXNzIn0.Op_KR9E0wS84DnPECKBhpk_q9qD8KoM-HN9O-YszOe4'
 ```
 
 ```http
 HTTP/1.0 200 OK
 Content-Type: application/json
-Content-Length: 727
+Content-Length: 754
 Server: Werkzeug/1.0.1 Python/3.8.3
-Date: Tue, 14 Jul 2020 11:09:42 GMT
+Date: Wed, 15 Jul 2020 09:51:53 GMT
 
 {
   "filename": "example.gpx",
@@ -486,9 +488,10 @@ Date: Tue, 14 Jul 2020 11:09:42 GMT
   "links": {
     "owner": "/api/users/1"
   },
-  "time_imported": "2020-07-14T11:09:36.857695",
+  "time_imported": "2020-07-15T09:51:50.321576",
   "tracks": [
     {
+      "activity_mode": 1,
       "avg_speed": 3.0769410345863024,
       "gpxfile_id": 1,
       "id": 1,
@@ -516,16 +519,16 @@ Date: Tue, 14 Jul 2020 11:09:42 GMT
 ##### `POST` `/api/users/<user_id>/gpxfiles`: Upload new GPX file for user
 
 ```
-$ curl -i http://localhost:5000/api/users/1/gpxfiles -F file=@tests/example.gpx -H 'Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpYXQiOjE1OTQ3MjQ5ODIsIm5iZiI6MTU5NDcyNDk4MiwianRpIjoiYTA3YzBjYzktYWViZi00Mjk0LWE1N2EtMmM3ODIyNzg5ZDI0IiwiZXhwIjoxNTk0Nzk2OTgyLCJpZGVudGl0eSI6MSwiZnJlc2giOmZhbHNlLCJ0eXBlIjoiYWNjZXNzIn0.ZLJW-GvdnM3UtfPoW1uC9MwIVvMOWOFS-5y1S9ha2AA'
+$ curl -i http://localhost:5000/api/users/1/gpxfiles -F file=@tests/example.gpx -H 'Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpYXQiOjE1OTQ4MDY3MTIsIm5iZiI6MTU5NDgwNjcxMiwianRpIjoiMDlkYzAxOTUtMDAzNi00YWIxLWEzZjEtMjFkZjczYjBhYTIwIiwiZXhwIjoxNTk0ODc4NzEyLCJpZGVudGl0eSI6MSwiZnJlc2giOmZhbHNlLCJ0eXBlIjoiYWNjZXNzIn0.Op_KR9E0wS84DnPECKBhpk_q9qD8KoM-HN9O-YszOe4'
 ```
 
 ```http
 HTTP/1.0 201 CREATED
 Content-Type: application/json
-Content-Length: 727
+Content-Length: 754
 Location: http://localhost:5000/api/users/1/gpxfiles/3
 Server: Werkzeug/1.0.1 Python/3.8.3
-Date: Tue, 14 Jul 2020 11:09:42 GMT
+Date: Wed, 15 Jul 2020 09:51:53 GMT
 
 {
   "filename": "example.gpx",
@@ -533,9 +536,10 @@ Date: Tue, 14 Jul 2020 11:09:42 GMT
   "links": {
     "owner": "/api/users/1"
   },
-  "time_imported": "2020-07-14T11:09:42.451914",
+  "time_imported": "2020-07-15T09:51:53.043691",
   "tracks": [
     {
+      "activity_mode": 1,
       "avg_speed": 3.0769410345863024,
       "gpxfile_id": 3,
       "id": 3,
@@ -563,14 +567,14 @@ Date: Tue, 14 Jul 2020 11:09:42 GMT
 ##### `DELETE` `/api/users/<user_id>/gpxfiles/<gpxfile_id>`: Delete user GPX file and associated tracks
 
 ```
-$ curl -i http://localhost:5000/api/users/1/gpxfiles/3 -X DELETE -H 'Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpYXQiOjE1OTQ3MjQ5ODIsIm5iZiI6MTU5NDcyNDk4MiwianRpIjoiYTA3YzBjYzktYWViZi00Mjk0LWE1N2EtMmM3ODIyNzg5ZDI0IiwiZXhwIjoxNTk0Nzk2OTgyLCJpZGVudGl0eSI6MSwiZnJlc2giOmZhbHNlLCJ0eXBlIjoiYWNjZXNzIn0.ZLJW-GvdnM3UtfPoW1uC9MwIVvMOWOFS-5y1S9ha2AA'
+$ curl -i http://localhost:5000/api/users/1/gpxfiles/3 -X DELETE -H 'Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpYXQiOjE1OTQ4MDY3MTIsIm5iZiI6MTU5NDgwNjcxMiwianRpIjoiMDlkYzAxOTUtMDAzNi00YWIxLWEzZjEtMjFkZjczYjBhYTIwIiwiZXhwIjoxNTk0ODc4NzEyLCJpZGVudGl0eSI6MSwiZnJlc2giOmZhbHNlLCJ0eXBlIjoiYWNjZXNzIn0.Op_KR9E0wS84DnPECKBhpk_q9qD8KoM-HN9O-YszOe4'
 ```
 
 ```http
 HTTP/1.0 204 NO CONTENT
 Content-Type: text/html; charset=utf-8
 Server: Werkzeug/1.0.1 Python/3.8.3
-Date: Tue, 14 Jul 2020 11:09:42 GMT
+Date: Wed, 15 Jul 2020 09:51:53 GMT
 
 ```
 
@@ -585,18 +589,19 @@ Date: Tue, 14 Jul 2020 11:09:42 GMT
 ##### `GET` `/api/users/<user_id>/tracks`: List user tracks
 
 ```
-$ curl -i http://localhost:5000/api/users/1/tracks -H 'Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpYXQiOjE1OTQ3MjQ5ODIsIm5iZiI6MTU5NDcyNDk4MiwianRpIjoiYTA3YzBjYzktYWViZi00Mjk0LWE1N2EtMmM3ODIyNzg5ZDI0IiwiZXhwIjoxNTk0Nzk2OTgyLCJpZGVudGl0eSI6MSwiZnJlc2giOmZhbHNlLCJ0eXBlIjoiYWNjZXNzIn0.ZLJW-GvdnM3UtfPoW1uC9MwIVvMOWOFS-5y1S9ha2AA'
+$ curl -i http://localhost:5000/api/users/1/tracks -H 'Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpYXQiOjE1OTQ4MDY3MTIsIm5iZiI6MTU5NDgwNjcxMiwianRpIjoiMDlkYzAxOTUtMDAzNi00YWIxLWEzZjEtMjFkZjczYjBhYTIwIiwiZXhwIjoxNTk0ODc4NzEyLCJpZGVudGl0eSI6MSwiZnJlc2giOmZhbHNlLCJ0eXBlIjoiYWNjZXNzIn0.Op_KR9E0wS84DnPECKBhpk_q9qD8KoM-HN9O-YszOe4'
 ```
 
 ```http
 HTTP/1.0 200 OK
 Content-Type: application/json
-Content-Length: 1024
+Content-Length: 1074
 Server: Werkzeug/1.0.1 Python/3.8.3
-Date: Tue, 14 Jul 2020 11:09:42 GMT
+Date: Wed, 15 Jul 2020 09:51:53 GMT
 
 [
   {
+    "activity_mode": 1,
     "avg_speed": 3.0769410345863024,
     "gpxfile_id": 1,
     "id": 1,
@@ -617,6 +622,7 @@ Date: Tue, 14 Jul 2020 11:09:42 GMT
     "user_id": 1
   },
   {
+    "activity_mode": 1,
     "avg_speed": 3.0769410345863024,
     "gpxfile_id": 2,
     "id": 2,
@@ -642,17 +648,18 @@ Date: Tue, 14 Jul 2020 11:09:42 GMT
 ##### `GET` `/api/users/<user_id>/tracks/<track_id>`: Get user track
 
 ```
-$ curl -i http://localhost:5000/api/users/1/tracks/1 -H 'Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpYXQiOjE1OTQ3MjQ5ODIsIm5iZiI6MTU5NDcyNDk4MiwianRpIjoiYTA3YzBjYzktYWViZi00Mjk0LWE1N2EtMmM3ODIyNzg5ZDI0IiwiZXhwIjoxNTk0Nzk2OTgyLCJpZGVudGl0eSI6MSwiZnJlc2giOmZhbHNlLCJ0eXBlIjoiYWNjZXNzIn0.ZLJW-GvdnM3UtfPoW1uC9MwIVvMOWOFS-5y1S9ha2AA'
+$ curl -i http://localhost:5000/api/users/1/tracks/1 -H 'Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpYXQiOjE1OTQ4MDY3MTIsIm5iZiI6MTU5NDgwNjcxMiwianRpIjoiMDlkYzAxOTUtMDAzNi00YWIxLWEzZjEtMjFkZjczYjBhYTIwIiwiZXhwIjoxNTk0ODc4NzEyLCJpZGVudGl0eSI6MSwiZnJlc2giOmZhbHNlLCJ0eXBlIjoiYWNjZXNzIn0.Op_KR9E0wS84DnPECKBhpk_q9qD8KoM-HN9O-YszOe4'
 ```
 
 ```http
 HTTP/1.0 200 OK
 Content-Type: application/json
-Content-Length: 469
+Content-Length: 492
 Server: Werkzeug/1.0.1 Python/3.8.3
-Date: Tue, 14 Jul 2020 11:09:42 GMT
+Date: Wed, 15 Jul 2020 09:51:53 GMT
 
 {
+  "activity_mode": 1,
   "avg_speed": 3.0769410345863024,
   "gpxfile_id": 1,
   "id": 1,
@@ -677,13 +684,13 @@ Date: Tue, 14 Jul 2020 11:09:42 GMT
 ##### `DELETE` `/api/users/<user_id>/tracks/<track_id>`: Delete user track
 
 ```
-$ curl -i http://localhost:5000/api/users/1/tracks/1 -X DELETE -H 'Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpYXQiOjE1OTQ3MjQ5ODIsIm5iZiI6MTU5NDcyNDk4MiwianRpIjoiYTA3YzBjYzktYWViZi00Mjk0LWE1N2EtMmM3ODIyNzg5ZDI0IiwiZXhwIjoxNTk0Nzk2OTgyLCJpZGVudGl0eSI6MSwiZnJlc2giOmZhbHNlLCJ0eXBlIjoiYWNjZXNzIn0.ZLJW-GvdnM3UtfPoW1uC9MwIVvMOWOFS-5y1S9ha2AA'
+$ curl -i http://localhost:5000/api/users/1/tracks/1 -X DELETE -H 'Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpYXQiOjE1OTQ4MDY3MTIsIm5iZiI6MTU5NDgwNjcxMiwianRpIjoiMDlkYzAxOTUtMDAzNi00YWIxLWEzZjEtMjFkZjczYjBhYTIwIiwiZXhwIjoxNTk0ODc4NzEyLCJpZGVudGl0eSI6MSwiZnJlc2giOmZhbHNlLCJ0eXBlIjoiYWNjZXNzIn0.Op_KR9E0wS84DnPECKBhpk_q9qD8KoM-HN9O-YszOe4'
 ```
 
 ```http
 HTTP/1.0 204 NO CONTENT
 Content-Type: text/html; charset=utf-8
 Server: Werkzeug/1.0.1 Python/3.8.3
-Date: Tue, 14 Jul 2020 11:09:42 GMT
+Date: Wed, 15 Jul 2020 09:51:53 GMT
 
 ```
