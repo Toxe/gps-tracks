@@ -145,6 +145,12 @@ def generate_section_summary(calls):
     print()
 
 
+def generate_api_index(api_calls):
+    for section in api_calls:
+        print("- [{}](#{})".format(section, section.lower().replace(" ", "-")))
+    print()
+
+
 def generate_section(section, calls):
     print("### {}".format(section))
     print()
@@ -156,11 +162,7 @@ def generate_section(section, calls):
 def generate_api_examples():
     print("## REST API")
     print()
-    print("- [Authentication](#authentication)")
-    print("- [Users](#users)")
-    print("- [GPX Files](#gpx-files)")
-    print("- [Tracks](#tracks)")
-    print()
+    generate_api_index(api_calls)
     for section in api_calls:
         generate_section(section, api_calls[section])
 
