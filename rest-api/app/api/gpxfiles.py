@@ -5,6 +5,7 @@ from flask_jwt_extended import jwt_required, get_jwt_identity
 from app import db
 from app.api import bp
 from app.models import User, GPXFile, Track
+from app.models import ActivityMode
 from app.schemas import gpxfile_schema, track_schema
 from app.auth.decorators import jwt_and_matching_user_id_required
 from app.errors.handlers import error_response
@@ -74,6 +75,7 @@ def import_track(gpxfile, gpx_track):
     start_time, end_time = gpx_track.get_time_bounds()
     moving_data = gpx_track.get_moving_data()
     uphill, downhill = gpx_track.get_uphill_downhill()
+    avg_speed = speed_to_kph(moving_data.moving_distance / moving_data.moving_time) if moving_data.moving_time > 0.0 else 0.0
     track = Track(
         owner=gpxfile.owner,
         file=gpxfile,
@@ -83,11 +85,12 @@ def import_track(gpxfile, gpx_track):
         length2d=gpx_track.length_2d(),
         length3d=gpx_track.length_3d(),
         max_speed=speed_to_kph(moving_data.max_speed),
-        avg_speed=speed_to_kph(moving_data.moving_distance / moving_data.moving_time) if moving_data.moving_time > 0.0 else 0.0,
+        avg_speed=avg_speed,
         moving_time=moving_data.moving_time,
         stopped_time=moving_data.stopped_time,
         total_uphill=uphill,
         total_downhill=downhill,
+        activity_mode=determine_default_activity_mode(avg_speed),
     )
     db.session.add(track)
 
@@ -99,3 +102,10 @@ def save_uploaded_gpxfile(gpxfile, file):
 
 def speed_to_kph(mps):
     return mps * 3.6
+
+
+def determine_default_activity_mode(avg_speed):
+    if avg_speed > 0.0 and avg_speed <= 5.0:
+        return ActivityMode.HIKING.value
+    else:
+        return ActivityMode.BIKE.value

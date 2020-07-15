@@ -2,7 +2,8 @@ import os
 from io import BytesIO
 from flask import current_app
 from app.models import User, GPXFile, Track
-from app.api.gpxfiles import speed_to_kph
+from app.models import ActivityMode
+from app.api.gpxfiles import speed_to_kph, determine_default_activity_mode
 from tests.example_data_fixtures import example_users, example_gpxfiles, example_tracks
 from pytest import approx
 
@@ -184,3 +185,14 @@ def test_speed_to_kph_works():
     assert speed_to_kph(0.0) == approx(0.0)
     assert speed_to_kph(1.0) == approx(3.6)
     assert speed_to_kph(10.0) == approx(36.0)
+
+
+def test_determine_default_activity_mode():
+    assert determine_default_activity_mode(-1.0) == ActivityMode.BIKE.value
+    assert determine_default_activity_mode(0.0) == ActivityMode.BIKE.value
+    assert determine_default_activity_mode(0.001) == ActivityMode.HIKING.value
+    assert determine_default_activity_mode(3.0) == ActivityMode.HIKING.value
+    assert determine_default_activity_mode(4.999) == ActivityMode.HIKING.value
+    assert determine_default_activity_mode(5.0) == ActivityMode.HIKING.value
+    assert determine_default_activity_mode(5.1) == ActivityMode.BIKE.value
+    assert determine_default_activity_mode(10.0) == ActivityMode.BIKE.value
