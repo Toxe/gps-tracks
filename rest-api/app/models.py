@@ -65,6 +65,6 @@ class Track(db.Model):
     total_downhill = db.Column(db.Float)
     moving_time    = db.Column(db.Float)
     stopped_time   = db.Column(db.Float)
-    activity_mode  = db.Column(db.SmallInteger, default=ActivityMode.BIKE)
+    activity_mode  = db.Column(db.SmallInteger, default=ActivityMode.BIKE.value)
     def __repr__(self):
         return "<Track:{} gpxfile={}>".format(self.id, self.gpxfile_id)

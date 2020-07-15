@@ -53,7 +53,7 @@ def example_tracks():
         total_downhill=50,
         moving_time=300,
         stopped_time=0,
-        activity_mode=ActivityMode.BIKE,
+        activity_mode=ActivityMode.BIKE.value,
     )
     t2 = Track(
         id=2,
@@ -70,7 +70,7 @@ def example_tracks():
         total_downhill=50,
         moving_time=300,
         stopped_time=0,
-        activity_mode=ActivityMode.BIKE,
+        activity_mode=ActivityMode.BIKE.value,
     )
     t3 = Track(
         id=3,
@@ -87,7 +87,7 @@ def example_tracks():
         total_downhill=50,
         moving_time=300,
         stopped_time=0,
-        activity_mode=ActivityMode.HIKING,
+        activity_mode=ActivityMode.HIKING.value,
     )
     db.session.add_all([t1, t2, t3])
     db.session.commit()
