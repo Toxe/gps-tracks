@@ -1,6 +1,6 @@
 import React from "react";
-import "./App.css";
+import { Typography } from "@material-ui/core";
 
 export default function App() {
-    return <div>App</div>;
+    return <Typography variant="body1">App</Typography>;
 }
