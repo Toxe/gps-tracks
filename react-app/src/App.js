@@ -26,10 +26,7 @@ const useStyles = makeStyles((theme) => ({
     spacer: { flexGrow: 1.0 },
     toolbar: theme.mixins.toolbar,
     appBar: {
-        [theme.breakpoints.up("sm")]: {
-            width: `calc(100% - ${drawerWidth}px)`,
-            marginLeft: drawerWidth,
-        },
+        zIndex: theme.zIndex.drawer + 1,
     },
     searchField: {
         marginLeft: theme.spacing(3),
