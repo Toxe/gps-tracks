@@ -14,6 +14,9 @@ import {
     ListItemIcon,
     ListItemText,
     IconButton,
+    Button,
+    Menu,
+    MenuItem,
 } from "@material-ui/core";
 import GitHubIcon from "@material-ui/icons/GitHub";
 import SearchIcon from "@material-ui/icons/Search";
@@ -37,7 +40,7 @@ const useStyles = makeStyles((theme) => ({
             backgroundColor: fade(theme.palette.common.white, 0.25),
         },
     },
-    userName: { marginRight: theme.spacing(3) },
+    userNameButton: { marginRight: theme.spacing(3) },
     menuButton: { marginRight: theme.spacing(2) },
     drawerPaper: { width: drawerWidth },
     drawer: {
@@ -56,9 +59,18 @@ export default function App() {
     const classes = useStyles();
     const theme = useTheme();
     const [mobileOpen, setMobileOpen] = React.useState(false);
+    const [userMenuAnchorEl, setUserMenuAnchorEl] = React.useState(null);
 
     const handleDrawerToggle = () => {
         setMobileOpen(!mobileOpen);
+    };
+
+    const handleUserMenu = (e) => {
+        setUserMenuAnchorEl(e.currentTarget);
+    };
+
+    const handleUserMenuClose = () => {
+        setUserMenuAnchorEl(null);
     };
 
     const drawer = (
@@ -126,9 +138,17 @@ export default function App() {
                         }}
                     />
                     <div className={classes.spacer} />
-                    <Typography className={classes.userName} noWrap>
+                    <Button color="inherit" className={classes.userNameButton} onClick={handleUserMenu}>
                         Example User
-                    </Typography>
+                    </Button>
+                    <Menu
+                        anchorEl={userMenuAnchorEl}
+                        keepMounted
+                        open={Boolean(userMenuAnchorEl)}
+                        onClose={handleUserMenuClose}>
+                        <MenuItem onClick={handleUserMenuClose}>GPS Tracks</MenuItem>
+                        <MenuItem onClick={handleUserMenuClose}>Logout</MenuItem>
+                    </Menu>
                     <GitHubIcon></GitHubIcon>
                 </Toolbar>
             </AppBar>
