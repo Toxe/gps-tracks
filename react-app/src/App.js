@@ -33,6 +33,7 @@ const useStyles = makeStyles((theme) => ({
     },
     searchField: {
         marginLeft: theme.spacing(3),
+        marginRight: theme.spacing(3),
         borderRadius: theme.shape.borderRadius,
         backgroundColor: fade(theme.palette.common.white, 0.15),
         "&:hover": {
