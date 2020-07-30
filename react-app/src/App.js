@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { makeStyles, useTheme, fade } from "@material-ui/core/styles";
 import {
     AppBar,
@@ -58,8 +58,8 @@ const useStyles = makeStyles((theme) => ({
 export default function App() {
     const classes = useStyles();
     const theme = useTheme();
-    const [mobileOpen, setMobileOpen] = React.useState(false);
-    const [userMenuAnchorEl, setUserMenuAnchorEl] = React.useState(null);
+    const [mobileOpen, setMobileOpen] = useState(false);
+    const [userMenuAnchorEl, setUserMenuAnchorEl] = useState(null);
 
     const handleDrawerToggle = () => {
         setMobileOpen(!mobileOpen);
@@ -149,7 +149,7 @@ export default function App() {
                         <MenuItem onClick={handleUserMenuClose}>GPS Tracks</MenuItem>
                         <MenuItem onClick={handleUserMenuClose}>Logout</MenuItem>
                     </Menu>
-                    <GitHubIcon></GitHubIcon>
+                    <GitHubIcon />
                 </Toolbar>
             </AppBar>
             <nav className={classes.drawer}>
