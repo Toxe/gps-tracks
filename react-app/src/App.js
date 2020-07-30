@@ -22,6 +22,7 @@ import GitHubIcon from "@material-ui/icons/GitHub";
 import SearchIcon from "@material-ui/icons/Search";
 import FolderIcon from "@material-ui/icons/Folder";
 import MenuIcon from "@material-ui/icons/Menu";
+import AccountCircleIcon from "@material-ui/icons/AccountCircle";
 
 const drawerWidth = 240;
 
@@ -33,15 +34,14 @@ const useStyles = makeStyles((theme) => ({
     },
     searchField: {
         marginLeft: theme.spacing(3),
-        marginRight: theme.spacing(3),
+        marginRight: theme.spacing(2),
         borderRadius: theme.shape.borderRadius,
         backgroundColor: fade(theme.palette.common.white, 0.15),
         "&:hover": {
             backgroundColor: fade(theme.palette.common.white, 0.25),
         },
     },
-    userNameButton: { marginRight: theme.spacing(3) },
-    menuButton: { marginRight: theme.spacing(2) },
+    userMenuButton: { marginRight: theme.spacing(2) },
     drawerPaper: { width: drawerWidth },
     drawer: {
         [theme.breakpoints.up("sm")]: {
@@ -138,9 +138,24 @@ export default function App() {
                         }}
                     />
                     <div className={classes.spacer} />
-                    <Button color="inherit" className={classes.userNameButton} onClick={handleUserMenu}>
-                        Example User
-                    </Button>
+                    <Hidden smUp implementation="css">
+                        <IconButton
+                            color="inherit"
+                            onClick={handleUserMenu}
+                            className={classes.userMenuButton}>
+                            <AccountCircleIcon />
+                        </IconButton>
+                    </Hidden>
+                    <Hidden xsDown implementation="css">
+                        <Button
+                            color="inherit"
+                            size="large"
+                            className={classes.userMenuButton}
+                            onClick={handleUserMenu}
+                            startIcon={<AccountCircleIcon />}>
+                            Example User
+                        </Button>
+                    </Hidden>
                     <Menu
                         anchorEl={userMenuAnchorEl}
                         keepMounted
