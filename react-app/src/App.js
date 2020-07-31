@@ -17,6 +17,7 @@ import {
     Button,
     Menu,
     MenuItem,
+    Box,
 } from "@material-ui/core";
 import GitHubIcon from "@material-ui/icons/GitHub";
 import SearchIcon from "@material-ui/icons/Search";
@@ -74,7 +75,7 @@ export default function App() {
     };
 
     const drawer = (
-        <div>
+        <>
             <div className={classes.toolbar} />
             <List>
                 <ListItem button>
@@ -105,7 +106,13 @@ export default function App() {
                     <ListItemText primary="2018 (86)" />
                 </ListItem>
             </List>
-        </div>
+            <Divider />
+            <Box mt={2} mx="auto">
+                <Button variant="contained" color="primary">
+                    Upload
+                </Button>
+            </Box>
+        </>
     );
 
     return (
@@ -139,10 +146,7 @@ export default function App() {
                     />
                     <div className={classes.spacer} />
                     <Hidden smUp implementation="css">
-                        <IconButton
-                            color="inherit"
-                            onClick={handleUserMenu}
-                            className={classes.userMenuButton}>
+                        <IconButton color="inherit" onClick={handleUserMenu} className={classes.userMenuButton}>
                             <AccountCircleIcon />
                         </IconButton>
                     </Hidden>
