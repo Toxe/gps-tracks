@@ -28,7 +28,6 @@ import AccountCircleIcon from "@material-ui/icons/AccountCircle";
 const drawerWidth = 240;
 
 const useStyles = makeStyles((theme) => ({
-    spacer: { flexGrow: 1.0 },
     toolbar: theme.mixins.toolbar,
     appBar: {
         zIndex: theme.zIndex.drawer + 1,
@@ -49,10 +48,6 @@ const useStyles = makeStyles((theme) => ({
             width: drawerWidth,
             flexShrink: 0,
         },
-    },
-    content: {
-        flexGrow: 1.0,
-        padding: theme.spacing(3),
     },
 }));
 
@@ -144,7 +139,7 @@ export default function App() {
                             ),
                         }}
                     />
-                    <div className={classes.spacer} />
+                    <Box flexGrow={1} />
                     <Hidden smUp implementation="css">
                         <IconButton color="inherit" onClick={handleUserMenu} className={classes.userMenuButton}>
                             <AccountCircleIcon />
@@ -189,10 +184,10 @@ export default function App() {
                     </Drawer>
                 </Hidden>
             </nav>
-            <main className={classes.content}>
+            <Box flexGrow={1} p={3}>
                 <div className={classes.toolbar} />
                 <Typography paragraph>Content.</Typography>
-            </main>
+            </Box>
         </>
     );
 }
