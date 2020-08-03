@@ -18,6 +18,7 @@ import {
     Menu,
     MenuItem,
     Select,
+    TableSortLabel,
     TextField,
     Toolbar,
     Typography,
@@ -61,6 +62,10 @@ const useStyles = makeStyles((theme) => ({
         minWidth: 80,
         minHeight: 37,
     },
+    sortForm: {
+        minWidth: 100,
+        marginRight: 10,
+    },
 }));
 
 export default function App() {
@@ -70,6 +75,8 @@ export default function App() {
     const [userMenuAnchorEl, setUserMenuAnchorEl] = useState(null);
     const [activityFilter, setActivityFilter] = useState("");
     const [yearFilter, setYearFilter] = useState("");
+    const [sortBy, setSortBy] = useState("date");
+    const [sortOrder, setSortOrder] = useState("desc");
 
     const handleDrawerToggle = () => {
         setMobileOpen(!mobileOpen);
@@ -89,6 +96,15 @@ export default function App() {
 
     const handleChangeYearFilter = (e) => {
         setYearFilter(e.target.value);
+    };
+
+    const handleChangeSortBy = (e) => {
+        setSortBy(e.target.value);
+        setSortOrder("asc");
+    };
+
+    const handleChangeSortOrder = () => {
+        setSortOrder(sortOrder === "asc" ? "desc" : "asc");
     };
 
     const drawer = (
@@ -245,6 +261,22 @@ export default function App() {
                             <MenuItem value="2018">2018</MenuItem>
                         </Select>
                     </FormControl>
+                </Box>
+                <Box display="flex" alignItems="flex-end">
+                    <FormControl className={classes.sortForm}>
+                        <InputLabel id="sort-by-select-label">Sort by</InputLabel>
+                        <Select
+                            labelId="sort-by-select-label"
+                            id="sort-by-select"
+                            value={sortBy}
+                            autoWidth
+                            onChange={handleChangeSortBy}>
+                            <MenuItem value="date">Date</MenuItem>
+                            <MenuItem value="name">Name</MenuItem>
+                            <MenuItem value="distance">Distance</MenuItem>
+                        </Select>
+                    </FormControl>
+                    <TableSortLabel active direction={sortOrder} onClick={handleChangeSortOrder} />
                 </Box>
             </Box>
         </>
