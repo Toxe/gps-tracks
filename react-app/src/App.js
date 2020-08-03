@@ -56,7 +56,7 @@ const useStyles = makeStyles((theme) => ({
         },
     },
     filterForm: {
-        marginRight: 20,
+        marginRight: theme.spacing(3),
     },
     filterFormSelect: {
         minWidth: 80,
@@ -64,7 +64,7 @@ const useStyles = makeStyles((theme) => ({
     },
     sortForm: {
         minWidth: 100,
-        marginRight: 10,
+        marginRight: theme.spacing(1),
     },
 }));
 
