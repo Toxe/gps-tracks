@@ -225,58 +225,61 @@ export default function App() {
             <Box flexGrow={1} p={3}>
                 <div className={classes.toolbar} />
                 <Typography variant="h5">253 Tracks</Typography>
-                <Box>
-                    <FormControl className={classes.filterForm}>
-                        <InputLabel id="activity-filter-select-label">Activity</InputLabel>
-                        <Select
-                            className={classes.filterFormSelect}
-                            labelId="activity-filter-select-label"
-                            id="activity-filter-select"
-                            value={activityFilter}
-                            onChange={handleChangeActivityFilter}>
-                            <MenuItem value="all">All</MenuItem>
-                            <MenuItem value="bike">
-                                <ListItemIcon>
-                                    <DirectionsBikeIcon fontSize="small" />
-                                </ListItemIcon>
-                            </MenuItem>
-                            <MenuItem value="hiking">
-                                <ListItemIcon>
-                                    <DirectionsWalkIcon fontSize="small" />
-                                </ListItemIcon>
-                            </MenuItem>
-                        </Select>
-                    </FormControl>
-                    <FormControl>
-                        <InputLabel id="year-filter-select-label">Year</InputLabel>
-                        <Select
-                            className={classes.filterFormSelect}
-                            labelId="year-filter-select-label"
-                            id="year-filter-select"
-                            value={yearFilter}
-                            onChange={handleChangeYearFilter}>
-                            <MenuItem value="all">All</MenuItem>
-                            <MenuItem value="2020">2020</MenuItem>
-                            <MenuItem value="2019">2019</MenuItem>
-                            <MenuItem value="2018">2018</MenuItem>
-                        </Select>
-                    </FormControl>
-                </Box>
-                <Box display="flex" alignItems="flex-end">
-                    <FormControl className={classes.sortForm}>
-                        <InputLabel id="sort-by-select-label">Sort by</InputLabel>
-                        <Select
-                            labelId="sort-by-select-label"
-                            id="sort-by-select"
-                            value={sortBy}
-                            autoWidth
-                            onChange={handleChangeSortBy}>
-                            <MenuItem value="date">Date</MenuItem>
-                            <MenuItem value="name">Name</MenuItem>
-                            <MenuItem value="distance">Distance</MenuItem>
-                        </Select>
-                    </FormControl>
-                    <TableSortLabel active direction={sortOrder} onClick={handleChangeSortOrder} />
+                <Box display="flex">
+                    <Box>
+                        <FormControl className={classes.filterForm}>
+                            <InputLabel id="activity-filter-select-label">Activity</InputLabel>
+                            <Select
+                                className={classes.filterFormSelect}
+                                labelId="activity-filter-select-label"
+                                id="activity-filter-select"
+                                value={activityFilter}
+                                onChange={handleChangeActivityFilter}>
+                                <MenuItem value="all">All</MenuItem>
+                                <MenuItem value="bike">
+                                    <ListItemIcon>
+                                        <DirectionsBikeIcon fontSize="small" />
+                                    </ListItemIcon>
+                                </MenuItem>
+                                <MenuItem value="hiking">
+                                    <ListItemIcon>
+                                        <DirectionsWalkIcon fontSize="small" />
+                                    </ListItemIcon>
+                                </MenuItem>
+                            </Select>
+                        </FormControl>
+                        <FormControl>
+                            <InputLabel id="year-filter-select-label">Year</InputLabel>
+                            <Select
+                                className={classes.filterFormSelect}
+                                labelId="year-filter-select-label"
+                                id="year-filter-select"
+                                value={yearFilter}
+                                onChange={handleChangeYearFilter}>
+                                <MenuItem value="all">All</MenuItem>
+                                <MenuItem value="2020">2020</MenuItem>
+                                <MenuItem value="2019">2019</MenuItem>
+                                <MenuItem value="2018">2018</MenuItem>
+                            </Select>
+                        </FormControl>
+                    </Box>
+                    <Box flexGrow={1} />
+                    <Box display="flex" alignItems="flex-end">
+                        <FormControl className={classes.sortForm}>
+                            <InputLabel id="sort-by-select-label">Sort by</InputLabel>
+                            <Select
+                                labelId="sort-by-select-label"
+                                id="sort-by-select"
+                                value={sortBy}
+                                autoWidth
+                                onChange={handleChangeSortBy}>
+                                <MenuItem value="date">Date</MenuItem>
+                                <MenuItem value="name">Name</MenuItem>
+                                <MenuItem value="distance">Distance</MenuItem>
+                            </Select>
+                        </FormControl>
+                        <TableSortLabel active direction={sortOrder} onClick={handleChangeSortOrder} />
+                    </Box>
                 </Box>
             </Box>
         </>
