@@ -50,15 +50,17 @@ export default function MainHeader({ handleMobileNavigationToggle }) {
     return (
         <AppBar position="fixed" className={classes.appBar}>
             <Toolbar>
-                <Hidden smUp implementation="css">
-                    <IconButton
-                        color="inherit"
-                        edge="start"
-                        onClick={handleMobileNavigationToggle}
-                        className={classes.menuButton}>
-                        <MenuIcon />
-                    </IconButton>
-                </Hidden>
+                {handleMobileNavigationToggle && (
+                    <Hidden smUp implementation="css">
+                        <IconButton
+                            color="inherit"
+                            edge="start"
+                            onClick={handleMobileNavigationToggle}
+                            className={classes.menuButton}>
+                            <MenuIcon />
+                        </IconButton>
+                    </Hidden>
+                )}
                 <Typography variant="h6" noWrap>
                     GPS Tracks
                 </Typography>
