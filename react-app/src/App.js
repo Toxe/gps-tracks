@@ -1,18 +1,12 @@
 import React, { useState } from "react";
-import { makeStyles, useTheme, fade } from "@material-ui/core/styles";
+import { makeStyles, fade } from "@material-ui/core/styles";
 import {
     AppBar,
     Box,
     Button,
-    Divider,
-    Drawer,
     Hidden,
     IconButton,
     InputAdornment,
-    List,
-    ListItem,
-    ListItemIcon,
-    ListItemText,
     Menu,
     MenuItem,
     TextField,
@@ -20,13 +14,11 @@ import {
     Typography,
 } from "@material-ui/core";
 import AccountCircleIcon from "@material-ui/icons/AccountCircle";
-import FolderIcon from "@material-ui/icons/Folder";
 import GitHubIcon from "@material-ui/icons/GitHub";
 import MenuIcon from "@material-ui/icons/Menu";
 import SearchIcon from "@material-ui/icons/Search";
+import MainNavigation from "./MainNavigation";
 import MainContent from "./MainContent";
-
-const drawerWidth = 240;
 
 const useStyles = makeStyles((theme) => ({
     toolbar: theme.mixins.toolbar,
@@ -43,18 +35,10 @@ const useStyles = makeStyles((theme) => ({
         },
     },
     userMenuButton: { marginRight: theme.spacing(2) },
-    drawerPaper: { width: drawerWidth },
-    drawer: {
-        [theme.breakpoints.up("sm")]: {
-            width: drawerWidth,
-            flexShrink: 0,
-        },
-    },
 }));
 
 export default function App() {
     const classes = useStyles();
-    const theme = useTheme();
     const [mobileOpen, setMobileOpen] = useState(false);
     const [userMenuAnchorEl, setUserMenuAnchorEl] = useState(null);
 
@@ -69,47 +53,6 @@ export default function App() {
     const handleUserMenuClose = () => {
         setUserMenuAnchorEl(null);
     };
-
-    const drawer = (
-        <>
-            <div className={classes.toolbar} />
-            <List>
-                <ListItem button>
-                    <ListItemIcon>
-                        <FolderIcon />
-                    </ListItemIcon>
-                    <ListItemText primary="253 Tracks" />
-                </ListItem>
-            </List>
-            <Divider />
-            <List>
-                <ListItem button>
-                    <ListItemIcon>
-                        <FolderIcon />
-                    </ListItemIcon>
-                    <ListItemText primary="2020 (53)" />
-                </ListItem>
-                <ListItem button>
-                    <ListItemIcon>
-                        <FolderIcon />
-                    </ListItemIcon>
-                    <ListItemText primary="2019 (17)" />
-                </ListItem>
-                <ListItem button>
-                    <ListItemIcon>
-                        <FolderIcon />
-                    </ListItemIcon>
-                    <ListItemText primary="2018 (86)" />
-                </ListItem>
-            </List>
-            <Divider />
-            <Box mt={2} mx="auto">
-                <Button variant="contained" color="primary">
-                    Upload
-                </Button>
-            </Box>
-        </>
-    );
 
     return (
         <>
@@ -167,25 +110,8 @@ export default function App() {
                     <GitHubIcon />
                 </Toolbar>
             </AppBar>
-            <nav className={classes.drawer}>
-                <Hidden smUp implementation="css">
-                    <Drawer
-                        variant="temporary"
-                        classes={{ paper: classes.drawerPaper }}
-                        open={mobileOpen}
-                        onClose={handleDrawerToggle}
-                        anchor={theme.direction === "rtl" ? "right" : "left"}
-                        ModalProps={{ keepMounted: true }}>
-                        {drawer}
-                    </Drawer>
-                </Hidden>
-                <Hidden xsDown implementation="css">
-                    <Drawer variant="permanent" open classes={{ paper: classes.drawerPaper }}>
-                        {drawer}
-                    </Drawer>
-                </Hidden>
-            </nav>
 
+            <MainNavigation mobileOpen={mobileOpen} handleDrawerToggle={handleDrawerToggle} />
             <MainContent />
         </>
     );
