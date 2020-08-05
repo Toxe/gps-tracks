@@ -1,20 +1,15 @@
-import React, { useState } from "react";
-import MainHeader from "./MainHeader";
-import MainNavigation from "./MainNavigation";
-import MainContent from "./MainContent";
+import React from "react";
+import { BrowserRouter, Routes, Route } from "react-router-dom";
+import MainPage from "./MainPage";
+import LoginPage from "./LoginPage";
 
 export default function App() {
-    const [mobileNavigationOpen, setMobileNavigationOpen] = useState(false);
-
-    const handleMobileNavigationToggle = () => {
-        setMobileNavigationOpen(!mobileNavigationOpen);
-    };
-
     return (
-        <>
-            <MainHeader handleMobileNavigationToggle={handleMobileNavigationToggle} />
-            <MainNavigation mobileNavigationOpen={mobileNavigationOpen} handleMobileNavigationToggle={handleMobileNavigationToggle} />
-            <MainContent />
-        </>
+        <BrowserRouter>
+            <Routes>
+                <Route path="/" element={<MainPage />} />
+                <Route path="login" element={<LoginPage />} />
+            </Routes>
+        </BrowserRouter>
     );
 }
