@@ -4,16 +4,16 @@ import MainNavigation from "./MainNavigation";
 import MainContent from "./MainContent";
 
 export default function App() {
-    const [mobileOpen, setMobileOpen] = useState(false);
+    const [mobileNavigationOpen, setMobileNavigationOpen] = useState(false);
 
-    const handleDrawerToggle = () => {
-        setMobileOpen(!mobileOpen);
+    const handleMobileNavigationToggle = () => {
+        setMobileNavigationOpen(!mobileNavigationOpen);
     };
 
     return (
         <>
-            <MainHeader handleDrawerToggle={handleDrawerToggle} />
-            <MainNavigation mobileOpen={mobileOpen} handleDrawerToggle={handleDrawerToggle} />
+            <MainHeader handleMobileNavigationToggle={handleMobileNavigationToggle} />
+            <MainNavigation mobileNavigationOpen={mobileNavigationOpen} handleMobileNavigationToggle={handleMobileNavigationToggle} />
             <MainContent />
         </>
     );

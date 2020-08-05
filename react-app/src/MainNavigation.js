@@ -26,7 +26,7 @@ const useStyles = makeStyles((theme) => ({
     },
 }));
 
-export default function MainNavigation({ mobileOpen, handleDrawerToggle }) {
+export default function MainNavigation({ mobileNavigationOpen, handleMobileNavigationToggle }) {
     const classes = useStyles();
     const theme = useTheme();
 
@@ -77,8 +77,8 @@ export default function MainNavigation({ mobileOpen, handleDrawerToggle }) {
                 <Drawer
                     variant="temporary"
                     classes={{ paper: classes.drawerPaper }}
-                    open={mobileOpen}
-                    onClose={handleDrawerToggle}
+                    open={mobileNavigationOpen}
+                    onClose={handleMobileNavigationToggle}
                     anchor={theme.direction === "rtl" ? "right" : "left"}
                     ModalProps={{ keepMounted: true }}>
                     {drawer}

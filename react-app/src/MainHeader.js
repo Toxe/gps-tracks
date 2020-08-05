@@ -35,7 +35,7 @@ const useStyles = makeStyles((theme) => ({
     userMenuButton: { marginRight: theme.spacing(2) },
 }));
 
-export default function MainHeader({ handleDrawerToggle }) {
+export default function MainHeader({ handleMobileNavigationToggle }) {
     const classes = useStyles();
     const [userMenuAnchorEl, setUserMenuAnchorEl] = useState(null);
 
@@ -54,7 +54,7 @@ export default function MainHeader({ handleDrawerToggle }) {
                     <IconButton
                         color="inherit"
                         edge="start"
-                        onClick={handleDrawerToggle}
+                        onClick={handleMobileNavigationToggle}
                         className={classes.menuButton}>
                         <MenuIcon />
                     </IconButton>
