@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 import { makeStyles, fade } from "@material-ui/core/styles";
 import {
     AppBar,
@@ -17,6 +17,7 @@ import AccountCircleIcon from "@material-ui/icons/AccountCircle";
 import GitHubIcon from "@material-ui/icons/GitHub";
 import MenuIcon from "@material-ui/icons/Menu";
 import SearchIcon from "@material-ui/icons/Search";
+import { CurrentUserContext } from "./Auth/CurrentUserContext";
 
 const useStyles = makeStyles((theme) => ({
     toolbar: theme.mixins.toolbar,
@@ -38,6 +39,7 @@ const useStyles = makeStyles((theme) => ({
 export default function MainHeader({ handleMobileNavigationToggle }) {
     const classes = useStyles();
     const [userMenuAnchorEl, setUserMenuAnchorEl] = useState(null);
+    const { currentUserId, setCurrentUserId } = useContext(CurrentUserContext);
 
     const handleUserMenu = (e) => {
         setUserMenuAnchorEl(e.currentTarget);
@@ -78,21 +80,25 @@ export default function MainHeader({ handleMobileNavigationToggle }) {
                     }}
                 />
                 <Box flexGrow={1} />
-                <Hidden smUp implementation="css">
-                    <IconButton color="inherit" onClick={handleUserMenu} className={classes.userMenuButton}>
-                        <AccountCircleIcon />
-                    </IconButton>
-                </Hidden>
-                <Hidden xsDown implementation="css">
-                    <Button
-                        color="inherit"
-                        size="large"
-                        className={classes.userMenuButton}
-                        onClick={handleUserMenu}
-                        startIcon={<AccountCircleIcon />}>
-                        Example User
-                    </Button>
-                </Hidden>
+                {currentUserId > 0 && (
+                    <>
+                        <Hidden smUp implementation="css">
+                            <IconButton color="inherit" onClick={handleUserMenu} className={classes.userMenuButton}>
+                                <AccountCircleIcon />
+                            </IconButton>
+                        </Hidden>
+                        <Hidden xsDown implementation="css">
+                            <Button
+                                color="inherit"
+                                size="large"
+                                className={classes.userMenuButton}
+                                onClick={handleUserMenu}
+                                startIcon={<AccountCircleIcon />}>
+                                User #{currentUserId}
+                            </Button>
+                        </Hidden>
+                    </>
+                )}
                 <Menu
                     anchorEl={userMenuAnchorEl}
                     keepMounted
