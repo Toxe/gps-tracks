@@ -22,6 +22,14 @@
   - IPython
   - Requests
   - gpxpy
+- React App:
+  - React
+  - React Router 6
+  - Axios
+  - jsonwebtoken
+  - history
+  - Material UI
+  - Roboto font
 
 ## Setup local development version
 
