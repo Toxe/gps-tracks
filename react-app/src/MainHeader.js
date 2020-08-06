@@ -39,7 +39,7 @@ const useStyles = makeStyles((theme) => ({
 export default function MainHeader({ handleMobileNavigationToggle }) {
     const classes = useStyles();
     const [userMenuAnchorEl, setUserMenuAnchorEl] = useState(null);
-    const { currentUserId, setCurrentUserId } = useContext(CurrentUserContext);
+    const { currentUserId } = useContext(CurrentUserContext);
 
     const handleUserMenu = (e) => {
         setUserMenuAnchorEl(e.currentTarget);
