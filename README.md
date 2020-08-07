@@ -28,6 +28,7 @@
   - Axios
   - jsonwebtoken
   - history
+  - date-fns
   - Material UI
   - Roboto font
 
