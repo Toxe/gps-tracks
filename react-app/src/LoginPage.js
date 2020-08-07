@@ -1,10 +1,13 @@
-import React from "react";
+import React, { useState } from "react";
 import { makeStyles } from "@material-ui/core/styles";
-import MainHeader from "./MainHeader";
 import Button from "@material-ui/core/Button";
 import TextField from "@material-ui/core/TextField";
 import Typography from "@material-ui/core/Typography";
 import Container from "@material-ui/core/Container";
+import MainHeader from "./MainHeader";
+import useAuth from "./Auth/Auth";
+import AuthInfo from "./Auth/AuthInfo";
+import RequestError from "./RequestError";
 
 const useStyles = makeStyles((theme) => ({
     toolbar: theme.mixins.toolbar,
@@ -24,6 +27,23 @@ const useStyles = makeStyles((theme) => ({
 
 export default function LoginPage() {
     const classes = useStyles();
+    const [credentials, setCredentials] = useState({ email: "user1@example.com", password: "password1" });
+    const { handleLogin, handleRefresh } = useAuth();
+    const [requestError, setRequestError] = useState(null);
+
+    const onChange = (e) => {
+        setCredentials({ ...credentials, [e.target.name]: e.target.value });
+    };
+
+    const handleSubmit = async (e) => {
+        try {
+            e.preventDefault();
+            await handleLogin(credentials);
+            setRequestError(null);
+        } catch (error) {
+            setRequestError(<RequestError error={error} handleClose={() => setRequestError(null)} />);
+        }
+    };
 
     return (
         <>
@@ -31,7 +51,7 @@ export default function LoginPage() {
             <Container maxWidth="xs" className={classes.container}>
                 <div className={classes.toolbar} />
                 <Typography variant="h4">Sign in</Typography>
-                <form className={classes.form} noValidate>
+                <form className={classes.form} noValidate onSubmit={handleSubmit}>
                     <TextField
                         variant="outlined"
                         margin="normal"
@@ -42,6 +62,8 @@ export default function LoginPage() {
                         name="email"
                         autoComplete="email"
                         autoFocus
+                        onChange={onChange}
+                        value={credentials.email}
                     />
                     <TextField
                         variant="outlined"
@@ -53,12 +75,16 @@ export default function LoginPage() {
                         type="password"
                         id="password"
                         autoComplete="current-password"
+                        onChange={onChange}
+                        value={credentials.password}
                     />
                     <Button type="submit" fullWidth variant="contained" color="primary" className={classes.submit}>
                         Sign In
                     </Button>
+                    {requestError}
                 </form>
             </Container>
+            <AuthInfo handleRefresh={handleRefresh} />
         </>
     );
 }
