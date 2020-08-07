@@ -22,7 +22,7 @@ const useStyles = makeStyles((theme) => ({
     },
 }));
 
-export default function MainPage() {
+export default function LoginPage() {
     const classes = useStyles();
 
     return (
