@@ -1,4 +1,5 @@
 import React, { useState, useContext } from "react";
+import { Link as RouterLink } from "react-router-dom";
 import { makeStyles, fade } from "@material-ui/core/styles";
 import {
     AppBar,
@@ -7,6 +8,7 @@ import {
     Hidden,
     IconButton,
     InputAdornment,
+    Link,
     Menu,
     MenuItem,
     TextField,
@@ -64,7 +66,7 @@ export default function MainHeader({ handleMobileNavigationToggle }) {
                     </Hidden>
                 )}
                 <Typography variant="h6" noWrap>
-                    GPS Tracks
+                    <Link component={RouterLink} to="/" color="inherit" underline="none">GPS Tracks</Link>
                 </Typography>
                 <TextField
                     variant="outlined"
