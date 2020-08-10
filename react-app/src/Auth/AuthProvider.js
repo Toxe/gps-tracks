@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useContext } from "react";
-import { login, logout, refresh, initAuth } from "./API";
+import { authLogin, authLogout, authRefresh, authInit } from "./API";
 
 const AuthContext = React.createContext();
 
@@ -12,25 +12,25 @@ export function AuthProvider(props) {
         const refresh_token = localStorage.getItem("refresh_token");
 
         try {
-            const id = initAuth(access_token, refresh_token);
+            const id = authInit(access_token, refresh_token);
             const username = `User #${id}`;
             setUser({ id, username });
         } catch (error) {}
     }, [setUser]);
 
     const handleLogin = async (credentials) => {
-        const user = await login(credentials);
+        const user = await authLogin(credentials);
         setUser(user);
     };
 
     const handleLogout = async () => {
         // no matter what happens, always "logout" locally first
         setUser(null);
-        await logout();
+        await authLogout();
     };
 
     const handleRefresh = async () => {
-        await refresh();
+        await authRefresh();
     };
 
     return (

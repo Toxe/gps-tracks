@@ -3,7 +3,7 @@ import jwt from "jsonwebtoken";
 import { TokenDecodeError } from "../Errors";
 import { addResponseInterceptor, removeResponseInterceptor } from "./ResponseInterceptor";
 
-export function initAuth(access_token, refresh_token) {
+export function authInit(access_token, refresh_token) {
     let identity = undefined;
 
     try {
@@ -22,19 +22,19 @@ export function initAuth(access_token, refresh_token) {
     localStorage.setItem("refresh_token", refresh_token);
     axios.defaults.headers["Authorization"] = `Bearer ${access_token}`;
 
-    addResponseInterceptor(refresh);
+    addResponseInterceptor(authRefresh);
 
     return identity;
 }
 
-export async function login(credentials) {
+export async function authLogin(credentials) {
     const response = await axios.post("/auth/login", credentials);
-    const id = initAuth(response.data.access_token, response.data.refresh_token);
+    const id = authInit(response.data.access_token, response.data.refresh_token);
     const username = `User #${id}`;
     return { id, username };
 }
 
-export async function logout() {
+export async function authLogout() {
     // remove interceptor first to not resend logout requests with expired access tokens
     removeResponseInterceptor();
 
@@ -58,7 +58,7 @@ export async function logout() {
     }
 }
 
-export async function refresh() {
+export async function authRefresh() {
     const response = await axios.post("/auth/refresh", null, {
         headers: { Authorization: `Bearer ${localStorage.getItem("refresh_token")}` },
     });
