@@ -1,9 +1,9 @@
-import React, { useState, useContext } from "react";
+import React, { useState } from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import { Typography } from "@material-ui/core";
 import TokenInfo from "./TokenInfo";
-import { CurrentUserContext } from "./CurrentUserContext";
 import RequestError from "../RequestError";
+import { useAuth } from "./AuthProvider";
 
 const useStyles = makeStyles(() => ({
     authInfo: {
@@ -17,10 +17,10 @@ const useStyles = makeStyles(() => ({
 
 export default function AuthInfo({ handleRefresh }) {
     const classes = useStyles();
-    const { currentUserId } = useContext(CurrentUserContext);
+    const { user } = useAuth();
     const [requestError, setRequestError] = useState(null);
 
-    if (currentUserId === 0)
+    if (!user)
         return null;
 
     const handleRefreshButtonClick = async () => {
@@ -34,7 +34,7 @@ export default function AuthInfo({ handleRefresh }) {
 
     return (
         <div className={classes.authInfo}>
-            <Typography variant="body1"><strong>identity:</strong> {currentUserId}</Typography>
+            <Typography variant="body1"><strong>identity:</strong> {user.id}</Typography>
             <TokenInfo tokenName="access_token" />
             <TokenInfo tokenName="refresh_token" />
             <div>
