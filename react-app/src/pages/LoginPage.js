@@ -6,7 +6,7 @@ import Typography from "@material-ui/core/Typography";
 import Container from "@material-ui/core/Container";
 import MainHeader from "../MainHeader";
 import { useAuth } from "../Auth/AuthProvider";
-import RequestError from "../RequestError";
+import RequestError from "../utils/RequestError";
 
 const useStyles = makeStyles((theme) => ({
     toolbar: theme.mixins.toolbar,

@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import { Typography } from "@material-ui/core";
 import TokenInfo from "./TokenInfo";
-import RequestError from "../RequestError";
+import RequestError from "../utils/RequestError";
 import { useAuth } from "./AuthProvider";
 
 const useStyles = makeStyles(() => ({

@@ -1,6 +1,6 @@
 import axios from "axios";
 import jwt from "jsonwebtoken";
-import { TokenDecodeError } from "../Errors";
+import { TokenDecodeError } from "../utils/Errors";
 import { addResponseInterceptor, removeResponseInterceptor } from "./ResponseInterceptor";
 
 export function authInit(access_token, refresh_token) {
