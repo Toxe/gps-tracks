@@ -1,18 +1,10 @@
 import React from "react";
-import { BrowserRouter, Routes, Route } from "react-router-dom";
-import MainPage from "./MainPage";
-import LoginPage from "./LoginPage";
-import CurrentUserContextProvider from "./Auth/CurrentUserContext";
+import { useAuth } from "./Auth/AuthProvider";
+import AuthenticatedApp from "./AuthenticatedApp";
+import UnauthenticatedApp from "./UnauthenticatedApp";
 
 export default function App() {
-    return (
-        <CurrentUserContextProvider>
-            <BrowserRouter>
-                <Routes>
-                    <Route path="/" element={<MainPage />} />
-                    <Route path="login" element={<LoginPage />} />
-                </Routes>
-            </BrowserRouter>
-        </CurrentUserContextProvider>
-    );
+    const { user } = useAuth();
+
+    return user ? <AuthenticatedApp /> : <UnauthenticatedApp />;
 }

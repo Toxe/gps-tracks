@@ -5,7 +5,7 @@ import TextField from "@material-ui/core/TextField";
 import Typography from "@material-ui/core/Typography";
 import Container from "@material-ui/core/Container";
 import MainHeader from "./MainHeader";
-import useAuth from "./Auth/Auth";
+import { useAuth } from "./Auth/AuthProvider";
 import AuthInfo from "./Auth/AuthInfo";
 import RequestError from "./RequestError";
 

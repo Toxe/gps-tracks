@@ -1,4 +1,4 @@
-import React, { useState, useContext } from "react";
+import React, { useState } from "react";
 import { useNavigate, Link as RouterLink } from "react-router-dom";
 import { makeStyles, fade } from "@material-ui/core/styles";
 import {
@@ -19,8 +19,7 @@ import AccountCircleIcon from "@material-ui/icons/AccountCircle";
 import GitHubIcon from "@material-ui/icons/GitHub";
 import MenuIcon from "@material-ui/icons/Menu";
 import SearchIcon from "@material-ui/icons/Search";
-import { CurrentUserContext } from "./Auth/CurrentUserContext";
-import useAuth from "./Auth/Auth";
+import { useAuth } from "./Auth/AuthProvider";
 
 const useStyles = makeStyles((theme) => ({
     toolbar: theme.mixins.toolbar,
@@ -42,8 +41,7 @@ const useStyles = makeStyles((theme) => ({
 export default function MainHeader({ handleMobileNavigationToggle }) {
     const classes = useStyles();
     const [userMenuAnchorEl, setUserMenuAnchorEl] = useState(null);
-    const { currentUserId } = useContext(CurrentUserContext);
-    const { handleLogout } = useAuth();
+    const { user, handleLogout } = useAuth();
     const navigate = useNavigate();
 
     const handleUserMenu = (e) => {
@@ -62,7 +60,6 @@ export default function MainHeader({ handleMobileNavigationToggle }) {
     const handleUserMenuLogoutClick = async () => {
         handleUserMenuClose();
         await handleLogout();
-        navigate("/login");
     };
 
     return (
@@ -96,7 +93,7 @@ export default function MainHeader({ handleMobileNavigationToggle }) {
                     }}
                 />
                 <Box flexGrow={1} />
-                {currentUserId > 0 && (
+                {user && (
                     <>
                         <Hidden smUp implementation="css">
                             <IconButton color="inherit" onClick={handleUserMenu} className={classes.userMenuButton}>
@@ -110,7 +107,7 @@ export default function MainHeader({ handleMobileNavigationToggle }) {
                                 className={classes.userMenuButton}
                                 onClick={handleUserMenu}
                                 startIcon={<AccountCircleIcon />}>
-                                User #{currentUserId}
+                                {user.username}
                             </Button>
                         </Hidden>
                     </>
