@@ -14,7 +14,6 @@ import {
 } from "@material-ui/core";
 import DirectionsBikeIcon from "@material-ui/icons/DirectionsBike";
 import DirectionsWalkIcon from "@material-ui/icons/DirectionsWalk";
-import { useAuth } from "./Auth/AuthProvider";
 import AuthInfo from "./Auth/AuthInfo";
 
 const useStyles = makeStyles((theme) => ({
@@ -46,7 +45,6 @@ export default function MainContent() {
     const [yearFilter, setYearFilter] = useState("");
     const [sortBy, setSortBy] = useState("date");
     const [sortOrder, setSortOrder] = useState("desc");
-    const { refresh } = useAuth();
 
     const handleChangeActivityFilter = (e) => {
         setActivityFilter(e.target.value);
@@ -164,7 +162,7 @@ export default function MainContent() {
                 {exampleTrack("hiking")}
                 {exampleTrack("hiking")}
             </Box>
-            <AuthInfo handleRefresh={refresh} />
+            <AuthInfo />
         </Box>
     );
 }

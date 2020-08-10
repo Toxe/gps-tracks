@@ -15,9 +15,9 @@ const useStyles = makeStyles(() => ({
     },
 }));
 
-export default function AuthInfo({ handleRefresh }) {
+export default function AuthInfo() {
     const classes = useStyles();
-    const { user } = useAuth();
+    const { user, refresh } = useAuth();
     const [requestError, setRequestError] = useState(null);
 
     if (!user)
@@ -25,7 +25,7 @@ export default function AuthInfo({ handleRefresh }) {
 
     const handleRefreshButtonClick = async () => {
         try {
-            await handleRefresh();
+            await refresh();
             setRequestError(null);
         } catch (error) {
             setRequestError(<RequestError error={error} handleClose={() => setRequestError(null)} />);
