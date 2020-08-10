@@ -6,7 +6,6 @@ import Typography from "@material-ui/core/Typography";
 import Container from "@material-ui/core/Container";
 import MainHeader from "./MainHeader";
 import { useAuth } from "./Auth/AuthProvider";
-import AuthInfo from "./Auth/AuthInfo";
 import RequestError from "./RequestError";
 
 const useStyles = makeStyles((theme) => ({
@@ -28,7 +27,7 @@ const useStyles = makeStyles((theme) => ({
 export default function LoginPage() {
     const classes = useStyles();
     const [credentials, setCredentials] = useState({ email: "user1@example.com", password: "password1" });
-    const { login, refresh } = useAuth();
+    const { login } = useAuth();
     const [requestError, setRequestError] = useState(null);
 
     const onChange = (e) => {
@@ -84,7 +83,6 @@ export default function LoginPage() {
                     {requestError}
                 </form>
             </Container>
-            <AuthInfo handleRefresh={refresh} />
         </>
     );
 }
