@@ -28,7 +28,7 @@ const useStyles = makeStyles((theme) => ({
 export default function LoginPage() {
     const classes = useStyles();
     const [credentials, setCredentials] = useState({ email: "user1@example.com", password: "password1" });
-    const { handleLogin, handleRefresh } = useAuth();
+    const { login, refresh } = useAuth();
     const [requestError, setRequestError] = useState(null);
 
     const onChange = (e) => {
@@ -38,7 +38,7 @@ export default function LoginPage() {
     const handleSubmit = async (e) => {
         try {
             e.preventDefault();
-            await handleLogin(credentials);
+            await login(credentials);
             setRequestError(null);
         } catch (error) {
             setRequestError(<RequestError error={error} handleClose={() => setRequestError(null)} />);
@@ -84,7 +84,7 @@ export default function LoginPage() {
                     {requestError}
                 </form>
             </Container>
-            <AuthInfo handleRefresh={handleRefresh} />
+            <AuthInfo handleRefresh={refresh} />
         </>
     );
 }

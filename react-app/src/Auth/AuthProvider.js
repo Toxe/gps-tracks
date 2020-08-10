@@ -18,23 +18,23 @@ export function AuthProvider(props) {
         } catch (error) {}
     }, [setUser]);
 
-    const handleLogin = async (credentials) => {
+    const login = async (credentials) => {
         const user = await authLogin(credentials);
         setUser(user);
     };
 
-    const handleLogout = async () => {
+    const logout = async () => {
         // no matter what happens, always "logout" locally first
         setUser(null);
         await authLogout();
     };
 
-    const handleRefresh = async () => {
+    const refresh = async () => {
         await authRefresh();
     };
 
     return (
-        <AuthContext.Provider value={{ user, handleLogin, handleLogout, handleRefresh }}>
+        <AuthContext.Provider value={{ user, login, logout, refresh }}>
             {props.children}
         </AuthContext.Provider>
     );

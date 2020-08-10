@@ -41,7 +41,7 @@ const useStyles = makeStyles((theme) => ({
 export default function MainHeader({ handleMobileNavigationToggle }) {
     const classes = useStyles();
     const [userMenuAnchorEl, setUserMenuAnchorEl] = useState(null);
-    const { user, handleLogout } = useAuth();
+    const { user, logout } = useAuth();
     const navigate = useNavigate();
 
     const handleUserMenu = (e) => {
@@ -59,7 +59,7 @@ export default function MainHeader({ handleMobileNavigationToggle }) {
 
     const handleUserMenuLogoutClick = async () => {
         handleUserMenuClose();
-        await handleLogout();
+        await logout();
     };
 
     return (
