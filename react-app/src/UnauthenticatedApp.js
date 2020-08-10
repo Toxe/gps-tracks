@@ -1,6 +1,6 @@
 import React from "react";
 import { Routes, Route } from "react-router-dom";
-import LoginPage from "./LoginPage";
+import LoginPage from "./pages/LoginPage";
 
 export default function UnauthenticatedApp() {
     return (
