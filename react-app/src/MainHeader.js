@@ -109,7 +109,7 @@ export default function MainHeader({ handleMobileNavigationToggle }) {
                     <MenuItem onClick={handleUserMenuClose}>GPS Tracks</MenuItem>
                     <MenuItem onClick={handleUserMenuClose}>Logout</MenuItem>
                 </Menu>
-                <GitHubIcon />
+                <Link href="https://github.com/Toxe/gps-tracks" color="inherit" target="_blank" rel="noopener"><GitHubIcon /></Link>
             </Toolbar>
         </AppBar>
     );
