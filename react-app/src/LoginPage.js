@@ -37,8 +37,8 @@ export default function LoginPage() {
     const handleSubmit = async (e) => {
         try {
             e.preventDefault();
-            await login(credentials);
             setRequestError(null);
+            await login(credentials);
         } catch (error) {
             setRequestError(<RequestError error={error} handleClose={() => setRequestError(null)} />);
         }
