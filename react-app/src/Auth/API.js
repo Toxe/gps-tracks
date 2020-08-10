@@ -4,7 +4,7 @@ import { TokenDecodeError } from "../Errors";
 import { addResponseInterceptor, removeResponseInterceptor } from "./ResponseInterceptor";
 
 export function initAuth(access_token, refresh_token) {
-    let identity = null;
+    let identity = undefined;
 
     try {
         const access_token_data = jwt.decode(access_token);
@@ -29,7 +29,9 @@ export function initAuth(access_token, refresh_token) {
 
 export async function login(credentials) {
     const response = await axios.post("/auth/login", credentials);
-    return initAuth(response.data.access_token, response.data.refresh_token);
+    const id = initAuth(response.data.access_token, response.data.refresh_token);
+    const username = `User #${id}`;
+    return { id, username };
 }
 
 export async function logout() {
