@@ -1,5 +1,5 @@
 import React, { useState, useContext } from "react";
-import { Link as RouterLink } from "react-router-dom";
+import { useNavigate, Link as RouterLink } from "react-router-dom";
 import { makeStyles, fade } from "@material-ui/core/styles";
 import {
     AppBar,
@@ -20,6 +20,7 @@ import GitHubIcon from "@material-ui/icons/GitHub";
 import MenuIcon from "@material-ui/icons/Menu";
 import SearchIcon from "@material-ui/icons/Search";
 import { CurrentUserContext } from "./Auth/CurrentUserContext";
+import useAuth from "./Auth/Auth";
 
 const useStyles = makeStyles((theme) => ({
     toolbar: theme.mixins.toolbar,
@@ -42,6 +43,8 @@ export default function MainHeader({ handleMobileNavigationToggle }) {
     const classes = useStyles();
     const [userMenuAnchorEl, setUserMenuAnchorEl] = useState(null);
     const { currentUserId } = useContext(CurrentUserContext);
+    const { handleLogout } = useAuth();
+    const navigate = useNavigate();
 
     const handleUserMenu = (e) => {
         setUserMenuAnchorEl(e.currentTarget);
@@ -49,6 +52,17 @@ export default function MainHeader({ handleMobileNavigationToggle }) {
 
     const handleUserMenuClose = () => {
         setUserMenuAnchorEl(null);
+    };
+
+    const handleUserMenuTracksClick = () => {
+        handleUserMenuClose();
+        navigate("/");
+    };
+
+    const handleUserMenuLogoutClick = async () => {
+        handleUserMenuClose();
+        await handleLogout();
+        navigate("/login");
     };
 
     return (
@@ -106,8 +120,8 @@ export default function MainHeader({ handleMobileNavigationToggle }) {
                     keepMounted
                     open={Boolean(userMenuAnchorEl)}
                     onClose={handleUserMenuClose}>
-                    <MenuItem onClick={handleUserMenuClose}>GPS Tracks</MenuItem>
-                    <MenuItem onClick={handleUserMenuClose}>Logout</MenuItem>
+                    <MenuItem onClick={handleUserMenuTracksClick}>GPS Tracks</MenuItem>
+                    <MenuItem onClick={handleUserMenuLogoutClick}>Logout</MenuItem>
                 </Menu>
                 <Link href="https://github.com/Toxe/gps-tracks" color="inherit" target="_blank" rel="noopener"><GitHubIcon /></Link>
             </Toolbar>
