@@ -1,7 +1,7 @@
 import React, { useState } from "react";
-import MainHeader from "../MainHeader";
-import MainNavigation from "../MainNavigation";
-import MainContent from "../MainContent";
+import MainHeader from "../content/MainHeader";
+import MainNavigation from "../content/MainNavigation";
+import MainContent from "../content/MainContent";
 
 export default function MainPage() {
     const [mobileNavigationOpen, setMobileNavigationOpen] = useState(false);

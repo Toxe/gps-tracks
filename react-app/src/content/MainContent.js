@@ -14,7 +14,7 @@ import {
 } from "@material-ui/core";
 import DirectionsBikeIcon from "@material-ui/icons/DirectionsBike";
 import DirectionsWalkIcon from "@material-ui/icons/DirectionsWalk";
-import AuthInfo from "./Auth/AuthInfo";
+import AuthInfo from "../Auth/AuthInfo";
 
 const useStyles = makeStyles((theme) => ({
     toolbar: theme.mixins.toolbar,

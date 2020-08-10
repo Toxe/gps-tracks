@@ -19,7 +19,7 @@ import AccountCircleIcon from "@material-ui/icons/AccountCircle";
 import GitHubIcon from "@material-ui/icons/GitHub";
 import MenuIcon from "@material-ui/icons/Menu";
 import SearchIcon from "@material-ui/icons/Search";
-import { useAuth } from "./Auth/AuthProvider";
+import { useAuth } from "../Auth/AuthProvider";
 
 const useStyles = makeStyles((theme) => ({
     toolbar: theme.mixins.toolbar,
