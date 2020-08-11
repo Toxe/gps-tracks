@@ -7,6 +7,7 @@ import Navigation from "../content/Navigation";
 import MainLanding from "../content/MainLanding";
 import AllTracks from "../content/AllTracks";
 import SingleTrack from "../content/SingleTrack";
+import AuthInfo from "../Auth/AuthInfo";
 
 const useStyles = makeStyles((theme) => ({
     toolbar: theme.mixins.toolbar,
@@ -31,6 +32,7 @@ export default function MainPage() {
                     <Route path="tracks" element={<AllTracks />} />
                     <Route path="tracks/:trackId" element={<SingleTrack />} />
                 </Routes>
+                <AuthInfo />
             </Box>
         </>
     );
