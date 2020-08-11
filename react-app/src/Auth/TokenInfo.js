@@ -9,9 +9,12 @@ const useStyles = makeStyles((theme) => ({
         color: "red",
         fontWeight: "bold",
     },
+    expiredMinimized: {
+        color: "red",
+    },
 }));
 
-export default function TokenInfo({ tokenName }) {
+export default function TokenInfo({ tokenName, minimized }) {
     const classes = useStyles();
     const [token, setToken] = useState(null);
     const [issued, setIssued] = useState("-");
@@ -44,10 +47,22 @@ export default function TokenInfo({ tokenName }) {
         return null;
 
     return (
-        <div>
-            <Typography variant="body1" noWrap><strong>{tokenName}</strong>: {token}</Typography>
-            <Typography variant="body2">issued: {issued}</Typography>
-            <Typography variant="body2" className={isExpired ? classes.expired : null}>{isExpired ? "expired" : "expires"}: {expires}</Typography>
-        </div>
+        <>
+            {minimized ? (
+                <Typography variant="body2" component="span" className={isExpired ? classes.expiredMinimized : null}>
+                    <strong>{tokenName}</strong>: {isExpired ? "expired" : "expires"} {expires}
+                </Typography>
+            ) : (
+                <div>
+                    <Typography variant="body1" noWrap>
+                        <strong>{tokenName}</strong>: {token}
+                    </Typography>
+                    <Typography variant="body2">issued: {issued}</Typography>
+                    <Typography variant="body2" className={isExpired ? classes.expired : null}>
+                        {isExpired ? "expired" : "expires"}: {expires}
+                    </Typography>
+                </div>
+            )}
+        </>
     );
 }
