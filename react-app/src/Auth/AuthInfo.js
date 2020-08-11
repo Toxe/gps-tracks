@@ -16,6 +16,9 @@ const useStyles = makeStyles(() => ({
         border: "2px solid #ccc",
         backgroundColor: "#ddd",
     },
+    button: {
+        padding: 4,
+    },
 }));
 
 export default function AuthInfo() {
@@ -43,7 +46,7 @@ export default function AuthInfo() {
                     <Box component="span" m={1}/>
                     <TokenInfo tokenName="access_token" minimized />
                     <div>
-                        <IconButton onClick={() => setMinimized(!minimized)}>
+                        <IconButton onClick={() => setMinimized(!minimized)} className={classes.button}>
                             <ExpandLessIcon fontSize="small" />
                         </IconButton>
                         <button type="button" onClick={handleRefreshButtonClick}>
@@ -60,7 +63,7 @@ export default function AuthInfo() {
                     <TokenInfo tokenName="access_token" />
                     <TokenInfo tokenName="refresh_token" />
                     <div>
-                        <IconButton onClick={() => setMinimized(!minimized)}>
+                        <IconButton onClick={() => setMinimized(!minimized)} className={classes.button}>
                             <ExpandMoreIcon fontSize="small" />
                         </IconButton>
                         <button type="button" onClick={handleRefreshButtonClick}>
