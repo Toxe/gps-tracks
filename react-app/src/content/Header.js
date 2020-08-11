@@ -41,7 +41,7 @@ const useStyles = makeStyles((theme) => ({
 export default function Header({ handleMobileNavigationToggle }) {
     const classes = useStyles();
     const [userMenuAnchorEl, setUserMenuAnchorEl] = useState(null);
-    const { user, logout } = useAuth();
+    const { authId, logout } = useAuth();
     const navigate = useNavigate();
 
     const handleUserMenu = (e) => {
@@ -93,7 +93,7 @@ export default function Header({ handleMobileNavigationToggle }) {
                     }}
                 />
                 <Box flexGrow={1} />
-                {user && (
+                {authId && (
                     <>
                         <Hidden smUp implementation="css">
                             <IconButton color="inherit" onClick={handleUserMenu} className={classes.userMenuButton}>
@@ -107,7 +107,7 @@ export default function Header({ handleMobileNavigationToggle }) {
                                 className={classes.userMenuButton}
                                 onClick={handleUserMenu}
                                 startIcon={<AccountCircleIcon />}>
-                                {user.username}
+                                User #{authId}
                             </Button>
                         </Hidden>
                     </>

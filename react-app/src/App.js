@@ -4,7 +4,7 @@ import AuthenticatedApp from "./AuthenticatedApp";
 import UnauthenticatedApp from "./UnauthenticatedApp";
 
 export default function App() {
-    const { user } = useAuth();
+    const { authId } = useAuth();
 
-    return user ? <AuthenticatedApp /> : <UnauthenticatedApp />;
+    return authId ? <AuthenticatedApp /> : <UnauthenticatedApp />;
 }

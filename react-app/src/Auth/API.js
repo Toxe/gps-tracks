@@ -29,9 +29,7 @@ export function authInit(access_token, refresh_token) {
 
 export async function authLogin(credentials) {
     const response = await axios.post("/auth/login", credentials);
-    const id = authInit(response.data.access_token, response.data.refresh_token);
-    const username = `User #${id}`;
-    return { id, username };
+    return authInit(response.data.access_token, response.data.refresh_token);
 }
 
 export async function authLogout() {

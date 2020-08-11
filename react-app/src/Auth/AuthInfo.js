@@ -23,11 +23,11 @@ const useStyles = makeStyles(() => ({
 
 export default function AuthInfo() {
     const classes = useStyles();
-    const { user, refresh } = useAuth();
+    const { authId, refresh } = useAuth();
     const [requestError, setRequestError] = useState(null);
     const [minimized, setMinimized] = useState(false);
 
-    if (!user) return null;
+    if (!authId) return null;
 
     const handleRefreshButtonClick = async () => {
         try {
@@ -42,7 +42,7 @@ export default function AuthInfo() {
         <>
             {minimized ? (
                 <div className={classes.authInfo}>
-                    <Typography variant="body2" component="span"><strong>identity:</strong> {user.id}</Typography>
+                    <Typography variant="body2" component="span"><strong>identity:</strong> {authId}</Typography>
                     <Box component="span" m={1}/>
                     <TokenInfo tokenName="access_token" minimized />
                     <div>
@@ -58,7 +58,7 @@ export default function AuthInfo() {
             ) : (
                 <div className={classes.authInfo}>
                     <Typography variant="body1">
-                        <strong>identity:</strong> {user.id}
+                        <strong>identity:</strong> {authId}
                     </Typography>
                     <TokenInfo tokenName="access_token" />
                     <TokenInfo tokenName="refresh_token" />

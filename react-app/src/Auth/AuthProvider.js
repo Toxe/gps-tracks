@@ -4,7 +4,7 @@ import { authLogin, authLogout, authRefresh, authInit } from "./API";
 const AuthContext = React.createContext();
 
 export function AuthProvider(props) {
-    const [user, setUser] = useState(null);
+    const [authId, setAuthId] = useState(null);
 
     useEffect(() => {
         // init auth from already existing tokens
@@ -12,20 +12,18 @@ export function AuthProvider(props) {
         const refresh_token = localStorage.getItem("refresh_token");
 
         try {
-            const id = authInit(access_token, refresh_token);
-            const username = `User #${id}`;
-            setUser({ id, username });
+            setAuthId(authInit(access_token, refresh_token));
         } catch (error) {}
-    }, [setUser]);
+    }, [setAuthId]);
 
     const login = async (credentials) => {
-        const user = await authLogin(credentials);
-        setUser(user);
+        const id = await authLogin(credentials);
+        setAuthId(id);
     };
 
     const logout = async () => {
         // no matter what happens, always "logout" locally first
-        setUser(null);
+        setAuthId(null);
         await authLogout();
     };
 
@@ -34,7 +32,7 @@ export function AuthProvider(props) {
     };
 
     return (
-        <AuthContext.Provider value={{ user, login, logout, refresh }}>
+        <AuthContext.Provider value={{ authId, login, logout, refresh }}>
             {props.children}
         </AuthContext.Provider>
     );
