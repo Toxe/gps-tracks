@@ -1,6 +1,7 @@
 import React from "react";
+import { Link as RouterLink } from "react-router-dom";
 import { makeStyles } from "@material-ui/core/styles";
-import { Box, Grid, Paper, Typography } from "@material-ui/core";
+import { Box, Grid, Link, Paper, Typography } from "@material-ui/core";
 import DirectionsBikeIcon from "@material-ui/icons/DirectionsBike";
 import DirectionsWalkIcon from "@material-ui/icons/DirectionsWalk";
 
@@ -25,7 +26,11 @@ export default function ExampleTrack({ id, activity }) {
                     <div className={classes.trackThumbnail} />
                 </Box>
                 <Box flexGrow={1} m={1}>
-                    <Typography variant="h6">{activity === "bike" ? "Bike Ride" : "Hiking"}</Typography>
+                    <Typography variant="h6">
+                        <Link component={RouterLink} to={`/tracks/${id}`} color="inherit" underline="none">
+                            {activity === "bike" ? "Bike Ride" : "Hiking"}
+                        </Link>
+                    </Typography>
                     <Grid container spacing={3}>
                         <Grid item>
                             {activity === "bike" && <DirectionsBikeIcon fontSize="small" />}
