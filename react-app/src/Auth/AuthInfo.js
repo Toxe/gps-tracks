@@ -12,8 +12,9 @@ const useStyles = makeStyles(() => ({
         position: "fixed",
         top: "auto",
         bottom: 0,
-        padding: 10,
-        background: "lightgray",
+        padding: 5,
+        border: "2px solid #ccc",
+        backgroundColor: "#ddd",
     },
 }));
 
