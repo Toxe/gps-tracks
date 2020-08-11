@@ -5,7 +5,7 @@ import MainPage from "./pages/MainPage";
 export default function AuthenticatedApp() {
     return (
         <Routes>
-            <Route path="/" element={<MainPage />} />
+            <Route path="/*" element={<MainPage />} />
         </Routes>
     );
 }
