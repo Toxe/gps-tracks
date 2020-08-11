@@ -19,6 +19,7 @@ export function AuthProvider(props) {
     const login = async (credentials) => {
         const id = await authLogin(credentials);
         setAuthId(id);
+        return id;
     };
 
     const logout = async () => {
