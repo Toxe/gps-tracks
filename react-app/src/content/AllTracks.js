@@ -3,17 +3,16 @@ import { makeStyles } from "@material-ui/core/styles";
 import {
     Box,
     FormControl,
-    Grid,
     InputLabel,
     ListItemIcon,
     MenuItem,
-    Paper,
     Select,
     TableSortLabel,
     Typography,
 } from "@material-ui/core";
 import DirectionsBikeIcon from "@material-ui/icons/DirectionsBike";
 import DirectionsWalkIcon from "@material-ui/icons/DirectionsWalk";
+import ExampleTrack from "./ExampleTrack";
 
 const useStyles = makeStyles((theme) => ({
     filterForm: {
@@ -26,14 +25,6 @@ const useStyles = makeStyles((theme) => ({
     sortForm: {
         minWidth: 100,
         marginRight: theme.spacing(1),
-    },
-    track: {
-        marginBottom: theme.spacing(2),
-    },
-    trackThumbnail: {
-        width: 128,
-        height: 128,
-        backgroundColor: "lightgrey",
     },
 }));
 
@@ -59,39 +50,6 @@ export default function AllTracks() {
 
     const handleChangeSortOrder = () => {
         setSortOrder(sortOrder === "asc" ? "desc" : "asc");
-    };
-
-    const exampleTrack = (activity) => {
-        return (
-            <Paper square className={classes.track}>
-                <Box display="flex">
-                    <Box>
-                        <div className={classes.trackThumbnail} />
-                    </Box>
-                    <Box flexGrow={1} m={1}>
-                        <Typography variant="h6">{activity === "bike" ? "Bike Ride" : "Hiking"}</Typography>
-                        <Grid container spacing={3}>
-                            <Grid item>
-                                {activity === "bike" && <DirectionsBikeIcon fontSize="small" />}
-                                {activity === "hiking" && <DirectionsWalkIcon fontSize="small" />}
-                            </Grid>
-                            <Grid item>
-                                <Typography variant="body1">25 km</Typography>
-                            </Grid>
-                            <Grid item>
-                                <Typography variant="body1">1:30 h</Typography>
-                            </Grid>
-                            <Grid item>
-                                <Typography variant="body1">12 km/h</Typography>
-                            </Grid>
-                        </Grid>
-                        <Typography variant="body2" color="textSecondary">
-                            25.07.2020
-                        </Typography>
-                    </Box>
-                </Box>
-            </Paper>
-        );
     };
 
     return (
@@ -154,10 +112,10 @@ export default function AllTracks() {
                 </Box>
             </Box>
             <Box mt={2}>
-                {exampleTrack("bike")}
-                {exampleTrack("bike")}
-                {exampleTrack("hiking")}
-                {exampleTrack("hiking")}
+                <ExampleTrack id={1} activity="bike" />
+                <ExampleTrack id={2} activity="bike" />
+                <ExampleTrack id={3} activity="hiking" />
+                <ExampleTrack id={4} activity="hiking" />
             </Box>
         </>
     );
