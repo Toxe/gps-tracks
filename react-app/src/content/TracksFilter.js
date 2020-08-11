@@ -12,10 +12,6 @@ const useStyles = makeStyles((theme) => ({
         minWidth: 80,
         minHeight: 37,
     },
-    sortForm: {
-        minWidth: 100,
-        marginRight: theme.spacing(1),
-    },
 }));
 
 export default function TracksFilter() {

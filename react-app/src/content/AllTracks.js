@@ -5,13 +5,6 @@ import ExampleTrack from "./ExampleTrack";
 import TracksFilter from "./TracksFilter";
 
 const useStyles = makeStyles((theme) => ({
-    filterForm: {
-        marginRight: theme.spacing(3),
-    },
-    filterFormSelect: {
-        minWidth: 80,
-        minHeight: 37,
-    },
     sortForm: {
         minWidth: 100,
         marginRight: theme.spacing(1),
