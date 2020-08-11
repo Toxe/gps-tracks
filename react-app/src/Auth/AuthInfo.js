@@ -21,7 +21,7 @@ export default function AuthInfo() {
     const classes = useStyles();
     const { user, refresh } = useAuth();
     const [requestError, setRequestError] = useState(null);
-    const [minimized, setMinimized] = useState(true);
+    const [minimized, setMinimized] = useState(false);
 
     if (!user) return null;
 
