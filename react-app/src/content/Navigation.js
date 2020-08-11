@@ -1,16 +1,7 @@
 import React from "react";
+import { useNavigate } from "react-router-dom";
 import { makeStyles, useTheme } from "@material-ui/core/styles";
-import {
-    Box,
-    Button,
-    Divider,
-    Drawer,
-    Hidden,
-    List,
-    ListItem,
-    ListItemIcon,
-    ListItemText,
-} from "@material-ui/core";
+import { Box, Button, Divider, Drawer, Hidden, List, ListItem, ListItemIcon, ListItemText } from "@material-ui/core";
 import FolderIcon from "@material-ui/icons/Folder";
 
 const drawerWidth = 240;
@@ -29,12 +20,17 @@ const useStyles = makeStyles((theme) => ({
 export default function Navigation({ mobileNavigationOpen, handleMobileNavigationToggle }) {
     const classes = useStyles();
     const theme = useTheme();
+    const navigate = useNavigate();
+
+    const handleAllTracksClick = () => {
+        navigate("/tracks");
+    };
 
     const drawer = (
         <>
             <div className={classes.toolbar} />
             <List>
-                <ListItem button>
+                <ListItem button onClick={handleAllTracksClick}>
                     <ListItemIcon>
                         <FolderIcon />
                     </ListItemIcon>
