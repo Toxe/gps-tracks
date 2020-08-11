@@ -4,7 +4,7 @@ import Button from "@material-ui/core/Button";
 import TextField from "@material-ui/core/TextField";
 import Typography from "@material-ui/core/Typography";
 import Container from "@material-ui/core/Container";
-import MainHeader from "../content/MainHeader";
+import Header from "../content/Header";
 import { useAuth } from "../Auth/AuthProvider";
 import RequestError from "../utils/RequestError";
 
@@ -46,7 +46,7 @@ export default function LoginPage() {
 
     return (
         <>
-            <MainHeader />
+            <Header />
             <Container maxWidth="xs" className={classes.container}>
                 <div className={classes.toolbar} />
                 <Typography variant="h4">Sign in</Typography>

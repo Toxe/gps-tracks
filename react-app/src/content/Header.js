@@ -38,7 +38,7 @@ const useStyles = makeStyles((theme) => ({
     userMenuButton: { marginRight: theme.spacing(2) },
 }));
 
-export default function MainHeader({ handleMobileNavigationToggle }) {
+export default function Header({ handleMobileNavigationToggle }) {
     const classes = useStyles();
     const [userMenuAnchorEl, setUserMenuAnchorEl] = useState(null);
     const { user, logout } = useAuth();

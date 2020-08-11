@@ -1,6 +1,6 @@
 import React, { useState } from "react";
-import MainHeader from "../content/MainHeader";
-import MainNavigation from "../content/MainNavigation";
+import Header from "../content/Header";
+import Navigation from "../content/Navigation";
 import MainContent from "../content/MainContent";
 
 export default function MainPage() {
@@ -12,8 +12,8 @@ export default function MainPage() {
 
     return (
         <>
-            <MainHeader handleMobileNavigationToggle={handleMobileNavigationToggle} />
-            <MainNavigation mobileNavigationOpen={mobileNavigationOpen} handleMobileNavigationToggle={handleMobileNavigationToggle} />
+            <Header handleMobileNavigationToggle={handleMobileNavigationToggle} />
+            <Navigation mobileNavigationOpen={mobileNavigationOpen} handleMobileNavigationToggle={handleMobileNavigationToggle} />
             <MainContent />
         </>
     );
