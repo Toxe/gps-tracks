@@ -1,18 +1,8 @@
 import React, { useState } from "react";
 import { makeStyles } from "@material-ui/core/styles";
-import {
-    Box,
-    FormControl,
-    InputLabel,
-    ListItemIcon,
-    MenuItem,
-    Select,
-    TableSortLabel,
-    Typography,
-} from "@material-ui/core";
-import DirectionsBikeIcon from "@material-ui/icons/DirectionsBike";
-import DirectionsWalkIcon from "@material-ui/icons/DirectionsWalk";
+import { Box, FormControl, InputLabel, MenuItem, Select, TableSortLabel, Typography } from "@material-ui/core";
 import ExampleTrack from "./ExampleTrack";
+import TracksFilter from "./TracksFilter";
 
 const useStyles = makeStyles((theme) => ({
     filterForm: {
@@ -30,18 +20,8 @@ const useStyles = makeStyles((theme) => ({
 
 export default function AllTracks() {
     const classes = useStyles();
-    const [activityFilter, setActivityFilter] = useState("");
-    const [yearFilter, setYearFilter] = useState("");
     const [sortBy, setSortBy] = useState("date");
     const [sortOrder, setSortOrder] = useState("desc");
-
-    const handleChangeActivityFilter = (e) => {
-        setActivityFilter(e.target.value);
-    };
-
-    const handleChangeYearFilter = (e) => {
-        setYearFilter(e.target.value);
-    };
 
     const handleChangeSortBy = (e) => {
         setSortBy(e.target.value);
@@ -56,43 +36,7 @@ export default function AllTracks() {
         <>
             <Typography variant="h5">253 Tracks</Typography>
             <Box display="flex">
-                <Box>
-                    <FormControl className={classes.filterForm}>
-                        <InputLabel id="activity-filter-select-label">Activity</InputLabel>
-                        <Select
-                            className={classes.filterFormSelect}
-                            labelId="activity-filter-select-label"
-                            id="activity-filter-select"
-                            value={activityFilter}
-                            onChange={handleChangeActivityFilter}>
-                            <MenuItem value="all">All</MenuItem>
-                            <MenuItem value="bike">
-                                <ListItemIcon>
-                                    <DirectionsBikeIcon fontSize="small" />
-                                </ListItemIcon>
-                            </MenuItem>
-                            <MenuItem value="hiking">
-                                <ListItemIcon>
-                                    <DirectionsWalkIcon fontSize="small" />
-                                </ListItemIcon>
-                            </MenuItem>
-                        </Select>
-                    </FormControl>
-                    <FormControl>
-                        <InputLabel id="year-filter-select-label">Year</InputLabel>
-                        <Select
-                            className={classes.filterFormSelect}
-                            labelId="year-filter-select-label"
-                            id="year-filter-select"
-                            value={yearFilter}
-                            onChange={handleChangeYearFilter}>
-                            <MenuItem value="all">All</MenuItem>
-                            <MenuItem value="2020">2020</MenuItem>
-                            <MenuItem value="2019">2019</MenuItem>
-                            <MenuItem value="2018">2018</MenuItem>
-                        </Select>
-                    </FormControl>
-                </Box>
+                <TracksFilter />
                 <Box flexGrow={1} />
                 <Box display="flex" alignItems="flex-end">
                     <FormControl className={classes.sortForm}>
