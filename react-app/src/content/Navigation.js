@@ -5,6 +5,7 @@ import { Box, Button, Divider, Drawer, Hidden, List, ListItem, ListItemIcon, Lis
 import FolderIcon from "@material-ui/icons/Folder";
 import { useTracks } from "../api/TracksProvider";
 import NavigationYearList from "./NavigationYearList";
+import TracksCounter from "./TracksCounter";
 
 const drawerWidth = 240;
 
@@ -58,7 +59,7 @@ export default function Navigation({ mobileNavigationOpen, handleMobileNavigatio
                     <ListItemIcon>
                         <FolderIcon />
                     </ListItemIcon>
-                    <ListItemText primary={`${tracks.length} Track(s)`} />
+                    <ListItemText primary={<TracksCounter tracks={tracks} />} />
                 </ListItem>
             </List>
             <Divider />
