@@ -15,7 +15,7 @@ import {
 import GitHubIcon from "@material-ui/icons/GitHub";
 import MenuIcon from "@material-ui/icons/Menu";
 import SearchIcon from "@material-ui/icons/Search";
-import { useAuth } from "../Auth/AuthProvider";
+import { useAuth } from "../../Auth/AuthProvider";
 import HeaderUserMenu from "./HeaderUserMenu";
 
 const useStyles = makeStyles((theme) => ({

@@ -4,7 +4,7 @@ import Button from "@material-ui/core/Button";
 import TextField from "@material-ui/core/TextField";
 import Typography from "@material-ui/core/Typography";
 import Container from "@material-ui/core/Container";
-import Header from "../content/Header";
+import Header from "../components/Header/Header";
 import { useAuth } from "../Auth/AuthProvider";
 import RequestError from "../utils/RequestError";
 
