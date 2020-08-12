@@ -4,7 +4,7 @@ import Track from "./Track";
 import TracksFilter from "./TracksFilter";
 import TracksSort from "./TracksSort";
 import { useTracks } from "../api/TracksProvider";
-import TracksCounter from "./TracksCounter";
+import TracksCounter from "../components/TracksCounter";
 
 export default function AllTracks() {
     const { tracks } = useTracks();
