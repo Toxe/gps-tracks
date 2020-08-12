@@ -19,7 +19,12 @@ export function TracksProvider(props) {
         }
     }, [user]);
 
-    return <TracksContext.Provider value={{ tracks }}>{props.children}</TracksContext.Provider>;
+    const getTrack = (trackId) => {
+        trackId = parseInt(trackId);
+        return tracks.find((t) => t.id === trackId);
+    };
+
+    return <TracksContext.Provider value={{ tracks, getTrack }}>{props.children}</TracksContext.Provider>;
 }
 
 export function useTracks() {
