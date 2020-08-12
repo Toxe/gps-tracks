@@ -15,10 +15,8 @@ const compareFunctions = {
 function compare(sortBy, sortOrder) {
     const cmp = compareFunctions[sortBy];
 
-    if (sortOrder === "asc")
-        return (a, b) => cmp(a, b);
-    else
-        return (a, b) => cmp(b, a);
+    return sortOrder === "asc" ? (a, b) => cmp(a, b) :
+                                 (a, b) => cmp(b, a);
 }
 
 function sortTracks(tracks, sortBy, sortOrder) {
