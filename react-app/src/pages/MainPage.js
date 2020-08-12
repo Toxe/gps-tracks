@@ -3,7 +3,7 @@ import { Routes, Route } from "react-router-dom";
 import { makeStyles } from "@material-ui/core/styles";
 import { Box } from "@material-ui/core";
 import Header from "../content/Header";
-import Navigation from "../content/Navigation";
+import Navigation from "../components/Navigation/Navigation";
 import MainLanding from "../content/MainLanding";
 import AllTracks from "../content/AllTracks";
 import SingleTrack from "../content/SingleTrack";
