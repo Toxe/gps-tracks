@@ -33,6 +33,7 @@ export default function HeaderUserMenu() {
     const handleUserMenuLogoutClick = async () => {
         handleUserMenuClose();
         await logout();
+        navigate("/");
     };
 
     if (!user)
