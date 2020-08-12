@@ -18,13 +18,7 @@ function compareDistance(a, b) {
 }
 
 function compareName(a, b) {
-    const s1 = a.title.toLowerCase();
-    const s2 = b.title.toLowerCase();
-
-    if (s1 < s2)
-        return -1;
-
-    return s2 > s1 ? 1 : 0;
+    return a.title.localeCompare(b.title);
 }
 
 function compare(sortBy, sortOrder) {
