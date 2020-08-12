@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import { Box, FormControl, InputLabel, MenuItem, Select, TableSortLabel } from "@material-ui/core";
 
@@ -9,10 +9,8 @@ const useStyles = makeStyles((theme) => ({
     },
 }));
 
-export default function TracksSort() {
+export default function TracksSort({ sortBy, sortOrder, setSortBy, setSortOrder }) {
     const classes = useStyles();
-    const [sortBy, setSortBy] = useState("date");
-    const [sortOrder, setSortOrder] = useState("desc");
 
     const handleChangeSortBy = (e) => {
         setSortBy(e.target.value);
