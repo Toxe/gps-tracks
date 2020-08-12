@@ -18,6 +18,19 @@ const useStyles = makeStyles((theme) => ({
     },
 }));
 
+function countYears(tracks) {
+    const map = new Map();
+
+    tracks.forEach((t) => {
+        const date = new Date(t.time_start);
+        const year = date.getFullYear();
+        const count = map.get(year);
+        map.set(year, count === undefined ? 1 : count + 1);
+    });
+
+    return map;
+}
+
 export default function Navigation({ mobileNavigationOpen, handleMobileNavigationToggle }) {
     const classes = useStyles();
     const theme = useTheme();
@@ -27,6 +40,9 @@ export default function Navigation({ mobileNavigationOpen, handleMobileNavigatio
     const handleAllTracksClick = () => {
         navigate("/tracks");
     };
+
+    const countedYears = countYears(tracks);
+    const years = [...countedYears.keys()].sort((a, b) => b - a);
 
     const drawer = (
         <>
@@ -41,24 +57,14 @@ export default function Navigation({ mobileNavigationOpen, handleMobileNavigatio
             </List>
             <Divider />
             <List>
-                <ListItem button>
-                    <ListItemIcon>
-                        <FolderIcon />
-                    </ListItemIcon>
-                    <ListItemText primary="2020 (53)" />
-                </ListItem>
-                <ListItem button>
-                    <ListItemIcon>
-                        <FolderIcon />
-                    </ListItemIcon>
-                    <ListItemText primary="2019 (17)" />
-                </ListItem>
-                <ListItem button>
-                    <ListItemIcon>
-                        <FolderIcon />
-                    </ListItemIcon>
-                    <ListItemText primary="2018 (86)" />
-                </ListItem>
+                {years.map((y) => (
+                    <ListItem key={y} button>
+                        <ListItemIcon>
+                            <FolderIcon />
+                        </ListItemIcon>
+                        <ListItemText primary={`${y} (${countedYears.get(y)})`} />
+                    </ListItem>
+                ))}
             </List>
             <Divider />
             <Box mt={2} mx="auto">
