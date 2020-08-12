@@ -39,7 +39,11 @@ export default function MainPage() {
     return (
         <>
             <Header handleMobileNavigationToggle={handleMobileNavigationToggle} />
-            <Navigation mobileNavigationOpen={mobileNavigationOpen} handleMobileNavigationToggle={handleMobileNavigationToggle} />
+            <Navigation
+                tracks={tracks}
+                mobileNavigationOpen={mobileNavigationOpen}
+                handleMobileNavigationToggle={handleMobileNavigationToggle}
+            />
             <Box flexGrow={1} p={3}>
                 <div className={classes.toolbar} />
                 <Routes>

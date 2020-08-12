@@ -17,7 +17,7 @@ const useStyles = makeStyles((theme) => ({
     },
 }));
 
-export default function Navigation({ mobileNavigationOpen, handleMobileNavigationToggle }) {
+export default function Navigation({ tracks, mobileNavigationOpen, handleMobileNavigationToggle }) {
     const classes = useStyles();
     const theme = useTheme();
     const navigate = useNavigate();
@@ -34,7 +34,7 @@ export default function Navigation({ mobileNavigationOpen, handleMobileNavigatio
                     <ListItemIcon>
                         <FolderIcon />
                     </ListItemIcon>
-                    <ListItemText primary="253 Tracks" />
+                    <ListItemText primary={`${tracks.length} Track(s)`} />
                 </ListItem>
             </List>
             <Divider />
