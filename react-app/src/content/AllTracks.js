@@ -6,62 +6,40 @@ import TracksSort from "./TracksSort";
 import { useTracks } from "../api/TracksProvider";
 import TracksCounter from "../components/TracksCounter";
 
-function compareDate(sortOrder) {
-    if (sortOrder === "asc") {
-        return (a, b) => {
-            const d1 = new Date(a.time_start);
-            const d2 = new Date(b.time_start);
-            return d1 - d2;
-        };
-    } else {
-        return (a, b) => {
-            const d1 = new Date(a.time_start);
-            const d2 = new Date(b.time_start);
-            return d2 - d1;
-        };
-    }
+function compareDate(a, b) {
+    const d1 = new Date(a.time_start);
+    const d2 = new Date(b.time_start);
+
+    return d1 - d2;
 }
 
-function compareDistance(sortOrder) {
-    if (sortOrder === "asc") {
-        return (a, b) => a.length3d - b.length3d;
-    } else {
-        return (a, b) => b.length3d - a.length3d;
-    }
+function compareDistance(a, b) {
+    return a.length3d - b.length3d;
 }
 
-function compareName(sortOrder) {
-    if (sortOrder === "asc") {
-        return (a, b) => {
-            const s1 = a.title.toLowerCase();
-            const s2 = b.title.toLowerCase();
+function compareName(a, b) {
+    const s1 = a.title.toLowerCase();
+    const s2 = b.title.toLowerCase();
 
-            if (s1 < s2)
-                return -1;
+    if (s1 < s2)
+        return -1;
 
-            return s2 > s1 ? 1 : 0;
-        };
-    } else {
-        return (a, b) => {
-            const s1 = a.title.toLowerCase();
-            const s2 = b.title.toLowerCase();
-
-            if (s2 < s1)
-                return -1;
-
-            return s1 > s2 ? 1 : 0;
-        };
-    }
+    return s2 > s1 ? 1 : 0;
 }
 
 function compare(sortBy, sortOrder) {
-    if (sortBy === "date") {
-        return compareDate(sortOrder);
-    } else if (sortBy === "distance") {
-        return compareDistance(sortOrder);
-    } else {
-        return compareName(sortOrder);
-    }
+    const compareFunctions = {
+        date: compareDate,
+        distance: compareDistance,
+        name: compareName,
+    };
+
+    const cmp = compareFunctions[sortBy];
+
+    if (sortOrder === "asc")
+        return (a, b) => cmp(a, b);
+    else
+        return (a, b) => cmp(b, a);
 }
 
 function sortTracks(tracks, sortBy, sortOrder) {
