@@ -6,28 +6,13 @@ import TracksSort from "./TracksSort";
 import { useTracks } from "../api/TracksProvider";
 import TracksCounter from "../components/TracksCounter";
 
-function compareDate(a, b) {
-    const d1 = new Date(a.time_start);
-    const d2 = new Date(b.time_start);
-
-    return d1 - d2;
-}
-
-function compareDistance(a, b) {
-    return a.length3d - b.length3d;
-}
-
-function compareName(a, b) {
-    return a.title.localeCompare(b.title);
-}
+const compareFunctions = {
+    date: (a, b) => new Date(a.time_start) - new Date(b.time_start),
+    distance: (a, b) => a.length3d - b.length3d,
+    name: (a, b) => a.title.localeCompare(b.title),
+};
 
 function compare(sortBy, sortOrder) {
-    const compareFunctions = {
-        date: compareDate,
-        distance: compareDistance,
-        name: compareName,
-    };
-
     const cmp = compareFunctions[sortBy];
 
     if (sortOrder === "asc")
