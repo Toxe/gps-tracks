@@ -1,4 +1,5 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
+import axios from "axios";
 import { Routes, Route } from "react-router-dom";
 import { makeStyles } from "@material-ui/core/styles";
 import { Box } from "@material-ui/core";
@@ -8,6 +9,7 @@ import MainLanding from "../content/MainLanding";
 import AllTracks from "../content/AllTracks";
 import SingleTrack from "../content/SingleTrack";
 import AuthInfo from "../Auth/AuthInfo";
+import { useUser } from "../api/UserProvider";
 
 const useStyles = makeStyles((theme) => ({
     toolbar: theme.mixins.toolbar,
@@ -16,6 +18,19 @@ const useStyles = makeStyles((theme) => ({
 export default function MainPage() {
     const classes = useStyles();
     const [mobileNavigationOpen, setMobileNavigationOpen] = useState(false);
+    const { user } = useUser();
+    const [tracks, setTracks] = useState([]);
+
+    useEffect(() => {
+        async function queryTracks(user) {
+            const response = await axios.get(user.links.tracks);
+            setTracks(response.data);
+        }
+
+        if (user) {
+            queryTracks(user);
+        }
+    }, [user]);
 
     const handleMobileNavigationToggle = () => {
         setMobileNavigationOpen(!mobileNavigationOpen);
