@@ -1,6 +1,6 @@
 import React from "react";
 import { Box, Typography } from "@material-ui/core";
-import ExampleTrack from "./ExampleTrack";
+import Track from "./Track";
 import TracksFilter from "./TracksFilter";
 import TracksSort from "./TracksSort";
 
@@ -14,10 +14,9 @@ export default function AllTracks({ tracks }) {
                 <TracksSort />
             </Box>
             <Box mt={2}>
-                <ExampleTrack id={1} activity="bike" />
-                <ExampleTrack id={2} activity="bike" />
-                <ExampleTrack id={3} activity="hiking" />
-                <ExampleTrack id={4} activity="hiking" />
+                {tracks.map((track) => (
+                    <Track key={track.id} track={track} />
+                ))}
             </Box>
         </>
     );
