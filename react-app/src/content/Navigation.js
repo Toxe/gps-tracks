@@ -1,9 +1,10 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { makeStyles, useTheme } from "@material-ui/core/styles";
 import { Box, Button, Divider, Drawer, Hidden, List, ListItem, ListItemIcon, ListItemText } from "@material-ui/core";
 import FolderIcon from "@material-ui/icons/Folder";
 import { useTracks } from "../api/TracksProvider";
+import NavigationYearList from "./NavigationYearList";
 
 const drawerWidth = 240;
 
@@ -19,6 +20,9 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 function countYears(tracks) {
+    if (!tracks || tracks.length === 0)
+        return null;
+
     const map = new Map();
 
     tracks.forEach((t) => {
@@ -36,13 +40,15 @@ export default function Navigation({ mobileNavigationOpen, handleMobileNavigatio
     const theme = useTheme();
     const navigate = useNavigate();
     const { tracks } = useTracks();
+    const [countedYears, setCountedYears] = useState(null);
+
+    useEffect(() => {
+        setCountedYears(countYears(tracks));
+    }, [tracks]);
 
     const handleAllTracksClick = () => {
         navigate("/tracks");
     };
-
-    const countedYears = countYears(tracks);
-    const years = [...countedYears.keys()].sort((a, b) => b - a);
 
     const drawer = (
         <>
@@ -56,17 +62,7 @@ export default function Navigation({ mobileNavigationOpen, handleMobileNavigatio
                 </ListItem>
             </List>
             <Divider />
-            <List>
-                {years.map((y) => (
-                    <ListItem key={y} button>
-                        <ListItemIcon>
-                            <FolderIcon />
-                        </ListItemIcon>
-                        <ListItemText primary={`${y} (${countedYears.get(y)})`} />
-                    </ListItem>
-                ))}
-            </List>
-            <Divider />
+            {countedYears && <NavigationYearList countedYears={countedYears} />}
             <Box mt={2} mx="auto">
                 <Button variant="contained" color="primary">
                     Upload
