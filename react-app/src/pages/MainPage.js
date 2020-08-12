@@ -48,7 +48,7 @@ export default function MainPage() {
                 <div className={classes.toolbar} />
                 <Routes>
                     <Route path="/" element={<MainLanding />} />
-                    <Route path="tracks" element={<AllTracks />} />
+                    <Route path="tracks" element={<AllTracks tracks={tracks} />} />
                     <Route path="tracks/:trackId" element={<SingleTrack />} />
                 </Routes>
                 <AuthInfo />

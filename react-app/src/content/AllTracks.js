@@ -4,10 +4,10 @@ import ExampleTrack from "./ExampleTrack";
 import TracksFilter from "./TracksFilter";
 import TracksSort from "./TracksSort";
 
-export default function AllTracks() {
+export default function AllTracks({ tracks }) {
     return (
         <>
-            <Typography variant="h5">253 Tracks</Typography>
+            <Typography variant="h5">{`${tracks.length} Track(s)`}</Typography>
             <Box display="flex">
                 <TracksFilter />
                 <Box flexGrow={1} />
