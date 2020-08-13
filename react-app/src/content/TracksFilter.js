@@ -14,10 +14,8 @@ const useStyles = makeStyles((theme) => ({
     },
 }));
 
-export default function TracksFilter() {
+export default function TracksFilter({ activityFilter, yearFilter, setActivityFilter, setYearFilter }) {
     const classes = useStyles();
-    const [activityFilter, setActivityFilter] = useState("");
-    const [yearFilter, setYearFilter] = useState("");
 
     const handleChangeActivityFilter = (e) => {
         setActivityFilter(e.target.value);

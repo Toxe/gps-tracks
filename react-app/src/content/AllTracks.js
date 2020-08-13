@@ -30,6 +30,8 @@ export default function AllTracks() {
     const { tracks } = useTracks();
     const [sortBy, setSortBy] = useState("date");
     const [sortOrder, setSortOrder] = useState("desc");
+    const [activityFilter, setActivityFilter] = useState("");
+    const [yearFilter, setYearFilter] = useState("");
 
     const sortedTracks = sortTracks(tracks, sortBy, sortOrder);
 
@@ -39,7 +41,7 @@ export default function AllTracks() {
                 <TracksCounter tracks={sortedTracks} />
             </Typography>
             <Box display="flex">
-                <TracksFilter />
+                <TracksFilter activityFilter={activityFilter} yearFilter={yearFilter} setActivityFilter={setActivityFilter} setYearFilter={setYearFilter} />
                 <Box flexGrow={1} />
                 <TracksSort sortBy={sortBy} sortOrder={sortOrder} setSortBy={setSortBy} setSortOrder={setSortOrder} />
             </Box>
