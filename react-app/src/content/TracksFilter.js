@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import { Box, FormControl, InputLabel, ListItemIcon, MenuItem, Select } from "@material-ui/core";
 import DirectionsBikeIcon from "@material-ui/icons/DirectionsBike";
@@ -15,8 +15,29 @@ const useStyles = makeStyles((theme) => ({
     },
 }));
 
-export default function TracksFilter({ activityFilter, yearFilter, setActivityFilter, setYearFilter }) {
+function listActivities(tracks) {
+    if (!tracks || tracks.length === 0)
+        return [];
+
+    return Array.from(new Set(tracks.map((t) => t.activity_mode))).sort();
+}
+
+function listYears(tracks) {
+    if (!tracks || tracks.length === 0)
+        return [];
+
+    return Array.from(new Set(tracks.map((t) => new Date(t.time_start).getFullYear()))).sort((a, b) => b - a);
+}
+
+export default function TracksFilter({ tracks, activityFilter, yearFilter, setActivityFilter, setYearFilter }) {
     const classes = useStyles();
+    const [availableActivities, setAvailableActivities] = useState([]);
+    const [availableYears, setAvailableYears] = useState([]);
+
+    useEffect(() => {
+        setAvailableActivities(listActivities(tracks));
+        setAvailableYears(listYears(tracks));
+    }, [tracks]);
 
     const handleChangeActivityFilter = (e) => {
         setActivityFilter(e.target.value);
@@ -37,16 +58,20 @@ export default function TracksFilter({ activityFilter, yearFilter, setActivityFi
                     value={activityFilter}
                     onChange={handleChangeActivityFilter}>
                     <MenuItem value="all">All</MenuItem>
-                    <MenuItem value={ActivityMode.BIKE}>
-                        <ListItemIcon>
-                            <DirectionsBikeIcon fontSize="small" />
-                        </ListItemIcon>
-                    </MenuItem>
-                    <MenuItem value={ActivityMode.HIKING}>
-                        <ListItemIcon>
-                            <DirectionsWalkIcon fontSize="small" />
-                        </ListItemIcon>
-                    </MenuItem>
+                    {availableActivities.includes(ActivityMode.BIKE) && (
+                        <MenuItem value={ActivityMode.BIKE}>
+                            <ListItemIcon>
+                                <DirectionsBikeIcon fontSize="small" />
+                            </ListItemIcon>
+                        </MenuItem>
+                    )}
+                    {availableActivities.includes(ActivityMode.HIKING) && (
+                        <MenuItem value={ActivityMode.HIKING}>
+                            <ListItemIcon>
+                                <DirectionsWalkIcon fontSize="small" />
+                            </ListItemIcon>
+                        </MenuItem>
+                    )}
                 </Select>
             </FormControl>
             <FormControl>
@@ -58,9 +83,9 @@ export default function TracksFilter({ activityFilter, yearFilter, setActivityFi
                     value={yearFilter}
                     onChange={handleChangeYearFilter}>
                     <MenuItem value="all">All</MenuItem>
-                    <MenuItem value="2020">2020</MenuItem>
-                    <MenuItem value="2019">2019</MenuItem>
-                    <MenuItem value="2018">2018</MenuItem>
+                    {availableYears.map((year) => (
+                        <MenuItem key={year} value={year}>{year}</MenuItem>
+                    ))}
                 </Select>
             </FormControl>
         </Box>

@@ -61,7 +61,7 @@ export default function AllTracks() {
                 <TracksCounter tracks={sortedTracks} />
             </Typography>
             <Box display="flex">
-                <TracksFilter activityFilter={activityFilter} yearFilter={yearFilter} setActivityFilter={setActivityFilter} setYearFilter={setYearFilter} />
+                <TracksFilter tracks={tracks} activityFilter={activityFilter} yearFilter={yearFilter} setActivityFilter={setActivityFilter} setYearFilter={setYearFilter} />
                 <Box flexGrow={1} />
                 <TracksSort sortBy={sortBy} sortOrder={sortOrder} setSortBy={setSortBy} setSortOrder={setSortOrder} />
             </Box>
