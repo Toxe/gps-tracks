@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import { useSearchParams } from "react-router-dom";
 import { makeStyles } from "@material-ui/core/styles";
 import { Box, FormControl, InputLabel, ListItemIcon, MenuItem, Select } from "@material-ui/core";
 import DirectionsBikeIcon from "@material-ui/icons/DirectionsBike";
@@ -29,22 +30,38 @@ function listYears(tracks) {
     return Array.from(new Set(tracks.map((t) => new Date(t.time_start).getFullYear()))).sort((a, b) => b - a);
 }
 
+function convertToStrings(list) {
+    return list.map((v) => String(v));
+}
+
+function getSearchParam(searchParams, name, altValue) {
+    const value = searchParams.get(name);
+
+    return value !== undefined && value !== null ? value : altValue;
+}
+
 export default function TracksFilter({ tracks, activityFilter, yearFilter, setActivityFilter, setYearFilter }) {
     const classes = useStyles();
     const [availableActivities, setAvailableActivities] = useState([]);
     const [availableYears, setAvailableYears] = useState([]);
+    const [searchParams, setSearchParams] = useSearchParams();
 
     useEffect(() => {
-        setAvailableActivities(listActivities(tracks));
-        setAvailableYears(listYears(tracks));
-    }, [tracks]);
+        setAvailableActivities(convertToStrings(listActivities(tracks)));
+        setAvailableYears(convertToStrings(listYears(tracks)));
+
+        setYearFilter(getSearchParam(searchParams, "y", ""));
+        setActivityFilter(getSearchParam(searchParams, "a", ""));
+    }, [tracks, searchParams, setYearFilter, setActivityFilter]);
 
     const handleChangeActivityFilter = (e) => {
-        setActivityFilter(e.target.value);
+        searchParams.set("a", e.target.value);
+        setSearchParams(searchParams);
     };
 
     const handleChangeYearFilter = (e) => {
-        setYearFilter(e.target.value);
+        searchParams.set("y", e.target.value);
+        setSearchParams(searchParams);
     };
 
     return (
@@ -55,17 +72,17 @@ export default function TracksFilter({ tracks, activityFilter, yearFilter, setAc
                     className={classes.filterFormSelect}
                     labelId="activity-filter-select-label"
                     id="activity-filter-select"
-                    value={activityFilter}
+                    value={activityFilter === "all" || availableActivities.includes(activityFilter) ? activityFilter : ""}
                     onChange={handleChangeActivityFilter}>
                     <MenuItem value="all">All</MenuItem>
-                    {availableActivities.includes(ActivityMode.BIKE) && (
+                    {availableActivities.includes(String(ActivityMode.BIKE)) && (
                         <MenuItem value={ActivityMode.BIKE}>
                             <ListItemIcon>
                                 <DirectionsBikeIcon fontSize="small" />
                             </ListItemIcon>
                         </MenuItem>
                     )}
-                    {availableActivities.includes(ActivityMode.HIKING) && (
+                    {availableActivities.includes(String(ActivityMode.HIKING)) && (
                         <MenuItem value={ActivityMode.HIKING}>
                             <ListItemIcon>
                                 <DirectionsWalkIcon fontSize="small" />
@@ -80,7 +97,7 @@ export default function TracksFilter({ tracks, activityFilter, yearFilter, setAc
                     className={classes.filterFormSelect}
                     labelId="year-filter-select-label"
                     id="year-filter-select"
-                    value={yearFilter}
+                    value={yearFilter === "all" || availableYears.includes(yearFilter) ? yearFilter : ""}
                     onChange={handleChangeYearFilter}>
                     <MenuItem value="all">All</MenuItem>
                     {availableYears.map((year) => (
