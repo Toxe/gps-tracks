@@ -26,6 +26,25 @@ function sortTracks(tracks, sortBy, sortOrder) {
     return [...tracks].sort(compare(sortBy, sortOrder));
 }
 
+function filterTracks(tracks, activityFilter, yearFilter) {
+    if (!tracks || tracks.length === 0)
+        return [];
+
+    let filteredTracks = tracks;
+
+    if (activityFilter !== "" && activityFilter !== "all") {
+        activityFilter = parseInt(activityFilter);
+        filteredTracks = filteredTracks.filter((t) => t.activity_mode === activityFilter);
+    }
+
+    if (yearFilter !== "" && yearFilter !== "all") {
+        yearFilter = parseInt(yearFilter);
+        filteredTracks = filteredTracks.filter((t) => (new Date(t.time_start)).getFullYear() === yearFilter);
+    }
+
+    return filteredTracks;
+}
+
 export default function AllTracks() {
     const { tracks } = useTracks();
     const [sortBy, setSortBy] = useState("date");
@@ -33,7 +52,8 @@ export default function AllTracks() {
     const [activityFilter, setActivityFilter] = useState("");
     const [yearFilter, setYearFilter] = useState("");
 
-    const sortedTracks = sortTracks(tracks, sortBy, sortOrder);
+    const filteredTracks = filterTracks(tracks, activityFilter, yearFilter);
+    const sortedTracks = sortTracks(filteredTracks, sortBy, sortOrder);
 
     return (
         <>
