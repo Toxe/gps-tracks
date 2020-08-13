@@ -5,6 +5,7 @@ import { Box, FormControl, InputLabel, ListItemIcon, MenuItem, Select } from "@m
 import DirectionsBikeIcon from "@material-ui/icons/DirectionsBike";
 import DirectionsWalkIcon from "@material-ui/icons/DirectionsWalk";
 import { ActivityMode } from "../utils/Enums";
+import { useTracksFilter } from "../components/TracksFilter/TracksFilterProvider";
 
 const useStyles = makeStyles((theme) => ({
     filterForm: {
@@ -40,8 +41,9 @@ function getSearchParam(searchParams, name, altValue) {
     return value !== undefined && value !== null ? value : altValue;
 }
 
-export default function TracksFilter({ tracks, activityFilter, yearFilter, setActivityFilter, setYearFilter }) {
+export default function TracksFilter({ tracks }) {
     const classes = useStyles();
+    const { activityFilter, yearFilter, setActivityFilter, setYearFilter } = useTracksFilter();
     const [availableActivities, setAvailableActivities] = useState([]);
     const [availableYears, setAvailableYears] = useState([]);
     const [searchParams, setSearchParams] = useSearchParams();

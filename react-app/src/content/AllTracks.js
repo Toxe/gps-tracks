@@ -3,8 +3,9 @@ import { Box, Typography } from "@material-ui/core";
 import Track from "./Track";
 import TracksFilter from "./TracksFilter";
 import TracksSort from "./TracksSort";
-import { useTracks } from "../api/TracksProvider";
 import TracksCounter from "../components/TracksCounter";
+import { useTracks } from "../api/TracksProvider";
+import { useTracksFilter } from "../components/TracksFilter/TracksFilterProvider";
 
 const compareFunctions = {
     date: (a, b) => new Date(a.time_start) - new Date(b.time_start),
@@ -26,33 +27,13 @@ function sortTracks(tracks, sortBy, sortOrder) {
     return [...tracks].sort(compare(sortBy, sortOrder));
 }
 
-function filterTracks(tracks, activityFilter, yearFilter) {
-    if (!tracks || tracks.length === 0)
-        return [];
-
-    let filteredTracks = tracks;
-
-    if (activityFilter !== "" && activityFilter !== "all") {
-        activityFilter = parseInt(activityFilter);
-        filteredTracks = filteredTracks.filter((t) => t.activity_mode === activityFilter);
-    }
-
-    if (yearFilter !== "" && yearFilter !== "all") {
-        yearFilter = parseInt(yearFilter);
-        filteredTracks = filteredTracks.filter((t) => (new Date(t.time_start)).getFullYear() === yearFilter);
-    }
-
-    return filteredTracks;
-}
-
 export default function AllTracks() {
     const { tracks } = useTracks();
     const [sortBy, setSortBy] = useState("date");
     const [sortOrder, setSortOrder] = useState("desc");
-    const [activityFilter, setActivityFilter] = useState("");
-    const [yearFilter, setYearFilter] = useState("");
+    const { filterTracks } = useTracksFilter();
 
-    const filteredTracks = filterTracks(tracks, activityFilter, yearFilter);
+    const filteredTracks = filterTracks(tracks);
     const sortedTracks = sortTracks(filteredTracks, sortBy, sortOrder);
 
     return (
@@ -61,7 +42,7 @@ export default function AllTracks() {
                 <TracksCounter tracks={sortedTracks} />
             </Typography>
             <Box display="flex">
-                <TracksFilter tracks={tracks} activityFilter={activityFilter} yearFilter={yearFilter} setActivityFilter={setActivityFilter} setYearFilter={setYearFilter} />
+                <TracksFilter tracks={tracks} />
                 <Box flexGrow={1} />
                 <TracksSort sortBy={sortBy} sortOrder={sortOrder} setSortBy={setSortBy} setSortOrder={setSortOrder} />
             </Box>

@@ -9,6 +9,7 @@ import AllTracks from "../content/AllTracks";
 import SingleTrack from "../content/SingleTrack";
 import AuthInfo from "../Auth/AuthInfo";
 import { TracksProvider } from "../api/TracksProvider";
+import { TracksFilterProvider } from "../components/TracksFilter/TracksFilterProvider";
 
 const useStyles = makeStyles((theme) => ({
     toolbar: theme.mixins.toolbar,
@@ -24,17 +25,19 @@ export default function MainPage() {
 
     return (
         <TracksProvider>
-            <Header handleMobileNavigationToggle={handleMobileNavigationToggle} />
-            <Navigation mobileNavigationOpen={mobileNavigationOpen} handleMobileNavigationToggle={handleMobileNavigationToggle} />
-            <Box flexGrow={1} p={3}>
-                <div className={classes.toolbar} />
-                <Routes>
-                    <Route path="/" element={<MainLanding />} />
-                    <Route path="tracks" element={<AllTracks />} />
-                    <Route path="tracks/:trackId" element={<SingleTrack />} />
-                </Routes>
-                <AuthInfo />
-            </Box>
+            <TracksFilterProvider>
+                <Header handleMobileNavigationToggle={handleMobileNavigationToggle} />
+                <Navigation mobileNavigationOpen={mobileNavigationOpen} handleMobileNavigationToggle={handleMobileNavigationToggle} />
+                <Box flexGrow={1} p={3}>
+                    <div className={classes.toolbar} />
+                    <Routes>
+                        <Route path="/" element={<MainLanding />} />
+                        <Route path="tracks" element={<AllTracks />} />
+                        <Route path="tracks/:trackId" element={<SingleTrack />} />
+                    </Routes>
+                    <AuthInfo />
+                </Box>
+            </TracksFilterProvider>
         </TracksProvider>
     );
 }
