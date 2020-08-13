@@ -3,6 +3,7 @@ import { makeStyles } from "@material-ui/core/styles";
 import { Box, FormControl, InputLabel, ListItemIcon, MenuItem, Select } from "@material-ui/core";
 import DirectionsBikeIcon from "@material-ui/icons/DirectionsBike";
 import DirectionsWalkIcon from "@material-ui/icons/DirectionsWalk";
+import { ActivityMode } from "../utils/Enums";
 
 const useStyles = makeStyles((theme) => ({
     filterForm: {
@@ -36,12 +37,12 @@ export default function TracksFilter({ activityFilter, yearFilter, setActivityFi
                     value={activityFilter}
                     onChange={handleChangeActivityFilter}>
                     <MenuItem value="all">All</MenuItem>
-                    <MenuItem value="bike">
+                    <MenuItem value={ActivityMode.BIKE}>
                         <ListItemIcon>
                             <DirectionsBikeIcon fontSize="small" />
                         </ListItemIcon>
                     </MenuItem>
-                    <MenuItem value="hiking">
+                    <MenuItem value={ActivityMode.HIKING}>
                         <ListItemIcon>
                             <DirectionsWalkIcon fontSize="small" />
                         </ListItemIcon>
