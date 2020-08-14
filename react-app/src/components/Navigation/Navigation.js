@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { makeStyles, useTheme } from "@material-ui/core/styles";
 import { Box, Button, Divider, Drawer, Hidden, List, ListItem, ListItemIcon, ListItemText } from "@material-ui/core";
-import FolderIcon from "@material-ui/icons/Folder";
+import ViewListIcon from '@material-ui/icons/ViewList';
 import { useTracks } from "../../api/TracksProvider";
 import NavigationYearList from "./NavigationYearList";
 import TracksCounter from "../TracksCounter";
@@ -57,7 +57,7 @@ export default function Navigation({ mobileNavigationOpen, handleMobileNavigatio
             <List>
                 <ListItem button onClick={handleAllTracksClick}>
                     <ListItemIcon>
-                        <FolderIcon />
+                        <ViewListIcon />
                     </ListItemIcon>
                     <ListItemText primary={<TracksCounter tracks={tracks} />} />
                 </ListItem>
