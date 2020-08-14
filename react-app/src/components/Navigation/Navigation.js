@@ -7,7 +7,7 @@ import { useTracks } from "../../api/TracksProvider";
 import NavigationYearList from "./NavigationYearList";
 import TracksCounter from "../TracksCounter";
 
-const drawerWidth = 240;
+const drawerWidth = 200;
 
 const useStyles = makeStyles((theme) => ({
     toolbar: theme.mixins.toolbar,
