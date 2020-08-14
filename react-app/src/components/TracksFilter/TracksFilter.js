@@ -17,14 +17,14 @@ const useStyles = makeStyles((theme) => ({
     },
 }));
 
-function listActivities(tracks) {
+function listAvailableActivities(tracks) {
     if (!tracks || tracks.length === 0)
         return [];
 
     return Array.from(new Set(tracks.map((t) => t.activity_mode))).sort();
 }
 
-function listYears(tracks) {
+function listAvailableYears(tracks) {
     if (!tracks || tracks.length === 0)
         return [];
 
@@ -49,8 +49,8 @@ export default function TracksFilter({ tracks }) {
     const [searchParams, setSearchParams] = useSearchParams();
 
     useEffect(() => {
-        setAvailableActivities(convertToStrings(listActivities(tracks)));
-        setAvailableYears(convertToStrings(listYears(tracks)));
+        setAvailableActivities(convertToStrings(listAvailableActivities(tracks)));
+        setAvailableYears(convertToStrings(listAvailableYears(tracks)));
 
         setYearFilter(getSearchParam(searchParams, "y", ""));
         setActivityFilter(getSearchParam(searchParams, "a", ""));
