@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { Box, Typography } from "@material-ui/core";
 import Track from "./Track";
 import TracksFilter from "../components/TracksFilter/TracksFilter";
-import TracksSort from "./TracksSort";
+import TracksSort from "../components/TracksSort/TracksSort";
 import TracksCounter from "../components/TracksCounter";
 import { useTracksFilter } from "../components/TracksFilter/TracksFilterProvider";
 
