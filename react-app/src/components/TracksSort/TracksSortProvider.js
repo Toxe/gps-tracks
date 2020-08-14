@@ -1,5 +1,17 @@
 import React, { useState, useContext } from "react";
 
+const compareFunctions = {
+        date: (a, b) => new Date(a.time_start) - new Date(b.time_start),
+    distance: (a, b) => a.length3d - b.length3d,
+        name: (a, b) => a.title.localeCompare(b.title),
+};
+
+const defaultSortOrder = {
+        date: "desc",
+    distance: "desc",
+        name: "asc",
+};
+
 const TracksSortContext = React.createContext();
 
 export function useTracksSort() {
@@ -13,7 +25,7 @@ export function useTracksSort() {
 
 export function TracksSortProvider(props) {
     const [sortBy, setSortBy] = useState("date");
-    const [sortOrder, setSortOrder] = useState("desc");
+    const [sortOrder, setSortOrder] = useState(defaultSortOrder["date"]);
 
     const sortTracks = (tracks) => {
         if (!tracks || tracks.length === 0)
@@ -22,18 +34,16 @@ export function TracksSortProvider(props) {
         return [...tracks].sort(compare(sortBy, sortOrder));
     }
 
+    const getDefaultSortOrder = (sort) => {
+        return defaultSortOrder[sort];
+    }
+
     return (
-        <TracksSortContext.Provider value={{ sortBy, sortOrder, setSortBy, setSortOrder, sortTracks }}>
+        <TracksSortContext.Provider value={{ sortBy, sortOrder, setSortBy, setSortOrder, sortTracks, getDefaultSortOrder }}>
             {props.children}
         </TracksSortContext.Provider>
     );
 }
-
-const compareFunctions = {
-        date: (a, b) => new Date(a.time_start) - new Date(b.time_start),
-    distance: (a, b) => a.length3d - b.length3d,
-        name: (a, b) => a.title.localeCompare(b.title),
-};
 
 function compare(sortBy, sortOrder) {
     const cmp = compareFunctions[sortBy];

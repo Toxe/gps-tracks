@@ -20,16 +20,17 @@ function getSearchParam(searchParams, name, altValue) {
 export default function TracksSort() {
     const classes = useStyles();
     const [searchParams, setSearchParams] = useSearchParams();
-    const { sortBy, sortOrder, setSortBy, setSortOrder } = useTracksSort();
+    const { sortBy, sortOrder, setSortBy, setSortOrder, getDefaultSortOrder } = useTracksSort();
 
     useEffect(() => {
-        setSortBy(getSearchParam(searchParams, "s", "date"));
-        setSortOrder(getSearchParam(searchParams, "so", "desc"));
-    }, [searchParams, setSortBy, setSortOrder]);
+        const sort = getSearchParam(searchParams, "s", "date");
+        setSortBy(sort);
+        setSortOrder(getSearchParam(searchParams, "so", getDefaultSortOrder(sort)));
+    }, [searchParams, setSortBy, setSortOrder, getDefaultSortOrder]);
 
     const handleChangeSortBy = (e) => {
         searchParams.set("s", e.target.value);
-        searchParams.set("so", "desc");
+        searchParams.set("so", getDefaultSortOrder(e.target.value));
         setSearchParams(searchParams);
     };
 
