@@ -4,7 +4,6 @@ import Track from "./Track";
 import TracksFilter from "../components/TracksFilter/TracksFilter";
 import TracksSort from "./TracksSort";
 import TracksCounter from "../components/TracksCounter";
-import { useTracks } from "../api/TracksProvider";
 import { useTracksFilter } from "../components/TracksFilter/TracksFilterProvider";
 
 const compareFunctions = {
@@ -28,12 +27,11 @@ function sortTracks(tracks, sortBy, sortOrder) {
 }
 
 export default function AllTracks() {
-    const { tracks } = useTracks();
     const [sortBy, setSortBy] = useState("date");
     const [sortOrder, setSortOrder] = useState("desc");
     const { filterTracks } = useTracksFilter();
 
-    const filteredTracks = filterTracks(tracks);
+    const filteredTracks = filterTracks();
     const sortedTracks = sortTracks(filteredTracks, sortBy, sortOrder);
 
     return (
@@ -42,7 +40,7 @@ export default function AllTracks() {
                 <TracksCounter tracks={sortedTracks} />
             </Typography>
             <Box display="flex">
-                <TracksFilter tracks={tracks} />
+                <TracksFilter />
                 <Box flexGrow={1} />
                 <TracksSort sortBy={sortBy} sortOrder={sortOrder} setSortBy={setSortBy} setSortOrder={setSortOrder} />
             </Box>

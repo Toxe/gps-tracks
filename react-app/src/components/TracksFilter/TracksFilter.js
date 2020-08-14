@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useEffect } from "react";
 import { useSearchParams } from "react-router-dom";
 import { makeStyles } from "@material-ui/core/styles";
 import { Box, FormControl, InputLabel, ListItemIcon, MenuItem, Select } from "@material-ui/core";
@@ -17,44 +17,28 @@ const useStyles = makeStyles((theme) => ({
     },
 }));
 
-function listAvailableActivities(tracks) {
-    if (!tracks || tracks.length === 0)
-        return [];
-
-    return Array.from(new Set(tracks.map((t) => t.activity_mode))).sort();
-}
-
-function listAvailableYears(tracks) {
-    if (!tracks || tracks.length === 0)
-        return [];
-
-    return Array.from(new Set(tracks.map((t) => new Date(t.time_start).getFullYear()))).sort((a, b) => b - a);
-}
-
-function convertToStrings(list) {
-    return list.map((v) => String(v));
-}
-
 function getSearchParam(searchParams, name, altValue) {
     const value = searchParams.get(name);
 
     return value !== undefined && value !== null ? value : altValue;
 }
 
-export default function TracksFilter({ tracks }) {
+export default function TracksFilter() {
     const classes = useStyles();
-    const { activityFilter, yearFilter, setActivityFilter, setYearFilter } = useTracksFilter();
-    const [availableActivities, setAvailableActivities] = useState([]);
-    const [availableYears, setAvailableYears] = useState([]);
     const [searchParams, setSearchParams] = useSearchParams();
+    const {
+        activityFilter,
+        yearFilter,
+        setActivityFilter,
+        setYearFilter,
+        availableActivities,
+        availableYears,
+    } = useTracksFilter();
 
     useEffect(() => {
-        setAvailableActivities(convertToStrings(listAvailableActivities(tracks)));
-        setAvailableYears(convertToStrings(listAvailableYears(tracks)));
-
         setYearFilter(getSearchParam(searchParams, "y", ""));
         setActivityFilter(getSearchParam(searchParams, "a", ""));
-    }, [tracks, searchParams, setYearFilter, setActivityFilter]);
+    }, [searchParams, setYearFilter, setActivityFilter]);
 
     const handleChangeActivityFilter = (e) => {
         searchParams.set("a", e.target.value);
