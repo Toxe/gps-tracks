@@ -1,6 +1,8 @@
-import React from "react";
+import React, { useEffect } from "react";
+import { useSearchParams } from "react-router-dom";
 import { makeStyles } from "@material-ui/core/styles";
 import { Box, FormControl, InputLabel, MenuItem, Select, TableSortLabel } from "@material-ui/core";
+import { useTracksSort } from "./TracksSortProvider";
 
 const useStyles = makeStyles((theme) => ({
     sortForm: {
@@ -9,16 +11,31 @@ const useStyles = makeStyles((theme) => ({
     },
 }));
 
-export default function TracksSort({ sortBy, sortOrder, setSortBy, setSortOrder }) {
+function getSearchParam(searchParams, name, altValue) {
+    const value = searchParams.get(name);
+
+    return value !== undefined && value !== null ? value : altValue;
+}
+
+export default function TracksSort() {
     const classes = useStyles();
+    const [searchParams, setSearchParams] = useSearchParams();
+    const { sortBy, sortOrder, setSortBy, setSortOrder } = useTracksSort();
+
+    useEffect(() => {
+        setSortBy(getSearchParam(searchParams, "s", "date"));
+        setSortOrder(getSearchParam(searchParams, "so", "desc"));
+    }, [searchParams, setSortBy, setSortOrder]);
 
     const handleChangeSortBy = (e) => {
-        setSortBy(e.target.value);
-        setSortOrder("asc");
+        searchParams.set("s", e.target.value);
+        searchParams.set("so", "desc");
+        setSearchParams(searchParams);
     };
 
     const handleChangeSortOrder = () => {
-        setSortOrder(sortOrder === "asc" ? "desc" : "asc");
+        searchParams.set("so", sortOrder === "asc" ? "desc" : "asc");
+        setSearchParams(searchParams);
     };
 
     return (

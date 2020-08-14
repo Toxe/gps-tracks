@@ -10,6 +10,7 @@ import SingleTrack from "../content/SingleTrack";
 import AuthInfo from "../Auth/AuthInfo";
 import { TracksProvider } from "../api/TracksProvider";
 import { TracksFilterProvider } from "../components/TracksFilter/TracksFilterProvider";
+import { TracksSortProvider } from "../components/TracksSort/TracksSortProvider";
 
 const useStyles = makeStyles((theme) => ({
     toolbar: theme.mixins.toolbar,
@@ -26,17 +27,19 @@ export default function MainPage() {
     return (
         <TracksProvider>
             <TracksFilterProvider>
-                <Header handleMobileNavigationToggle={handleMobileNavigationToggle} />
-                <Navigation mobileNavigationOpen={mobileNavigationOpen} handleMobileNavigationToggle={handleMobileNavigationToggle} />
-                <Box flexGrow={1} p={3}>
-                    <div className={classes.toolbar} />
-                    <Routes>
-                        <Route path="/" element={<MainLanding />} />
-                        <Route path="tracks" element={<AllTracks />} />
-                        <Route path="tracks/:trackId" element={<SingleTrack />} />
-                    </Routes>
-                    {Boolean(parseInt(process.env.REACT_APP_AUTH_INFO)) && <AuthInfo />}
-                </Box>
+                <TracksSortProvider>
+                    <Header handleMobileNavigationToggle={handleMobileNavigationToggle} />
+                    <Navigation mobileNavigationOpen={mobileNavigationOpen} handleMobileNavigationToggle={handleMobileNavigationToggle} />
+                    <Box flexGrow={1} p={3}>
+                        <div className={classes.toolbar} />
+                        <Routes>
+                            <Route path="/" element={<MainLanding />} />
+                            <Route path="tracks" element={<AllTracks />} />
+                            <Route path="tracks/:trackId" element={<SingleTrack />} />
+                        </Routes>
+                        {Boolean(parseInt(process.env.REACT_APP_AUTH_INFO)) && <AuthInfo />}
+                    </Box>
+                </TracksSortProvider>
             </TracksFilterProvider>
         </TracksProvider>
     );
