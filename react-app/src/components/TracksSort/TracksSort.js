@@ -23,9 +23,9 @@ export default function TracksSort() {
     const { sortBy, sortOrder, setSortBy, setSortOrder, getDefaultSortOrder } = useTracksSort();
 
     useEffect(() => {
-        const sort = getSearchParam(searchParams, "s", "date");
+        const sort = getSearchParam(searchParams, "sort", "date");
         setSortBy(sort);
-        setSortOrder(getSearchParam(searchParams, "so", getDefaultSortOrder(sort)));
+        setSortOrder(getSearchParam(searchParams, "order", getDefaultSortOrder(sort)));
     }, [searchParams, setSortBy, setSortOrder, getDefaultSortOrder]);
 
     const setOrRemoveDefaultSearchParam = (param, value, defaultValue) => {
@@ -36,8 +36,8 @@ export default function TracksSort() {
     }
 
     const updateSortURLParams = (sort, order) => {
-        setOrRemoveDefaultSearchParam("s", sort, "date");
-        setOrRemoveDefaultSearchParam("so", order, getDefaultSortOrder(sort));
+        setOrRemoveDefaultSearchParam("sort", sort, "date");
+        setOrRemoveDefaultSearchParam("order", order, getDefaultSortOrder(sort));
         setSearchParams(searchParams);
     }
 
