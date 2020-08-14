@@ -5,6 +5,7 @@ import { Box, Button, Divider, Drawer, Hidden, List, ListItem, ListItemIcon, Lis
 import ViewListIcon from '@material-ui/icons/ViewList';
 import { useTracks } from "../../api/TracksProvider";
 import NavigationYearList from "./NavigationYearList";
+import NavigationActivityList from "./NavigationActivityList";
 import TracksCounter from "../TracksCounter";
 
 const drawerWidth = 200;
@@ -36,15 +37,32 @@ function countYears(tracks) {
     return map;
 }
 
+function countActivities(tracks) {
+    if (!tracks || tracks.length === 0)
+        return null;
+
+    const map = new Map();
+
+    tracks.forEach((t) => {
+        const activity = t.activity_mode;
+        const count = map.get(activity);
+        map.set(activity, count === undefined ? 1 : count + 1);
+    });
+
+    return map;
+}
+
 export default function Navigation({ mobileNavigationOpen, handleMobileNavigationToggle }) {
     const classes = useStyles();
     const theme = useTheme();
     const navigate = useNavigate();
     const { tracks } = useTracks();
     const [countedYears, setCountedYears] = useState(null);
+    const [countedActivities, setCountedActivities] = useState(null);
 
     useEffect(() => {
         setCountedYears(countYears(tracks));
+        setCountedActivities(countActivities(tracks));
     }, [tracks]);
 
     const handleAllTracksClick = () => {
@@ -64,6 +82,7 @@ export default function Navigation({ mobileNavigationOpen, handleMobileNavigatio
             </List>
             <Divider />
             {countedYears && <NavigationYearList countedYears={countedYears} />}
+            {countedActivities && <NavigationActivityList countedActivities={countedActivities} />}
             <Box mt={2} mx="auto">
                 <Button variant="contained" color="primary">
                     Upload
