@@ -8,7 +8,7 @@ export default function NavigationYearList({ countedYears }) {
     const years = [...countedYears.keys()].sort((a, b) => b - a);
 
     const handleClick = (year) => {
-        navigate(`/tracks?y=${year}`);
+        navigate(`/tracks?year=${year}`);
     };
 
     return (

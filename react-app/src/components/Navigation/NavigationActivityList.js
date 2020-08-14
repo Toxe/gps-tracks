@@ -9,7 +9,7 @@ export default function NavigationActivityList({ countedActivities }) {
     const activities = [...countedActivities.keys()].sort();
 
     const handleClick = (activity) => {
-        navigate(`/tracks?a=${activity}`);
+        navigate(`/tracks?activity=${activity}`);
     };
 
     return (
