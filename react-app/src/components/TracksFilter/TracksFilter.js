@@ -40,13 +40,8 @@ export default function TracksFilter() {
         setActivityFilter(getSearchParam(searchParams, "a", ""));
     }, [searchParams, setYearFilter, setActivityFilter]);
 
-    const handleChangeActivityFilter = (e) => {
-        searchParams.set("a", e.target.value);
-        setSearchParams(searchParams);
-    };
-
-    const handleChangeYearFilter = (e) => {
-        searchParams.set("y", e.target.value);
+    const handleChangeFilter = (filter, event) => {
+        searchParams.set(filter, event.target.value);
         setSearchParams(searchParams);
     };
 
@@ -59,7 +54,7 @@ export default function TracksFilter() {
                     labelId="activity-filter-select-label"
                     id="activity-filter-select"
                     value={activityFilter === "all" || availableActivities.includes(activityFilter) ? activityFilter : ""}
-                    onChange={handleChangeActivityFilter}>
+                    onChange={(e) => handleChangeFilter("a", e)}>
                     <MenuItem value="all">All</MenuItem>
                     {availableActivities.includes(String(ActivityMode.BIKE)) && (
                         <MenuItem value={ActivityMode.BIKE}>
@@ -84,7 +79,7 @@ export default function TracksFilter() {
                     labelId="year-filter-select-label"
                     id="year-filter-select"
                     value={yearFilter === "all" || availableYears.includes(yearFilter) ? yearFilter : ""}
-                    onChange={handleChangeYearFilter}>
+                    onChange={(e) => handleChangeFilter("y", e)}>
                     <MenuItem value="all">All</MenuItem>
                     {availableYears.map((year) => (
                         <MenuItem key={year} value={year}>{year}</MenuItem>
