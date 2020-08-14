@@ -13,7 +13,7 @@ export default function NavigationYearList({ countedYears }) {
 
     return (
         <>
-            <List>
+            <List dense>
                 {years.map((y) => (
                     <ListItem key={y} button onClick={() => handleClick(y)}>
                         <ListItemIcon>
