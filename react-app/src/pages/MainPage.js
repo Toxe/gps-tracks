@@ -35,7 +35,7 @@ export default function MainPage() {
                         <Route path="tracks" element={<AllTracks />} />
                         <Route path="tracks/:trackId" element={<SingleTrack />} />
                     </Routes>
-                    <AuthInfo />
+                    {parseInt(process.env.REACT_APP_AUTH_INFO) && <AuthInfo />}
                 </Box>
             </TracksFilterProvider>
         </TracksProvider>
