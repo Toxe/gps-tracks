@@ -4,8 +4,8 @@ import { makeStyles } from "@material-ui/core/styles";
 import { Box, FormControl, InputLabel, ListItemIcon, MenuItem, Select } from "@material-ui/core";
 import DirectionsBikeIcon from "@material-ui/icons/DirectionsBike";
 import DirectionsWalkIcon from "@material-ui/icons/DirectionsWalk";
-import { ActivityMode } from "../utils/Enums";
-import { useTracksFilter } from "../components/TracksFilter/TracksFilterProvider";
+import { ActivityMode } from "../../utils/Enums";
+import { useTracksFilter } from "./TracksFilterProvider";
 
 const useStyles = makeStyles((theme) => ({
     filterForm: {

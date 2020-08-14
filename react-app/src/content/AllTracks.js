@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { Box, Typography } from "@material-ui/core";
 import Track from "./Track";
-import TracksFilter from "./TracksFilter";
+import TracksFilter from "../components/TracksFilter/TracksFilter";
 import TracksSort from "./TracksSort";
 import TracksCounter from "../components/TracksCounter";
 import { useTracks } from "../api/TracksProvider";
