@@ -4,6 +4,15 @@ import { useUser } from "../api/UserProvider";
 
 const TracksContext = React.createContext();
 
+export function useTracks() {
+    const context = useContext(TracksContext);
+
+    if (!context)
+        throw new Error("useTracks must be used within a TracksProvider");
+
+    return context;
+}
+
 export function TracksProvider(props) {
     const { user } = useUser();
     const [tracks, setTracks] = useState([]);
@@ -25,13 +34,4 @@ export function TracksProvider(props) {
     };
 
     return <TracksContext.Provider value={{ tracks, getTrack }}>{props.children}</TracksContext.Provider>;
-}
-
-export function useTracks() {
-    const context = useContext(TracksContext);
-
-    if (!context)
-        throw new Error("useTracks must be used within a TracksProvider");
-
-    return context;
 }

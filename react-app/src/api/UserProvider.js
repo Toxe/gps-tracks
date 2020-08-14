@@ -4,6 +4,15 @@ import { useAuth } from "../Auth/AuthProvider";
 
 const UserContext = React.createContext();
 
+export function useUser() {
+    const context = useContext(UserContext);
+
+    if (!context)
+        throw new Error("useUser must be used within a UserProvider");
+
+    return context;
+}
+
 export function UserProvider(props) {
     const { authId } = useAuth();
     const [user, setUser] = useState(null);
@@ -20,13 +29,4 @@ export function UserProvider(props) {
     }, [authId]);
 
     return <UserContext.Provider value={{ user }}>{props.children}</UserContext.Provider>;
-}
-
-export function useUser() {
-    const context = useContext(UserContext);
-
-    if (!context)
-        throw new Error("useUser must be used within a UserProvider");
-
-    return context;
 }

@@ -3,6 +3,15 @@ import { useTracks } from "../../api/TracksProvider";
 
 const TracksFilterContext = React.createContext();
 
+export function useTracksFilter() {
+    const context = useContext(TracksFilterContext);
+
+    if (!context)
+        throw new Error("useTracksFilter must be used within a TracksFilterProvider");
+
+    return context;
+}
+
 export function TracksFilterProvider(props) {
     const { tracks } = useTracks();
     const [activityFilter, setActivityFilter] = useState("");
@@ -48,15 +57,6 @@ export function TracksFilterProvider(props) {
             {props.children}
         </TracksFilterContext.Provider>
     );
-}
-
-export function useTracksFilter() {
-    const context = useContext(TracksFilterContext);
-
-    if (!context)
-        throw new Error("useTracksFilter must be used within a TracksFilterProvider");
-
-    return context;
 }
 
 function convertToStrings(list) {

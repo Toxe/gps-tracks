@@ -3,6 +3,15 @@ import { authLogin, authLogout, authRefresh, authInit } from "./API";
 
 const AuthContext = React.createContext();
 
+export function useAuth() {
+    const context = useContext(AuthContext);
+
+    if (!context)
+        throw new Error("useAuth must be used within an AuthProvider");
+
+    return context;
+}
+
 export function AuthProvider(props) {
     const [authId, setAuthId] = useState(null);
 
@@ -37,13 +46,4 @@ export function AuthProvider(props) {
             {props.children}
         </AuthContext.Provider>
     );
-}
-
-export function useAuth() {
-    const context = useContext(AuthContext);
-
-    if (!context)
-        throw new Error("useAuth must be used within an AuthProvider");
-
-    return context;
 }
