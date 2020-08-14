@@ -28,15 +28,25 @@ export default function TracksSort() {
         setSortOrder(getSearchParam(searchParams, "so", getDefaultSortOrder(sort)));
     }, [searchParams, setSortBy, setSortOrder, getDefaultSortOrder]);
 
-    const handleChangeSortBy = (e) => {
-        searchParams.set("s", e.target.value);
-        searchParams.set("so", getDefaultSortOrder(e.target.value));
+    const setOrRemoveDefaultSearchParam = (param, value, defaultValue) => {
+        if (value === defaultValue)
+            searchParams.delete(param);
+        else
+            searchParams.set(param, value);
+    }
+
+    const updateSortURLParams = (sort, order) => {
+        setOrRemoveDefaultSearchParam("s", sort, "date");
+        setOrRemoveDefaultSearchParam("so", order, getDefaultSortOrder(sort));
         setSearchParams(searchParams);
+    }
+
+    const handleChangeSortBy = (e) => {
+        updateSortURLParams(e.target.value, getDefaultSortOrder(e.target.value));
     };
 
     const handleChangeSortOrder = () => {
-        searchParams.set("so", sortOrder === "asc" ? "desc" : "asc");
-        setSearchParams(searchParams);
+        updateSortURLParams(sortBy, sortOrder === "asc" ? "desc" : "asc");
     };
 
     return (
