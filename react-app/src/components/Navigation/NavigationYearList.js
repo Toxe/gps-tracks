@@ -1,6 +1,6 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
-import { Divider, List, ListItem, ListItemIcon, ListItemText } from "@material-ui/core";
+import { Chip, Divider, List, ListItem, ListItemIcon, ListItemText } from "@material-ui/core";
 import FolderIcon from "@material-ui/icons/Folder";
 
 export default function NavigationYearList({ countedYears }) {
@@ -19,7 +19,8 @@ export default function NavigationYearList({ countedYears }) {
                         <ListItemIcon>
                             <FolderIcon />
                         </ListItemIcon>
-                        <ListItemText primary={`${y} (${countedYears.get(y)})`} />
+                        <ListItemText primary={y} />
+                        <Chip size="small" label={countedYears.get(y)} />
                     </ListItem>
                 ))}
             </List>
