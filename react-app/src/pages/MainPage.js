@@ -11,6 +11,7 @@ import AuthInfo from "../Auth/AuthInfo";
 import { TracksProvider } from "../api/TracksProvider";
 import { TracksFilterProvider } from "../components/TracksFilter/TracksFilterProvider";
 import { TracksSortProvider } from "../components/TracksSort/TracksSortProvider";
+import { TracksSearchProvider } from "../components/TracksSearch/TracksSearchProvider";
 
 const useStyles = makeStyles((theme) => ({
     toolbar: theme.mixins.toolbar,
@@ -27,19 +28,24 @@ export default function MainPage() {
     return (
         <TracksProvider>
             <TracksFilterProvider>
-                <TracksSortProvider>
-                    <Header handleMobileNavigationToggle={handleMobileNavigationToggle} />
-                    <Navigation mobileNavigationOpen={mobileNavigationOpen} handleMobileNavigationToggle={handleMobileNavigationToggle} />
-                    <Box flexGrow={1} p={3}>
-                        <div className={classes.toolbar} />
-                        <Routes>
-                            <Route path="/" element={<MainLanding />} />
-                            <Route path="tracks" element={<AllTracks />} />
-                            <Route path="tracks/:trackId" element={<SingleTrack />} />
-                        </Routes>
-                        {Boolean(parseInt(process.env.REACT_APP_AUTH_INFO)) && <AuthInfo />}
-                    </Box>
-                </TracksSortProvider>
+                <TracksSearchProvider>
+                    <TracksSortProvider>
+                        <Header handleMobileNavigationToggle={handleMobileNavigationToggle} />
+                        <Navigation
+                            mobileNavigationOpen={mobileNavigationOpen}
+                            handleMobileNavigationToggle={handleMobileNavigationToggle}
+                        />
+                        <Box flexGrow={1} p={3}>
+                            <div className={classes.toolbar} />
+                            <Routes>
+                                <Route path="/" element={<MainLanding />} />
+                                <Route path="tracks" element={<AllTracks />} />
+                                <Route path="tracks/:trackId" element={<SingleTrack />} />
+                            </Routes>
+                            {Boolean(parseInt(process.env.REACT_APP_AUTH_INFO)) && <AuthInfo />}
+                        </Box>
+                    </TracksSortProvider>
+                </TracksSearchProvider>
             </TracksFilterProvider>
         </TracksProvider>
     );
