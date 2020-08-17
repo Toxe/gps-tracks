@@ -1,3 +1,6 @@
 {
+    "filter_activity": "Activity",
+    "filter_all": "All",
+    "filter_year": "Year",
     "search_placeholder": "Search..."
 }

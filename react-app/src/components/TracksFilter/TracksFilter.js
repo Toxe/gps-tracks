@@ -1,4 +1,5 @@
 import React, { useEffect } from "react";
+import { useTranslation } from "react-i18next";
 import { useSearchParams } from "react-router-dom";
 import { makeStyles } from "@material-ui/core/styles";
 import { Box, FormControl, InputLabel, ListItemIcon, MenuItem, Select } from "@material-ui/core";
@@ -24,6 +25,7 @@ function getSearchParam(searchParams, name, altValue) {
 }
 
 export default function TracksFilter() {
+    const { t } = useTranslation();
     const classes = useStyles();
     const [searchParams, setSearchParams] = useSearchParams();
     const {
@@ -48,14 +50,14 @@ export default function TracksFilter() {
     return (
         <Box>
             <FormControl className={classes.filterForm}>
-                <InputLabel id="activity-filter-select-label">Activity</InputLabel>
+                <InputLabel id="activity-filter-select-label">{t("filter_activity")}</InputLabel>
                 <Select
                     className={classes.filterFormSelect}
                     labelId="activity-filter-select-label"
                     id="activity-filter-select"
                     value={activityFilter === "all" || availableActivities.includes(activityFilter) ? activityFilter : ""}
                     onChange={(e) => handleChangeFilter("activity", e)}>
-                    <MenuItem value="all">All</MenuItem>
+                    <MenuItem value="all">{t("filter_all")}</MenuItem>
                     {availableActivities.includes(String(ActivityMode.BIKE)) && (
                         <MenuItem value={ActivityMode.BIKE}>
                             <ListItemIcon>
@@ -73,14 +75,14 @@ export default function TracksFilter() {
                 </Select>
             </FormControl>
             <FormControl>
-                <InputLabel id="year-filter-select-label">Year</InputLabel>
+                <InputLabel id="year-filter-select-label">{t("filter_year")}</InputLabel>
                 <Select
                     className={classes.filterFormSelect}
                     labelId="year-filter-select-label"
                     id="year-filter-select"
                     value={yearFilter === "all" || availableYears.includes(yearFilter) ? yearFilter : ""}
                     onChange={(e) => handleChangeFilter("year", e)}>
-                    <MenuItem value="all">All</MenuItem>
+                    <MenuItem value="all">{t("filter_all")}</MenuItem>
                     {availableYears.map((year) => (
                         <MenuItem key={year} value={year}>{year}</MenuItem>
                     ))}
