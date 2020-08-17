@@ -1,6 +1,6 @@
 import React from "react";
-import { Link as RouterLink } from "react-router-dom";
 import { useTranslation } from "react-i18next";
+import { Link as RouterLink } from "react-router-dom";
 import { makeStyles, fade } from "@material-ui/core/styles";
 import {
     AppBar,
@@ -18,6 +18,7 @@ import MenuIcon from "@material-ui/icons/Menu";
 import SearchIcon from "@material-ui/icons/Search";
 import { useAuth } from "../../Auth/AuthProvider";
 import UserMenu from "./UserMenu";
+import LanguageSelection from "./LanguageSelection";
 
 const useStyles = makeStyles((theme) => ({
     appBar: {
@@ -70,6 +71,7 @@ export default function Header({ handleMobileNavigationToggle }) {
                     }}
                 />
                 <Box flexGrow={1} />
+                <LanguageSelection />
                 {authId && <UserMenu />}
                 <Link href="https://github.com/Toxe/gps-tracks" color="inherit" target="_blank" rel="noopener"><GitHubIcon /></Link>
             </Toolbar>
