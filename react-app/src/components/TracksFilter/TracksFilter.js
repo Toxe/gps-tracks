@@ -13,7 +13,7 @@ const useStyles = makeStyles((theme) => ({
         marginRight: theme.spacing(3),
     },
     filterFormSelect: {
-        minWidth: 80,
+        minWidth: 90,
         minHeight: 37,
     },
 }));
