@@ -6,7 +6,7 @@ import { AppBar, Box, Hidden, IconButton, Link, Toolbar, Tooltip, Typography } f
 import GitHubIcon from "@material-ui/icons/GitHub";
 import MenuIcon from "@material-ui/icons/Menu";
 import { useAuth } from "../../Auth/AuthProvider";
-import SearchField from "./SearchField";
+import SearchField from "../TracksSearch/SearchField";
 import UserMenu from "./UserMenu";
 import LanguageSelection from "./LanguageSelection";
 
