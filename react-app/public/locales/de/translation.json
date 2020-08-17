@@ -2,5 +2,9 @@
     "filter_activity": "Aktivität",
     "filter_all": "Alle",
     "filter_year": "Jahr",
+    "login_button": "Anmelden",
+    "login_label_email": "E-Mail Adresse",
+    "login_label_password": "Passwort",
+    "login_title": "Anmelden",
     "search_placeholder": "Suchen..."
 }

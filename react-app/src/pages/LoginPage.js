@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { useTranslation } from "react-i18next";
 import { makeStyles } from "@material-ui/core/styles";
 import Button from "@material-ui/core/Button";
 import TextField from "@material-ui/core/TextField";
@@ -25,6 +26,7 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 export default function LoginPage() {
+    const { t } = useTranslation();
     const classes = useStyles();
     const [credentials, setCredentials] = useState({ email: "user1@example.com", password: "password1" });
     const { login } = useAuth();
@@ -49,7 +51,7 @@ export default function LoginPage() {
             <Header />
             <Container maxWidth="xs" className={classes.container}>
                 <div className={classes.toolbar} />
-                <Typography variant="h4">Sign in</Typography>
+                <Typography variant="h4">{t("login_title")}</Typography>
                 <form className={classes.form} noValidate onSubmit={handleSubmit}>
                     <TextField
                         variant="outlined"
@@ -57,7 +59,7 @@ export default function LoginPage() {
                         required
                         fullWidth
                         id="email"
-                        label="Email Address"
+                        label={t("login_label_email")}
                         name="email"
                         autoComplete="email"
                         autoFocus
@@ -70,7 +72,7 @@ export default function LoginPage() {
                         required
                         fullWidth
                         name="password"
-                        label="Password"
+                        label={t("login_label_password")}
                         type="password"
                         id="password"
                         autoComplete="current-password"
@@ -78,7 +80,7 @@ export default function LoginPage() {
                         value={credentials.password}
                     />
                     <Button type="submit" fullWidth variant="contained" color="primary" className={classes.submit}>
-                        Sign In
+                        {t("login_button")}
                     </Button>
                     {requestError}
                 </form>

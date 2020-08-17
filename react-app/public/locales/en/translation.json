@@ -2,5 +2,9 @@
     "filter_activity": "Activity",
     "filter_all": "All",
     "filter_year": "Year",
+    "login_button": "Sign in",
+    "login_label_email": "Email Address",
+    "login_label_password": "Password",
+    "login_title": "Sign in",
     "search_placeholder": "Search..."
 }
