@@ -1,4 +1,5 @@
 import React, { useEffect } from "react";
+import { useTranslation } from "react-i18next";
 import { useSearchParams } from "react-router-dom";
 import { makeStyles } from "@material-ui/core/styles";
 import { Box, FormControl, InputLabel, MenuItem, Select, TableSortLabel } from "@material-ui/core";
@@ -18,6 +19,7 @@ function getSearchParam(searchParams, name, altValue) {
 }
 
 export default function TracksSort() {
+    const { t } = useTranslation();
     const classes = useStyles();
     const [searchParams, setSearchParams] = useSearchParams();
     const { sortBy, sortOrder, setSortBy, setSortOrder, getDefaultSortOrder } = useTracksSort();
@@ -52,16 +54,16 @@ export default function TracksSort() {
     return (
         <Box display="flex" alignItems="flex-end">
             <FormControl className={classes.sortForm}>
-                <InputLabel id="sort-by-select-label">Sort by</InputLabel>
+                <InputLabel id="sort-by-select-label">{t("sort_by")}</InputLabel>
                 <Select
                     labelId="sort-by-select-label"
                     id="sort-by-select"
                     value={sortBy}
                     autoWidth
                     onChange={handleChangeSortBy}>
-                    <MenuItem value="date">Date</MenuItem>
-                    <MenuItem value="name">Name</MenuItem>
-                    <MenuItem value="distance">Distance</MenuItem>
+                    <MenuItem value="date">{t("sort_by_date")}</MenuItem>
+                    <MenuItem value="name">{t("sort_by_name")}</MenuItem>
+                    <MenuItem value="distance">{t("sort_by_distance")}</MenuItem>
                 </Select>
             </FormControl>
             <TableSortLabel active direction={sortOrder} onClick={handleChangeSortOrder} />

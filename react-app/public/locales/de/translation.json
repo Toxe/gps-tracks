@@ -8,5 +8,9 @@
     "login_title": "Anmelden",
     "nav_upload_button": "Hochladen",
     "search_placeholder": "Suchen...",
+    "sort_by": "Sortieren nach",
+    "sort_by_date": "Datum",
+    "sort_by_distance": "Distanz",
+    "sort_by_name": "Name",
     "user_menu_logout": "Abmelden"
 }
