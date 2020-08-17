@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import { useTranslation } from "react-i18next";
 import { useNavigate } from "react-router-dom";
 import { makeStyles, useTheme } from "@material-ui/core/styles";
 import { Box, Button, Divider, Drawer, Hidden, List, ListItem, ListItemIcon, ListItemText } from "@material-ui/core";
@@ -53,6 +54,7 @@ function countActivities(tracks) {
 }
 
 export default function Navigation({ mobileNavigationOpen, handleMobileNavigationToggle }) {
+    const { t } = useTranslation();
     const classes = useStyles();
     const theme = useTheme();
     const navigate = useNavigate();
@@ -84,9 +86,7 @@ export default function Navigation({ mobileNavigationOpen, handleMobileNavigatio
             {countedYears && <NavigationYearList countedYears={countedYears} />}
             {countedActivities && <NavigationActivityList countedActivities={countedActivities} />}
             <Box mt={2} mx="auto">
-                <Button variant="contained" color="primary">
-                    Upload
-                </Button>
+                <Button variant="contained" color="primary">{t("nav_upload_button")}</Button>
             </Box>
         </>
     );

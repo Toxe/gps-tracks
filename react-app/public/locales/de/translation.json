@@ -6,6 +6,7 @@
     "login_label_email": "E-Mail Adresse",
     "login_label_password": "Passwort",
     "login_title": "Anmelden",
+    "nav_upload_button": "Hochladen",
     "search_placeholder": "Suchen...",
     "user_menu_logout": "Abmelden"
 }
