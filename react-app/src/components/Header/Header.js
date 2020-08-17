@@ -11,6 +11,7 @@ import {
     Link,
     TextField,
     Toolbar,
+    Tooltip,
     Typography,
 } from "@material-ui/core";
 import GitHubIcon from "@material-ui/icons/GitHub";
@@ -73,7 +74,11 @@ export default function Header({ handleMobileNavigationToggle }) {
                 <Box flexGrow={1} />
                 <LanguageSelection />
                 {authId && <UserMenu />}
-                <Link href="https://github.com/Toxe/gps-tracks" color="inherit" target="_blank" rel="noopener"><GitHubIcon /></Link>
+                <Link href="https://github.com/Toxe/gps-tracks" color="inherit" target="_blank" rel="noopener">
+                    <Tooltip title={t("github_tooltip")}>
+                        <GitHubIcon />
+                    </Tooltip>
+                </Link>
             </Toolbar>
         </AppBar>
     );

@@ -2,6 +2,7 @@
     "filter_activity": "Activity",
     "filter_all": "All",
     "filter_year": "Year",
+    "github_tooltip": "GitHub repository",
     "language_selection_tooltip": "Change language",
     "login_button": "Sign in",
     "login_label_email": "Email Address",
