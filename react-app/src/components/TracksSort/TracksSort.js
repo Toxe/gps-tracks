@@ -7,7 +7,7 @@ import { useTracksSort } from "./TracksSortProvider";
 
 const useStyles = makeStyles((theme) => ({
     sortForm: {
-        minWidth: 100,
+        minWidth: 110,
         marginRight: theme.spacing(1),
     },
 }));
