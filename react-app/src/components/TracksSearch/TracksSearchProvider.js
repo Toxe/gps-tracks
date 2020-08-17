@@ -18,7 +18,8 @@ export function TracksSearchProvider(props) {
         if (!tracks || tracks.length === 0)
             return [];
 
-            return tracks.filter((t) => t.title.toLowerCase().includes(searchText));
+        const searchFor = searchText.toLowerCase();
+        return tracks.filter((t) => t.title.toLowerCase().includes(searchFor));
     };
 
     return (
