@@ -1,5 +1,6 @@
 import React from "react";
 import { Link as RouterLink } from "react-router-dom";
+import { useTranslation } from "react-i18next";
 import { makeStyles, fade } from "@material-ui/core/styles";
 import {
     AppBar,
@@ -34,6 +35,7 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 export default function Header({ handleMobileNavigationToggle }) {
+    const { t } = useTranslation();
     const classes = useStyles();
     const { authId } = useAuth();
 
@@ -58,7 +60,7 @@ export default function Header({ handleMobileNavigationToggle }) {
                     variant="outlined"
                     size="small"
                     className={classes.searchField}
-                    placeholder="Search..."
+                    placeholder={t("search_placeholder")}
                     InputProps={{
                         startAdornment: (
                             <InputAdornment position="start">
