@@ -8,7 +8,7 @@ i18n.use(Backend)
     .use(initReactI18next)
     .init({
         keySeparator: false,
-        debug: true,
+        // debug: true,
         interpolation: {
             escapeValue: false,
         },
