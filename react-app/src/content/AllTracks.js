@@ -6,12 +6,14 @@ import TracksSort from "../components/TracksSort/TracksSort";
 import TracksCounter from "../components/TracksCounter";
 import { useTracksFilter } from "../components/TracksFilter/TracksFilterProvider";
 import { useTracksSort } from "../components/TracksSort/TracksSortProvider";
+import { useTracksSearch } from "../components/TracksSearch/TracksSearchProvider";
 
 export default function AllTracks() {
     const { filterTracks } = useTracksFilter();
     const { sortTracks } = useTracksSort();
+    const { searchTracks } = useTracksSearch();
 
-    const sortedTracks = sortTracks(filterTracks());
+    const sortedTracks = sortTracks(searchTracks(filterTracks()));
 
     return (
         <>

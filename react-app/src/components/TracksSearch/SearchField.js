@@ -1,8 +1,10 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { useTranslation } from "react-i18next";
+import { useSearchParams } from "react-router-dom";
 import { makeStyles, fade } from "@material-ui/core/styles";
 import { InputBase } from "@material-ui/core";
 import SearchIcon from "@material-ui/icons/Search";
+import { useTracksSearch } from "./TracksSearchProvider";
 
 const useStyles = makeStyles((theme) => ({
     search: {
@@ -44,9 +46,26 @@ const useStyles = makeStyles((theme) => ({
     },
 }));
 
+function getSearchParam(searchParams, name, altValue) {
+    const value = searchParams.get(name);
+
+    return value !== undefined && value !== null ? value : altValue;
+}
+
 export default function SearchField() {
     const { t } = useTranslation();
     const classes = useStyles();
+    const [searchParams, setSearchParams] = useSearchParams();
+    const { searchText, setSearchText } = useTracksSearch();
+
+    useEffect(() => {
+        setSearchText(getSearchParam(searchParams, "search", ""));
+    }, [searchParams, setSearchText]);
+
+    const handleChangeSearch = (e) => {
+        searchParams.set("search", e.target.value);
+        setSearchParams(searchParams);
+    };
 
     return (
         <div className={classes.search}>
@@ -59,6 +78,8 @@ export default function SearchField() {
                     root: classes.inputRoot,
                     input: classes.inputInput,
                 }}
+                value={searchText}
+                onChange={handleChangeSearch}
             />
         </div>
     );
