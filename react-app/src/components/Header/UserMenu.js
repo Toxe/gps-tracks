@@ -7,31 +7,31 @@ import { useAuth } from "../../Auth/AuthProvider";
 import { useUser } from "../../api/UserProvider";
 
 const useStyles = makeStyles((theme) => ({
-    userMenuButton: { marginRight: theme.spacing(2) },
+    menuButton: { marginRight: theme.spacing(2) },
 }));
 
 export default function UserMenu() {
     const classes = useStyles();
-    const [userMenuAnchorEl, setUserMenuAnchorEl] = useState(null);
+    const [menuAnchorEl, setMenuAnchorEl] = useState(null);
     const { logout } = useAuth();
     const { user } = useUser();
     const navigate = useNavigate();
 
-    const handleUserMenu = (e) => {
-        setUserMenuAnchorEl(e.currentTarget);
+    const handleMenu = (e) => {
+        setMenuAnchorEl(e.currentTarget);
     };
 
-    const handleUserMenuClose = () => {
-        setUserMenuAnchorEl(null);
+    const handleMenuClose = () => {
+        setMenuAnchorEl(null);
     };
 
-    const handleUserMenuTracksClick = () => {
-        handleUserMenuClose();
+    const handleMenuTracksClick = () => {
+        handleMenuClose();
         navigate("/");
     };
 
-    const handleUserMenuLogoutClick = async () => {
-        handleUserMenuClose();
+    const handleMenuLogoutClick = async () => {
+        handleMenuClose();
         await logout();
         navigate("/");
     };
@@ -42,7 +42,7 @@ export default function UserMenu() {
     return (
         <>
             <Hidden smUp implementation="css">
-                <IconButton color="inherit" onClick={handleUserMenu} className={classes.userMenuButton}>
+                <IconButton color="inherit" onClick={handleMenu} className={classes.menuButton}>
                     <AccountCircleIcon />
                 </IconButton>
             </Hidden>
@@ -50,19 +50,15 @@ export default function UserMenu() {
                 <Button
                     color="inherit"
                     size="large"
-                    className={classes.userMenuButton}
-                    onClick={handleUserMenu}
+                    className={classes.menuButton}
+                    onClick={handleMenu}
                     startIcon={<AccountCircleIcon />}>
                     {user.username}
                 </Button>
             </Hidden>
-            <Menu
-                anchorEl={userMenuAnchorEl}
-                keepMounted
-                open={Boolean(userMenuAnchorEl)}
-                onClose={handleUserMenuClose}>
-                <MenuItem onClick={handleUserMenuTracksClick}>GPS Tracks</MenuItem>
-                <MenuItem onClick={handleUserMenuLogoutClick}>Logout</MenuItem>
+            <Menu anchorEl={menuAnchorEl} keepMounted open={Boolean(menuAnchorEl)} onClose={handleMenuClose}>
+                <MenuItem onClick={handleMenuTracksClick}>GPS Tracks</MenuItem>
+                <MenuItem onClick={handleMenuLogoutClick}>Logout</MenuItem>
             </Menu>
         </>
     );
