@@ -10,7 +10,7 @@ const useStyles = makeStyles((theme) => ({
     userMenuButton: { marginRight: theme.spacing(2) },
 }));
 
-export default function HeaderUserMenu() {
+export default function UserMenu() {
     const classes = useStyles();
     const [userMenuAnchorEl, setUserMenuAnchorEl] = useState(null);
     const { logout } = useAuth();

@@ -17,7 +17,7 @@ import GitHubIcon from "@material-ui/icons/GitHub";
 import MenuIcon from "@material-ui/icons/Menu";
 import SearchIcon from "@material-ui/icons/Search";
 import { useAuth } from "../../Auth/AuthProvider";
-import HeaderUserMenu from "./HeaderUserMenu";
+import UserMenu from "./UserMenu";
 
 const useStyles = makeStyles((theme) => ({
     appBar: {
@@ -70,7 +70,7 @@ export default function Header({ handleMobileNavigationToggle }) {
                     }}
                 />
                 <Box flexGrow={1} />
-                {authId && <HeaderUserMenu />}
+                {authId && <UserMenu />}
                 <Link href="https://github.com/Toxe/gps-tracks" color="inherit" target="_blank" rel="noopener"><GitHubIcon /></Link>
             </Toolbar>
         </AppBar>
