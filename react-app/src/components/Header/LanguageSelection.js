@@ -1,11 +1,11 @@
 import React, { useState } from "react";
 import { useTranslation } from "react-i18next";
-import { Button, Hidden, IconButton, Menu, MenuItem } from "@material-ui/core";
+import { Button, Hidden, IconButton, Menu, MenuItem, Tooltip } from "@material-ui/core";
 import TranslateIcon from "@material-ui/icons/Translate";
 import ExpandMoreIcon from "@material-ui/icons/ExpandMore";
 
 export default function LanguageSelection() {
-    const { i18n } = useTranslation();
+    const { t, i18n } = useTranslation();
     const [menuAnchorEl, setMenuAnchorEl] = useState(null);
     const languageName = i18n.language === "en" ? "English" : "Deutsch";
 
@@ -25,16 +25,20 @@ export default function LanguageSelection() {
     return (
         <>
             <Hidden smUp implementation="css">
-                <IconButton color="inherit" onClick={handleMenu}>
-                    <TranslateIcon />
-                    <ExpandMoreIcon />
-                </IconButton>
+                <Tooltip title={t("language_selection_tooltip")}>
+                    <IconButton color="inherit" onClick={handleMenu}>
+                        <TranslateIcon />
+                        <ExpandMoreIcon />
+                    </IconButton>
+                </Tooltip>
             </Hidden>
             <Hidden xsDown implementation="css">
-                <Button color="inherit" size="large" onClick={handleMenu} startIcon={<TranslateIcon />}>
-                    {languageName}
-                    <ExpandMoreIcon />
-                </Button>
+                <Tooltip title={t("language_selection_tooltip")}>
+                    <Button color="inherit" size="large" onClick={handleMenu} startIcon={<TranslateIcon />}>
+                        {languageName}
+                        <ExpandMoreIcon />
+                    </Button>
+                </Tooltip>
             </Hidden>
             <Menu anchorEl={menuAnchorEl} keepMounted open={Boolean(menuAnchorEl)} onClose={handleMenuClose}>
                 <MenuItem onClick={() => handleChangeLanguage("en")}>English</MenuItem>

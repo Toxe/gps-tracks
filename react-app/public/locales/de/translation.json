@@ -2,6 +2,7 @@
     "filter_activity": "Aktivität",
     "filter_all": "Alle",
     "filter_year": "Jahr",
+    "language_selection_tooltip": "Sprache wechseln",
     "login_button": "Anmelden",
     "login_label_email": "E-Mail Adresse",
     "login_label_password": "Passwort",
