@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { useTranslation } from "react-i18next";
 import { useNavigate } from "react-router-dom";
 import { makeStyles } from "@material-ui/core/styles";
 import { Button, Hidden, IconButton, Menu, MenuItem } from "@material-ui/core";
@@ -11,6 +12,7 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 export default function UserMenu() {
+    const { t } = useTranslation();
     const classes = useStyles();
     const [menuAnchorEl, setMenuAnchorEl] = useState(null);
     const { logout } = useAuth();
@@ -58,7 +60,7 @@ export default function UserMenu() {
             </Hidden>
             <Menu anchorEl={menuAnchorEl} keepMounted open={Boolean(menuAnchorEl)} onClose={handleMenuClose}>
                 <MenuItem onClick={handleMenuTracksClick}>GPS Tracks</MenuItem>
-                <MenuItem onClick={handleMenuLogoutClick}>Logout</MenuItem>
+                <MenuItem onClick={handleMenuLogoutClick}>{t("user_menu_logout")}</MenuItem>
             </Menu>
         </>
     );

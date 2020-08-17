@@ -6,5 +6,6 @@
     "login_label_email": "Email Address",
     "login_label_password": "Password",
     "login_title": "Sign in",
-    "search_placeholder": "Search..."
+    "search_placeholder": "Search...",
+    "user_menu_logout": "Logout"
 }
