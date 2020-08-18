@@ -6,7 +6,6 @@ import { AppBar, Box, Hidden, IconButton, Link, Toolbar, Tooltip, Typography } f
 import GitHubIcon from "@material-ui/icons/GitHub";
 import MenuIcon from "@material-ui/icons/Menu";
 import { useAuth } from "../../Auth/AuthProvider";
-import SearchField from "../TracksSearch/SearchField";
 import UserMenu from "./UserMenu";
 import LanguageSelection from "./LanguageSelection";
 
@@ -38,7 +37,6 @@ export default function Header({ handleMobileNavigationToggle }) {
                 <Typography variant="h6" noWrap>
                     <Link component={RouterLink} to="/" color="inherit" underline="none">GPS Tracks</Link>
                 </Typography>
-                <SearchField />
                 <Box flexGrow={1} />
                 <LanguageSelection />
                 {authId && <UserMenu />}
