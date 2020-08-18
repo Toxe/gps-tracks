@@ -4,7 +4,7 @@ import { useSearchParams } from "react-router-dom";
 import { makeStyles } from "@material-ui/core/styles";
 import { Box, FormControl, InputLabel, MenuItem, Select, TableSortLabel } from "@material-ui/core";
 import { useTracksSort } from "./TracksSortProvider";
-import { getSearchParam } from "../../utils/URLParams";
+import { getSearchParam, setOrRemoveDefaultSearchParam } from "../../utils/URLParams";
 
 const useStyles = makeStyles((theme) => ({
     sortForm: {
@@ -25,16 +25,9 @@ export default function TracksSort() {
         setSortOrder(getSearchParam(searchParams, "order", getDefaultSortOrder(sort)));
     }, [searchParams, setSortBy, setSortOrder, getDefaultSortOrder]);
 
-    const setOrRemoveDefaultSearchParam = (param, value, defaultValue) => {
-        if (value === defaultValue)
-            searchParams.delete(param);
-        else
-            searchParams.set(param, value);
-    }
-
     const updateSortURLParams = (sort, order) => {
-        setOrRemoveDefaultSearchParam("sort", sort, "date");
-        setOrRemoveDefaultSearchParam("order", order, getDefaultSortOrder(sort));
+        setOrRemoveDefaultSearchParam(searchParams, "sort", sort, "date");
+        setOrRemoveDefaultSearchParam(searchParams, "order", order, getDefaultSortOrder(sort));
         setSearchParams(searchParams);
     }
 
