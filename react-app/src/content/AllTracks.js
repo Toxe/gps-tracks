@@ -4,7 +4,7 @@ import Track from "./Track";
 import TracksFilter from "../components/TracksFilter/TracksFilter";
 import TracksSort from "../components/TracksSort/TracksSort";
 import TracksCounter from "../components/TracksCounter";
-import SearchField from "../components/TracksSearch/SearchField";
+import TracksSearch from "../components/TracksSearch/TracksSearch";
 import { useTracksFilter } from "../components/TracksFilter/TracksFilterProvider";
 import { useTracksSort } from "../components/TracksSort/TracksSortProvider";
 import { useTracksSearch } from "../components/TracksSearch/TracksSearchProvider";
@@ -23,7 +23,7 @@ export default function AllTracks() {
             </Typography>
             <Box display="flex" alignItems="flex-end">
                 <TracksFilter />
-                <SearchField />
+                <TracksSearch />
                 <Box flexGrow={1} />
                 <TracksSort />
             </Box>

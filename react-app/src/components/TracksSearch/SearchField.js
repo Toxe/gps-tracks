@@ -1,10 +1,8 @@
 import React, { useState, useEffect, useCallback } from "react";
 import { useTranslation } from "react-i18next";
-import { useSearchParams } from "react-router-dom";
 import { makeStyles } from "@material-ui/core/styles";
 import { InputAdornment, TextField } from "@material-ui/core";
 import SearchIcon from "@material-ui/icons/Search";
-import { useTracksSearch } from "./TracksSearchProvider";
 import debounce from "lodash/debounce";
 
 const useStyles = makeStyles((theme) => ({
@@ -13,39 +11,22 @@ const useStyles = makeStyles((theme) => ({
     },
 }));
 
-function getSearchParam(searchParams, name, altValue) {
-    const value = searchParams.get(name);
-
-    return value !== undefined && value !== null ? value : altValue;
-}
-
-export default function SearchField() {
+export default function SearchField({ initialSearchText, updateSearch }) {
     const { t } = useTranslation();
     const classes = useStyles();
-    const [searchParams, setSearchParams] = useSearchParams();
-    const { searchText, setSearchText } = useTracksSearch();
-    const [searchFieldContent, setSearchFieldContent] = useState("");
+    const [searchFieldContent, setSearchFieldContent] = useState(initialSearchText);
 
     // update URL search param after a short delay once the user stopped typing
     const debouncedUpdateSearch = useCallback(
-        debounce((text) => {
-            searchParams.set("search", text);
-            setSearchParams(searchParams);
-        }, 300),
-        [searchParams, setSearchParams]
+        debounce((text) => updateSearch(text), 300),
+        [updateSearch]
     );
 
-    // initialize searchText from URL param
     useEffect(() => {
-        setSearchText(getSearchParam(searchParams, "search", ""));
-    }, [searchParams, setSearchText]);
+        setSearchFieldContent(initialSearchText);
+    }, [initialSearchText]);
 
-    // initialize textfield content from searchText
-    useEffect(() => {
-        setSearchFieldContent(searchText);
-    }, [searchText]);
-
-    const handleChangeSearch = (e) => {
+    const handleChange = (e) => {
         setSearchFieldContent(e.target.value);
         debouncedUpdateSearch(e.target.value);
     };
@@ -64,7 +45,7 @@ export default function SearchField() {
                 ),
             }}
             value={searchFieldContent}
-            onChange={handleChangeSearch}
+            onChange={handleChange}
         />
     );
 }
