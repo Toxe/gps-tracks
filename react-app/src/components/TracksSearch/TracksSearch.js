@@ -2,7 +2,7 @@ import React, { useEffect } from "react";
 import { useSearchParams } from "react-router-dom";
 import { useTracksSearch } from "./TracksSearchProvider";
 import SearchField from "./SearchField";
-import { getSearchParam } from "../../utils/URLParams";
+import { getSearchParam, setOrRemoveDefaultSearchParam } from "../../utils/URLParams";
 
 export default function TracksSearch() {
     const [searchParams, setSearchParams] = useSearchParams();
@@ -13,7 +13,7 @@ export default function TracksSearch() {
     }, [searchParams, setSearchText]);
 
     const updateSearch = (text) => {
-        searchParams.set("search", text);
+        setOrRemoveDefaultSearchParam(searchParams, "search", text, "");
         setSearchParams(searchParams);
     };
 
