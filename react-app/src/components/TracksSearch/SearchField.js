@@ -32,7 +32,7 @@ export default function SearchField() {
             searchParams.set("search", text);
             setSearchParams(searchParams);
         }, 300),
-        []
+        [searchParams, setSearchParams]
     );
 
     // initialize searchText from URL param
