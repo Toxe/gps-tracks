@@ -5,7 +5,7 @@ import { InputAdornment, TextField } from "@material-ui/core";
 import SearchIcon from "@material-ui/icons/Search";
 import debounce from "lodash/debounce";
 
-const useStyles = makeStyles((theme) => ({
+const useStyles = makeStyles(() => ({
     searchField: {
         marginLeft: 50,
     },

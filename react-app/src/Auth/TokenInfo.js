@@ -4,7 +4,7 @@ import { Typography } from "@material-ui/core";
 import { formatDistanceToNowStrict } from "date-fns";
 import jwt from "jsonwebtoken";
 
-const useStyles = makeStyles((theme) => ({
+const useStyles = makeStyles(() => ({
     expired: {
         color: "red",
         fontWeight: "bold",
