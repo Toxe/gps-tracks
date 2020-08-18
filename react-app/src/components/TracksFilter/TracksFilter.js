@@ -7,6 +7,7 @@ import DirectionsBikeIcon from "@material-ui/icons/DirectionsBike";
 import DirectionsWalkIcon from "@material-ui/icons/DirectionsWalk";
 import { ActivityMode } from "../../utils/Enums";
 import { useTracksFilter } from "./TracksFilterProvider";
+import { getSearchParam } from "../../utils/URLParams";
 
 const useStyles = makeStyles((theme) => ({
     filterForm: {
@@ -17,12 +18,6 @@ const useStyles = makeStyles((theme) => ({
         minHeight: 37,
     },
 }));
-
-function getSearchParam(searchParams, name, altValue) {
-    const value = searchParams.get(name);
-
-    return value !== undefined && value !== null ? value : altValue;
-}
 
 export default function TracksFilter() {
     const { t } = useTranslation();

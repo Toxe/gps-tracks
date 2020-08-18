@@ -4,6 +4,7 @@ import { useSearchParams } from "react-router-dom";
 import { makeStyles } from "@material-ui/core/styles";
 import { Box, FormControl, InputLabel, MenuItem, Select, TableSortLabel } from "@material-ui/core";
 import { useTracksSort } from "./TracksSortProvider";
+import { getSearchParam } from "../../utils/URLParams";
 
 const useStyles = makeStyles((theme) => ({
     sortForm: {
@@ -11,12 +12,6 @@ const useStyles = makeStyles((theme) => ({
         marginRight: theme.spacing(1),
     },
 }));
-
-function getSearchParam(searchParams, name, altValue) {
-    const value = searchParams.get(name);
-
-    return value !== undefined && value !== null ? value : altValue;
-}
 
 export default function TracksSort() {
     const { t } = useTranslation();
