@@ -3,33 +3,40 @@
 ## Dependencies
 
 - Python REST API:
-  - Python 3.7+
+  - Click
   - Flask
   - Flask-JWT-Extended
-  - Flask-SQLAlchemy
   - Flask-Migrate
   - flask-shell-ipython
+  - Flask-SQLAlchemy
+  - gpxpy
+  - IPython
   - Marshmallow
-  - SQLAlchemy
-  - SQLite
-  - python-dotenv
-  - pytest
   - pylint
   - pylint-flask
   - pylint-flask-sqlalchemy
-  - Click
-  - Wheel
-  - IPython
+  - pytest
+  - Python 3.7+
+  - python-dotenv
   - Requests
-  - gpxpy
+  - SQLAlchemy
+  - SQLite
+  - Wheel
 - React App:
+  - Axios
+  - Babel CLI
+  - babel-plugin-i18next-extract
+  - date-fns
+  - history
+  - i18next
+  - i18next-browser-languagedetector
+  - i18next-http-backend
+  - jsonwebtoken
+  - lodash
+  - Material UI
   - React
   - React Router 6
-  - Axios
-  - jsonwebtoken
-  - history
-  - date-fns
-  - Material UI
+  - react-i18next
   - Roboto font
 
 ## Setup local development version
