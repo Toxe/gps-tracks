@@ -2,7 +2,7 @@ import React from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import { Box, Grid, Paper } from "@material-ui/core";
 import ActivityIcon from "./ActivityIcon";
-import Date from "./Date";
+import FormattedDate from "./FormattedDate";
 import Distance from "./Distance";
 import Duration from "./Duration";
 import Speed from "./Speed";
@@ -38,7 +38,7 @@ export default function Track({ track }) {
                         <Grid item className={classes.wideGap}><Duration duration={track.moving_time} /></Grid>
                         <Grid item className={classes.wideGap}><Speed speed={track.avg_speed} /></Grid>
                     </Grid>
-                    <Date time={track.time_start} />
+                    <FormattedDate time={track.time_start} />
                 </Box>
             </Box>
         </Paper>
