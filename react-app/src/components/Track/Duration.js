@@ -6,6 +6,7 @@ import TimerIcon from "@material-ui/icons/Timer";
 const useStyles = makeStyles((theme) => ({
     icon: {
         marginRight: theme.spacing(0.5),
+        fontSize: theme.typography.body1.fontSize,
     },
 }));
 
@@ -14,11 +15,9 @@ export default function Duration({ duration }) {
     const h = new Date(duration * 1000.0).toISOString().substr(11, 5);
 
     return (
-        <Typography variant="body1">
-            <Box display="flex" alignItems="center">
-                <TimerIcon fontSize="inherit" className={classes.icon} />
-                {h}
-            </Box>
-        </Typography>
+        <Box display="flex" alignItems="center">
+            <TimerIcon className={classes.icon} />
+            <Typography variant="body1">{h}</Typography>
+        </Box>
     );
 }
