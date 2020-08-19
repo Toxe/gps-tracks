@@ -17,7 +17,7 @@ const useStyles = makeStyles((theme) => ({
     },
 }));
 
-export default function ExampleTrack({ track }) {
+export default function Track({ track }) {
     const classes = useStyles();
 
     return (
