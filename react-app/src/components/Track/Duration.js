@@ -5,7 +5,7 @@ import TimerIcon from "@material-ui/icons/Timer";
 
 const useStyles = makeStyles((theme) => ({
     icon: {
-        marginRight: 4,
+        marginRight: theme.spacing(0.5),
     },
 }));
 
