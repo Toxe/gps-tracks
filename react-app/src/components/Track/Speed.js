@@ -1,6 +1,7 @@
 import React from "react";
+import { useTranslation } from "react-i18next";
 import { makeStyles } from "@material-ui/core/styles";
-import { Box, Typography } from "@material-ui/core";
+import { Box, Typography, Tooltip } from "@material-ui/core";
 import SpeedIcon from "@material-ui/icons/Speed";
 
 const useStyles = makeStyles((theme) => ({
@@ -11,13 +12,16 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 export default function Speed({ speed }) {
+    const { t } = useTranslation();
     const classes = useStyles();
     const kph = Number.parseFloat(speed);
 
     return (
-        <Box display="flex" alignItems="center">
-            <SpeedIcon className={classes.icon} />
-            <Typography variant="body1">{kph.toFixed(2)} km/h</Typography>
-        </Box>
+        <Tooltip arrow title={t("track_speed")}>
+            <Box display="flex" alignItems="center">
+                <SpeedIcon className={classes.icon} />
+                <Typography variant="body1">{kph.toFixed(2)} km/h</Typography>
+            </Box>
+        </Tooltip>
     );
 }

@@ -14,5 +14,10 @@
     "sort_by_date": "Datum",
     "sort_by_distance": "Distanz",
     "sort_by_name": "Name",
+    "track_activity_bike": "Fahrrad",
+    "track_activity_hiking": "Wandern",
+    "track_distance": "Distanz",
+    "track_duration": "Fahrzeit",
+    "track_speed": "Durchschnittsgeschwindigkeit",
     "user_menu_logout": "Abmelden"
 }

@@ -1,13 +1,20 @@
 import React from "react";
+import { useTranslation } from "react-i18next";
 import { ActivityMode } from "../../utils/Enums";
+import { Tooltip } from "@material-ui/core";
 import DirectionsBikeIcon from "@material-ui/icons/DirectionsBike";
 import DirectionsWalkIcon from "@material-ui/icons/DirectionsWalk";
 
 export default function ActivityIcon({ activity }) {
-    return (
-        <>
-            {activity === ActivityMode.BIKE && <DirectionsBikeIcon fontSize="small" />}
-            {activity === ActivityMode.HIKING && <DirectionsWalkIcon fontSize="small" />}
-        </>
+    const { t } = useTranslation();
+
+    return activity === ActivityMode.BIKE ? (
+        <Tooltip arrow title={t("track_activity_bike")}>
+            <DirectionsBikeIcon fontSize="small" />
+        </Tooltip>
+    ) : (
+        <Tooltip arrow title={t("track_activity_hiking")}>
+            <DirectionsWalkIcon fontSize="small" />
+        </Tooltip>
     );
 }

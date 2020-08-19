@@ -14,5 +14,10 @@
     "sort_by_date": "Date",
     "sort_by_distance": "Distance",
     "sort_by_name": "Name",
+    "track_activity_bike": "Bike",
+    "track_activity_hiking": "Hiking",
+    "track_distance": "Distance",
+    "track_duration": "Time in Motion",
+    "track_speed": "Average Speed",
     "user_menu_logout": "Logout"
 }
