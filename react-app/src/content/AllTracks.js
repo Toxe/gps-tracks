@@ -1,6 +1,6 @@
 import React from "react";
 import { Box, Typography } from "@material-ui/core";
-import Track from "./Track";
+import Track from "../components/Track/Track";
 import TracksFilter from "../components/TracksFilter/TracksFilter";
 import TracksSort from "../components/TracksSort/TracksSort";
 import TracksCounter from "../components/TracksCounter";

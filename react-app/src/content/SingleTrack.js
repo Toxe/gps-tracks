@@ -1,6 +1,6 @@
 import React from "react";
 import { useParams } from "react-router-dom";
-import Track from "./Track";
+import Track from "../components/Track/Track";
 import { useTracks } from "../api/TracksProvider";
 
 export default function SingleTrack() {

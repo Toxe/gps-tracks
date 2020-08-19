@@ -4,7 +4,7 @@ import { makeStyles } from "@material-ui/core/styles";
 import { Box, Grid, Link, Paper, Typography } from "@material-ui/core";
 import DirectionsBikeIcon from "@material-ui/icons/DirectionsBike";
 import DirectionsWalkIcon from "@material-ui/icons/DirectionsWalk";
-import { ActivityMode } from "../utils/Enums";
+import { ActivityMode } from "../../utils/Enums";
 
 const useStyles = makeStyles((theme) => ({
     track: {
