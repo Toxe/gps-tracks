@@ -13,6 +13,12 @@ const useStyles = makeStyles((theme) => ({
     track: {
         marginBottom: theme.spacing(2),
     },
+    smallGap: {
+        marginLeft: theme.spacing(1),
+    },
+    wideGap: {
+        marginLeft: theme.spacing(4),
+    },
 }));
 
 export default function Track({ track }) {
@@ -26,11 +32,11 @@ export default function Track({ track }) {
                 </Box>
                 <Box flexGrow={1} m={1}>
                     <Title id={track.id} title={track.title}/>
-                    <Grid container spacing={3}>
+                    <Grid container>
                         <Grid item><ActivityIcon activity={track.activity_mode} /></Grid>
-                        <Grid item><Distance distance={track.length3d} /></Grid>
-                        <Grid item><Duration duration={track.moving_time} /></Grid>
-                        <Grid item><Speed speed={track.avg_speed} /></Grid>
+                        <Grid item className={classes.smallGap}><Distance distance={track.length3d} /></Grid>
+                        <Grid item className={classes.wideGap}><Duration duration={track.moving_time} /></Grid>
+                        <Grid item className={classes.wideGap}><Speed speed={track.avg_speed} /></Grid>
                     </Grid>
                     <Date time={track.time_start} />
                 </Box>
