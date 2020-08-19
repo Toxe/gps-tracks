@@ -1,19 +1,17 @@
 import React from "react";
-import { Link as RouterLink } from "react-router-dom";
 import { makeStyles } from "@material-ui/core/styles";
-import { Box, Grid, Link, Paper, Typography } from "@material-ui/core";
-import DirectionsBikeIcon from "@material-ui/icons/DirectionsBike";
-import DirectionsWalkIcon from "@material-ui/icons/DirectionsWalk";
-import { ActivityMode } from "../../utils/Enums";
+import { Box, Grid, Paper } from "@material-ui/core";
+import ActivityIcon from "./ActivityIcon";
+import Date from "./Date";
+import Distance from "./Distance";
+import Duration from "./Duration";
+import Speed from "./Speed";
+import Thumbnail from "./Thumbnail";
+import Title from "./Title";
 
 const useStyles = makeStyles((theme) => ({
     track: {
         marginBottom: theme.spacing(2),
-    },
-    trackThumbnail: {
-        width: 128,
-        height: 128,
-        backgroundColor: "lightgrey",
     },
 }));
 
@@ -24,32 +22,17 @@ export default function Track({ track }) {
         <Paper square className={classes.track}>
             <Box display="flex">
                 <Box>
-                    <div className={classes.trackThumbnail} />
+                    <Thumbnail />
                 </Box>
                 <Box flexGrow={1} m={1}>
-                    <Typography variant="h6">
-                        <Link component={RouterLink} to={`/tracks/${track.id}`} color="inherit" underline="none">
-                            {track.title}
-                        </Link>
-                    </Typography>
+                    <Title id={track.id} title={track.title}/>
                     <Grid container spacing={3}>
-                        <Grid item>
-                            {track.activity_mode === ActivityMode.BIKE && <DirectionsBikeIcon fontSize="small" />}
-                            {track.activity_mode === ActivityMode.HIKING && <DirectionsWalkIcon fontSize="small" />}
-                        </Grid>
-                        <Grid item>
-                            <Typography variant="body1">{track.length3d} m</Typography>
-                        </Grid>
-                        <Grid item>
-                            <Typography variant="body1">{track.moving_time} sec</Typography>
-                        </Grid>
-                        <Grid item>
-                            <Typography variant="body1">{track.avg_speed} km/h</Typography>
-                        </Grid>
+                        <Grid item><ActivityIcon activity={track.activity_mode} /></Grid>
+                        <Grid item><Distance distance={track.length3d} /></Grid>
+                        <Grid item><Duration duration={track.moving_time} /></Grid>
+                        <Grid item><Speed speed={track.avg_speed} /></Grid>
                     </Grid>
-                    <Typography variant="body2" color="textSecondary">
-                        {track.time_start}
-                    </Typography>
+                    <Date time={track.time_start} />
                 </Box>
             </Box>
         </Paper>
