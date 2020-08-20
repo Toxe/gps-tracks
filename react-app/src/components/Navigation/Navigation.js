@@ -8,6 +8,7 @@ import { useTracks } from "../../api/TracksProvider";
 import NavigationYearList from "./NavigationYearList";
 import NavigationActivityList from "./NavigationActivityList";
 import TracksCounter from "../TracksCounter";
+import { countActivities, countYears } from "../../utils/TracksStats";
 
 const drawerWidth = 200;
 
@@ -21,37 +22,6 @@ const useStyles = makeStyles((theme) => ({
         },
     },
 }));
-
-function countYears(tracks) {
-    if (!tracks || tracks.length === 0)
-        return null;
-
-    const map = new Map();
-
-    tracks.forEach((t) => {
-        const date = new Date(t.time_start);
-        const year = date.getFullYear();
-        const count = map.get(year);
-        map.set(year, count === undefined ? 1 : count + 1);
-    });
-
-    return map;
-}
-
-function countActivities(tracks) {
-    if (!tracks || tracks.length === 0)
-        return null;
-
-    const map = new Map();
-
-    tracks.forEach((t) => {
-        const activity = t.activity_mode;
-        const count = map.get(activity);
-        map.set(activity, count === undefined ? 1 : count + 1);
-    });
-
-    return map;
-}
 
 export default function Navigation({ mobileNavigationOpen, handleMobileNavigationToggle }) {
     const { t } = useTranslation();
