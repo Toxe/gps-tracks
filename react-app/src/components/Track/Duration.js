@@ -12,6 +12,9 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 export default function Duration({ duration }) {
+    if (duration < 0.0)
+        duration = 0.0;
+
     const { t } = useTranslation();
     const classes = useStyles();
     const hours = Math.floor(duration / 3600.0).toString().padStart(2, "0");

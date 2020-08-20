@@ -3,6 +3,11 @@ import { render } from "@testing-library/react";
 import "@testing-library/jest-dom/extend-expect";
 import Duration from "../Duration";
 
+it("shows negative durations as 00:00", () => {
+    const { getByText } = render(<Duration duration={-1234.0} />);
+    getByText("00:00");
+});
+
 it("works with 0 seconds", () => {
     const { getByText } = render(<Duration duration={0.0} />);
     getByText("00:00");
