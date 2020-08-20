@@ -27,9 +27,7 @@ export default function Track({ track }) {
     return (
         <Paper square className={classes.track}>
             <Box display="flex">
-                <Box>
-                    <Thumbnail />
-                </Box>
+                <Thumbnail />
                 <Box flexGrow={1} m={1}>
                     <Title id={track.id} title={track.title}/>
                     <Grid container>
