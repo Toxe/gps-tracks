@@ -1,21 +1,15 @@
 import React from "react";
-import { useNavigate } from "react-router-dom";
 import { Chip, Divider, List, ListItem, ListItemIcon, ListItemText } from "@material-ui/core";
 import FolderIcon from "@material-ui/icons/Folder";
 
-export default function NavigationYearList({ countedYears }) {
-    const navigate = useNavigate();
+export default function NavigationYearList({ countedYears, handleNavigationClick }) {
     const years = [...countedYears.keys()].sort((a, b) => b - a);
-
-    const handleClick = (year) => {
-        navigate(`/tracks?year=${year}`);
-    };
 
     return (
         <>
             <List dense>
                 {years.map((y) => (
-                    <ListItem key={y} button onClick={() => handleClick(y)}>
+                    <ListItem key={y} button onClick={() => handleNavigationClick(`/tracks?year=${y}`)}>
                         <ListItemIcon>
                             <FolderIcon />
                         </ListItemIcon>

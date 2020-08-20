@@ -67,15 +67,18 @@ export default function Navigation({ mobileNavigationOpen, handleMobileNavigatio
         setCountedActivities(countActivities(tracks));
     }, [tracks]);
 
-    const handleAllTracksClick = () => {
-        navigate("/tracks");
+    const handleNavigationClick = (redirectURL) => {
+        if (mobileNavigationOpen)
+            handleMobileNavigationToggle();
+
+        navigate(redirectURL);
     };
 
     const drawer = (
         <>
             <div className={classes.toolbar} />
             <List>
-                <ListItem button onClick={handleAllTracksClick}>
+                <ListItem button onClick={() => handleNavigationClick("/tracks")}>
                     <ListItemIcon>
                         <ViewListIcon />
                     </ListItemIcon>
@@ -83,8 +86,8 @@ export default function Navigation({ mobileNavigationOpen, handleMobileNavigatio
                 </ListItem>
             </List>
             <Divider />
-            {countedYears && <NavigationYearList countedYears={countedYears} />}
-            {countedActivities && <NavigationActivityList countedActivities={countedActivities} />}
+            {countedYears && <NavigationYearList countedYears={countedYears} handleNavigationClick={handleNavigationClick} />}
+            {countedActivities && <NavigationActivityList countedActivities={countedActivities} handleNavigationClick={handleNavigationClick} />}
             <Box mt={2} mx="auto">
                 <Button variant="contained" color="primary">{t("nav_upload_button")}</Button>
             </Box>

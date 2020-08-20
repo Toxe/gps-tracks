@@ -1,22 +1,16 @@
 import React from "react";
-import { useNavigate } from "react-router-dom";
 import { Chip, Divider, List, ListItem, ListItemIcon } from "@material-ui/core";
 import DirectionsBikeIcon from "@material-ui/icons/DirectionsBike";
 import DirectionsWalkIcon from "@material-ui/icons/DirectionsWalk";
 
-export default function NavigationActivityList({ countedActivities }) {
-    const navigate = useNavigate();
+export default function NavigationActivityList({ countedActivities, handleNavigationClick }) {
     const activities = [...countedActivities.keys()].sort();
-
-    const handleClick = (activity) => {
-        navigate(`/tracks?activity=${activity}`);
-    };
 
     return (
         <>
             <List dense>
                 {activities.map((a) => (
-                    <ListItem key={a} button onClick={() => handleClick(a)}>
+                    <ListItem key={a} button onClick={() => handleNavigationClick(`/tracks?activity=${a}`)}>
                         <ListItemIcon>
                             {a === 0 ? <DirectionsBikeIcon /> : <DirectionsWalkIcon />}
                         </ListItemIcon>
