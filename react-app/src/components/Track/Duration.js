@@ -14,13 +14,14 @@ const useStyles = makeStyles((theme) => ({
 export default function Duration({ duration }) {
     const { t } = useTranslation();
     const classes = useStyles();
-    const h = new Date(duration * 1000.0).toISOString().substr(11, 5);
+    const hours = Math.floor(duration / 3600.0).toString().padStart(2, "0");
+    const minutes = Math.round((duration - 3600.0 * hours) / 60.0).toString().padStart(2, "0");
 
     return (
         <Tooltip arrow title={t("track_duration")}>
             <Box display="flex" alignItems="center">
                 <TimerIcon className={classes.icon} />
-                <Typography variant="body1">{h}</Typography>
+                <Typography variant="body1">{`${hours}:${minutes}`}</Typography>
             </Box>
         </Tooltip>
     );
