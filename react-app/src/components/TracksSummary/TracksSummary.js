@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import { Box } from "@material-ui/core";
 import { ActivityMode } from "../../utils/Enums";
 import StatsRow from "./StatsRow";
 import TotalRow from "./TotalRow";
@@ -40,7 +41,7 @@ export default function TracksSummary({ tracks }) {
         return null;
 
     return (
-        <div>
+        <Box mb={2}>
             <table>
                 <tbody>
                     <StatsRow stats={stats.get(ActivityMode.BIKE)} />
@@ -48,6 +49,6 @@ export default function TracksSummary({ tracks }) {
                     {stats.size > 1 && <TotalRow stats={stats} />}
                 </tbody>
             </table>
-        </div>
+        </Box>
     );
 }
