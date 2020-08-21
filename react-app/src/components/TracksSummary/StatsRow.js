@@ -5,14 +5,9 @@ import ActivityIcon from "../Track/ActivityIcon";
 import Distance from "../Track/Distance";
 import Duration from "../Track/Duration";
 import TracksCounter from "../TracksCounter";
+import SpacerColumn from "./SpacerColumn";
 
 const useStyles = makeStyles((theme) => ({
-    smallGap: {
-        paddingLeft: theme.spacing(1),
-    },
-    wideGap: {
-        paddingLeft: theme.spacing(4),
-    },
     rightAlign: {
         textAlign: "right",
     },
@@ -27,9 +22,12 @@ export default function StatsRow({ stats }) {
     return (
         <tr>
             <td><ActivityIcon activity={stats.activity} /></td>
-            <td className={`${classes.rightAlign} ${classes.smallGap}`}><Typography variant="body1"><TracksCounter count={stats.count} /></Typography></td>
-            <td className={`${classes.rightAlign} ${classes.wideGap}`}><Distance distance={stats.distance} /></td>
-            <td className={classes.wideGap}><Duration duration={stats.duration} /></td>
+            <SpacerColumn />
+            <td className={classes.rightAlign}><Typography variant="body1"><TracksCounter count={stats.count} /></Typography></td>
+            <SpacerColumn wide />
+            <td className={classes.rightAlign}><Distance distance={stats.distance} /></td>
+            <SpacerColumn wide />
+            <td><Duration duration={stats.duration} /></td>
         </tr>
     );
 }
