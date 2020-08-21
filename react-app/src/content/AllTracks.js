@@ -1,9 +1,8 @@
 import React from "react";
-import { Box, Typography } from "@material-ui/core";
+import { Box } from "@material-ui/core";
 import Track from "../components/Track/Track";
 import TracksFilter from "../components/TracksFilter/TracksFilter";
 import TracksSort from "../components/TracksSort/TracksSort";
-import TracksCounter from "../components/TracksCounter";
 import TracksSearch from "../components/TracksSearch/TracksSearch";
 import TracksSummary from "../components/TracksSummary/TracksSummary";
 import { useTracksFilter } from "../components/TracksFilter/TracksFilterProvider";
@@ -19,9 +18,6 @@ export default function AllTracks() {
 
     return (
         <>
-            <Typography variant="h5">
-                <TracksCounter count={sortedTracks.length} />
-            </Typography>
             <TracksSummary tracks={sortedTracks} />
             <Box display="flex" alignItems="flex-end">
                 <TracksFilter />
