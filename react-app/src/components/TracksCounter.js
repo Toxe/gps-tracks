@@ -1,6 +1,6 @@
-export default function TracksCounter({tracks}) {
-    if (!tracks || tracks.length <= 0)
+export default function TracksCounter({count}) {
+    if (count === 0)
         return "no tracks";
 
-    return tracks.length === 1 ? "1 Track" : `${tracks.length} Tracks`;
+    return count === 1 ? "1 Track" : `${count} Tracks`;
 }

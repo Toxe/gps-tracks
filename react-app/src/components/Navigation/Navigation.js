@@ -52,7 +52,7 @@ export default function Navigation({ mobileNavigationOpen, handleMobileNavigatio
                     <ListItemIcon>
                         <ViewListIcon />
                     </ListItemIcon>
-                    <ListItemText primary={<TracksCounter tracks={tracks} />} />
+                    <ListItemText primary={<TracksCounter count={tracks.length} />} />
                 </ListItem>
             </List>
             <Divider />

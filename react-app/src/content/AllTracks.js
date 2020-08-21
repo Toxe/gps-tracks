@@ -20,7 +20,7 @@ export default function AllTracks() {
     return (
         <>
             <Typography variant="h5">
-                <TracksCounter tracks={sortedTracks} />
+                <TracksCounter count={sortedTracks.length} />
             </Typography>
             <TracksSummary tracks={sortedTracks} />
             <Box display="flex" alignItems="flex-end">
