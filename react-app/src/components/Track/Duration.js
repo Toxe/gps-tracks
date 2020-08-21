@@ -5,13 +5,16 @@ import { Box, Typography, Tooltip } from "@material-ui/core";
 import TimerIcon from "@material-ui/icons/Timer";
 
 const useStyles = makeStyles((theme) => ({
+    bold: {
+        fontWeight: "bold",
+    },
     icon: {
         marginRight: theme.spacing(0.5),
         fontSize: theme.typography.body1.fontSize,
     },
 }));
 
-export default function Duration({ duration }) {
+export default function Duration({ duration, bold }) {
     if (duration < 0.0)
         duration = 0.0;
 
@@ -24,7 +27,7 @@ export default function Duration({ duration }) {
         <Tooltip arrow title={t("track_duration")}>
             <Box display="flex" alignItems="center">
                 <TimerIcon className={classes.icon} />
-                <Typography variant="body1">{`${hours}:${minutes}`}</Typography>
+                <Typography variant="body1" className={bold && classes.bold}>{`${hours}:${minutes}`}</Typography>
             </Box>
         </Tooltip>
     );
