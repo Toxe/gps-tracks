@@ -1,7 +1,9 @@
 import React from "react";
 import { makeStyles } from "@material-ui/core/styles";
+import { Typography } from "@material-ui/core";
 import Distance from "../Track/Distance";
 import Duration from "../Track/Duration";
+import TracksCounter from "../TracksCounter";
 import SpacerColumn from "./SpacerColumn";
 
 const useStyles = makeStyles((theme) => ({
@@ -22,6 +24,7 @@ export default function TotalRow({ stats }) {
     if (!stats)
         return null;
 
+    const count = [...stats.values()].reduce((sum, st) => sum + st.count, 0);
     const distance = [...stats.values()].reduce((sum, st) => sum + st.distance, 0.0);
     const duration = [...stats.values()].reduce((sum, st) => sum + st.duration, 0.0);
 
@@ -29,7 +32,7 @@ export default function TotalRow({ stats }) {
         <tr className={classes.tr}>
             <td></td>
             <SpacerColumn />
-            <td></td>
+            <td className={`${classes.rightAlign} ${classes.summaryBorder}`}><Typography variant="body1" className={classes.bold}><TracksCounter count={count} /></Typography></td>
             <SpacerColumn wide />
             <td className={`${classes.rightAlign} ${classes.summaryBorder}`}><Distance bold distance={distance} /></td>
             <SpacerColumn wide />

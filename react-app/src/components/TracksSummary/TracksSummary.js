@@ -1,9 +1,7 @@
 import React, { useState, useEffect } from "react";
-import { Typography } from "@material-ui/core";
 import { ActivityMode } from "../../utils/Enums";
 import StatsRow from "./StatsRow";
 import TotalRow from "./TotalRow";
-import TracksCounter from "../TracksCounter";
 
 function generateStats(allTracks, activity) {
     if (!allTracks || allTracks.length === 0)
@@ -43,9 +41,6 @@ export default function TracksSummary({ tracks }) {
 
     return (
         <div>
-            <Typography variant="h5">
-                <TracksCounter count={tracks.length} />
-            </Typography>
             <table>
                 <tbody>
                     <StatsRow stats={stats.get(ActivityMode.BIKE)} />
