@@ -38,7 +38,7 @@ export default function TracksSummary({ tracks }) {
         setStats(map);
     }, [tracks]);
 
-    if (!stats)
+    if (!stats || stats.size === 0)
         return null;
 
     return (
