@@ -1,6 +1,7 @@
-export default function TracksCounter({count}) {
-    if (count === 0)
-        return "no tracks";
+import { useTranslation } from "react-i18next";
 
-    return count === 1 ? "1 Track" : `${count} Tracks`;
+export default function TracksCounter({ count }) {
+    const { t } = useTranslation();
+
+    return t("tracks_counter", { count });
 }

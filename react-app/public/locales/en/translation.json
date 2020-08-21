@@ -19,5 +19,7 @@
     "track_distance": "Distance",
     "track_duration": "Time in Motion",
     "track_speed": "Average Speed",
+    "tracks_counter": "1 Track",
+    "tracks_counter_plural": "{{count}} Tracks",
     "user_menu_logout": "Logout"
 }

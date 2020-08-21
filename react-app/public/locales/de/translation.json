@@ -19,5 +19,7 @@
     "track_distance": "Distanz",
     "track_duration": "Fahrzeit",
     "track_speed": "Durchschnittsgeschwindigkeit",
+    "tracks_counter": "1 Strecke",
+    "tracks_counter_plural": "{{count}} Strecken",
     "user_menu_logout": "Abmelden"
 }
