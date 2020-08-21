@@ -1,15 +1,8 @@
 import React, { useState, useEffect } from "react";
-import { makeStyles } from "@material-ui/core/styles";
 import { Typography } from "@material-ui/core";
 import { ActivityMode } from "../../utils/Enums";
 import StatsRow from "./StatsRow";
 import TracksCounter from "../TracksCounter";
-
-const useStyles = makeStyles(() => ({
-    table: {
-        "& td": {},
-    },
-}));
 
 function generateStats(allTracks, activity) {
     if (!allTracks || allTracks.length === 0)
@@ -24,7 +17,6 @@ function generateStats(allTracks, activity) {
 }
 
 export default function TracksSummary({ tracks }) {
-    const classes = useStyles();
     const [stats, setStats] = useState(null);
 
     useEffect(() => {
@@ -44,7 +36,7 @@ export default function TracksSummary({ tracks }) {
             <Typography variant="h5">
                 <TracksCounter count={tracks.length} />
             </Typography>
-            <table className={classes.table}>
+            <table>
                 <tbody>
                     <StatsRow stats={stats.get(ActivityMode.BIKE)} />
                     <StatsRow stats={stats.get(ActivityMode.HIKING)} />
