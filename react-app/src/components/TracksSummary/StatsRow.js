@@ -8,26 +8,30 @@ import TracksCounter from "../TracksCounter";
 import SpacerColumn from "./SpacerColumn";
 
 const useStyles = makeStyles((theme) => ({
+    bold: {
+        fontWeight: "bold",
+    },
     rightAlign: {
         textAlign: "right",
     },
 }));
 
-export default function StatsRow({ stats }) {
+export default function StatsRow({ stats, activity }) {
     const classes = useStyles();
+    const activityStats = stats.get(activity);
 
-    if (!stats)
+    if (!activityStats || activityStats.count === 0)
         return null;
 
     return (
         <tr>
-            <td><ActivityIcon activity={stats.activity} /></td>
+            <td><ActivityIcon activity={activityStats.activity} /></td>
             <SpacerColumn />
-            <td className={classes.rightAlign}><Typography variant="body1"><TracksCounter count={stats.count} /></Typography></td>
+            <td className={classes.rightAlign}><Typography variant="body1" className={stats.size === 1 && classes.bold}><TracksCounter count={activityStats.count} /></Typography></td>
             <SpacerColumn wide />
-            <td className={classes.rightAlign}><Distance distance={stats.distance} /></td>
+            <td className={classes.rightAlign}><Distance distance={activityStats.distance} /></td>
             <SpacerColumn wide />
-            <td><Duration duration={stats.duration} /></td>
+            <td><Duration duration={activityStats.duration} /></td>
         </tr>
     );
 }

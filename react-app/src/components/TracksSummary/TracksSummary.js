@@ -44,8 +44,8 @@ export default function TracksSummary({ tracks }) {
         <Box mb={2}>
             <table>
                 <tbody>
-                    <StatsRow stats={stats.get(ActivityMode.BIKE)} />
-                    <StatsRow stats={stats.get(ActivityMode.HIKING)} />
+                    <StatsRow stats={stats} activity={ActivityMode.BIKE} />
+                    <StatsRow stats={stats} activity={ActivityMode.HIKING} />
                     {stats.size > 1 && <TotalRow stats={stats} />}
                 </tbody>
             </table>
