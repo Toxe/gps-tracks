@@ -27,7 +27,7 @@ export default function StatsRow({ stats, activity }) {
         <tr>
             <td><ActivityIcon activity={activityStats.activity} /></td>
             <SpacerColumn />
-            <td className={classes.rightAlign}><Typography variant="body1" className={stats.size === 1 && classes.bold}><TracksCounter count={activityStats.count} /></Typography></td>
+            <td className={classes.rightAlign}><Typography variant="body1" className={stats.size === 1 ? classes.bold : null}><TracksCounter count={activityStats.count} /></Typography></td>
             <SpacerColumn wide />
             <td className={classes.rightAlign}><Distance distance={activityStats.distance} /></td>
             <SpacerColumn wide />
