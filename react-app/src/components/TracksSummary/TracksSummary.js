@@ -1,8 +1,16 @@
 import React, { useState, useEffect } from "react";
-import { Box } from "@material-ui/core";
+import { makeStyles } from "@material-ui/core/styles";
+import { Paper } from "@material-ui/core";
 import { ActivityMode } from "../../utils/Enums";
 import StatsRow from "./StatsRow";
 import TotalRow from "./TotalRow";
+
+const useStyles = makeStyles((theme) => ({
+    paper: {
+        padding: 5,
+        marginBottom: theme.spacing(3),
+    },
+}));
 
 function generateStats(allTracks, activity) {
     if (!allTracks || allTracks.length === 0)
@@ -21,6 +29,7 @@ function generateStats(allTracks, activity) {
 }
 
 export default function TracksSummary({ tracks }) {
+    const classes = useStyles();
     const [stats, setStats] = useState(null);
 
     useEffect(() => {
@@ -41,7 +50,7 @@ export default function TracksSummary({ tracks }) {
         return null;
 
     return (
-        <Box mb={2}>
+        <Paper elevation={2} className={classes.paper}>
             <table>
                 <tbody>
                     <StatsRow stats={stats} activity={ActivityMode.BIKE} />
@@ -49,6 +58,6 @@ export default function TracksSummary({ tracks }) {
                     {stats.size > 1 && <TotalRow stats={stats} />}
                 </tbody>
             </table>
-        </Box>
+        </Paper>
     );
 }
