@@ -3,7 +3,6 @@ import { useTranslation } from "react-i18next";
 import { useSearchParams } from "react-router-dom";
 import { makeStyles } from "@material-ui/core/styles";
 import { Box, FormControl, InputLabel, ListItemIcon, MenuItem, Select } from "@material-ui/core";
-import { ActivityMode } from "../../utils/Enums";
 import { useTracksFilter } from "./TracksFilterProvider";
 import { getSearchParam } from "../../utils/URLParams";
 import ActivityIcon from "../Track/ActivityIcon";
@@ -41,6 +40,16 @@ export default function TracksFilter() {
         setSearchParams(searchParams);
     };
 
+    const createActivityMenuItem = (activity) => {
+        return (
+            <MenuItem key={activity} value={activity}>
+                <ListItemIcon>
+                    <ActivityIcon activity={activity} />
+                </ListItemIcon>
+            </MenuItem>
+        );
+    };
+
     return (
         <Box>
             <FormControl className={classes.filterForm}>
@@ -52,20 +61,7 @@ export default function TracksFilter() {
                     value={activityFilter === "all" || availableActivities.includes(activityFilter) ? activityFilter : ""}
                     onChange={(e) => handleChangeFilter("activity", e)}>
                     <MenuItem value="all">{t("filter_all")}</MenuItem>
-                    {availableActivities.includes(String(ActivityMode.BIKE)) && (
-                        <MenuItem value={ActivityMode.BIKE}>
-                            <ListItemIcon>
-                                <ActivityIcon activity={ActivityMode.BIKE} />
-                            </ListItemIcon>
-                        </MenuItem>
-                    )}
-                    {availableActivities.includes(String(ActivityMode.HIKING)) && (
-                        <MenuItem value={ActivityMode.HIKING}>
-                            <ListItemIcon>
-                                <ActivityIcon activity={ActivityMode.HIKING} />
-                            </ListItemIcon>
-                        </MenuItem>
-                    )}
+                    {availableActivities.map((activity) => createActivityMenuItem(activity))}
                 </Select>
             </FormControl>
             <FormControl>
