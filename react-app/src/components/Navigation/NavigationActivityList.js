@@ -1,8 +1,6 @@
 import React from "react";
 import { Chip, Divider, List, ListItem, ListItemIcon } from "@material-ui/core";
-import DirectionsBikeIcon from "@material-ui/icons/DirectionsBike";
-import DirectionsWalkIcon from "@material-ui/icons/DirectionsWalk";
-import { ActivityMode } from "../../utils/Enums";
+import ActivityIcon from "../Track/ActivityIcon";
 
 export default function NavigationActivityList({ countedActivities, handleNavigationClick }) {
     const activities = [...countedActivities.keys()].sort();
@@ -13,7 +11,7 @@ export default function NavigationActivityList({ countedActivities, handleNaviga
                 {activities.map((a) => (
                     <ListItem key={a} button onClick={() => handleNavigationClick(`/tracks?activity=${a}`)}>
                         <ListItemIcon>
-                            {a === ActivityMode.BIKE ? <DirectionsBikeIcon /> : <DirectionsWalkIcon />}
+                            <ActivityIcon activity={a} />
                         </ListItemIcon>
                         <Chip size="small" label={countedActivities.get(a)} />
                     </ListItem>

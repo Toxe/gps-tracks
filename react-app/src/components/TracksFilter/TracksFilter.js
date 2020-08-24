@@ -3,11 +3,10 @@ import { useTranslation } from "react-i18next";
 import { useSearchParams } from "react-router-dom";
 import { makeStyles } from "@material-ui/core/styles";
 import { Box, FormControl, InputLabel, ListItemIcon, MenuItem, Select } from "@material-ui/core";
-import DirectionsBikeIcon from "@material-ui/icons/DirectionsBike";
-import DirectionsWalkIcon from "@material-ui/icons/DirectionsWalk";
 import { ActivityMode } from "../../utils/Enums";
 import { useTracksFilter } from "./TracksFilterProvider";
 import { getSearchParam } from "../../utils/URLParams";
+import ActivityIcon from "../Track/ActivityIcon";
 
 const useStyles = makeStyles((theme) => ({
     filterForm: {
@@ -56,14 +55,14 @@ export default function TracksFilter() {
                     {availableActivities.includes(String(ActivityMode.BIKE)) && (
                         <MenuItem value={ActivityMode.BIKE}>
                             <ListItemIcon>
-                                <DirectionsBikeIcon fontSize="small" />
+                                <ActivityIcon activity={ActivityMode.BIKE} />
                             </ListItemIcon>
                         </MenuItem>
                     )}
                     {availableActivities.includes(String(ActivityMode.HIKING)) && (
                         <MenuItem value={ActivityMode.HIKING}>
                             <ListItemIcon>
-                                <DirectionsWalkIcon fontSize="small" />
+                                <ActivityIcon activity={ActivityMode.HIKING} />
                             </ListItemIcon>
                         </MenuItem>
                     )}
