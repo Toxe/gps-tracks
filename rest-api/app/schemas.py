@@ -38,6 +38,7 @@ class TrackSchema(Schema):
         return {
             "owner": url_for("api.get_user", user_id=obj.user_id),
             "file": url_for("api.get_user_gpxfile", user_id=obj.user_id, gpxfile_id=obj.gpxfile_id),
+            "segments": url_for("api.get_user_track_segments", user_id=obj.user_id, track_id=obj.id),
         }
 
 
