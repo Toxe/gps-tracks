@@ -59,8 +59,8 @@ def import_gpxfile(user, file):
     db.session.add(gpxfile)
     db.session.commit()
     try:
-        for gpx_track in gpx.tracks:
-            import_track(gpxfile, gpx_track)
+        for gpxfile_track_id, gpx_track in enumerate(gpx.tracks):
+            import_track(gpxfile, gpx_track, gpxfile_track_id)
         save_uploaded_gpxfile(gpxfile, file)
         db.session.commit()
     except Exception as err:
@@ -71,7 +71,7 @@ def import_gpxfile(user, file):
     return gpxfile
 
 
-def import_track(gpxfile, gpx_track):
+def import_track(gpxfile, gpx_track, gpxfile_track_id):
     start_time, end_time = gpx_track.get_time_bounds()
     moving_data = gpx_track.get_moving_data()
     uphill, downhill = gpx_track.get_uphill_downhill()
@@ -79,6 +79,7 @@ def import_track(gpxfile, gpx_track):
     track = Track(
         owner=gpxfile.owner,
         file=gpxfile,
+        gpxfile_track_id=gpxfile_track_id,
         title=gpx_track.name if gpx_track.name else gpxfile.filename,
         time_start=start_time,
         time_end=end_time,
