@@ -8,7 +8,7 @@ import DirectionsWalkIcon from "@material-ui/icons/DirectionsWalk";
 export default function ActivityIcon({ activity }) {
     const { t } = useTranslation();
 
-    return activity === ActivityMode.BIKE ? (
+    return Number(activity) === ActivityMode.BIKE ? (
         <Tooltip arrow title={t("track_activity_bike")}>
             <DirectionsBikeIcon fontSize="small" />
         </Tooltip>
