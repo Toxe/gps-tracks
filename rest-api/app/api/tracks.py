@@ -1,5 +1,5 @@
 import gpxpy
-from flask import jsonify
+from flask import jsonify, send_file
 from flask_jwt_extended import jwt_required, get_jwt_identity
 from app import db
 from app.api import bp
@@ -42,6 +42,14 @@ def get_user_track_segments(user_id, track_id):
     gpxfile = user.gpxfiles.filter_by(id=track.gpxfile_id).first_or_404()
     segments = load_track_segments(gpxfile, track)
     return jsonify(segments)
+
+
+@bp.route("/users/<int:user_id>/tracks/<int:track_id>/thumbnail.png", methods=["GET"])
+@jwt_and_matching_user_id_required
+def get_user_track_thumbnail(user_id, track_id):
+    user = User.query.get_or_404(user_id)
+    track = user.tracks.filter_by(id=track_id).first_or_404()
+    return send_file(track.thumbnail_path())
 
 
 def load_track_segments(gpxfile, track):
