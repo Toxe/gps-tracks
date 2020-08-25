@@ -20,7 +20,7 @@ class TrackSchema(Schema):
     id               = fields.Integer(required=True)
     user_id          = fields.Integer(required=True)
     gpxfile_id       = fields.Integer(required=True)
-    gpxfile_track_id = fields.Integer(required=True)
+    gpxfile_track_id = fields.Integer(required=True, load_only=True)
     title            = fields.String(required=True)
     time_start       = fields.DateTime(required=True)
     time_end         = fields.DateTime(required=True)
