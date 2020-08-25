@@ -12,6 +12,7 @@ class TestConfig(Config):
 
     def __init__(self, tmp_dir):
         self.GPXFILES_FOLDER = os.path.join(tmp_dir, "gpxfiles")
+        self.THUMBNAILS_FOLDER = os.path.join(tmp_dir, "thumbnails")
 
 
 class Authentication:

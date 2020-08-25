@@ -15,3 +15,4 @@ class Config(object):
     JWT_BLACKLIST_ENABLED = True
     JWT_BLACKLIST_TOKEN_CHECKS = ["access", "refresh"]
     GPXFILES_FOLDER = os.environ.get("GPXFILES_FOLDER") or os.path.join(basedir, "gpxfiles")
+    THUMBNAILS_FOLDER = os.environ.get("THUMBNAILS_FOLDER") or os.path.join(basedir, "thumbnails")

@@ -15,8 +15,9 @@ def create_app(config_class=Config):
     app = Flask(__name__)
     app.config.from_object(config_class)
 
-    # create gpxfiles folder if it doesn't exist
+    # create necessary folders if they don't exist
     create_directory_if_necessary(app.config["GPXFILES_FOLDER"])
+    create_directory_if_necessary(app.config["THUMBNAILS_FOLDER"])
 
     db.init_app(app)
     migrate.init_app(app, db)

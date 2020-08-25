@@ -5,3 +5,4 @@ __pycache__
 /.flaskenv
 /gps_tracks.db
 /gpxfiles
+/thumbnails
