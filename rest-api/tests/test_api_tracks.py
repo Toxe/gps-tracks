@@ -1,4 +1,5 @@
 import os
+from flask import url_for
 from app.models import User, Track
 from tests.example_data_fixtures import example_users, example_gpxfiles, example_tracks
 
@@ -61,6 +62,7 @@ def test_get_track_returns_valid_links(client, auth, example_users):
     assert client.get(data["links"]["file"], headers=auth.headers).status_code == 200
     assert client.get(data["links"]["owner"], headers=auth.headers).status_code == 200
     assert client.get(data["links"]["segments"], headers=auth.headers).status_code == 200
+    assert client.get(data["links"]["thumbnail"], headers=auth.headers).status_code == 200
 
 
 def test_delete_track(client, auth, example_users, example_tracks):
