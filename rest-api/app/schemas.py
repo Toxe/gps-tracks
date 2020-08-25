@@ -33,6 +33,7 @@ class TrackSchema(Schema):
     moving_time      = fields.Float(required=True)
     stopped_time     = fields.Float(required=True)
     activity_mode    = fields.Integer(required=True, validate=validate.OneOf([e.value for e in ActivityMode]))
+    thumbnail        = fields.String(required=True, validate=validate.Length(equal=36))
     links            = fields.Method("dump_links")
     def dump_links(self, obj):
         return {

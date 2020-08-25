@@ -67,5 +67,6 @@ class Track(db.Model):
     moving_time      = db.Column(db.Float)
     stopped_time     = db.Column(db.Float)
     activity_mode    = db.Column(db.SmallInteger, default=ActivityMode.BIKE.value)
+    thumbnail        = db.Column(db.String(36))  # UUID
     def __repr__(self):
         return "<Track:{} gpxfile={}>".format(self.id, self.gpxfile_id)
