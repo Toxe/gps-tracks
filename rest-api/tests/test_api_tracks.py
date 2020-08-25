@@ -47,13 +47,19 @@ def test_get_track_for_different_user_is_forbidden(client, auth, example_users, 
     assert r.get_json().get("message") == "Access to user resource denied."
 
 
-def test_get_track_returns_valid_links(client, auth, example_users, example_gpxfiles, example_tracks):
+def test_get_track_returns_valid_links(client, auth, example_users):
     auth.login("user1@example.com", "password1")
-    r = client.get("/api/users/{}/tracks/1".format(auth.id), headers=auth.headers)
+    track_id = None
+    with open("tests/example.gpx", "rb") as fp:
+        r = client.post("/api/users/{}/gpxfiles".format(auth.id), headers=auth.headers, data={"file": fp})
+        assert r.status_code == 201
+        track_id = r.get_json().get("id")
+    r = client.get("/api/users/{}/tracks/{}".format(auth.id, track_id), headers=auth.headers)
     assert r.status_code == 200
     data = r.get_json()
     assert client.get(data["links"]["file"], headers=auth.headers).status_code == 200
     assert client.get(data["links"]["owner"], headers=auth.headers).status_code == 200
+    assert client.get(data["links"]["segments"], headers=auth.headers).status_code == 200
 
 
 def test_delete_track(client, auth, example_users, example_tracks):
