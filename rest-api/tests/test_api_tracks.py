@@ -1,4 +1,5 @@
-from app.models import User
+import os
+from app.models import User, Track
 from tests.example_data_fixtures import example_users, example_gpxfiles, example_tracks
 
 
@@ -66,9 +67,14 @@ def test_delete_track(client, auth, example_users, example_tracks):
     auth.login("user1@example.com", "password1")
     user = User.query.get(auth.id)
     assert len(user.tracks.all()) == 3
-    r = client.delete("/api/users/{}/tracks/1".format(auth.id), headers=auth.headers)
+    track = Track.query.get(1)
+    open(track.thumbnail_path(), "w").close()
+    assert os.path.isfile(track.thumbnail_path())
+    r = client.delete("/api/users/{}/tracks/{}".format(auth.id, track.id), headers=auth.headers)
     assert r.status_code == 204
+    # make sure the static files and database objects were deleted
     assert len(user.tracks.all()) == 2
+    assert not os.path.isfile(track.thumbnail_path())
 
 
 def test_delete_missing_track(client, auth, example_users, example_tracks):
