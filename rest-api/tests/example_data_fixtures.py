@@ -3,6 +3,7 @@ from app import db
 from app.models import User, GPXFile, Track
 from app.models import ActivityMode
 from datetime import datetime, timedelta
+from uuid import uuid4
 
 
 # Provide example logins:
@@ -54,6 +55,7 @@ def example_tracks():
         moving_time=300,
         stopped_time=0,
         activity_mode=ActivityMode.BIKE.value,
+        thumbnail=str(uuid4()),
     )
     t2 = Track(
         id=2,
@@ -71,6 +73,7 @@ def example_tracks():
         moving_time=300,
         stopped_time=0,
         activity_mode=ActivityMode.BIKE.value,
+        thumbnail=str(uuid4()),
     )
     t3 = Track(
         id=3,
@@ -88,6 +91,7 @@ def example_tracks():
         moving_time=300,
         stopped_time=0,
         activity_mode=ActivityMode.HIKING.value,
+        thumbnail=str(uuid4()),
     )
     db.session.add_all([t1, t2, t3])
     db.session.commit()
