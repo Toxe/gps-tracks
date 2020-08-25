@@ -36,6 +36,10 @@ api_calls = {
         {"api": ["GET", "/api/users/<user_id>/tracks/<track_id>"], "title": "Get user track", "params": {"user_id": "1", "track_id": "1"}, "headers": ["access"]},
         {"api": ["DELETE", "/api/users/<user_id>/tracks/<track_id>"], "title": "Delete user track", "params": {"user_id": "1", "track_id": "1"}, "headers": ["access"]},
     ],
+    "Track Segments": [
+        {"api": ["POST", "/api/users/<user_id>/gpxfiles"], "silent": True, "file_upload": "tests/example.gpx", "params": {"user_id": "1"}, "headers": ["access"]},
+        {"api": ["GET", "/api/users/<user_id>/tracks/<track_id>/segments"], "title": "Get track GPS coordinates", "params": {"user_id": "1", "track_id": "3"}, "headers": ["access"]},
+    ],
 }
 
 host = "http://localhost:5000"
