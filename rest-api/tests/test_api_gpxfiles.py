@@ -94,6 +94,9 @@ def test_upload_gpxfile(client, auth, example_users):
         assert gpxfile is not None
         assert len(gpxfile.tracks.all()) == 1
         assert os.path.isfile(gpxfile.static_file_path())
+        track = gpxfile.tracks.first()
+        assert track is not None
+        assert os.path.isfile(track.thumbnail_path())
 
 
 def test_upload_without_gpxfile_fails(client, auth, example_users):
@@ -120,6 +123,7 @@ def test_upload_with_bad_gpxfile_fails(client, auth, example_users):
     assert len(GPXFile.query.all()) == 0
     assert len(Track.query.all()) == 0
     assert directory_is_empty(current_app.config["GPXFILES_FOLDER"])
+    assert directory_is_empty(current_app.config["THUMBNAILS_FOLDER"])
 
 
 def test_upload_with_bad_xml_gpxfile_fails(client, auth, example_users):
@@ -132,6 +136,7 @@ def test_upload_with_bad_xml_gpxfile_fails(client, auth, example_users):
     assert len(GPXFile.query.all()) == 0
     assert len(Track.query.all()) == 0
     assert directory_is_empty(current_app.config["GPXFILES_FOLDER"])
+    assert directory_is_empty(current_app.config["THUMBNAILS_FOLDER"])
 
 
 def test_upload_for_different_user_is_forbidden(client, auth, example_users):
@@ -145,6 +150,7 @@ def test_upload_for_different_user_is_forbidden(client, auth, example_users):
         assert len(GPXFile.query.all()) == 0
         assert len(Track.query.all()) == 0
         assert directory_is_empty(current_app.config["GPXFILES_FOLDER"])
+        assert directory_is_empty(current_app.config["THUMBNAILS_FOLDER"])
 
 
 def test_delete_gpxfile(client, auth, example_users, example_gpxfiles, example_tracks):
@@ -153,14 +159,18 @@ def test_delete_gpxfile(client, auth, example_users, example_gpxfiles, example_t
     assert len(user.gpxfiles.all()) == 2
     assert len(user.tracks.all()) == 3
     gpxfile = GPXFile.query.get(1)
+    track = gpxfile.tracks.first()
     open(gpxfile.static_file_path(), "w").close()
+    open(track.thumbnail_path(), "w").close()
     assert os.path.isfile(gpxfile.static_file_path())
+    assert os.path.isfile(track.thumbnail_path())
     r = client.delete("/api/users/{}/gpxfiles/{}".format(auth.id, gpxfile.id), headers=auth.headers)
     assert r.status_code == 204
-    # make sure the static file and database objects were deleted
+    # make sure the static files and database objects were deleted
     assert len(user.gpxfiles.all()) == 1
     assert len(user.tracks.all()) == 1
     assert not os.path.isfile(gpxfile.static_file_path())
+    assert not os.path.isfile(track.thumbnail_path())
 
 
 def test_delete_missing_gpxfile(client, auth, example_users, example_gpxfiles, example_tracks):

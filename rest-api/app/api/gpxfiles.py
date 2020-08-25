@@ -1,5 +1,6 @@
 import os
 import gpxpy
+import numpy as np
 from flask import jsonify, request, url_for, current_app
 from flask_jwt_extended import jwt_required, get_jwt_identity
 from app import db
@@ -10,6 +11,10 @@ from app.schemas import gpxfile_schema, track_schema
 from app.auth.decorators import jwt_and_matching_user_id_required
 from app.errors.handlers import error_response
 from werkzeug.utils import secure_filename
+from matplotlib.figure import Figure
+from matplotlib.image import imsave
+from matplotlib.backends.backend_agg import FigureCanvasAgg
+from uuid import uuid4
 
 
 @bp.route("/users/<int:user_id>/gpxfiles", methods=["GET"])
@@ -60,7 +65,8 @@ def import_gpxfile(user, file):
     db.session.commit()
     try:
         for gpxfile_track_id, gpx_track in enumerate(gpx.tracks):
-            import_track(gpxfile, gpx_track, gpxfile_track_id)
+            track = import_track(gpxfile, gpx_track, gpxfile_track_id)
+            create_thumbnail(track, gpx_track)
         save_uploaded_gpxfile(gpxfile, file)
         db.session.commit()
     except Exception as err:
@@ -92,8 +98,10 @@ def import_track(gpxfile, gpx_track, gpxfile_track_id):
         total_uphill=uphill,
         total_downhill=downhill,
         activity_mode=determine_default_activity_mode(avg_speed),
+        thumbnail=str(uuid4()),
     )
     db.session.add(track)
+    return track
 
 
 def save_uploaded_gpxfile(gpxfile, file):
@@ -110,3 +118,26 @@ def determine_default_activity_mode(avg_speed):
         return ActivityMode.HIKING.value
     else:
         return ActivityMode.BIKE.value
+
+
+def create_thumbnail(track, gpx_track):
+    content = generate_thumbnail_content(gpx_track)
+    imsave(track.thumbnail_path(), arr=content, format="png")
+
+
+def generate_thumbnail_content(gpx_track):
+    fig = Figure(figsize=(1, 1), dpi=128, facecolor="white", linewidth=2, tight_layout=True)
+    canvas = FigureCanvasAgg(fig)
+    ax = fig.add_subplot(aspect="equal")
+    ax.set_axis_off()
+
+    for segment in gpx_track.segments:
+        lat = []
+        long = []
+        for point in segment.points:
+            lat.append(point.latitude)
+            long.append(point.longitude)
+        ax.plot(long, lat, color="blue")
+
+    canvas.draw()
+    return np.asarray(canvas.buffer_rgba())
