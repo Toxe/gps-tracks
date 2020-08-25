@@ -12,6 +12,8 @@
   - gpxpy
   - IPython
   - Marshmallow
+  - matplotlib
+  - numpy
   - pylint
   - pylint-flask
   - pylint-flask-sqlalchemy
