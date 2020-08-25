@@ -8,6 +8,7 @@ from marshmallow.exceptions import ValidationError
 from datetime import datetime, timedelta
 from uuid import uuid4
 from tests.example_data_fixtures import example_users
+from tests.util import create_empty_file
 
 
 def test_track_default_activity_mode_is_bike(app):
@@ -32,7 +33,7 @@ def test_track_thumbnail_path_returns_correct_filename(app):
 
 def test_can_delete_track_thumbnail(app):
     track = Track(thumbnail=str(uuid4()))
-    open(track.thumbnail_path(), "w").close()
+    create_empty_file(track.thumbnail_path())
     assert os.path.isfile(track.thumbnail_path())
     track.delete_thumbnail_file()
     assert not os.path.isfile(track.thumbnail_path())
@@ -42,7 +43,7 @@ def test_delete_track_automatically_removes_thumbnail_file(app, example_users):
     track = Track(id=1, thumbnail=str(uuid4()))
     db.session.add(track)
     db.session.commit()
-    open(track.thumbnail_path(), "w").close()
+    create_empty_file(track.thumbnail_path())
     assert os.path.isfile(track.thumbnail_path())
     db.session.delete(track)
     db.session.commit()

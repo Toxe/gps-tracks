@@ -5,6 +5,7 @@ from app.models import User, GPXFile, Track
 from app.models import ActivityMode
 from app.api.gpxfiles import speed_to_kph, determine_default_activity_mode
 from tests.example_data_fixtures import example_users, example_gpxfiles, example_tracks
+from tests.util import create_empty_file
 from pytest import approx
 
 
@@ -160,8 +161,8 @@ def test_delete_gpxfile(client, auth, example_users, example_gpxfiles, example_t
     assert len(user.tracks.all()) == 3
     gpxfile = GPXFile.query.get(1)
     track = gpxfile.tracks.first()
-    open(gpxfile.static_file_path(), "w").close()
-    open(track.thumbnail_path(), "w").close()
+    create_empty_file(gpxfile.static_file_path())
+    create_empty_file(track.thumbnail_path())
     assert os.path.isfile(gpxfile.static_file_path())
     assert os.path.isfile(track.thumbnail_path())
     r = client.delete("/api/users/{}/gpxfiles/{}".format(auth.id, gpxfile.id), headers=auth.headers)

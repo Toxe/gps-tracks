@@ -2,6 +2,7 @@ import os
 from flask import url_for
 from app.models import User, Track
 from tests.example_data_fixtures import example_users, example_gpxfiles, example_tracks
+from tests.util import create_empty_file
 
 
 def test_get_tracks(client, auth, example_users, example_tracks):
@@ -70,7 +71,7 @@ def test_delete_track(client, auth, example_users, example_tracks):
     user = User.query.get(auth.id)
     assert len(user.tracks.all()) == 3
     track = Track.query.get(1)
-    open(track.thumbnail_path(), "w").close()
+    create_empty_file(track.thumbnail_path())
     assert os.path.isfile(track.thumbnail_path())
     r = client.delete("/api/users/{}/tracks/{}".format(auth.id, track.id), headers=auth.headers)
     assert r.status_code == 204

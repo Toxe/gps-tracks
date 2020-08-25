@@ -2,6 +2,7 @@ import os
 from app.models import User, GPXFile, Track
 from flask_jwt_extended import create_access_token
 from tests.example_data_fixtures import example_users, example_gpxfiles, example_tracks
+from tests.util import create_empty_file
 
 
 def test_get_users(client, example_users):
@@ -184,7 +185,7 @@ def test_delete_user_automatically_deletes_gpxfiles_and_tracks(client, auth, exa
     assert len(GPXFile.query.all()) == 2
     assert len(Track.query.all()) == 3
     gpxfile = GPXFile.query.get(1)
-    open(gpxfile.static_file_path(), "w").close()
+    create_empty_file(gpxfile.static_file_path())
     assert os.path.isfile(gpxfile.static_file_path())
     assert client.delete("/api/users/{}".format(auth.id), headers=auth.headers).status_code == 204
     # make sure the static file and database objects were deleted
