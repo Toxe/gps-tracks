@@ -45,8 +45,8 @@ Python virtualenv:
 
 ```
 $ cd rest-api
-$ python3 -m venv venv
-$ source venv/bin/activate
+$ python3 -m venv .venv
+$ source .venv/bin/activate
 ```
 
 Install (or upgrade) Python packages in virtualenv:

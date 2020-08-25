@@ -1,6 +1,6 @@
 __pycache__
 *.pyc
-/venv
+/.venv
 /.env
 /.flaskenv
 /gps_tracks.db
