@@ -76,3 +76,9 @@ class Track(db.Model):
             os.remove(filename)
     def __repr__(self):
         return "<Track:{} gpxfile={}>".format(self.id, self.gpxfile_id)
+
+
+# automatically remove the physical thumbnail file after a Track database entry has been deleted
+@event.listens_for(Track, "after_delete")
+def track_after_delete(mapper, connection, track):
+    track.delete_thumbnail_file()
