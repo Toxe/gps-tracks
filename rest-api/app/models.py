@@ -68,5 +68,11 @@ class Track(db.Model):
     stopped_time     = db.Column(db.Float)
     activity_mode    = db.Column(db.SmallInteger, default=ActivityMode.BIKE.value)
     thumbnail        = db.Column(db.String(36))  # UUID
+    def thumbnail_path(self):
+        return os.path.join(current_app.config["THUMBNAILS_FOLDER"], "{}.png".format(self.thumbnail))
+    def delete_thumbnail_file(self):
+        filename = self.thumbnail_path()
+        if os.path.isfile(filename):
+            os.remove(filename)
     def __repr__(self):
         return "<Track:{} gpxfile={}>".format(self.id, self.gpxfile_id)
