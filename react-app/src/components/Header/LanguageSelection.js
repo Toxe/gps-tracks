@@ -41,8 +41,8 @@ export default function LanguageSelection() {
                 </Tooltip>
             </Hidden>
             <Menu anchorEl={menuAnchorEl} keepMounted open={Boolean(menuAnchorEl)} onClose={handleMenuClose}>
-                <MenuItem onClick={() => handleChangeLanguage("en")}>English</MenuItem>
-                <MenuItem onClick={() => handleChangeLanguage("de")}>Deutsch</MenuItem>
+                <MenuItem onClick={() => handleChangeLanguage("en")}><span role="img" aria-label="English">🇺🇸</span>English</MenuItem>
+                <MenuItem onClick={() => handleChangeLanguage("de")}><span role="img" aria-label="Deutsch">🇩🇪</span>Deutsch</MenuItem>
             </Menu>
         </>
     );
