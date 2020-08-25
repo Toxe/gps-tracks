@@ -151,7 +151,7 @@ db.session.commit()
 ```
 $ flask routes --sort rule
 Endpoint                      Methods  Rule
-----------------------------  -------  ------------------------------------------------------------
+----------------------------  -------  --------------------------------------------------------------------
 api.get_users                 GET      /api/users
 api.create_user               POST     /api/users
 api.get_user                  GET      /api/users/<int:user_id>
@@ -165,7 +165,7 @@ api.get_user_tracks           GET      /api/users/<int:user_id>/tracks
 api.get_user_track            GET      /api/users/<int:user_id>/tracks/<int:track_id>
 api.delete_user_track         DELETE   /api/users/<int:user_id>/tracks/<int:track_id>
 api.get_user_track_segments   GET      /api/users/<int:user_id>/tracks/<int:track_id>/segments
-api.get_user_track_thumbnail  GET      /api/users/<int:user_id>/tracks/<int:track_id>/thumbnail.png
+api.get_user_track_thumbnail  GET      /api/users/<int:user_id>/tracks/<int:track_id>/thumbnail/<thumbnail>
 auth.login                    POST     /auth/login
 auth.logout_access_token      DELETE   /auth/logout
 auth.logout_refresh_token     DELETE   /auth/logout2
