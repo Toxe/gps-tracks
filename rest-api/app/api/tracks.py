@@ -44,9 +44,9 @@ def get_user_track_segments(user_id, track_id):
     return jsonify(segments)
 
 
-@bp.route("/users/<int:user_id>/tracks/<int:track_id>/thumbnail.png", methods=["GET"])
+@bp.route("/users/<int:user_id>/tracks/<int:track_id>/thumbnail/<thumbnail>", methods=["GET"])
 @jwt_and_matching_user_id_required
-def get_user_track_thumbnail(user_id, track_id):
+def get_user_track_thumbnail(user_id, track_id, thumbnail):
     user = User.query.get_or_404(user_id)
     track = user.tracks.filter_by(id=track_id).first_or_404()
     return send_file(track.thumbnail_path())

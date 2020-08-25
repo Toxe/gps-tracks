@@ -131,5 +131,5 @@ def test_download_track_thumbnail(client, auth, example_users):
 
 def test_download_missing_track_thumbnail(client, auth, example_users):
     auth.login("user1@example.com", "password1")
-    r = client.get(url_for("api.get_user_track_thumbnail", user_id=auth.id, track_id=99), headers=auth.headers)
+    r = client.get(url_for("api.get_user_track_thumbnail", user_id=auth.id, track_id=99, thumbnail="test.png"), headers=auth.headers)
     assert r.status_code == 404
