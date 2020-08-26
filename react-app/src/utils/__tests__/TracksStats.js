@@ -25,22 +25,24 @@ const tracks = [
 
 test("countActivities works", () => {
     const counted = countActivities(tracks);
+    expect(counted).not.toBeNull();
     expect(counted.get(0)).toBe(3);
     expect(counted.get(1)).toBe(2);
 });
 
 test("countActivities returns null if there are no tracks", () => {
-    expect(countActivities(null)).toBe(null);
-    expect(countActivities([])).toBe(null);
+    expect(countActivities(null)).toBeNull();
+    expect(countActivities([])).toBeNull();
 });
 
 test("countYears works", () => {
     const counted = countYears(tracks);
+    expect(counted).not.toBeNull();
     expect(counted.get(2019)).toBe(2);
     expect(counted.get(2020)).toBe(3);
 });
 
 test("countYears returns null if there are no tracks", () => {
-    expect(countYears(null)).toBe(null);
-    expect(countYears([])).toBe(null);
+    expect(countYears(null)).toBeNull();
+    expect(countYears([])).toBeNull();
 });
