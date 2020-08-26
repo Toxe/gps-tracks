@@ -12,7 +12,7 @@ const useStyles = makeStyles((theme) => ({
     },
 }));
 
-function generateStats(allTracks, activity) {
+export function generateStats(allTracks, activity) {
     if (!allTracks || allTracks.length === 0)
         return null;
 
