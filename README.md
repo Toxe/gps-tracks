@@ -3,27 +3,8 @@
 ## Dependencies
 
 - Python REST API:
-  - Click
-  - Flask
-  - Flask-JWT-Extended
-  - Flask-Migrate
-  - flask-shell-ipython
-  - Flask-SQLAlchemy
-  - gpxpy
-  - IPython
-  - Marshmallow
-  - matplotlib
-  - numpy
-  - pylint
-  - pylint-flask
-  - pylint-flask-sqlalchemy
-  - pytest
-  - Python 3.7+
-  - python-dotenv
-  - Requests
-  - SQLAlchemy
-  - SQLite
-  - Wheel
+  - Python 3.8+
+  - [Poetry](https://python-poetry.org)
 - React App:
   - Axios
   - Babel CLI
@@ -41,20 +22,14 @@
   - react-i18next
   - Roboto font
 
-## Setup local development version
+## Setup Virtual Environment and install Dependencies
 
-Python virtualenv:
+The Python REST API uses [Poetry](https://python-poetry.org) for dependency management and virtual environment.
 
 ```
 $ cd rest-api
-$ python3 -m venv .venv
-$ source .venv/bin/activate
-```
-
-Install (or upgrade) Python packages in virtualenv:
-
-```
-$ pip install -U $(<.pip)
+$ poetry install
+$ poetry shell
 ```
 
 ## Configuration
