@@ -30,8 +30,8 @@ def example_users():
 # Provide example GPX files:
 @pytest.fixture
 def example_gpxfiles():
-    g1 = GPXFile(id=1, user_id=1, filename="GPXFile 01")
-    g2 = GPXFile(id=2, user_id=1, filename="GPXFile 02")
+    g1 = GPXFile(id=1, user_id=1, filename="GPXFile 01.gpx")
+    g2 = GPXFile(id=2, user_id=1, filename="GPXFile 02.gpx")
     db.session.add_all([g1, g2])
     db.session.commit()
 
