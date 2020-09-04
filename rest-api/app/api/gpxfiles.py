@@ -1,7 +1,7 @@
 import os
 import gpxpy
 import numpy as np
-from flask import jsonify, request, url_for, current_app
+from flask import jsonify, request, url_for, current_app, send_from_directory
 from flask_jwt_extended import jwt_required, get_jwt_identity
 from app import db
 from app.api import bp
@@ -56,6 +56,14 @@ def delete_user_gpxfile(user_id, gpxfile_id):
     db.session.delete(gpxfile)
     db.session.commit()
     return "", 204
+
+
+@bp.route("/users/<int:user_id>/gpxfiles/<int:gpxfile_id>/download/<filename>", methods=["GET"])
+@jwt_and_matching_user_id_required
+def download_user_gpxfile(user_id, gpxfile_id, filename):
+    user = User.query.get_or_404(user_id)
+    gpxfile = user.gpxfiles.filter_by(id=gpxfile_id).first_or_404()
+    return send_from_directory(current_app.config["GPXFILES_FOLDER"], "{}.gpx".format(gpxfile.id))
 
 
 def import_gpxfile(user, file):

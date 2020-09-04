@@ -186,7 +186,34 @@ def test_delete_gpxfile_without_login(client, example_users, example_gpxfiles, e
 
 def test_delete_gpxfile_for_different_user_is_forbidden(client, auth, example_users, example_gpxfiles, example_tracks):
     auth.login("user1@example.com", "password1")
-    r = client.get("/api/users/2/gpxfiles/3".format(auth.id), headers=auth.headers)
+    r = client.get("/api/users/2/gpxfiles/3", headers=auth.headers)
+    assert r.status_code == 403
+    assert r.is_json
+    assert r.get_json().get("message") == "Access to user resource denied."
+
+
+def test_download_gpxfile(client, auth, example_users):
+    auth.login("user1@example.com", "password1")
+    download_link = None
+    with open("tests/example.gpx", "rb") as fp:
+        r = client.post("/api/users/{}/gpxfiles".format(auth.id), headers=auth.headers, data={"file": (fp, "example.gpx")})
+        assert r.status_code == 201
+        data = r.get_json()
+        download_link = data["links"]["download"]
+        assert download_link is not None
+    r = client.get(download_link, headers=auth.headers)
+    assert r.status_code == 200
+    assert r.mimetype == "application/gpx+xml"
+    assert len(r.data) > 0
+
+
+def test_download_gpxfile_without_login(client, auth, example_users, example_gpxfiles):
+    assert client.get("/api/users/1/gpxfiles/1/download/test.gpx").status_code == 401
+
+
+def test_download_gpxfile_from_different_user_is_forbidden(client, auth, example_users, example_gpxfiles):
+    auth.login("user1@example.com", "password1")
+    r = client.get("/api/users/2/gpxfiles/3/download/test.gpx", headers=auth.headers)
     assert r.status_code == 403
     assert r.is_json
     assert r.get_json().get("message") == "Access to user resource denied."

@@ -54,6 +54,7 @@ class GPXFileSchema(Schema):
     def dump_links(self, obj):
         return {
             "owner": url_for("api.get_user", user_id=obj.user_id),
+            "download": url_for("api.download_user_gpxfile", user_id=obj.user_id, gpxfile_id=obj.id, filename=obj.filename),
         }
 
 
