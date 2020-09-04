@@ -60,7 +60,7 @@ export default function Navigation({ mobileNavigationOpen, handleMobileNavigatio
             {countedYears && <NavigationYearList countedYears={countedYears} handleNavigationClick={handleNavigationClick} />}
             {countedActivities && <NavigationActivityList countedActivities={countedActivities} handleNavigationClick={handleNavigationClick} />}
             <Box mt={2} mx="auto">
-                <Button variant="contained" color="primary" startIcon={<PublishIcon />}>{t("nav_upload_button")}</Button>
+                <Button variant="contained" color="primary" startIcon={<PublishIcon />}>{t("button_upload_track")}</Button>
             </Box>
         </>
     );
