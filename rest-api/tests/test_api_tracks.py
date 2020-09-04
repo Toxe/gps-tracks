@@ -54,7 +54,7 @@ def test_get_track_returns_valid_links(client, auth, example_users):
     auth.login("user1@example.com", "password1")
     track_id = None
     with open("tests/example.gpx", "rb") as fp:
-        r = client.post("/api/users/{}/gpxfiles".format(auth.id), headers=auth.headers, data={"file": fp})
+        r = client.post("/api/users/{}/gpxfiles".format(auth.id), headers=auth.headers, data={"file": (fp, "example.gpx")})
         assert r.status_code == 201
         track_id = r.get_json().get("id")
     r = client.get("/api/users/{}/tracks/{}".format(auth.id, track_id), headers=auth.headers)
@@ -102,7 +102,7 @@ def test_get_track_segments(client, auth, example_users):
     auth.login("user1@example.com", "password1")
     segments_link = None
     with open("tests/example.gpx", "rb") as fp:
-        r = client.post("/api/users/{}/gpxfiles".format(auth.id), headers=auth.headers, data={"file": fp})
+        r = client.post("/api/users/{}/gpxfiles".format(auth.id), headers=auth.headers, data={"file": (fp, "example.gpx")})
         assert r.status_code == 201
         data = r.get_json()
         segments_link = data["tracks"][0]["links"]["segments"]  # first track
