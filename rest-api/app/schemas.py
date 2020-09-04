@@ -36,12 +36,15 @@ class TrackSchema(Schema):
     activity_mode    = fields.Integer(required=True, validate=validate.OneOf([e.value for e in ActivityMode]))
     thumbnail        = fields.String(required=True, validate=validate.Length(equal=36))
     links            = fields.Method("dump_links")
+    def download_link(self, track):
+        return gpxfile_schema.download_link(track.file) if track.file is not None else None
     def dump_links(self, obj):
         return {
             "owner": url_for("api.get_user", user_id=obj.user_id),
             "file": url_for("api.get_user_gpxfile", user_id=obj.user_id, gpxfile_id=obj.gpxfile_id),
             "segments": url_for("api.get_user_track_segments", user_id=obj.user_id, track_id=obj.id),
             "thumbnail": url_for("thumbnails.get_thumbnail", filename="{}.png".format(obj.thumbnail)),
+            "download": self.download_link(obj),
         }
 
 
@@ -52,10 +55,12 @@ class GPXFileSchema(Schema):
     time_imported = fields.DateTime(required=True)
     tracks        = fields.List(fields.Nested(TrackSchema))
     links         = fields.Method("dump_links")
+    def download_link(self, gpxfile):
+        return url_for("api.download_user_gpxfile", user_id=gpxfile.user_id, gpxfile_id=gpxfile.id, filename=secure_filename(gpxfile.filename))
     def dump_links(self, obj):
         return {
             "owner": url_for("api.get_user", user_id=obj.user_id),
-            "download": url_for("api.download_user_gpxfile", user_id=obj.user_id, gpxfile_id=obj.id, filename=secure_filename(obj.filename)),
+            "download": self.download_link(obj),
         }
 
 
