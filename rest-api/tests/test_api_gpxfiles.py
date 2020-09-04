@@ -3,6 +3,7 @@ from io import BytesIO
 from flask import current_app
 from app.models import User, GPXFile, Track
 from app.models import ActivityMode
+from app.schemas import gpxfile_schema
 from app.api.gpxfiles import speed_to_kph, determine_default_activity_mode
 from tests.example_data_fixtures import example_users, example_gpxfiles, example_tracks
 from tests.util import create_empty_file
@@ -217,6 +218,18 @@ def test_download_gpxfile_from_different_user_is_forbidden(client, auth, example
     assert r.status_code == 403
     assert r.is_json
     assert r.get_json().get("message") == "Access to user resource denied."
+
+
+def test_gpxfile_download_filenames_are_secure(app):
+    with app.test_request_context():
+        g1 = GPXFile(id=1, user_id=1, filename="GPXFile 01.gpx")
+        g2 = GPXFile(id=2, user_id=1, filename="GPXFile/02.gpx")
+        g3 = GPXFile(id=3, user_id=1, filename="GPX:File\\03 Test?.gpx")
+        g4 = GPXFile(id=4, user_id=1, filename="GPXFile <04>.gpx")
+        assert gpxfile_schema.dump(g1).get("links").get("download").endswith("/download/GPXFile_01.gpx")
+        assert gpxfile_schema.dump(g2).get("links").get("download").endswith("/download/GPXFile_02.gpx")
+        assert gpxfile_schema.dump(g3).get("links").get("download").endswith("/download/GPXFile03_Test.gpx")
+        assert gpxfile_schema.dump(g4).get("links").get("download").endswith("/download/GPXFile_04.gpx")
 
 
 def test_speed_to_kph_works():

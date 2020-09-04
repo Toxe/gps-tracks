@@ -1,6 +1,7 @@
 from flask import url_for
 from app.models import ActivityMode
 from marshmallow import Schema, fields, validate
+from werkzeug.utils import secure_filename
 
 
 class UserSchema(Schema):
@@ -54,7 +55,7 @@ class GPXFileSchema(Schema):
     def dump_links(self, obj):
         return {
             "owner": url_for("api.get_user", user_id=obj.user_id),
-            "download": url_for("api.download_user_gpxfile", user_id=obj.user_id, gpxfile_id=obj.id, filename=obj.filename),
+            "download": url_for("api.download_user_gpxfile", user_id=obj.user_id, gpxfile_id=obj.id, filename=secure_filename(obj.filename)),
         }
 
 
