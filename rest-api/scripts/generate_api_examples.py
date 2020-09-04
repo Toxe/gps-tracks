@@ -29,6 +29,7 @@ api_calls = {
         {"api": ["GET", "/api/users/<user_id>/gpxfiles"], "title": "List user GPX files", "params": {"user_id": "1"}, "headers": ["access"]},
         {"api": ["GET", "/api/users/<user_id>/gpxfiles/<gpxfile_id>"], "title": "Get user GPX file", "params": {"user_id": "1", "gpxfile_id": "1"}, "headers": ["access"]},
         {"api": ["POST", "/api/users/<user_id>/gpxfiles"], "title": "Upload new GPX file for user", "file_upload": "tests/example.gpx", "params": {"user_id": "1"}, "headers": ["access"]},
+        {"api": ["GET", "/api/users/<user_id>/gpxfiles/<gpxfile_id>/download/<filename>"], "title": "Download GPX file", "file_upload": "tests/example.gpx", "params": {"user_id": "1", "gpxfile_id": "3", "filename": "example.gpx"}, "headers": ["access"]},
         {"api": ["DELETE", "/api/users/<user_id>/gpxfiles/<gpxfile_id>"], "title": "Delete user GPX file and associated tracks", "params": {"user_id": "1", "gpxfile_id": "3"}, "headers": ["access"]},
     ],
     "Tracks": [
