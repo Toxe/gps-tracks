@@ -1,4 +1,7 @@
 {
+    "button_delete_track": "Löschen",
+    "button_download_track": "Herunterladen",
+    "button_upload_track": "Hochladen",
     "filter_activity": "Aktivität",
     "filter_all": "Alle",
     "filter_year": "Jahr",
@@ -8,7 +11,6 @@
     "login_label_email": "E-Mail Adresse",
     "login_label_password": "Passwort",
     "login_title": "Anmelden",
-    "button_upload_track": "Hochladen",
     "search_placeholder": "Suchen...",
     "sort_by": "Sortieren nach",
     "sort_by_date": "Datum",

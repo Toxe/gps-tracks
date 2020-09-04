@@ -1,4 +1,7 @@
 {
+    "button_delete_track": "Delete",
+    "button_download_track": "Download",
+    "button_upload_track": "Upload",
     "filter_activity": "Activity",
     "filter_all": "All",
     "filter_year": "Year",
@@ -8,7 +11,6 @@
     "login_label_email": "Email Address",
     "login_label_password": "Password",
     "login_title": "Sign in",
-    "button_upload_track": "Upload",
     "search_placeholder": "Search...",
     "sort_by": "Sort by",
     "sort_by_date": "Date",
