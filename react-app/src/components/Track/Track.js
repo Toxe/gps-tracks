@@ -24,6 +24,9 @@ const useStyles = makeStyles((theme) => ({
 export default function Track({ track }) {
     const classes = useStyles();
 
+    if (!track)
+        return null;
+
     return (
         <Paper square className={classes.track}>
             <Box display="flex">
