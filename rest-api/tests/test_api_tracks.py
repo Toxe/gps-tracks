@@ -38,7 +38,7 @@ def test_get_track_without_login(client, example_users, example_tracks):
 
 def test_get_tracks_for_different_user_is_forbidden(client, auth, example_users, example_tracks):
     auth.login("user1@example.com", "password1")
-    r = client.get("/api/users/2/tracks".format(auth.id), headers=auth.headers)
+    r = client.get("/api/users/2/tracks", headers=auth.headers)
     assert r.status_code == 403
     assert r.is_json
     assert r.get_json().get("message") == "Access to user resource denied."
@@ -46,7 +46,7 @@ def test_get_tracks_for_different_user_is_forbidden(client, auth, example_users,
 
 def test_get_track_for_different_user_is_forbidden(client, auth, example_users, example_tracks):
     auth.login("user1@example.com", "password1")
-    r = client.get("/api/users/2/tracks/1".format(auth.id), headers=auth.headers)
+    r = client.get("/api/users/2/tracks/1", headers=auth.headers)
     assert r.status_code == 403
     assert r.is_json
     assert r.get_json().get("message") == "Access to user resource denied."
@@ -94,7 +94,7 @@ def test_delete_track_without_login(client, example_users, example_tracks):
 
 def test_delete_track_for_different_user_is_forbidden(client, auth, example_users, example_tracks):
     auth.login("user1@example.com", "password1")
-    r = client.get("/api/users/2/tracks/3".format(auth.id), headers=auth.headers)
+    r = client.get("/api/users/2/tracks/3", headers=auth.headers)
     assert r.status_code == 403
     assert r.is_json
     assert r.get_json().get("message") == "Access to user resource denied."
