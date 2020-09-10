@@ -4,9 +4,9 @@ from app.errors.handlers import error_response
 def test_error_response_has_all_basic_fields(app):
     response = error_response(404)
     assert response.status_code == 404
-    assert response.is_json == True
+    assert response.is_json
     json = response.get_json()
-    assert json != None
+    assert json is not None
     assert "error" in json
 
 
