@@ -4,8 +4,8 @@
 #   $ rm gps_tracks.db && rm -r gpxfiles && rm -r thumbnails && flask db upgrade && python scripts/create_example_data.py
 #   $ python scripts/generate_api_examples.py > api.txt
 
-import re
 import json
+import re
 import subprocess
 
 
