@@ -5,7 +5,7 @@ from tests.example_data_fixtures import (example_gpxfiles, example_tracks,
                                          example_users)
 from tests.util import create_empty_file
 
-from app.models import GPXFile, Track, User
+from app.models import GPXFile, Track
 
 
 def test_get_users(client, example_users):

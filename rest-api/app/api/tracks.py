@@ -1,12 +1,10 @@
 import gpxpy
 from flask import jsonify
-from flask_jwt_extended import get_jwt_identity, jwt_required
 
 from app import db
 from app.api import bp
 from app.auth.decorators import jwt_and_matching_user_id_required
-from app.errors.handlers import error_response
-from app.models import GPXFile, Track, User
+from app.models import User
 from app.schemas import track_schema
 
 

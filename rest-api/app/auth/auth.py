@@ -7,7 +7,6 @@ from app import jwt
 from app.auth import bp
 from app.errors.handlers import error_response
 from app.models import User
-from app.schemas import user_schema
 
 blacklist = set()
 

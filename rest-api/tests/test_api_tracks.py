@@ -1,6 +1,5 @@
 import os
 
-from flask import url_for
 from tests.example_data_fixtures import (example_gpxfiles, example_tracks,
                                          example_users)
 from tests.util import create_empty_file

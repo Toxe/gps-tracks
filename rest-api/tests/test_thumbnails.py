@@ -1,6 +1,3 @@
-import os
-
-from flask import url_for
 from tests.example_data_fixtures import example_users
 
 

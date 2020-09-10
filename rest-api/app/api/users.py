@@ -1,5 +1,4 @@
 from flask import jsonify, request, url_for
-from flask_jwt_extended import get_jwt_identity, jwt_required
 from marshmallow import ValidationError
 
 from app import db
