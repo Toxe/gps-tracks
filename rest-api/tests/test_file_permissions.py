@@ -1,4 +1,4 @@
-from os import access, F_OK, R_OK, W_OK
+from os import F_OK, R_OK, W_OK, access
 
 
 def test_gpxfiles_folder_exists_and_is_readable_and_writable(app):

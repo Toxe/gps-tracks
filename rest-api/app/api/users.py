@@ -1,12 +1,13 @@
 from flask import jsonify, request, url_for
-from flask_jwt_extended import jwt_required, get_jwt_identity
+from flask_jwt_extended import get_jwt_identity, jwt_required
+from marshmallow import ValidationError
+
 from app import db
 from app.api import bp
+from app.auth.decorators import jwt_and_matching_user_id_required
+from app.errors.handlers import error_response
 from app.models import User
 from app.schemas import user_schema
-from app.errors.handlers import error_response
-from app.auth.decorators import jwt_and_matching_user_id_required
-from marshmallow import ValidationError
 
 
 @bp.route("/users", methods=["GET"])

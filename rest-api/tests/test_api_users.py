@@ -1,8 +1,11 @@
 import os
-from app.models import User, GPXFile, Track
+
 from flask_jwt_extended import create_access_token
-from tests.example_data_fixtures import example_users, example_gpxfiles, example_tracks
+from tests.example_data_fixtures import (example_gpxfiles, example_tracks,
+                                         example_users)
 from tests.util import create_empty_file
+
+from app.models import GPXFile, Track, User
 
 
 def test_get_users(client, example_users):

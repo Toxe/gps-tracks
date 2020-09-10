@@ -1,14 +1,15 @@
 import os
-import pytest
-from app import db
-from app.models import Track
-from app.models import ActivityMode
-from app.schemas import track_schema
-from marshmallow.exceptions import ValidationError
 from datetime import datetime, timedelta
 from uuid import uuid4
+
+import pytest
+from marshmallow.exceptions import ValidationError
 from tests.example_data_fixtures import example_users
 from tests.util import create_empty_file
+
+from app import db
+from app.models import ActivityMode, Track
+from app.schemas import track_schema
 
 
 def test_track_default_activity_mode_is_bike(app):

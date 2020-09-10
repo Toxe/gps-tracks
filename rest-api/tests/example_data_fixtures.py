@@ -1,9 +1,10 @@
-import pytest
-from app import db
-from app.models import User, GPXFile, Track
-from app.models import ActivityMode
 from datetime import datetime, timedelta
 from uuid import uuid4
+
+import pytest
+
+from app import db
+from app.models import ActivityMode, GPXFile, Track, User
 
 
 # Provide example logins:

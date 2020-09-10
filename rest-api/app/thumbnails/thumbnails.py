@@ -1,4 +1,5 @@
 from flask import current_app, send_from_directory
+
 from app import db
 from app.thumbnails import bp
 

@@ -1,20 +1,21 @@
 import os
+from uuid import uuid4
+
 import gpxpy
 import numpy as np
-from flask import jsonify, request, url_for, current_app, send_from_directory
-from flask_jwt_extended import jwt_required, get_jwt_identity
-from app import db
-from app.api import bp
-from app.models import User, GPXFile, Track
-from app.models import ActivityMode
-from app.schemas import gpxfile_schema, track_schema
-from app.auth.decorators import jwt_and_matching_user_id_required
-from app.errors.handlers import error_response
-from werkzeug.utils import secure_filename
+from flask import current_app, jsonify, request, send_from_directory, url_for
+from flask_jwt_extended import get_jwt_identity, jwt_required
+from matplotlib.backends.backend_agg import FigureCanvasAgg
 from matplotlib.figure import Figure
 from matplotlib.image import imsave
-from matplotlib.backends.backend_agg import FigureCanvasAgg
-from uuid import uuid4
+from werkzeug.utils import secure_filename
+
+from app import db
+from app.api import bp
+from app.auth.decorators import jwt_and_matching_user_id_required
+from app.errors.handlers import error_response
+from app.models import ActivityMode, GPXFile, Track, User
+from app.schemas import gpxfile_schema, track_schema
 
 
 @bp.route("/users/<int:user_id>/gpxfiles", methods=["GET"])

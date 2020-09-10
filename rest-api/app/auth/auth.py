@@ -1,15 +1,13 @@
 from flask import jsonify, request
-from flask_jwt_extended import (
-    create_access_token, create_refresh_token,
-    jwt_required, jwt_refresh_token_required,
-    get_jwt_identity, get_raw_jwt
-)
+from flask_jwt_extended import (create_access_token, create_refresh_token,
+                                get_jwt_identity, get_raw_jwt,
+                                jwt_refresh_token_required, jwt_required)
+
 from app import jwt
 from app.auth import bp
+from app.errors.handlers import error_response
 from app.models import User
 from app.schemas import user_schema
-from app.errors.handlers import error_response
-
 
 blacklist = set()
 

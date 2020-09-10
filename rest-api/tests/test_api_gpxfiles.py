@@ -1,14 +1,15 @@
 import os
 from io import BytesIO
-from flask import current_app
-from app.models import User, GPXFile, Track
-from app.models import ActivityMode
-from app.schemas import gpxfile_schema
-from app.api.gpxfiles import speed_to_kph, determine_default_activity_mode
-from tests.example_data_fixtures import example_users, example_gpxfiles, example_tracks
-from tests.util import create_empty_file
-from pytest import approx
 
+from flask import current_app
+from pytest import approx
+from tests.example_data_fixtures import (example_gpxfiles, example_tracks,
+                                         example_users)
+from tests.util import create_empty_file
+
+from app.api.gpxfiles import determine_default_activity_mode, speed_to_kph
+from app.models import ActivityMode, GPXFile, Track, User
+from app.schemas import gpxfile_schema
 
 # ---- helper functions ----
 

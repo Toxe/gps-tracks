@@ -1,9 +1,11 @@
 import os
+from tempfile import TemporaryDirectory
+
 import pytest
+from flask_jwt_extended import decode_token
+
 from app import create_app, db
 from config import Config
-from flask_jwt_extended import decode_token
-from tempfile import TemporaryDirectory
 
 
 class TestConfig(Config):

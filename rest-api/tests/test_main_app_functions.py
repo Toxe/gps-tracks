@@ -1,6 +1,7 @@
 import os
-from app import create_directory_if_necessary
 from tempfile import TemporaryDirectory
+
+from app import create_directory_if_necessary
 
 
 def test_create_directory_if_necessary():

@@ -1,8 +1,11 @@
 import os
+
 from flask import url_for
-from app.models import User, Track
-from tests.example_data_fixtures import example_users, example_gpxfiles, example_tracks
+from tests.example_data_fixtures import (example_gpxfiles, example_tracks,
+                                         example_users)
 from tests.util import create_empty_file
+
+from app.models import Track, User
 
 
 def test_get_tracks(client, auth, example_users, example_tracks):

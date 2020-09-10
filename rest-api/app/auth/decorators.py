@@ -1,5 +1,7 @@
 from functools import wraps
+
 from flask_jwt_extended import get_jwt_identity, verify_jwt_in_request
+
 from app.errors.handlers import error_response
 
 

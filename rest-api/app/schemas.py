@@ -1,7 +1,8 @@
 from flask import url_for
-from app.models import ActivityMode
 from marshmallow import Schema, fields, validate
 from werkzeug.utils import secure_filename
+
+from app.models import ActivityMode
 
 
 class UserSchema(Schema):

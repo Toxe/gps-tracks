@@ -1,8 +1,10 @@
 import os
-from app import db
-from app.models import User, GPXFile
+
 from tests.example_data_fixtures import example_users
 from tests.util import create_empty_file
+
+from app import db
+from app.models import GPXFile, User
 
 
 def test_gpxfile_static_file_path_returns_correct_filename(app):
