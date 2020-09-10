@@ -43,12 +43,18 @@ FLASK_ENV=development
 
 ### Visual Studio Code: `.vscode/settings.json`
 
-For a better `pylint` experience load the `pylint_flask` and `pylint_flask_sqlalchemy` plugins.
+For a better `pylint` experience:
+
+- Load the plugins `pylint_flask` and `pylint_flask_sqlalchemy`.
+- Pass the location of `pyproject.toml` to `pylint` to load some config settings.
 
 ```json
 {
     "python.linting.enabled": true,
-    "python.linting.pylintArgs": ["--load-plugins", "pylint_flask,pylint_flask_sqlalchemy"]
+    "python.linting.pylintArgs": [
+        "--rcfile=rest-api/pyproject.toml",
+        "--load-plugins=pylint_flask,pylint_flask_sqlalchemy"
+    ]
 }
 ```
 
