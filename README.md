@@ -43,12 +43,12 @@ FLASK_ENV=development
 
 ### Visual Studio Code: `.vscode/settings.json`
 
+For a better `pylint` experience load the `pylint_flask` and `pylint_flask_sqlalchemy` plugins.
+
 ```json
 {
-    "python.linting.pylintArgs": [
-        "--load-plugins",
-        "pylint-flask"
-    ]
+    "python.linting.enabled": true,
+    "python.linting.pylintArgs": ["--load-plugins", "pylint_flask,pylint_flask_sqlalchemy"]
 }
 ```
 
