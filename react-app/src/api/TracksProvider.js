@@ -33,5 +33,12 @@ export function TracksProvider(props) {
         return tracks.find((t) => t.id === trackId);
     };
 
-    return <TracksContext.Provider value={{ tracks, getTrack }}>{props.children}</TracksContext.Provider>;
+    const deleteTrack = async (userId, trackId) => {
+        userId = parseInt(userId);
+        trackId = parseInt(trackId);
+        await axios.delete(`/api/users/${userId}/tracks/${trackId}`);
+        setTracks(tracks.filter((t) => t.id !== trackId));
+    };
+
+    return <TracksContext.Provider value={{ tracks, getTrack, deleteTrack }}>{props.children}</TracksContext.Provider>;
 }

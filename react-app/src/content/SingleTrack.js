@@ -31,7 +31,7 @@ export default function SingleTrack() {
             <Track track={track} />
             <Box mb={4} display="flex" justifyContent="flex-end">
                 <DownloadTrackButton track={track} updateRequestError={updateRequestError} />
-                <DeleteTrackButton track={track} />
+                <DeleteTrackButton track={track} updateRequestError={updateRequestError} />
             </Box>
             {requestError}
             <TrackMap track={track} />
