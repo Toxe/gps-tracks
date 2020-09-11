@@ -1,10 +1,10 @@
 import React, { useState } from "react";
 import { useTranslation } from "react-i18next";
-import { useNavigate } from "react-router-dom";
 import { makeStyles } from "@material-ui/core/styles";
 import { Button, Dialog, DialogTitle, DialogContent, DialogContentText, DialogActions } from "@material-ui/core";
 import { useTracks } from "../api/TracksProvider";
 import DeleteIcon from "@material-ui/icons/Delete";
+import { useLastVisitedAllTracksPage } from "../pages/LastVisitedAllTracksPageProvider";
 
 const useStyles = makeStyles((theme) => ({
     button: {
@@ -15,9 +15,9 @@ const useStyles = makeStyles((theme) => ({
 export default function DeleteTrackButton({ track, updateRequestError }) {
     const { t } = useTranslation();
     const classes = useStyles();
-    const navigate = useNavigate();
     const [dialogVisible, setDialogVisible] = useState(false);
     const { deleteTrack } = useTracks();
+    const { returnToLastVisitedAllTracksPage } = useLastVisitedAllTracksPage();
 
     if (!track) {
         return null;
@@ -35,9 +35,9 @@ export default function DeleteTrackButton({ track, updateRequestError }) {
         setDialogVisible(false);
 
         try {
-            updateRequestError(null);
             await deleteTrack(track.user_id, track.id);
-            navigate(-1);
+            updateRequestError(null);
+            returnToLastVisitedAllTracksPage();
         } catch (error) {
             updateRequestError(error);
         }

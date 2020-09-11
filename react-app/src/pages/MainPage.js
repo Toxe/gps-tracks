@@ -12,6 +12,7 @@ import { TracksProvider } from "../api/TracksProvider";
 import { TracksFilterProvider } from "../components/TracksFilter/TracksFilterProvider";
 import { TracksSortProvider } from "../components/TracksSort/TracksSortProvider";
 import { TracksSearchProvider } from "../components/TracksSearch/TracksSearchProvider";
+import { LastVisitedAllTracksPageProvider } from "./LastVisitedAllTracksPageProvider";
 
 const useStyles = makeStyles((theme) => ({
     toolbar: theme.mixins.toolbar,
@@ -37,11 +38,13 @@ export default function MainPage() {
                         />
                         <Box flexGrow={1} p={3}>
                             <div className={classes.toolbar} />
-                            <Routes>
-                                <Route path="/" element={<MainLanding />} />
-                                <Route path="tracks" element={<AllTracks />} />
-                                <Route path="tracks/:trackId" element={<SingleTrack />} />
-                            </Routes>
+                            <LastVisitedAllTracksPageProvider>
+                                <Routes>
+                                    <Route path="/" element={<MainLanding />} />
+                                    <Route path="tracks" element={<AllTracks />} />
+                                    <Route path="tracks/:trackId" element={<SingleTrack />} />
+                                </Routes>
+                            </LastVisitedAllTracksPageProvider>
                             {Boolean(parseInt(process.env.REACT_APP_AUTH_INFO)) && <AuthInfo />}
                         </Box>
                     </TracksSortProvider>
