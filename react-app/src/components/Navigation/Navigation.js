@@ -1,15 +1,14 @@
 import React, { useEffect, useState } from "react";
-import { useTranslation } from "react-i18next";
 import { useNavigate } from "react-router-dom";
 import { makeStyles, useTheme } from "@material-ui/core/styles";
-import { Box, Button, Divider, Drawer, Hidden, List, ListItem, ListItemIcon, ListItemText } from "@material-ui/core";
+import { Box, Divider, Drawer, Hidden, List, ListItem, ListItemIcon, ListItemText } from "@material-ui/core";
 import ViewListIcon from "@material-ui/icons/ViewList";
-import PublishIcon from "@material-ui/icons/Publish";
 import { useTracks } from "../../api/TracksProvider";
 import NavigationYearList from "./NavigationYearList";
 import NavigationActivityList from "./NavigationActivityList";
 import TracksCounter from "../TracksCounter";
 import { countActivities, countYears } from "../../utils/TracksStats";
+import UploadTrackButton from "../UploadTrackButton";
 
 const drawerWidth = 200;
 
@@ -25,7 +24,6 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 export default function Navigation({ mobileNavigationOpen, handleMobileNavigationToggle }) {
-    const { t } = useTranslation();
     const classes = useStyles();
     const theme = useTheme();
     const navigate = useNavigate();
@@ -60,7 +58,7 @@ export default function Navigation({ mobileNavigationOpen, handleMobileNavigatio
             {countedYears && <NavigationYearList countedYears={countedYears} handleNavigationClick={handleNavigationClick} />}
             {countedActivities && <NavigationActivityList countedActivities={countedActivities} handleNavigationClick={handleNavigationClick} />}
             <Box mt={2} mx="auto">
-                <Button variant="contained" color="primary" startIcon={<PublishIcon />}>{t("button_upload_track")}</Button>
+                <UploadTrackButton />
             </Box>
         </>
     );
