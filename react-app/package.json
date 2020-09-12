@@ -17,6 +17,7 @@
     "jsonwebtoken": "^8.5.1",
     "leaflet": "^1.6.0",
     "lodash": "^4.17.20",
+    "material-ui-dropzone": "^3.4.0",
     "react": "^16.13.1",
     "react-dom": "^16.13.1",
     "react-i18next": "^11.7.1",
