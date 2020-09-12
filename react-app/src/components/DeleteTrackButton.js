@@ -54,17 +54,13 @@ export default function DeleteTrackButton({ track, updateRequestError }) {
                 {t("button_delete_track")}
             </Button>
             <Dialog open={dialogVisible} onClose={handleCancel}>
-                <DialogTitle>Do you really want to delete this track?</DialogTitle>
+                <DialogTitle>{t("delete_track_title")}</DialogTitle>
                 <DialogContent>
-                    <DialogContentText>The track will be removed and will no longer be available.</DialogContentText>
+                    <DialogContentText>{t("delete_track_text")}</DialogContentText>
                 </DialogContent>
                 <DialogActions>
-                    <Button onClick={handleCancel} color="primary">
-                        Cancel
-                    </Button>
-                    <Button onClick={handleSubmit} color="primary" autoFocus>
-                        Yes, delete!
-                    </Button>
+                    <Button onClick={handleCancel} color="primary">{t("button_cancel")}</Button>
+                    <Button onClick={handleSubmit} color="primary" autoFocus>{t("delete_track_submit")}</Button>
                 </DialogActions>
             </Dialog>
         </div>

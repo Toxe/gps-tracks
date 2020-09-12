@@ -1,7 +1,11 @@
 {
+    "button_cancel": "Abbrechen",
     "button_delete_track": "Löschen",
     "button_download_track": "Herunterladen",
     "button_upload_track": "Hochladen",
+    "delete_track_submit": "Ja, löschen!",
+    "delete_track_text": "Die Strecke wird vollständig gelöscht und ist danach nicht mehr verfügbar.",
+    "delete_track_title": "Soll diese Strecke wirklich gelöscht werden?",
     "filter_activity": "Aktivität",
     "filter_all": "Alle",
     "filter_year": "Jahr",
