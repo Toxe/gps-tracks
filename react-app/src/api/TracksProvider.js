@@ -41,16 +41,15 @@ export function TracksProvider(props) {
         setTracks(tracks.filter((t) => t.id !== trackId));
     };
 
-    const uploadTracks = async (userId, files) => {
+    const uploadTracks = async (userId, files, handleUploadFinished) => {
         const calls = files.map((f) => prepareUploadRequest(userId, f));
         const responses = await Promise.all(calls);
 
-        const newTracks = responses
-            .filter((r) => r.status === 201)
-            .map((r) => r.data.tracks)
-            .flat();
-
+        const successfulResponses = responses.filter((r) => r.status === 201);
+        const newTracks = successfulResponses.map((r) => r.data.tracks).flat();
         setTracks([...tracks, ...newTracks]);
+
+        handleUploadFinished(files.length, successfulResponses.length);
     };
 
     return (

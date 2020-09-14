@@ -5,12 +5,14 @@ import { DropzoneDialog } from "material-ui-dropzone";
 import PublishIcon from "@material-ui/icons/Publish";
 import { useUser } from "../api/UserProvider";
 import { useTracks } from "../api/TracksProvider";
+import UploadResultsSnackbar from "./UploadResultsSnackbar";
 
 export default function UploadTrackButton() {
     const { t } = useTranslation();
     const { uploadTracks } = useTracks();
     const { user } = useUser();
     const [dialogVisible, setDialogVisible] = useState(false);
+    const [uploadResultsSnackbar, setUploadResultsSnackbar] = useState(null);
 
     const handleOpen = () => {
         setDialogVisible(true);
@@ -21,7 +23,17 @@ export default function UploadTrackButton() {
     };
 
     const handleSave = (files) => {
-        uploadTracks(user.id, files);
+        uploadTracks(user.id, files, handleUploadFinished);
+    };
+
+    const handleUploadFinished = (numFiles, numFilesUploadedSuccessfully) => {
+        setUploadResultsSnackbar(
+            <UploadResultsSnackbar
+                numFiles={numFiles}
+                numFilesUploadedSuccessfully={numFilesUploadedSuccessfully}
+                handleRemove={() => setUploadResultsSnackbar(null)}
+            />
+        );
         setDialogVisible(false);
     };
 
@@ -46,6 +58,7 @@ export default function UploadTrackButton() {
                 dropzoneText={"Drag and drop .gpx files here or click"}
                 previewText={"Preview:"}
             />
+            {uploadResultsSnackbar}
         </div>
     );
 }
