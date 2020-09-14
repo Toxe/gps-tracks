@@ -7,8 +7,9 @@ const TracksContext = React.createContext();
 export function useTracks() {
     const context = useContext(TracksContext);
 
-    if (!context)
+    if (!context) {
         throw new Error("useTracks must be used within a TracksProvider");
+    }
 
     return context;
 }
@@ -40,5 +41,30 @@ export function TracksProvider(props) {
         setTracks(tracks.filter((t) => t.id !== trackId));
     };
 
-    return <TracksContext.Provider value={{ tracks, getTrack, deleteTrack }}>{props.children}</TracksContext.Provider>;
+    const uploadTracks = async (userId, files) => {
+        const calls = files.map((f) => prepareUploadRequest(userId, f));
+        const responses = await Promise.all(calls);
+
+        const newTracks = responses
+            .filter((r) => r.status === 201)
+            .map((r) => r.data.tracks)
+            .flat();
+
+        setTracks([...tracks, ...newTracks]);
+    };
+
+    return (
+        <TracksContext.Provider value={{ tracks, getTrack, deleteTrack, uploadTracks }}>
+            {props.children}
+        </TracksContext.Provider>
+    );
+}
+
+function prepareUploadRequest(userId, file) {
+    const formData = new FormData();
+    formData.append("file", file);
+
+    return axios.post(`/api/users/${userId}/gpxfiles`, formData, {
+        headers: { "Content-Type": "multipart/form-data" },
+    });
 }
