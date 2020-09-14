@@ -59,11 +59,15 @@ export function TracksProvider(props) {
     );
 }
 
-function prepareUploadRequest(userId, file) {
-    const formData = new FormData();
-    formData.append("file", file);
+async function prepareUploadRequest(userId, file) {
+    try {
+        const formData = new FormData();
+        formData.append("file", file);
 
-    return axios.post(`/api/users/${userId}/gpxfiles`, formData, {
-        headers: { "Content-Type": "multipart/form-data" },
-    });
+        return await axios.post(`/api/users/${userId}/gpxfiles`, formData, {
+            headers: { "Content-Type": "multipart/form-data" },
+        });
+    } catch (error) {
+        return error;
+    }
 }
