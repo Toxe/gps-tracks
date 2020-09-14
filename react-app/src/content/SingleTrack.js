@@ -3,7 +3,7 @@ import { useParams } from "react-router-dom";
 import { Box } from "@material-ui/core";
 import Track from "../components/Track/Track";
 import TrackMap from "../components/TrackMap/TrackMap";
-import DownloadTrackButton from "../components/DownloadTrackButton";
+import DownloadTrackButton from "../components/DownloadTrack/DownloadTrackButton";
 import DeleteTrackButton from "../components/DeleteTrack/DeleteTrackButton";
 import { useTracks } from "../api/TracksProvider";
 import RequestError from "../utils/RequestError";
