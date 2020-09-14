@@ -34,15 +34,14 @@ export function TracksProvider(props) {
         return tracks.find((t) => t.id === trackId);
     };
 
-    const deleteTrack = async (userId, trackId) => {
-        userId = parseInt(userId);
+    const deleteTrack = async (trackId) => {
         trackId = parseInt(trackId);
-        await axios.delete(`/api/users/${userId}/tracks/${trackId}`);
+        await axios.delete(`/api/users/${user.id}/tracks/${trackId}`);
         setTracks(tracks.filter((t) => t.id !== trackId));
     };
 
-    const uploadTracks = async (userId, files, handleUploadFinished) => {
-        const calls = files.map((f) => prepareUploadRequest(userId, f));
+    const uploadTracks = async (files, handleUploadFinished) => {
+        const calls = files.map((f) => prepareUploadRequest(user.id, f));
         const responses = await Promise.all(calls);
 
         const successfulResponses = responses.filter((r) => r.status === 201);

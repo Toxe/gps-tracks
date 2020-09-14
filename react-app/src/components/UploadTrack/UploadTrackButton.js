@@ -3,14 +3,12 @@ import { useTranslation } from "react-i18next";
 import { Button } from "@material-ui/core";
 import { DropzoneDialog } from "material-ui-dropzone";
 import PublishIcon from "@material-ui/icons/Publish";
-import { useUser } from "../../api/UserProvider";
 import { useTracks } from "../../api/TracksProvider";
 import UploadResultsSnackbar from "./UploadResultsSnackbar";
 
 export default function UploadTrackButton() {
     const { t } = useTranslation();
     const { uploadTracks } = useTracks();
-    const { user } = useUser();
     const [dialogVisible, setDialogVisible] = useState(false);
     const [uploadResultsSnackbar, setUploadResultsSnackbar] = useState(null);
 
@@ -39,7 +37,7 @@ export default function UploadTrackButton() {
                 maxFileSize={5000000}
                 open={dialogVisible}
                 onClose={() => setDialogVisible(false)}
-                onSave={(files) => uploadTracks(user.id, files, handleUploadFinished)}
+                onSave={(files) => uploadTracks(files, handleUploadFinished)}
                 showPreviews
                 showFileNamesInPreview
                 useChipsForPreview
