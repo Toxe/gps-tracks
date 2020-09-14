@@ -14,19 +14,8 @@ export default function UploadTrackButton() {
     const [dialogVisible, setDialogVisible] = useState(false);
     const [uploadResultsSnackbar, setUploadResultsSnackbar] = useState(null);
 
-    const handleOpen = () => {
-        setDialogVisible(true);
-    };
-
-    const handleCancel = () => {
-        setDialogVisible(false);
-    };
-
-    const handleSave = (files) => {
-        uploadTracks(user.id, files, handleUploadFinished);
-    };
-
     const handleUploadFinished = (numFiles, numFilesUploadedSuccessfully) => {
+        setDialogVisible(false);
         setUploadResultsSnackbar(
             <UploadResultsSnackbar
                 numFiles={numFiles}
@@ -34,20 +23,23 @@ export default function UploadTrackButton() {
                 handleRemove={() => setUploadResultsSnackbar(null)}
             />
         );
-        setDialogVisible(false);
     };
 
     return (
         <div>
-            <Button variant="contained" color="primary" startIcon={<PublishIcon />} onClick={handleOpen}>
+            <Button
+                variant="contained"
+                color="primary"
+                startIcon={<PublishIcon />}
+                onClick={() => setDialogVisible(true)}>
                 {t("button_upload_track")}
             </Button>
             <DropzoneDialog
                 // acceptedFiles={["application/gpx+xml", ".gpx"]}
                 maxFileSize={5000000}
                 open={dialogVisible}
-                onClose={handleCancel}
-                onSave={handleSave}
+                onClose={() => setDialogVisible(false)}
+                onSave={(files) => uploadTracks(user.id, files, handleUploadFinished)}
                 showPreviews
                 showFileNamesInPreview
                 useChipsForPreview
