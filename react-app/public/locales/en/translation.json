@@ -27,5 +27,15 @@
     "track_speed": "Average Speed",
     "tracks_counter": "1 Track",
     "tracks_counter_plural": "{{count}} Tracks",
+    "upload_dialog_dropzone": "Drag and drop one or more .gpx files here or click",
+    "upload_dialog_file_added": "File {{fileName}} successfully added.",
+    "upload_dialog_file_removed": "File {{fileName}} removed.",
+    "upload_dialog_preview": "Selected file(s):",
+    "upload_dialog_title": "Upload file",
+    "upload_error": "File could not be imported.",
+    "upload_error_plural": "No files could be imported.",
+    "upload_success": "File successfully imported.",
+    "upload_success_partial": "{{numFilesUploadedSuccessfully}} out of {{numFiles}} files successfully imported.",
+    "upload_success_plural": "All files successfully imported.",
     "user_menu_logout": "Logout"
 }

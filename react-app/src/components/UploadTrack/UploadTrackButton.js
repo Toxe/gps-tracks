@@ -52,11 +52,13 @@ export default function UploadTrackButton() {
                 showFileNamesInPreview
                 useChipsForPreview
                 filesLimit={100}
-                cancelButtonText={"Cancel"}
-                submitButtonText={"Upload"}
-                dialogTitle={"Upload file"}
-                dropzoneText={"Drag and drop .gpx files here or click"}
-                previewText={"Preview:"}
+                cancelButtonText={t("button_cancel")}
+                submitButtonText={t("button_upload_track")}
+                dialogTitle={t("upload_dialog_title")}
+                dropzoneText={t("upload_dialog_dropzone")}
+                previewText={t("upload_dialog_preview")}
+                getFileAddedMessage={(fileName) => t("upload_dialog_file_added", { fileName })}
+                getFileRemovedMessage={(fileName) => t("upload_dialog_file_removed", { fileName })}
             />
             {uploadResultsSnackbar}
         </div>

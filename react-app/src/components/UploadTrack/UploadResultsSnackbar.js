@@ -1,31 +1,11 @@
 import React, { useState } from "react";
+import { useTranslation } from "react-i18next";
 import Snackbar from "@material-ui/core/Snackbar";
 import Alert from "@material-ui/lab/Alert";
 
-function getMessage(numFiles, numFilesUploadedSuccessfully) {
-    if (numFilesUploadedSuccessfully === 0) {
-        // no file imported
-        if (numFiles === 1) {
-            return ["error", "File could not be imported."];
-        } else {
-            return ["error", "No files could be imported."];
-        }
-    } else {
-        // at least one file imported
-        if (numFiles === 1 && numFilesUploadedSuccessfully === numFiles) {
-            return ["success", "File successfully imported."];
-        } else if (numFiles > 1 && numFilesUploadedSuccessfully === numFiles) {
-            return ["success", "All files successfully imported."];
-        } else {
-            return ["warning", `${numFilesUploadedSuccessfully} out of ${numFiles} files successfully imported.`];
-        }
-    }
-}
-
 export default function UploadResultsSnackbar({ numFiles, numFilesUploadedSuccessfully, handleRemove }) {
+    const { t } = useTranslation();
     const [open, setOpen] = useState(true);
-    const [severity, message] = getMessage(numFiles, numFilesUploadedSuccessfully);
-    const autoHideDuration = severity === "success" ? 5000 : null;
 
     const handleClose = (event, reason) => {
         if (reason === "clickaway") {
@@ -34,6 +14,23 @@ export default function UploadResultsSnackbar({ numFiles, numFilesUploadedSucces
 
         setOpen(false);
     };
+
+    const getMessage = (numFiles, numFilesUploadedSuccessfully) => {
+        if (numFilesUploadedSuccessfully === 0) {
+            // no file imported
+            return ["error", t("upload_error", { count: numFiles })];
+        } else {
+            // at least one file imported
+            if (numFilesUploadedSuccessfully === numFiles && numFiles >= 1) {
+                return ["success", t("upload_success", { count: numFiles })];
+            } else {
+                return ["warning", t("upload_success_partial", { numFilesUploadedSuccessfully, numFiles })];
+            }
+        }
+    };
+
+    const [severity, message] = getMessage(numFiles, numFilesUploadedSuccessfully);
+    const autoHideDuration = severity === "success" ? 5000 : null;
 
     return (
         <div>

@@ -27,5 +27,15 @@
     "track_speed": "Durchschnittsgeschwindigkeit",
     "tracks_counter": "1 Strecke",
     "tracks_counter_plural": "{{count}} Strecken",
+    "upload_dialog_dropzone": "Eine oder mehrere .gpx Dateien in dieses Feld ziehen oder klicken",
+    "upload_dialog_file_added": "Datei {{fileName}} hinzugefügt.",
+    "upload_dialog_file_removed": "Datei {{fileName}} entfernt.",
+    "upload_dialog_preview": "Ausgewählte Datei(en):",
+    "upload_dialog_title": "Datei hochladen",
+    "upload_error": "Datei konnte nicht importiert werden.",
+    "upload_error_plural": "Keine der Dateien konnte importiert werden.",
+    "upload_success": "Datei importiert.",
+    "upload_success_partial": "{{numFilesUploadedSuccessfully}} von {{numFiles}} Dateien erfolgreich importiert.",
+    "upload_success_plural": "Alle Dateien importiert.",
     "user_menu_logout": "Abmelden"
 }
