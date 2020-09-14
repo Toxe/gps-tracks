@@ -4,7 +4,7 @@ import { Box } from "@material-ui/core";
 import Track from "../components/Track/Track";
 import TrackMap from "../components/TrackMap/TrackMap";
 import DownloadTrackButton from "../components/DownloadTrackButton";
-import DeleteTrackButton from "../components/DeleteTrackButton";
+import DeleteTrackButton from "../components/DeleteTrack/DeleteTrackButton";
 import { useTracks } from "../api/TracksProvider";
 import RequestError from "../utils/RequestError";
 

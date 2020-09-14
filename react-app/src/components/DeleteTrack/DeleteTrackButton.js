@@ -2,9 +2,9 @@ import React, { useState } from "react";
 import { useTranslation } from "react-i18next";
 import { makeStyles } from "@material-ui/core/styles";
 import { Button, Dialog, DialogTitle, DialogContent, DialogContentText, DialogActions } from "@material-ui/core";
-import { useTracks } from "../api/TracksProvider";
+import { useTracks } from "../../api/TracksProvider";
 import DeleteIcon from "@material-ui/icons/Delete";
-import { useLastVisitedAllTracksPage } from "../pages/LastVisitedAllTracksPageProvider";
+import { useLastVisitedAllTracksPage } from "../../pages/LastVisitedAllTracksPageProvider";
 
 const useStyles = makeStyles((theme) => ({
     button: {
