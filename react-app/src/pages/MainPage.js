@@ -12,7 +12,7 @@ import { TracksProvider } from "../api/TracksProvider";
 import { TracksFilterProvider } from "../components/TracksFilter/TracksFilterProvider";
 import { TracksSortProvider } from "../components/TracksSort/TracksSortProvider";
 import { TracksSearchProvider } from "../components/TracksSearch/TracksSearchProvider";
-import { LastVisitedAllTracksPageProvider } from "./LastVisitedAllTracksPageProvider";
+import { LastVisitedAllTracksPageProvider } from "../components/DeleteTrack/LastVisitedAllTracksPageProvider";
 
 const useStyles = makeStyles((theme) => ({
     toolbar: theme.mixins.toolbar,

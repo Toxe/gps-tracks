@@ -8,7 +8,7 @@ import TracksSummary from "../components/TracksSummary/TracksSummary";
 import { useTracksFilter } from "../components/TracksFilter/TracksFilterProvider";
 import { useTracksSort } from "../components/TracksSort/TracksSortProvider";
 import { useTracksSearch } from "../components/TracksSearch/TracksSearchProvider";
-import { useLastVisitedAllTracksPage } from "../pages/LastVisitedAllTracksPageProvider";
+import { useLastVisitedAllTracksPage } from "../components/DeleteTrack/LastVisitedAllTracksPageProvider";
 
 export default function AllTracks() {
     const { updateLastVisitedAllTracksPage } = useLastVisitedAllTracksPage();
