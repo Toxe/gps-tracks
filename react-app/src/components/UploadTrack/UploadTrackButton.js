@@ -3,8 +3,8 @@ import { useTranslation } from "react-i18next";
 import { Button } from "@material-ui/core";
 import { DropzoneDialog } from "material-ui-dropzone";
 import PublishIcon from "@material-ui/icons/Publish";
-import { useUser } from "../api/UserProvider";
-import { useTracks } from "../api/TracksProvider";
+import { useUser } from "../../api/UserProvider";
+import { useTracks } from "../../api/TracksProvider";
 import UploadResultsSnackbar from "./UploadResultsSnackbar";
 
 export default function UploadTrackButton() {
