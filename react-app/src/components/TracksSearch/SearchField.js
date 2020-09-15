@@ -4,6 +4,7 @@ import { makeStyles } from "@material-ui/core/styles";
 import { InputAdornment, TextField } from "@material-ui/core";
 import SearchIcon from "@material-ui/icons/Search";
 import debounce from "lodash/debounce";
+import ClearSearchButton from "./ClearSearchButton";
 
 const useStyles = makeStyles(() => ({
     searchField: {
@@ -31,6 +32,11 @@ export default function SearchField({ initialSearchText, updateSearch }) {
         debouncedUpdateSearch(e.target.value);
     };
 
+    const handleClearSearch = () => {
+        setSearchFieldContent("");
+        debouncedUpdateSearch("");
+    };
+
     return (
         <TextField
             variant="outlined"
@@ -41,6 +47,11 @@ export default function SearchField({ initialSearchText, updateSearch }) {
                 startAdornment: (
                     <InputAdornment position="start">
                         <SearchIcon />
+                    </InputAdornment>
+                ),
+                endAdornment: (
+                    <InputAdornment position="end">
+                        <ClearSearchButton handleClick={handleClearSearch} />
                     </InputAdornment>
                 ),
             }}
