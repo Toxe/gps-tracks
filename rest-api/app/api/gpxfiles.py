@@ -2,11 +2,7 @@ import os
 from uuid import uuid4
 
 import gpxpy
-import numpy as np
 from flask import current_app, jsonify, request, send_from_directory, url_for
-from matplotlib.backends.backend_agg import FigureCanvasAgg
-from matplotlib.figure import Figure
-from matplotlib.image import imsave
 
 from app import db
 from app.api import bp
@@ -14,6 +10,7 @@ from app.auth.decorators import jwt_and_matching_user_id_required
 from app.errors.handlers import error_response
 from app.models import ActivityMode, GPXFile, Track, User
 from app.schemas import gpxfile_schema
+from app.thumbnails.thumbnails import create_thumbnail
 
 
 @bp.route("/users/<int:user_id>/gpxfiles", methods=["GET"])
@@ -39,7 +36,7 @@ def upload_user_gpxfile(user_id):
     user = User.query.get_or_404(user_id)
     try:
         gpxfile = import_gpxfile(user, request.files["file"])
-    except Exception as err:
+    except Exception:
         return error_response(400, "Unable to import uploaded GPX file.")
     response = jsonify(gpxfile_schema.dump(gpxfile))
     response.status_code = 201
@@ -125,26 +122,3 @@ def determine_default_activity_mode(avg_speed):
         return ActivityMode.HIKING.value
     else:
         return ActivityMode.BIKE.value
-
-
-def create_thumbnail(track, gpx_track):
-    content = generate_thumbnail_content(gpx_track)
-    imsave(track.thumbnail_path(), arr=content, format="png")
-
-
-def generate_thumbnail_content(gpx_track):
-    fig = Figure(figsize=(1, 1), dpi=128, facecolor="white", linewidth=2, tight_layout=True)
-    canvas = FigureCanvasAgg(fig)
-    ax = fig.add_subplot(aspect="equal")
-    ax.set_axis_off()
-
-    for segment in gpx_track.segments:
-        lat = []
-        long = []
-        for point in segment.points:
-            lat.append(point.latitude)
-            long.append(point.longitude)
-        ax.plot(long, lat, color="blue")
-
-    canvas.draw()
-    return np.asarray(canvas.buffer_rgba())
