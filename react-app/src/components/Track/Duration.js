@@ -1,7 +1,7 @@
 import React from "react";
 import { useTranslation } from "react-i18next";
 import { makeStyles } from "@material-ui/core/styles";
-import { Box, Typography, Tooltip } from "@material-ui/core";
+import { Typography, Tooltip } from "@material-ui/core";
 import TimerIcon from "@material-ui/icons/Timer";
 
 const useStyles = makeStyles((theme) => ({
@@ -11,6 +11,10 @@ const useStyles = makeStyles((theme) => ({
     icon: {
         marginRight: theme.spacing(0.5),
         fontSize: theme.typography.body1.fontSize,
+    },
+    div: {
+        display: "flex",
+        alignItems: "center",
     },
 }));
 
@@ -25,10 +29,10 @@ export default function Duration({ duration, bold }) {
 
     return (
         <Tooltip arrow title={t("track_duration")}>
-            <Box display="flex" alignItems="center">
+            <div className={classes.div}>
                 <TimerIcon className={classes.icon} />
                 <Typography variant="body1" className={bold && classes.bold}>{`${hours}:${minutes}`}</Typography>
-            </Box>
+            </div>
         </Tooltip>
     );
 }
