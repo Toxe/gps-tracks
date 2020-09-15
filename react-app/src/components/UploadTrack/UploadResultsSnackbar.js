@@ -33,12 +33,10 @@ export default function UploadResultsSnackbar({ numFiles, numFilesUploadedSucces
     const autoHideDuration = severity === "success" ? 5000 : null;
 
     return (
-        <div>
-            <Snackbar open={open} autoHideDuration={autoHideDuration} onClose={handleClose} onExited={handleRemove}>
-                <Alert onClose={handleClose} severity={severity} elevation={6} variant="filled">
-                    {message}
-                </Alert>
-            </Snackbar>
-        </div>
+        <Snackbar open={open} autoHideDuration={autoHideDuration} onClose={handleClose} onExited={handleRemove}>
+            <Alert onClose={handleClose} severity={severity} elevation={6} variant="filled">
+                {message}
+            </Alert>
+        </Snackbar>
     );
 }
