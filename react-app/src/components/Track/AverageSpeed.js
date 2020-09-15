@@ -11,7 +11,7 @@ const useStyles = makeStyles((theme) => ({
     },
 }));
 
-export default function Speed({ speed }) {
+export default function AverageSpeed({ speed }) {
     const { t } = useTranslation();
     const classes = useStyles();
     const kph = Number.parseFloat(speed);

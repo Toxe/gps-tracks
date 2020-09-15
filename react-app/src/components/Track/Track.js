@@ -5,7 +5,7 @@ import ActivityIcon from "./ActivityIcon";
 import FormattedDate from "./FormattedDate";
 import Distance from "./Distance";
 import Duration from "./Duration";
-import Speed from "./Speed";
+import AverageSpeed from "./AverageSpeed";
 import Thumbnail from "./Thumbnail";
 import Title from "./Title";
 
@@ -37,7 +37,7 @@ export default function Track({ track }) {
                         <Grid item><ActivityIcon activity={track.activity_mode} /></Grid>
                         <Grid item className={classes.smallGap}><Distance distance={track.length3d} /></Grid>
                         <Grid item className={classes.wideGap}><Duration duration={track.moving_time} /></Grid>
-                        <Grid item className={classes.wideGap}><Speed speed={track.avg_speed} /></Grid>
+                        <Grid item className={classes.wideGap}><AverageSpeed speed={track.avg_speed} /></Grid>
                     </Grid>
                     <FormattedDate time={track.time_start} />
                 </Box>
