@@ -34,10 +34,9 @@ export function TracksProvider(props) {
         return tracks.find((t) => t.id === trackId);
     };
 
-    const deleteTrack = async (trackId) => {
-        trackId = parseInt(trackId);
-        await axios.delete(`/api/users/${user.id}/tracks/${trackId}`);
-        setTracks(tracks.filter((t) => t.id !== trackId));
+    const deleteTrack = async (track) => {
+        await axios.delete(track.links.delete);
+        setTracks(tracks.filter((t) => t.id !== track.id));
     };
 
     const uploadTracks = async (files, handleUploadFinished) => {

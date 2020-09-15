@@ -35,7 +35,7 @@ export default function DeleteTrackButton({ track, updateRequestError }) {
         setDialogVisible(false);
 
         try {
-            await deleteTrack(track.id);
+            await deleteTrack(track);
             updateRequestError(null);
             returnToLastVisitedAllTracksPage();
         } catch (error) {
