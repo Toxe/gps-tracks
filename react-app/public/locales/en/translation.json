@@ -36,6 +36,7 @@
     "upload_dialog_title": "Upload file",
     "upload_error": "File could not be imported.",
     "upload_error_plural": "No files could be imported.",
+    "upload_in_progress": "Upload in progress...",
     "upload_success": "File successfully imported.",
     "upload_success_partial": "{{numFilesUploadedSuccessfully}} out of {{numFiles}} files successfully imported.",
     "upload_success_plural": "All files successfully imported.",

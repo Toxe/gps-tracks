@@ -36,6 +36,7 @@
     "upload_dialog_title": "Datei hochladen",
     "upload_error": "Datei konnte nicht importiert werden.",
     "upload_error_plural": "Keine der Dateien konnte importiert werden.",
+    "upload_in_progress": "Import läuft...",
     "upload_success": "Datei importiert.",
     "upload_success_partial": "{{numFilesUploadedSuccessfully}} von {{numFiles}} Dateien erfolgreich importiert.",
     "upload_success_plural": "Alle Dateien importiert.",

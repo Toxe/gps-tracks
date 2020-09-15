@@ -4,16 +4,24 @@ import { Button } from "@material-ui/core";
 import { DropzoneDialog } from "material-ui-dropzone";
 import PublishIcon from "@material-ui/icons/Publish";
 import { useTracks } from "../../api/TracksProvider";
+import UploadInProgressSnackbar from "./UploadInProgressSnackbar";
 import UploadResultsSnackbar from "./UploadResultsSnackbar";
 
 export default function UploadTrackButton() {
     const { t } = useTranslation();
     const { uploadTracks } = useTracks();
     const [dialogVisible, setDialogVisible] = useState(false);
+    const [uploadInProgressSnackbar, setUploadInProgressSnackbar] = useState(null);
     const [uploadResultsSnackbar, setUploadResultsSnackbar] = useState(null);
+
+    const handleUpload = (files) => {
+        setUploadInProgressSnackbar(<UploadInProgressSnackbar />);
+        uploadTracks(files, handleUploadFinished);
+    };
 
     const handleUploadFinished = (numFiles, numFilesUploadedSuccessfully) => {
         setDialogVisible(false);
+        setUploadInProgressSnackbar(null);
         setUploadResultsSnackbar(
             <UploadResultsSnackbar
                 numFiles={numFiles}
@@ -37,7 +45,7 @@ export default function UploadTrackButton() {
                 maxFileSize={5000000}
                 open={dialogVisible}
                 onClose={() => setDialogVisible(false)}
-                onSave={(files) => uploadTracks(files, handleUploadFinished)}
+                onSave={handleUpload}
                 showPreviews
                 showFileNamesInPreview
                 useChipsForPreview
@@ -50,6 +58,7 @@ export default function UploadTrackButton() {
                 getFileAddedMessage={(fileName) => t("upload_dialog_file_added", { fileName })}
                 getFileRemovedMessage={(fileName) => t("upload_dialog_file_removed", { fileName })}
             />
+            {uploadInProgressSnackbar}
             {uploadResultsSnackbar}
         </div>
     );
