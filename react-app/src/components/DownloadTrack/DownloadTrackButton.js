@@ -32,8 +32,10 @@ export default function DownloadTrackButton({ track, updateRequestError }) {
     };
 
     return (
-        <Button variant="contained" color="primary" startIcon={<SaveIcon />} className={classes.button} onClick={handleDownload}>
-            {t("button_download_track")}
-        </Button>
+        <div>
+            <Button variant="contained" color="primary" startIcon={<SaveIcon />} className={classes.button} onClick={handleDownload}>
+                {t("button_download_track")}
+            </Button>
+        </div>
     );
 }

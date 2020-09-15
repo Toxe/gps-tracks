@@ -5,6 +5,7 @@ import { Box } from "@material-ui/core";
 import { Alert, AlertTitle } from "@material-ui/lab";
 import Track from "../components/Track/Track";
 import TrackMap from "../components/TrackMap/TrackMap";
+import TrackDetails from "../components/Track/TrackDetails";
 import DownloadTrackButton from "../components/DownloadTrack/DownloadTrackButton";
 import DeleteTrackButton from "../components/DeleteTrack/DeleteTrackButton";
 import { useTracks } from "../api/TracksProvider";
@@ -39,6 +40,8 @@ export default function SingleTrack() {
             )}
             <Track track={track} />
             <Box mb={4} display="flex" justifyContent="flex-end">
+                <TrackDetails track={track} />
+                <Box flexGrow={1} />
                 <DownloadTrackButton track={track} updateRequestError={updateRequestError} />
                 <DeleteTrackButton track={track} updateRequestError={updateRequestError} />
             </Box>
