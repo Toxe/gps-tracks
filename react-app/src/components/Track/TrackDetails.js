@@ -43,7 +43,7 @@ export default function TrackDetails({ track }) {
                     </td>
                 </tr>
                 <tr>
-                    <td colspan="2">
+                    <td colSpan="2">
                         <Typography variant="body1"><strong>Maximale Geschwindigkeit:</strong> {max_speed} km/h</Typography>
                     </td>
                 </tr>
