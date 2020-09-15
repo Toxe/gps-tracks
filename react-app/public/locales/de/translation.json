@@ -6,6 +6,8 @@
     "delete_track_submit": "Ja, löschen!",
     "delete_track_text": "Die Strecke wird vollständig gelöscht und ist danach nicht mehr verfügbar.",
     "delete_track_title": "Soll diese Strecke wirklich gelöscht werden?",
+    "details_not_found_text": "Die gesuchte Strecke scheint nicht zu existieren.",
+    "details_not_found_title": "Strecke nicht gefunden",
     "filter_activity": "Aktivität",
     "filter_all": "Alle",
     "filter_year": "Jahr",

@@ -6,6 +6,8 @@
     "delete_track_submit": "Yes, delete!",
     "delete_track_text": "The track will be removed and will no longer be available.",
     "delete_track_title": "Do you really want to delete this track?",
+    "details_not_found_text": "The track you are looking for does not exist.",
+    "details_not_found_title": "Track not found",
     "filter_activity": "Activity",
     "filter_all": "All",
     "filter_year": "Year",

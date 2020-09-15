@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from "react";
+import { useTranslation } from "react-i18next";
 import { useParams } from "react-router-dom";
 import { Box } from "@material-ui/core";
+import { Alert, AlertTitle } from "@material-ui/lab";
 import Track from "../components/Track/Track";
 import TrackMap from "../components/TrackMap/TrackMap";
 import DownloadTrackButton from "../components/DownloadTrack/DownloadTrackButton";
@@ -9,6 +11,7 @@ import { useTracks } from "../api/TracksProvider";
 import RequestError from "../utils/RequestError";
 
 export default function SingleTrack() {
+    const { t } = useTranslation();
     const { trackId } = useParams();
     const { getTrack } = useTracks();
     const [track, setTrack] = useState(null);
@@ -28,6 +31,12 @@ export default function SingleTrack() {
 
     return (
         <div>
+            {!track && (
+                <Alert severity="warning">
+                    <AlertTitle>{t("details_not_found_title")}</AlertTitle>
+                    {t("details_not_found_text")}
+                </Alert>
+            )}
             <Track track={track} />
             <Box mb={4} display="flex" justifyContent="flex-end">
                 <DownloadTrackButton track={track} updateRequestError={updateRequestError} />
