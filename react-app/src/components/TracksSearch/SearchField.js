@@ -51,7 +51,7 @@ export default function SearchField({ initialSearchText, updateSearch }) {
                 ),
                 endAdornment: (
                     <InputAdornment position="end">
-                        <ClearSearchButton handleClick={handleClearSearch} />
+                        <ClearSearchButton disabled={searchFieldContent === ""} handleClick={handleClearSearch} />
                     </InputAdornment>
                 ),
             }}

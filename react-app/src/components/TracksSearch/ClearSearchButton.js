@@ -11,12 +11,12 @@ const useStyles = makeStyles(() => ({
     },
 }));
 
-export default function ClearSearchButton({ handleClick }) {
+export default function ClearSearchButton({ disabled, handleClick }) {
     const classes = useStyles();
 
     return (
-        <IconButton disableRipple className={classes.button} onClick={handleClick}>
-            <ClearIcon color="action" fontSize="small" />
+        <IconButton disabled={disabled} disableRipple className={classes.button} onClick={handleClick}>
+            <ClearIcon color={disabled ? "disabled" : "action"} fontSize="small" />
         </IconButton>
     );
 }
