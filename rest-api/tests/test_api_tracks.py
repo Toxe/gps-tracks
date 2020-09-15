@@ -68,18 +68,47 @@ def test_get_track_returns_valid_links(client, auth, example_users):
     assert client.get(data["links"]["thumbnail"], headers=auth.headers).status_code == 200
 
 
-def test_delete_track(client, auth, example_users, example_tracks):
+def test_delete_track_automatically_removes_gpxfile(client, auth, example_users, example_gpxfiles, example_tracks):
     auth.login("user1@example.com", "password1")
     user = User.query.get(auth.id)
+    assert len(user.gpxfiles.all()) == 2
     assert len(user.tracks.all()) == 3
-    track = Track.query.get(1)
+    track = Track.query.get(3)
+    gpxfile = track.file
+    create_empty_file(gpxfile.static_file_path())
     create_empty_file(track.thumbnail_path())
+    assert os.path.isfile(gpxfile.static_file_path())
     assert os.path.isfile(track.thumbnail_path())
     r = client.delete("/api/users/{}/tracks/{}".format(auth.id, track.id), headers=auth.headers)
     assert r.status_code == 204
-    # make sure the static files and database objects were deleted
+    # make sure the static files and database objects (including gpxfile) were deleted
+    assert len(user.gpxfiles.all()) == 1
+    assert len(user.tracks.all()) == 2
+    assert not os.path.isfile(gpxfile.static_file_path())
+    assert not os.path.isfile(track.thumbnail_path())
+
+
+def test_delete_track_does_not_removes_gpxfile_with_multiple_tracks(client, auth, example_users, example_gpxfiles, example_tracks):
+    auth.login("user1@example.com", "password1")
+    user = User.query.get(auth.id)
+    assert len(user.gpxfiles.all()) == 2
+    assert len(user.tracks.all()) == 3
+    track = Track.query.get(1)
+    gpxfile = track.file
+    assert len(gpxfile.tracks.all()) == 2
+    create_empty_file(gpxfile.static_file_path())
+    create_empty_file(track.thumbnail_path())
+    assert os.path.isfile(gpxfile.static_file_path())
+    assert os.path.isfile(track.thumbnail_path())
+    r = client.delete("/api/users/{}/tracks/{}".format(auth.id, track.id), headers=auth.headers)
+    assert r.status_code == 204
+    # make sure the thumbnail file and track database object were deleted
+    assert len(user.gpxfiles.all()) == 2
     assert len(user.tracks.all()) == 2
     assert not os.path.isfile(track.thumbnail_path())
+    # make sure gpxfile still exists and has one track left
+    assert len(gpxfile.tracks.all()) == 1
+    assert os.path.isfile(gpxfile.static_file_path())
 
 
 def test_delete_missing_track(client, auth, example_users, example_tracks):

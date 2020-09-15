@@ -29,6 +29,10 @@ def delete_user_track(user_id, track_id):
     user = User.query.get_or_404(user_id)
     track = user.tracks.filter_by(id=track_id).first_or_404()
     db.session.delete(track)
+    # automatically delete GPX file if all of its tracks have been deleted
+    gpxfile = track.file
+    if len(gpxfile.tracks.all()) == 0:
+        db.session.delete(gpxfile)
     db.session.commit()
     return "", 204
 
