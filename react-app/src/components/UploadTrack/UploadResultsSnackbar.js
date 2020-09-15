@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { useTranslation } from "react-i18next";
-import Snackbar from "@material-ui/core/Snackbar";
-import Alert from "@material-ui/lab/Alert";
+import { Snackbar } from "@material-ui/core";
+import { Alert } from "@material-ui/lab";
 
 export default function UploadResultsSnackbar({ numFiles, numFilesUploadedSuccessfully, handleRemove }) {
     const { t } = useTranslation();
