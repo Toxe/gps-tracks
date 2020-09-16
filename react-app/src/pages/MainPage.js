@@ -4,7 +4,6 @@ import { makeStyles } from "@material-ui/core/styles";
 import { Box } from "@material-ui/core";
 import Header from "../components/Header/Header";
 import Navigation from "../components/Navigation/Navigation";
-import MainLanding from "../content/MainLanding";
 import AllTracks from "../content/AllTracks";
 import SingleTrack from "../content/SingleTrack";
 import AuthInfo from "../Auth/AuthInfo";
@@ -40,7 +39,6 @@ export default function MainPage() {
                             <div className={classes.toolbar} />
                             <LastVisitedAllTracksPageProvider>
                                 <Routes>
-                                    <Route path="/" element={<MainLanding />} />
                                     <Route path="tracks" element={<AllTracks />} />
                                     <Route path="tracks/:trackId" element={<SingleTrack />} />
                                 </Routes>
