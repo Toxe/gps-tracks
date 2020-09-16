@@ -29,7 +29,11 @@ export default function TracksList({ tracks }) {
     };
 
     if (!tracks || tracks.length === 0) {
-        return <Alert severity="info">{t("no_tracks_found")}</Alert>;
+        return (
+            <div className={classes.div}>
+                <Alert severity="info">{t("no_tracks_found")}</Alert>
+            </div>
+        );
     }
 
     const numPages = Math.ceil(tracks.length / tracksPerPage);
@@ -38,7 +42,9 @@ export default function TracksList({ tracks }) {
 
     return (
         <div className={classes.div}>
-            {showPager && <Pagination count={numPages} page={page} onChange={handleChangePage} className={classes.pager} />}
+            {showPager && (
+                <Pagination count={numPages} page={page} onChange={handleChangePage} className={classes.pager} />
+            )}
             {slice.map((track) => (
                 <Track key={track.id} track={track} />
             ))}
