@@ -31,9 +31,7 @@ export default function AllTracks() {
                 <Box flexGrow={1} />
                 <TracksSort />
             </Box>
-            <Box mt={2}>
-                <TracksList tracks={sortedTracks} />
-            </Box>
+            <TracksList tracks={sortedTracks} />
         </>
     );
 }
