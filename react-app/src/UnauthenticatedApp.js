@@ -5,7 +5,7 @@ import LoginPage from "./pages/LoginPage";
 export default function UnauthenticatedApp() {
     return (
         <Routes>
-            <Route path="/" element={<LoginPage />} />
+            <Route path="*" element={<LoginPage />} />
         </Routes>
     );
 }
