@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Routes, Route } from "react-router-dom";
+import { Routes, Route, Navigate } from "react-router-dom";
 import { makeStyles } from "@material-ui/core/styles";
 import { Box } from "@material-ui/core";
 import Header from "../components/Header/Header";
@@ -41,6 +41,7 @@ export default function MainPage() {
                                 <Routes>
                                     <Route path="tracks" element={<AllTracks />} />
                                     <Route path="tracks/:trackId" element={<SingleTrack />} />
+                                    <Route path="*" element={<Navigate to="/tracks" replace />} />
                                 </Routes>
                             </LastVisitedAllTracksPageProvider>
                             {Boolean(parseInt(process.env.REACT_APP_AUTH_INFO)) && <AuthInfo />}
