@@ -4,7 +4,7 @@ from tests.example_data_fixtures import (example_gpxfiles, example_tracks,
                                          example_users)
 from tests.util import create_empty_file
 
-from app.models import Track, User
+from app.models import ActivityMode, Track, User
 
 
 def test_get_tracks(client, auth, example_users, example_tracks):
@@ -66,6 +66,42 @@ def test_get_track_returns_valid_links(client, auth, example_users):
     assert client.get(data["links"]["owner"], headers=auth.headers).status_code == 200
     assert client.get(data["links"]["segments"], headers=auth.headers).status_code == 200
     assert client.get(data["links"]["thumbnail"], headers=auth.headers).status_code == 200
+
+
+def test_update_track(client, auth, example_users, example_tracks):
+    auth.login("user1@example.com", "password1")
+    r = client.put("/api/users/{}/tracks/1".format(auth.id), headers=auth.headers, json={"activity_mode": ActivityMode.HIKING.value, "title": "new title"})
+    assert r.status_code == 200
+    assert r.is_json
+    data = r.get_json()
+    assert data["activity_mode"] == ActivityMode.HIKING.value
+    assert data["title"] == "new title"
+
+
+def test_update_track_fails_with_missing_fields(client, auth, example_users, example_tracks):
+    auth.login("user1@example.com", "password1")
+    assert client.put("/api/users/{}/tracks/1".format(auth.id), headers=auth.headers, json={}).status_code == 400
+    assert client.put("/api/users/{}/tracks/1".format(auth.id), headers=auth.headers, json={"activity_mode": ActivityMode.HIKING.value}).status_code == 400
+    assert client.put("/api/users/{}/tracks/1".format(auth.id), headers=auth.headers, json={"title": "new title"}).status_code == 400
+
+
+def test_update_track_fails_with_unknown_fields(client, auth, example_users, example_tracks):
+    auth.login("user1@example.com", "password1")
+    assert client.put("/api/users/{}/tracks/1".format(auth.id), headers=auth.headers, json={"unknown_field": "some value", "activity_mode": ActivityMode.HIKING.value, "title": "new title"}).status_code == 400
+
+
+def test_update_track_without_login(client, example_users, example_tracks):
+    assert client.put("/api/users/1/tracks/1", json={"activity_mode": ActivityMode.HIKING.value, "title": "new title"}).status_code == 401
+
+
+def test_update_missing_track(client, auth, example_users, example_tracks):
+    auth.login("user1@example.com", "password1")
+    assert client.put("/api/users/{}/tracks/99".format(auth.id), headers=auth.headers, json={"activity_mode": ActivityMode.HIKING.value, "title": "new title"}).status_code == 404
+
+
+def test_update_track_for_different_user(client, auth, example_users, example_tracks):
+    auth.login("user2@example.com", "password2")
+    assert client.put("/api/users/1/tracks/1", headers=auth.headers, json={"activity_mode": ActivityMode.HIKING.value, "title": "new title"}).status_code == 403
 
 
 def test_delete_track_automatically_removes_gpxfile(client, auth, example_users, example_gpxfiles, example_tracks):

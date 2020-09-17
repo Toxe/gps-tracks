@@ -1,11 +1,13 @@
 import gpxpy
-from flask import jsonify
+from flask import jsonify, request
+from marshmallow import ValidationError
 
 from app import db
 from app.api import bp
 from app.auth.decorators import jwt_and_matching_user_id_required
+from app.errors.handlers import error_response
 from app.models import User
-from app.schemas import track_schema
+from app.schemas import track_schema, track_update_schema
 
 
 @bp.route("/users/<int:user_id>/tracks", methods=["GET"])
@@ -35,6 +37,22 @@ def delete_user_track(user_id, track_id):
         db.session.delete(gpxfile)
     db.session.commit()
     return "", 204
+
+
+@bp.route("/users/<int:user_id>/tracks/<int:track_id>", methods=["PUT"])
+@jwt_and_matching_user_id_required
+def update_user_track(user_id, track_id):
+    try:
+        data = track_update_schema.loads(request.data)
+    except ValidationError as error:
+        return error_response(400, error.messages)
+    user = User.query.get_or_404(user_id)
+    track = user.tracks.filter_by(id=track_id).first_or_404()
+    track.activity_mode = data["activity_mode"]
+    track.title = data["title"]
+    db.session.add(track)
+    db.session.commit()
+    return jsonify(track_schema.dump(track))
 
 
 @bp.route("/users/<int:user_id>/tracks/<int:track_id>/segments", methods=["GET"])
