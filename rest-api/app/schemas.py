@@ -50,6 +50,11 @@ class TrackSchema(Schema):
         }
 
 
+class TrackUpdateSchema(Schema):
+    title            = fields.String(required=True)
+    activity_mode    = fields.Integer(required=True, validate=validate.OneOf([e.value for e in ActivityMode]))
+
+
 class GPXFileSchema(Schema):
     id            = fields.Integer(required=True)
     user_id       = fields.Integer(required=True)
@@ -69,3 +74,4 @@ class GPXFileSchema(Schema):
 user_schema = UserSchema()
 gpxfile_schema = GPXFileSchema()
 track_schema = TrackSchema()
+track_update_schema = TrackUpdateSchema()
