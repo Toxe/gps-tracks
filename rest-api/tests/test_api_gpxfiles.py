@@ -62,6 +62,8 @@ def test_get_gpxfile_returns_valid_links(client, auth, example_users, example_gp
     r = client.get("/api/users/{}/gpxfiles/1".format(auth.id), headers=auth.headers)
     assert r.status_code == 200
     data = r.get_json()
+    assert len(data["links"]) == 2
+    assert "download" in data["links"]
     assert client.get(data["links"]["owner"], headers=auth.headers).status_code == 200
 
 

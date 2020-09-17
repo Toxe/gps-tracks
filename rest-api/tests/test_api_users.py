@@ -44,6 +44,7 @@ def test_get_user_returns_valid_links(client, auth, example_users, example_gpxfi
     r = client.get("/api/users/{}".format(auth.id))
     assert r.status_code == 200
     data = r.get_json()
+    assert len(data["links"]) == 2
     assert client.get(data["links"]["gpxfiles"], headers=auth.headers).status_code == 200
     assert client.get(data["links"]["tracks"], headers=auth.headers).status_code == 200
 
