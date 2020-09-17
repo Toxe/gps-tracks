@@ -30,7 +30,7 @@ export function TracksProvider(props) {
     }, [user]);
 
     const getTrack = (trackId) => {
-        trackId = parseInt(trackId);
+        trackId = Number(trackId);
         return tracks.find((t) => t.id === trackId);
     };
 

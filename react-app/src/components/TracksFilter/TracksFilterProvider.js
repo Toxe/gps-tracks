@@ -31,12 +31,12 @@ export function TracksFilterProvider(props) {
         let filteredTracks = tracks;
 
         if (activityFilter !== "" && activityFilter !== "all") {
-            const mode = parseInt(activityFilter);
+            const mode = Number(activityFilter);
             filteredTracks = filteredTracks.filter((t) => t.activity_mode === mode);
         }
 
         if (yearFilter !== "" && yearFilter !== "all") {
-            const year = parseInt(yearFilter);
+            const year = Number(yearFilter);
             filteredTracks = filteredTracks.filter((t) => new Date(t.time_start).getFullYear() === year);
         }
 
