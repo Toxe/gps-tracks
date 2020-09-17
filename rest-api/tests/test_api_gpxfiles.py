@@ -5,19 +5,12 @@ from flask import current_app
 from pytest import approx
 from tests.example_data_fixtures import (example_gpxfiles, example_tracks,
                                          example_users)
-from tests.util import create_empty_file
+from tests.util import create_empty_file, directory_is_empty
 
 from app.api.gpxfiles import determine_default_activity_mode, speed_to_kph
 from app.models import ActivityMode, GPXFile, Track, User
 from app.schemas import gpxfile_schema
 
-# ---- helper functions ----
-
-def directory_is_empty(dirname):
-    return len(os.listdir(dirname)) == 0
-
-
-# ---- tests ----
 
 def test_get_gpxfiles(client, auth, example_users, example_gpxfiles):
     auth.login("user1@example.com", "password1")
