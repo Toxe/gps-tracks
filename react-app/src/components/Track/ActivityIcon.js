@@ -9,11 +9,11 @@ export default function ActivityIcon({ activity }) {
     const { t } = useTranslation();
 
     return Number(activity) === ActivityMode.BIKE ? (
-        <Tooltip arrow title={t("track_activity_bike")}>
+        <Tooltip arrow title={t("activity_bike")}>
             <DirectionsBikeIcon fontSize="small" />
         </Tooltip>
     ) : (
-        <Tooltip arrow title={t("track_activity_hiking")}>
+        <Tooltip arrow title={t("activity_hiking")}>
             <DirectionsWalkIcon fontSize="small" />
         </Tooltip>
     );

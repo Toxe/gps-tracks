@@ -1,4 +1,6 @@
 {
+    "activity_bike": "Fahrrad",
+    "activity_hiking": "Wandern",
     "button_cancel": "Abbrechen",
     "button_delete_track": "Löschen",
     "button_download_track": "Herunterladen",
@@ -23,8 +25,6 @@
     "sort_by_date": "Datum",
     "sort_by_distance": "Distanz",
     "sort_by_name": "Name",
-    "track_activity_bike": "Fahrrad",
-    "track_activity_hiking": "Wandern",
     "track_distance": "Distanz",
     "track_duration": "Zeit in Bewegung (Stunden)",
     "track_speed": "Durchschnittsgeschwindigkeit",

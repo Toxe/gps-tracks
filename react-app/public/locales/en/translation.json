@@ -1,4 +1,6 @@
 {
+    "activity_bike": "Bike",
+    "activity_hiking": "Hiking",
     "button_cancel": "Cancel",
     "button_delete_track": "Delete",
     "button_download_track": "Download",
@@ -23,8 +25,6 @@
     "sort_by_date": "Date",
     "sort_by_distance": "Distance",
     "sort_by_name": "Name",
-    "track_activity_bike": "Bike",
-    "track_activity_hiking": "Hiking",
     "track_distance": "Distance",
     "track_duration": "Time in Motion (Hours)",
     "track_speed": "Average Speed",
