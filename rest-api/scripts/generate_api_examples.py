@@ -44,10 +44,10 @@ api_calls = {
     ],
 }
 
-host = "http://localhost:5000"
+HOST = "http://localhost:5000"
 
-access_token = ""
-refresh_token = ""
+ACCESS_TOKEN = ""
+REFRESH_TOKEN = ""
 
 REGEXP = re.compile(r"^HTTP/1.. 2..")
 
@@ -76,12 +76,12 @@ def dump_curl_response(response_headers, response_data):
 
 
 def save_jwt_tokens(response_data):
-    global access_token, refresh_token
+    global ACCESS_TOKEN, REFRESH_TOKEN
     data = json.loads(response_data)
     if "access_token" in data:
-        access_token = data["access_token"]
+        ACCESS_TOKEN = data["access_token"]
     if "refresh_token" in data:
-        refresh_token = data["refresh_token"]
+        REFRESH_TOKEN = data["refresh_token"]
 
 
 def split_curl_output(curl_output):
@@ -98,7 +98,7 @@ def curl(call, silent=False):
     if "params" in call:
         for param, value in call["params"].items():
             route = route.replace("<%s>" % param, value)
-    cmd = ["curl", "-i", "{}{}".format(host, route)]
+    cmd = ["curl", "-i", "{}{}".format(HOST, route)]
     if method == "PUT" or method == "DELETE":
         cmd.append("-X")
         cmd.append(method)
@@ -118,10 +118,10 @@ def curl(call, silent=False):
             cmd.append("Content-Type: application/json")
         if "access" in call["headers"]:
             cmd.append("-H")
-            cmd.append("Authorization: Bearer {}".format(access_token))
+            cmd.append("Authorization: Bearer {}".format(ACCESS_TOKEN))
         if "refresh" in call["headers"]:
             cmd.append("-H")
-            cmd.append("Authorization: Bearer {}".format(refresh_token))
+            cmd.append("Authorization: Bearer {}".format(REFRESH_TOKEN))
     p = subprocess.run(cmd, capture_output=True, text=True, check=True)
     if REGEXP.match(p.stdout) is None:
         raise Exception("Request error:\n%s" % p.stdout)
