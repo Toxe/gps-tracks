@@ -12,7 +12,6 @@ def make_shell_context():
         "User": User,
         "GPXFile": GPXFile,
         "Track": Track,
-        "Track": Track,
         "user_schema": user_schema,
         "gpxfile_schema": gpxfile_schema,
         "track_schema": track_schema,
