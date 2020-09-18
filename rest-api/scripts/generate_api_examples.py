@@ -122,9 +122,7 @@ def curl(call, silent=False):
         if "refresh" in call["headers"]:
             cmd.append("-H")
             cmd.append("Authorization: Bearer {}".format(refresh_token))
-    p = subprocess.run(cmd, capture_output=True, text=True)
-    if p.returncode != 0:
-        raise Exception("curl error, exit code: %d" % p.returncode)
+    p = subprocess.run(cmd, capture_output=True, text=True, check=True)
     if REGEXP.match(p.stdout) is None:
         raise Exception("Request error:\n%s" % p.stdout)
     response_headers, response_data = split_curl_output(p.stdout)
