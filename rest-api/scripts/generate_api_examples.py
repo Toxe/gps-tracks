@@ -35,6 +35,7 @@ api_calls = {
     "Tracks": [
         {"api": ["GET", "/api/users/<user_id>/tracks"], "title": "List user tracks", "params": {"user_id": "1"}, "headers": ["access"]},
         {"api": ["GET", "/api/users/<user_id>/tracks/<track_id>"], "title": "Get user track", "params": {"user_id": "1", "track_id": "1"}, "headers": ["access"]},
+        {"api": ["PUT", "/api/users/<user_id>/tracks/<track_id>"], "title": "Update user track", "desc": "Change track title or activity_mode.", "data": {"activity_mode": 1, "title": "New track title"}, "params": {"user_id": "1", "track_id": "1"}, "headers": ["access", "json"]},
         {"api": ["DELETE", "/api/users/<user_id>/tracks/<track_id>"], "title": "Delete user track", "params": {"user_id": "1", "track_id": "1"}, "headers": ["access"]},
     ],
     "Track Segments": [
