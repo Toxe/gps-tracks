@@ -7,6 +7,7 @@ import Track from "../components/Track/Track";
 import TrackMap from "../components/TrackMap/TrackMap";
 import TrackDetails from "../components/Track/TrackDetails";
 import DownloadTrackButton from "../components/DownloadTrack/DownloadTrackButton";
+import EditTrackButton from "../components/EditTrack/EditTrackButton";
 import DeleteTrackButton from "../components/DeleteTrack/DeleteTrackButton";
 import { useTracks } from "../api/TracksProvider";
 import RequestError from "../utils/RequestError";
@@ -43,6 +44,7 @@ export default function SingleTrack() {
                 <TrackDetails track={track} />
                 <Box flexGrow={1} />
                 <DownloadTrackButton track={track} updateRequestError={updateRequestError} />
+                <EditTrackButton />
                 <DeleteTrackButton track={track} updateRequestError={updateRequestError} />
             </Box>
             {requestError}

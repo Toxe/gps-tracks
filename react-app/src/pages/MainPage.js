@@ -6,6 +6,7 @@ import Header from "../components/Header/Header";
 import Navigation from "../components/Navigation/Navigation";
 import AllTracks from "../content/AllTracks";
 import SingleTrack from "../content/SingleTrack";
+import EditTrack from "../content/EditTrack";
 import AuthInfo from "../Auth/AuthInfo";
 import { TracksProvider } from "../api/TracksProvider";
 import { TracksFilterProvider } from "../components/TracksFilter/TracksFilterProvider";
@@ -41,6 +42,7 @@ export default function MainPage() {
                                 <Routes>
                                     <Route path="tracks" element={<AllTracks />} />
                                     <Route path="tracks/:trackId" element={<SingleTrack />} />
+                                    <Route path="tracks/:trackId/edit" element={<EditTrack />} />
                                     <Route path="*" element={<Navigate to="/tracks" replace />} />
                                 </Routes>
                             </LastVisitedAllTracksPageProvider>
