@@ -10,7 +10,22 @@ import { useTracks } from "../api/TracksProvider";
 import { ActivityMode } from "../utils/Enums";
 import RequestError from "../utils/RequestError";
 
-const useStyles = makeStyles((theme) => ({}));
+const useStyles = makeStyles((theme) => ({
+    title: {
+        marginTop: theme.spacing(5),
+        marginBottom: theme.spacing(2),
+    },
+    titleTextfield: {
+        marginLeft: theme.spacing(8),
+        width: 300,
+    },
+    buttons: {
+        marginTop: theme.spacing(3),
+    },
+    cancelButton: {
+        marginRight: theme.spacing(2),
+    },
+}));
 
 export default function EditTrack() {
     const { t } = useTranslation();
@@ -59,7 +74,7 @@ export default function EditTrack() {
         <div>
             <Track track={track} />
             <div>
-                <Typography variant="h4">
+                <Typography variant="h4" className={classes.title}>
                     <Trans i18nKey="edit_track_title" values={{ title: track.title }} components={{ em: <em /> }} />
                 </Typography>
                 <FormControl component="fieldset">
@@ -74,10 +89,11 @@ export default function EditTrack() {
                     value={values.title}
                     onChange={handleChange}
                     label={t("edit_track_label_title")}
+                    className={classes.titleTextfield}
                 />
             </div>
-            <div>
-                <Button variant="contained" onClick={handleCancel}>
+            <div className={classes.buttons}>
+                <Button variant="contained" onClick={handleCancel} className={classes.cancelButton}>
                     {t("button_cancel")}
                 </Button>
                 <Button variant="contained" color="primary" disabled={!hasChanges} onClick={handleSave}>
