@@ -2,10 +2,11 @@ import React, { useEffect } from "react";
 import { useTranslation } from "react-i18next";
 import { useSearchParams } from "react-router-dom";
 import { makeStyles } from "@material-ui/core/styles";
-import { Box, FormControl, InputLabel, ListItemIcon, MenuItem, Select } from "@material-ui/core";
+import { Box, FormControl, InputLabel, ListItemIcon, ListItemText, MenuItem, Select } from "@material-ui/core";
 import { useTracksFilter } from "./TracksFilterProvider";
 import { getSearchParam } from "../../utils/URLParams";
 import ActivityIcon from "../Track/ActivityIcon";
+import { ActivityMode } from "../../utils/Enums";
 
 const useStyles = makeStyles((theme) => ({
     filterForm: {
@@ -46,6 +47,9 @@ export default function TracksFilter() {
                 <ListItemIcon>
                     <ActivityIcon activity={activity} />
                 </ListItemIcon>
+                <ListItemText>
+                    {t(Number(activity) === ActivityMode.BIKE ? "activity_bike" : "activity_hiking")}
+                </ListItemText>
             </MenuItem>
         );
     };
@@ -58,7 +62,9 @@ export default function TracksFilter() {
                     className={classes.filterFormSelect}
                     labelId="activity-filter-select-label"
                     id="activity-filter-select"
-                    value={activityFilter === "all" || availableActivities.includes(activityFilter) ? activityFilter : ""}
+                    value={
+                        activityFilter === "all" || availableActivities.includes(activityFilter) ? activityFilter : ""
+                    }
                     onChange={(e) => handleChangeFilter("activity", e)}>
                     <MenuItem value="all">{t("filter_all")}</MenuItem>
                     {availableActivities.map((activity) => createActivityMenuItem(activity))}
@@ -74,7 +80,9 @@ export default function TracksFilter() {
                     onChange={(e) => handleChangeFilter("year", e)}>
                     <MenuItem value="all">{t("filter_all")}</MenuItem>
                     {availableYears.map((year) => (
-                        <MenuItem key={year} value={year}>{year}</MenuItem>
+                        <MenuItem key={year} value={year}>
+                            {year}
+                        </MenuItem>
                     ))}
                 </Select>
             </FormControl>
