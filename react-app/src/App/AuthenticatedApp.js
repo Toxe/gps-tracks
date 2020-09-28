@@ -1,8 +1,8 @@
 import React from "react";
 import { Routes, Route } from "react-router-dom";
-import { UserProvider } from "./api/UserProvider";
-import MainPage from "./pages/MainPage";
-import "./Leaflet";
+import { UserProvider } from "../api/UserProvider";
+import MainPage from "../pages/MainPage";
+import "../Leaflet";
 
 export default function AuthenticatedApp() {
     return (
