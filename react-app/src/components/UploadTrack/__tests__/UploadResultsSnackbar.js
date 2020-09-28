@@ -1,7 +1,9 @@
 import React from "react";
 import "../../../i18n-tests";
 import { render } from "@testing-library/react";
-import "@testing-library/jest-dom/extend-expect";
+import "@testing-library/jest-dom";
+import "jest-extended";
+import "expect-more-jest";
 import UploadResultsSnackbar from "../UploadResultsSnackbar";
 
 it("works for 1/1 successful uploads", () => {
