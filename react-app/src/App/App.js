@@ -1,4 +1,5 @@
 import React, { Suspense } from "react";
+import { BrowserRouter } from "react-router-dom";
 import { useAuth } from "../Auth/AuthProvider";
 import AuthenticatedApp from "./AuthenticatedApp";
 import UnauthenticatedApp from "./UnauthenticatedApp";
@@ -8,8 +9,10 @@ export default function App() {
     const { authId } = useAuth();
 
     return (
-        <Suspense fallback={<Loading />}>
-            {authId ? <AuthenticatedApp /> : <UnauthenticatedApp />}
-        </Suspense>
+        <BrowserRouter>
+            <Suspense fallback={<Loading />}>
+                {authId ? <AuthenticatedApp /> : <UnauthenticatedApp />}
+            </Suspense>
+        </BrowserRouter>
     );
 }
