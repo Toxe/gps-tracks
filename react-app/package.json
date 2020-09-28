@@ -55,7 +55,9 @@
     "@testing-library/react": "^11.0.4",
     "@testing-library/user-event": "^12.1.6",
     "babel-plugin-i18next-extract": "^0.7.2",
+    "expect-more-jest": "^5.2.0",
     "jest-environment-jsdom-sixteen": "^1.0.3",
+    "jest-extended": "^0.11.5",
     "react-test-renderer": "^16.13.1"
   }
 }
