@@ -8,7 +8,7 @@ import "expect-more-jest";
 import jwt from "jsonwebtoken";
 import axiosMock from "axios";
 import { AuthProvider } from "../../Auth/AuthProvider";
-import App from "../App";
+import App from "../../App/App";
 
 jest.mock("axios");
 
