@@ -46,6 +46,10 @@ export default function LoginPage() {
         }
     };
 
+    const loginButtonIsDisabled = () => {
+        return credentials.email === "" || credentials.password === "";
+    };
+
     return (
         <>
             <Header />
@@ -79,7 +83,13 @@ export default function LoginPage() {
                         onChange={onChange}
                         value={credentials.password}
                     />
-                    <Button type="submit" fullWidth variant="contained" color="primary" className={classes.submit}>
+                    <Button
+                        type="submit"
+                        fullWidth
+                        variant="contained"
+                        color="primary"
+                        className={classes.submit}
+                        disabled={loginButtonIsDisabled()}>
                         {t("login_button")}
                     </Button>
                     {requestError}
