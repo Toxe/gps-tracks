@@ -15,5 +15,5 @@ it("renders", () => {
         </AuthProvider>
     );
 
-    getByRole("button", { name: "Sign in" })
+    getByRole("button", { name: "Sign in" });
 });
