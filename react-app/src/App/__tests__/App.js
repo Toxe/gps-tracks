@@ -6,11 +6,12 @@ import "jest-extended";
 import "expect-more-jest";
 import jwt from "jsonwebtoken";
 import { AuthProvider } from "../../Auth/AuthProvider";
+import { saveAuthTokensToLocalStorage, removeAuthTokensFromLocalStorage } from "../../Auth/API";
 import App from "../App";
 
 describe("App", () => {
     afterEach(() => {
-        localStorage.clear();
+        removeAuthTokensFromLocalStorage();
     });
 
     describe("With authenticated user", () => {
@@ -18,9 +19,7 @@ describe("App", () => {
             const identity = 1;
             const access_token = jwt.sign({ identity }, "secret", { expiresIn: "15m" });
             const refresh_token = jwt.sign({ identity }, "secret", { expiresIn: "30d" });
-
-            localStorage.setItem("access_token", access_token);
-            localStorage.setItem("refresh_token", refresh_token);
+            saveAuthTokensToLocalStorage(access_token, refresh_token);
 
             const { getByRole } = render(
                 <AuthProvider>
