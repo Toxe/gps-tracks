@@ -19,7 +19,7 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 export default function Duration({ duration, bold }) {
-    if (duration < 0.0)
+    if (duration < 0.0 || !duration)
         duration = 0.0;
 
     const { t } = useTranslation();
