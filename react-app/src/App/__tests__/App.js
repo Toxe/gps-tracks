@@ -9,6 +9,10 @@ import { AuthProvider } from "../../Auth/AuthProvider";
 import App from "../App";
 
 describe("App", () => {
+    afterEach(() => {
+        localStorage.clear();
+    });
+
     describe("With authenticated user", () => {
         test("When user is logged in, show AuthenticatedApp", () => {
             localStorage.setItem("access_token", jwt.sign({ identity: 1 }, "secret"));
@@ -26,9 +30,6 @@ describe("App", () => {
 
     describe("With no authenticated user", () => {
         test("When user is not logged in, show UnauthenticatedApp", () => {
-            localStorage.removeItem("access_token");
-            localStorage.removeItem("refresh_token");
-
             const { getByRole } = render(
                 <AuthProvider>
                     <App />
