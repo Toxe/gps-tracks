@@ -43,8 +43,8 @@ export default function SingleTrack() {
             <Box mb={4} display="flex" justifyContent="flex-end">
                 <TrackDetails track={track} />
                 <Box flexGrow={1} />
-                <DownloadTrackButton track={track} updateRequestError={updateRequestError} />
                 <EditTrackButton />
+                <DownloadTrackButton track={track} updateRequestError={updateRequestError} />
                 <DeleteTrackButton track={track} updateRequestError={updateRequestError} />
             </Box>
             {requestError}
