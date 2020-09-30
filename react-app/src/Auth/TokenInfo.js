@@ -3,6 +3,7 @@ import { makeStyles } from "@material-ui/core/styles";
 import { Typography } from "@material-ui/core";
 import formatDistanceToNowStrict from "date-fns/formatDistanceToNowStrict";
 import jwt from "jsonwebtoken";
+import { getAuthTokensFromLocalStorage } from "./API";
 
 const useStyles = makeStyles(() => ({
     expired: {
@@ -23,18 +24,19 @@ export default function TokenInfo({ tokenName, minimized }) {
 
     useEffect(() => {
         const interval = setInterval(() => {
-            const token = localStorage.getItem(tokenName);
-            setToken(token);
+            const tokens = getAuthTokensFromLocalStorage();
 
-            if (token) {
-                const decoded = jwt.decode(token);
+            if (tokens && tokens[tokenName]) {
+                const decoded = jwt.decode(tokens[tokenName]);
                 const iat = new Date(decoded.iat * 1000);
                 const exp = new Date(decoded.exp * 1000);
 
-                setToken(token);
+                setToken(tokens[tokenName]);
                 setIssued(formatDistanceToNowStrict(iat, { addSuffix: true }));
                 setExpires(formatDistanceToNowStrict(exp, { addSuffix: true }));
                 setIsExpired(Date.now() > exp);
+            } else {
+                setToken(null);
             }
         }, 1000);
 
@@ -43,7 +45,7 @@ export default function TokenInfo({ tokenName, minimized }) {
         };
     }, [tokenName]);
 
-    if (token === null) {
+    if (!token) {
         return null;
     }
 
