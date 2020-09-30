@@ -27,7 +27,9 @@ export default function AuthInfo() {
     const [requestError, setRequestError] = useState(null);
     const [minimized, setMinimized] = useState(false);
 
-    if (!authId) return null;
+    if (!authId) {
+        return null;
+    }
 
     const handleRefreshButtonClick = async () => {
         try {
@@ -42,11 +44,16 @@ export default function AuthInfo() {
         <>
             {minimized ? (
                 <div className={classes.authInfo}>
-                    <Typography variant="body2" component="span"><strong>identity:</strong> {authId}</Typography>
-                    <Box component="span" m={1}/>
+                    <Typography variant="body2" component="span">
+                        <strong>identity:</strong> {authId}
+                    </Typography>
+                    <Box component="span" m={1} />
                     <TokenInfo tokenName="access_token" minimized />
                     <div>
-                        <IconButton onClick={() => setMinimized(!minimized)} className={classes.button}>
+                        <IconButton
+                            onClick={() => setMinimized(!minimized)}
+                            className={classes.button}
+                            aria-label="maximize">
                             <ExpandLessIcon fontSize="small" />
                         </IconButton>
                         <button type="button" onClick={handleRefreshButtonClick}>
@@ -63,7 +70,10 @@ export default function AuthInfo() {
                     <TokenInfo tokenName="access_token" />
                     <TokenInfo tokenName="refresh_token" />
                     <div>
-                        <IconButton onClick={() => setMinimized(!minimized)} className={classes.button}>
+                        <IconButton
+                            onClick={() => setMinimized(!minimized)}
+                            className={classes.button}
+                            aria-label="minimize">
                             <ExpandMoreIcon fontSize="small" />
                         </IconButton>
                         <button type="button" onClick={handleRefreshButtonClick}>
