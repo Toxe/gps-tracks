@@ -15,8 +15,12 @@ describe("App", () => {
 
     describe("With authenticated user", () => {
         test("When user is logged in, show AuthenticatedApp", () => {
-            localStorage.setItem("access_token", jwt.sign({ identity: 1 }, "secret"));
-            localStorage.setItem("refresh_token", jwt.sign({ identity: 1 }, "secret"));
+            const identity = 1;
+            const access_token = jwt.sign({ identity }, "secret", { expiresIn: "15m" });
+            const refresh_token = jwt.sign({ identity }, "secret", { expiresIn: "30d" });
+
+            localStorage.setItem("access_token", access_token);
+            localStorage.setItem("refresh_token", refresh_token);
 
             const { getByRole } = render(
                 <AuthProvider>

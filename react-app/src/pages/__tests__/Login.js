@@ -14,7 +14,10 @@ jest.mock("axios");
 
 test("can login", async () => {
     axiosMock.post.mockResolvedValue({
-        data: { access_token: jwt.sign({ identity: 1 }, "secret"), refresh_token: jwt.sign({ identity: 1 }, "secret") },
+        data: {
+            access_token: jwt.sign({ identity: 1 }, "secret", { expiresIn: "15m" }),
+            refresh_token: jwt.sign({ identity: 1 }, "secret", { expiresIn: "30d" }),
+        },
     });
 
     axiosMock.get.mockImplementation((route) => {
