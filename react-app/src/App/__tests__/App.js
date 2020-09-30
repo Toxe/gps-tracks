@@ -28,7 +28,7 @@ describe("App", () => {
         });
     });
 
-    describe("With no authenticated user", () => {
+    describe("Without authenticated user", () => {
         test("When user is not logged in, show UnauthenticatedApp", () => {
             const { getByRole } = render(
                 <AuthProvider>
