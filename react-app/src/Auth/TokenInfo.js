@@ -43,19 +43,20 @@ export default function TokenInfo({ tokenName, minimized }) {
         };
     }, [tokenName]);
 
-    if (token === null)
+    if (token === null) {
         return null;
+    }
 
     return (
         <>
             {minimized ? (
                 <Typography variant="body2" component="span" className={isExpired ? classes.expiredMinimized : null}>
-                    <strong>{tokenName}</strong>: {isExpired ? "expired" : "expires"} {expires}
+                    <strong>{tokenName}:</strong> {isExpired ? "expired" : "expires"} {expires}
                 </Typography>
             ) : (
                 <div>
                     <Typography variant="body1" noWrap>
-                        <strong>{tokenName}</strong>: {token}
+                        <strong>{tokenName}:</strong> {token}
                     </Typography>
                     <Typography variant="body2">issued: {issued}</Typography>
                     <Typography variant="body2" className={isExpired ? classes.expired : null}>
