@@ -31,25 +31,42 @@ const tracks = [
     },
 ];
 
-test("generateStats works", () => {
-    const stats_bike = generateStats(tracks, ActivityMode.BIKE);
-    const stats_hiking = generateStats(tracks, ActivityMode.HIKING);
+describe("generateStats()", () => {
+    describe("With good data", () => {
+        it("Generates correct bike stats", () => {
+            const stats_bike = generateStats(tracks, ActivityMode.BIKE);
 
-    expect(stats_bike).not.toBeNull();
-    expect(stats_hiking).not.toBeNull();
+            expect(stats_bike).not.toBeNull();
+            expect(stats_bike).toBeObject();
+            expect(stats_bike.activity).toBe(ActivityMode.BIKE);
+            expect(stats_bike.count).toBe(3);
+            expect(stats_bike.distance).toBe(300.0);
+            expect(stats_bike.duration).toBe(30.0);
+        });
 
-    expect(stats_bike.activity).toBe(ActivityMode.BIKE);
-    expect(stats_bike.count).toBe(3);
-    expect(stats_bike.distance).toBe(300.0);
-    expect(stats_bike.duration).toBe(30.0);
+        it("Generates correct hiking stats", () => {
+            const stats_hiking = generateStats(tracks, ActivityMode.HIKING);
 
-    expect(stats_hiking.activity).toBe(ActivityMode.HIKING);
-    expect(stats_hiking.count).toBe(2);
-    expect(stats_hiking.distance).toBe(200.0);
-    expect(stats_hiking.duration).toBe(20.0);
-});
+            expect(stats_hiking).not.toBeNull();
+            expect(stats_hiking).toBeObject();
+            expect(stats_hiking.activity).toBe(ActivityMode.HIKING);
+            expect(stats_hiking.count).toBe(2);
+            expect(stats_hiking.distance).toBe(200.0);
+            expect(stats_hiking.duration).toBe(20.0);
+        });
+    });
 
-test("generateStats returns null if there are no tracks", () => {
-    expect(generateStats(null)).toBeNull();
-    expect(generateStats([])).toBeNull();
+    describe("With bad data", () => {
+        test("When list is null, return null", () => {
+            expect(generateStats(null)).toBeNull();
+        });
+
+        test("When list is undefined, return null", () => {
+            expect(generateStats(undefined)).toBeNull();
+        });
+
+        test("When list is empty, return null", () => {
+            expect(generateStats([])).toBeNull();
+        });
+    });
 });
