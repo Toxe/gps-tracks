@@ -1,6 +1,6 @@
 import "jest-extended";
 import "expect-more-jest";
-import { countYears } from "../TracksStats";
+import { countYears } from "../tracksStats";
 
 const tracks = [
     {

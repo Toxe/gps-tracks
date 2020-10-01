@@ -7,7 +7,7 @@ import { useTracks } from "../../api/TracksProvider";
 import NavigationYearList from "./NavigationYearList";
 import NavigationActivityList from "./NavigationActivityList";
 import TracksCounter from "../TracksCounter";
-import { countActivities, countYears } from "../../utils/TracksStats";
+import { countActivities, countYears } from "../../utils/tracksStats";
 import UploadTrackButton from "../UploadTrack/UploadTrackButton";
 
 const drawerWidth = 200;
