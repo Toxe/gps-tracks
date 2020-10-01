@@ -1,6 +1,6 @@
 import "jest-extended";
 import "expect-more-jest";
-import { sampleTracks } from "../../../test/sampleTracks";
+import { sampleTracks } from "../../test/sampleTracks";
 import { countActivities, countYears } from "../tracksStats";
 
 describe("countActivities()", () => {

@@ -7,7 +7,7 @@ import "jest-extended";
 import "expect-more-jest";
 import jwt from "jsonwebtoken";
 import axiosMock from "axios";
-import { sampleTracks } from "../../../test/sampleTracks";
+import { sampleTracks } from "../../test/sampleTracks";
 import { AuthProvider } from "../../Auth/AuthProvider";
 import App from "../App";
 

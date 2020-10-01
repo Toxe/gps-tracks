@@ -136,5 +136,10 @@ export function sampleTracks() {
 }
 
 export function sampleTrack(id) {
-    return tracks.filter((t) => t.id === id);
+    if (Number.isInteger(id)) {
+        const track = tracks.find((t) => t.id === id);
+        return track ? track : null;
+   } else {
+        return null;
+    }
 }
