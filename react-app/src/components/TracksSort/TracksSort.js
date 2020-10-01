@@ -4,7 +4,7 @@ import { useSearchParams } from "react-router-dom";
 import { makeStyles } from "@material-ui/core/styles";
 import { Box, FormControl, InputLabel, MenuItem, Select, TableSortLabel } from "@material-ui/core";
 import { useTracksSort } from "./TracksSortProvider";
-import { getSearchParam, setOrRemoveDefaultSearchParam } from "../../utils/URLParams";
+import { getSearchParam, setOrRemoveDefaultSearchParam } from "../../utils/urlSearchParams";
 
 const useStyles = makeStyles((theme) => ({
     sortForm: {
