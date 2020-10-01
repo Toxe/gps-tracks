@@ -8,7 +8,7 @@ import "./index.css";
 import "./i18n";
 import { CssBaseline } from "@material-ui/core";
 import { AuthProvider } from "./Auth/AuthProvider";
-import App from "./App/App";
+import App from "./app/App";
 
 ReactDOM.render(
     <React.StrictMode>
