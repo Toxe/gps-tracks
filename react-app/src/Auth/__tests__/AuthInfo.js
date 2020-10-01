@@ -4,7 +4,7 @@ import userEvent from "@testing-library/user-event";
 import "@testing-library/jest-dom";
 import "jest-extended";
 import "expect-more-jest";
-import jwt from "jsonwebtoken";
+import { sampleAuthTokens } from "../../test/sampleAuthTokens";
 import { AuthProvider } from "../../Auth/AuthProvider";
 import { saveAuthTokensToLocalStorage, removeAuthTokensFromLocalStorage } from "../../Auth/API";
 import AuthInfo from "../AuthInfo";
@@ -20,9 +20,7 @@ describe("AuthInfo", () => {
 
     describe("With authenticated user", () => {
         test("When user is logged in, show identity, access_token and refresh_token", async () => {
-            const identity = 1;
-            const access_token = jwt.sign({ identity }, "secret", { expiresIn: "15m" });
-            const refresh_token = jwt.sign({ identity }, "secret", { expiresIn: "30d" });
+            const { access_token, refresh_token, identity } = sampleAuthTokens(1);
             saveAuthTokensToLocalStorage(access_token, refresh_token);
 
             const { findByText } = render(
@@ -39,9 +37,7 @@ describe("AuthInfo", () => {
         });
 
         test("When minimize button clicked, show only identity and access_token expiration time", async () => {
-            const identity = 1;
-            const access_token = jwt.sign({ identity }, "secret", { expiresIn: "15m" });
-            const refresh_token = jwt.sign({ identity }, "secret", { expiresIn: "30d" });
+            const { access_token, refresh_token, identity } = sampleAuthTokens(1);
             saveAuthTokensToLocalStorage(access_token, refresh_token);
 
             const { findByText, getByLabelText } = render(

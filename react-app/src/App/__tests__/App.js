@@ -4,7 +4,7 @@ import { render } from "@testing-library/react";
 import "@testing-library/jest-dom";
 import "jest-extended";
 import "expect-more-jest";
-import jwt from "jsonwebtoken";
+import { sampleAuthTokens } from "../../test/sampleAuthTokens";
 import { AuthProvider } from "../../Auth/AuthProvider";
 import { saveAuthTokensToLocalStorage, removeAuthTokensFromLocalStorage } from "../../Auth/API";
 import App from "../App";
@@ -16,9 +16,7 @@ describe("App", () => {
 
     describe("With authenticated user", () => {
         test("When user is logged in, show AuthenticatedApp", () => {
-            const identity = 1;
-            const access_token = jwt.sign({ identity }, "secret", { expiresIn: "15m" });
-            const refresh_token = jwt.sign({ identity }, "secret", { expiresIn: "30d" });
+            const { access_token, refresh_token } = sampleAuthTokens(1);
             saveAuthTokensToLocalStorage(access_token, refresh_token);
 
             const { getByRole } = render(

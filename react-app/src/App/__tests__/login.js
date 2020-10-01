@@ -5,8 +5,8 @@ import userEvent from "@testing-library/user-event";
 import "@testing-library/jest-dom";
 import "jest-extended";
 import "expect-more-jest";
-import jwt from "jsonwebtoken";
 import axiosMock from "axios";
+import { sampleAuthTokens } from "../../test/sampleAuthTokens";
 import { sampleTracks } from "../../test/sampleTracks";
 import { sampleUser } from "../../test/sampleUsers";
 import { AuthProvider } from "../../Auth/AuthProvider";
@@ -17,20 +17,15 @@ jest.mock("axios");
 describe("Login into the application", () => {
     describe("Without authenticated user", () => {
         test("When login successful, show main page", async () => {
+            const { access_token, refresh_token } = sampleAuthTokens(1);
+
             axiosMock.post.mockResolvedValueOnce({
-                data: {
-                    access_token: jwt.sign({ identity: 1 }, "secret", { expiresIn: "15m" }),
-                    refresh_token: jwt.sign({ identity: 1 }, "secret", { expiresIn: "30d" }),
-                },
+                data: { access_token, refresh_token },
             });
 
             axiosMock.get
-                .mockResolvedValueOnce({
-                    data: sampleUser(1),
-                })
-                .mockResolvedValueOnce({
-                    data: sampleTracks(),
-                });
+                .mockResolvedValueOnce({ data: sampleUser(1) })
+                .mockResolvedValueOnce({ data: sampleTracks() });
 
             const { getByRole, getByLabelText, findByRole } = render(
                 <AuthProvider>
