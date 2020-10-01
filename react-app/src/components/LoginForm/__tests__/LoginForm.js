@@ -23,7 +23,21 @@ function setupLoginForm() {
 }
 
 describe("LoginForm", () => {
-    describe("With one or more empty input fields", () => {
+    describe("With all input fields filled", () => {
+        test("When all input fields are filled out, sign-in button should be enabled", () => {
+            const { emailTextbox, passwordTextbox, loginButton } = setupLoginForm();
+
+            userEvent.clear(emailTextbox);
+            userEvent.type(emailTextbox, "user@example.com");
+
+            userEvent.clear(passwordTextbox);
+            userEvent.type(passwordTextbox, "password");
+
+            expect(loginButton).toBeEnabled();
+        });
+    });
+
+    describe("With one or more input fields empty", () => {
         test("When all login fields are empty, sign-in button should be disabled", () => {
             const { emailTextbox, passwordTextbox, loginButton } = setupLoginForm();
 
