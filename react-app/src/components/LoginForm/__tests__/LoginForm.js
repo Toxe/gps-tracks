@@ -22,31 +22,35 @@ function setupLoginForm() {
     return { emailTextbox, passwordTextbox, loginButton };
 }
 
-test("sign-in button is disabled if all login fields are empty", () => {
-    const { emailTextbox, passwordTextbox, loginButton } = setupLoginForm();
+describe("LoginForm", () => {
+    describe("With one or more empty input fields", () => {
+        test("When all login fields are empty, sign-in button should be disabled", () => {
+            const { emailTextbox, passwordTextbox, loginButton } = setupLoginForm();
 
-    userEvent.clear(emailTextbox);
-    userEvent.clear(passwordTextbox);
+            userEvent.clear(emailTextbox);
+            userEvent.clear(passwordTextbox);
 
-    expect(loginButton).toBeDisabled();
-});
+            expect(loginButton).toBeDisabled();
+        });
 
-test("sign-in button is disabled if email field is empty", () => {
-    const { emailTextbox, passwordTextbox, loginButton } = setupLoginForm();
+        test("When email field is empty, sign-in button should be disabled", () => {
+            const { emailTextbox, passwordTextbox, loginButton } = setupLoginForm();
 
-    userEvent.clear(emailTextbox);
-    userEvent.clear(passwordTextbox);
-    userEvent.type(emailTextbox, "user@example.com");
+            userEvent.clear(emailTextbox);
+            userEvent.clear(passwordTextbox);
+            userEvent.type(emailTextbox, "user@example.com");
 
-    expect(loginButton).toBeDisabled();
-});
+            expect(loginButton).toBeDisabled();
+        });
 
-test("sign-in button is disabled if password field is empty", () => {
-    const { emailTextbox, passwordTextbox, loginButton } = setupLoginForm();
+        test("When password field is empty, sign-in button should be disabled", () => {
+            const { emailTextbox, passwordTextbox, loginButton } = setupLoginForm();
 
-    userEvent.clear(emailTextbox);
-    userEvent.clear(passwordTextbox);
-    userEvent.type(passwordTextbox, "user@example.com");
+            userEvent.clear(emailTextbox);
+            userEvent.clear(passwordTextbox);
+            userEvent.type(passwordTextbox, "user@example.com");
 
-    expect(loginButton).toBeDisabled();
+            expect(loginButton).toBeDisabled();
+        });
+    });
 });
