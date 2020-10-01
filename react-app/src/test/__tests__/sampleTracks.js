@@ -19,19 +19,19 @@ describe("sampleTrack()", () => {
         expect(track.id).toBe(21);
     });
 
-    test("When called with id of non-existing track, return null", () => {
-        expect(sampleTrack(9999)).toBeNull();
+    test("When called with id of non-existing track, return undefined", () => {
+        expect(sampleTrack(9999)).toBeUndefined();
     });
 
-    test("When called with null, return null", () => {
-        expect(sampleTrack(null)).toBeNull();
+    test("When called with null, return undefined", () => {
+        expect(sampleTrack(null)).toBeUndefined();
     });
 
-    test("When called with undefined, return null", () => {
-        expect(sampleTrack(undefined)).toBeNull();
+    test("When called with undefined, return undefined", () => {
+        expect(sampleTrack(undefined)).toBeUndefined();
     });
 
-    test("When called with a non-numeric id, return null", () => {
-        expect(sampleTrack("1")).toBeNull();
+    test("When called with a non-numeric id, return undefined", () => {
+        expect(sampleTrack("1")).toBeUndefined();
     });
 });

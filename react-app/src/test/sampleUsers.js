@@ -23,9 +23,8 @@ export function sampleUsers() {
 
 export function sampleUser(id) {
     if (Number.isInteger(id)) {
-        const user = users.find((u) => u.id === id);
-        return user ? user : null;
+        return users.find((u) => u.id === id);
     } else {
-        return null;
+        return undefined;
     }
 }

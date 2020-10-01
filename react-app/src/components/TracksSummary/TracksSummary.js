@@ -13,14 +13,16 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 export function generateStats(allTracks, activity) {
-    if (!allTracks || allTracks.length === 0)
-        return null;
+    if (!allTracks || allTracks.length === 0) {
+        return undefined;
+    }
 
     const tracks = allTracks.filter((t) => t.activity_mode === activity);
     const count = tracks.length;
 
-    if (count === 0)
-        return null;
+    if (count === 0) {
+        return undefined;
+    }
 
     const distance = tracks.reduce((sum, t) => sum + t.length3d, 0.0);
     const duration = tracks.reduce((sum, t) => sum + t.moving_time, 0.0);
@@ -37,17 +39,20 @@ export default function TracksSummary({ tracks }) {
         const bikeStats = generateStats(tracks, ActivityMode.BIKE);
         const hikingStats = generateStats(tracks, ActivityMode.HIKING);
 
-        if (bikeStats)
+        if (bikeStats) {
             map.set(ActivityMode.BIKE, bikeStats);
+        }
 
-        if (hikingStats)
+        if (hikingStats) {
             map.set(ActivityMode.HIKING, hikingStats);
+        }
 
         setStats(map);
     }, [tracks]);
 
-    if (!stats || stats.size === 0)
+    if (!stats || stats.size === 0) {
         return null;
+    }
 
     return (
         <Paper elevation={2} className={classes.paper}>

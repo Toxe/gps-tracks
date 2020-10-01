@@ -19,19 +19,19 @@ describe("sampleUser()", () => {
         expect(user.id).toBe(1);
     });
 
-    test("When called with id of non-existing user, return null", () => {
-        expect(sampleUser(99)).toBeNull();
+    test("When called with id of non-existing user, return undefined", () => {
+        expect(sampleUser(99)).toBeUndefined();
     });
 
-    test("When called with null, return null", () => {
-        expect(sampleUser(null)).toBeNull();
+    test("When called with null, return undefined", () => {
+        expect(sampleUser(null)).toBeUndefined();
     });
 
-    test("When called with undefined, return null", () => {
-        expect(sampleUser(undefined)).toBeNull();
+    test("When called with undefined, return undefined", () => {
+        expect(sampleUser(undefined)).toBeUndefined();
     });
 
-    test("When called with a non-numeric id, return null", () => {
-        expect(sampleUser("1")).toBeNull();
+    test("When called with a non-numeric id, return undefined", () => {
+        expect(sampleUser("1")).toBeUndefined();
     });
 });

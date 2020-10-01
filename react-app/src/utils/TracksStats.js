@@ -1,6 +1,7 @@
 export function countYears(tracks) {
-    if (!tracks || tracks.length === 0)
-        return null;
+    if (!tracks || tracks.length === 0) {
+        return undefined;
+    }
 
     const map = new Map();
 
@@ -15,8 +16,9 @@ export function countYears(tracks) {
 }
 
 export function countActivities(tracks) {
-    if (!tracks || tracks.length === 0)
-        return null;
+    if (!tracks || tracks.length === 0) {
+        return undefined;
+    }
 
     const map = new Map();
 

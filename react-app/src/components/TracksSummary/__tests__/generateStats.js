@@ -9,7 +9,7 @@ describe("generateStats()", () => {
         it("Generates correct bike stats", () => {
             const stats_bike = generateStats(sampleTracks(), ActivityMode.BIKE);
 
-            expect(stats_bike).not.toBeNull();
+            expect(stats_bike).not.toBeUndefined();
             expect(stats_bike).toBeObject();
             expect(stats_bike.activity).toBe(ActivityMode.BIKE);
             expect(stats_bike.count).toBe(3);
@@ -20,7 +20,7 @@ describe("generateStats()", () => {
         it("Generates correct hiking stats", () => {
             const stats_hiking = generateStats(sampleTracks(), ActivityMode.HIKING);
 
-            expect(stats_hiking).not.toBeNull();
+            expect(stats_hiking).not.toBeUndefined();
             expect(stats_hiking).toBeObject();
             expect(stats_hiking.activity).toBe(ActivityMode.HIKING);
             expect(stats_hiking.count).toBe(2);
@@ -30,16 +30,16 @@ describe("generateStats()", () => {
     });
 
     describe("With bad data", () => {
-        test("When list is null, return null", () => {
-            expect(generateStats(null)).toBeNull();
+        test("When list is null, return undefined", () => {
+            expect(generateStats(null)).toBeUndefined();
         });
 
-        test("When list is undefined, return null", () => {
-            expect(generateStats(undefined)).toBeNull();
+        test("When list is undefined, return undefined", () => {
+            expect(generateStats(undefined)).toBeUndefined();
         });
 
-        test("When list is empty, return null", () => {
-            expect(generateStats([])).toBeNull();
+        test("When list is empty, return undefined", () => {
+            expect(generateStats([])).toBeUndefined();
         });
     });
 });
