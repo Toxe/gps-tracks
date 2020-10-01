@@ -1,6 +1,6 @@
 import axios from "axios";
 import jwt from "jsonwebtoken";
-import { TokenDecodeError } from "../utils/Errors";
+import { TokenDecodeError } from "../utils/errors";
 import { addResponseInterceptor, removeResponseInterceptor } from "./ResponseInterceptor";
 
 export function saveAuthTokensToLocalStorage(access_token, refresh_token) {
