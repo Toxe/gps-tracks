@@ -1,17 +1,17 @@
 import React from "react";
-import "../../i18n-tests";
+import "../../../i18n-tests";
 import { render } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import "@testing-library/jest-dom";
 import "jest-extended";
 import "expect-more-jest";
-import { AuthProvider } from "../../Auth/AuthProvider";
-import App from "../../App/App";
+import { AuthProvider } from "../../../Auth/AuthProvider";
+import LoginForm from "../LoginForm";
 
-function setupLoginPage() {
+function setupLoginForm() {
     const { getByRole, getByLabelText } = render(
         <AuthProvider>
-            <App />
+            <LoginForm />
         </AuthProvider>
     );
 
@@ -23,7 +23,7 @@ function setupLoginPage() {
 }
 
 test("sign-in button is disabled if all login fields are empty", () => {
-    const { emailTextbox, passwordTextbox, loginButton } = setupLoginPage();
+    const { emailTextbox, passwordTextbox, loginButton } = setupLoginForm();
 
     userEvent.clear(emailTextbox);
     userEvent.clear(passwordTextbox);
@@ -32,7 +32,7 @@ test("sign-in button is disabled if all login fields are empty", () => {
 });
 
 test("sign-in button is disabled if email field is empty", () => {
-    const { emailTextbox, passwordTextbox, loginButton } = setupLoginPage();
+    const { emailTextbox, passwordTextbox, loginButton } = setupLoginForm();
 
     userEvent.clear(emailTextbox);
     userEvent.clear(passwordTextbox);
@@ -42,7 +42,7 @@ test("sign-in button is disabled if email field is empty", () => {
 });
 
 test("sign-in button is disabled if password field is empty", () => {
-    const { emailTextbox, passwordTextbox, loginButton } = setupLoginPage();
+    const { emailTextbox, passwordTextbox, loginButton } = setupLoginForm();
 
     userEvent.clear(emailTextbox);
     userEvent.clear(passwordTextbox);
