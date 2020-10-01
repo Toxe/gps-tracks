@@ -5,15 +5,10 @@ import userEvent from "@testing-library/user-event";
 import "@testing-library/jest-dom";
 import "jest-extended";
 import "expect-more-jest";
-import { AuthProvider } from "../../../Auth/AuthProvider";
 import LoginForm from "../LoginForm";
 
 function setupLoginForm() {
-    const { getByRole, getByLabelText } = render(
-        <AuthProvider>
-            <LoginForm />
-        </AuthProvider>
-    );
+    const { getByRole, getByLabelText } = render(<LoginForm />);
 
     const passwordTextbox = getByLabelText(/Password/i);
     const emailTextbox = getByRole("textbox", { name: /Email Address/i });

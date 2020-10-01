@@ -2,7 +2,6 @@ import React, { useState } from "react";
 import { useTranslation } from "react-i18next";
 import { makeStyles } from "@material-ui/core/styles";
 import { Container, Typography, Button, TextField } from "@material-ui/core";
-import { useAuth } from "../../Auth/AuthProvider";
 import RequestError from "../../utils/RequestError";
 
 const useStyles = makeStyles((theme) => ({
@@ -19,11 +18,10 @@ const useStyles = makeStyles((theme) => ({
     },
 }));
 
-export default function LoginForm() {
+export default function LoginForm({ handleLogin }) {
     const { t } = useTranslation();
     const classes = useStyles();
     const [credentials, setCredentials] = useState({ email: "user1@example.com", password: "password1" });
-    const { login } = useAuth();
     const [requestError, setRequestError] = useState(null);
 
     const onChange = (e) => {
@@ -34,7 +32,7 @@ export default function LoginForm() {
         try {
             e.preventDefault();
             setRequestError(null);
-            await login(credentials);
+            await handleLogin(credentials);
         } catch (error) {
             setRequestError(<RequestError error={error} handleClose={() => setRequestError(null)} />);
         }
