@@ -1,7 +1,7 @@
 import "jest-extended";
 import "expect-more-jest";
 import { generateStats } from "../TracksSummary";
-import { ActivityMode } from "../../../utils/Enums";
+import { ActivityMode } from "../../../utils/enums";
 
 const tracks = [
     {

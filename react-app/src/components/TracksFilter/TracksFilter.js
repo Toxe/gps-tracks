@@ -6,7 +6,7 @@ import { Box, FormControl, InputLabel, ListItemIcon, ListItemText, MenuItem, Sel
 import { useTracksFilter } from "./TracksFilterProvider";
 import { getSearchParam } from "../../utils/URLParams";
 import ActivityIcon from "../Track/ActivityIcon";
-import { ActivityMode } from "../../utils/Enums";
+import { ActivityMode } from "../../utils/enums";
 
 const useStyles = makeStyles((theme) => ({
     filterForm: {

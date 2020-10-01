@@ -7,7 +7,7 @@ import { Button, FormControl, FormLabel, RadioGroup, TextField, Typography } fro
 import Track from "../components/Track/Track";
 import ActivityRadio from "../components/EditTrack/ActivityRadio";
 import { useTracks } from "../api/TracksProvider";
-import { ActivityMode } from "../utils/Enums";
+import { ActivityMode } from "../utils/enums";
 import RequestError from "../utils/RequestError";
 
 const useStyles = makeStyles((theme) => ({

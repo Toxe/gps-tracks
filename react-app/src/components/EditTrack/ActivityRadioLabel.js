@@ -2,7 +2,7 @@ import React from "react";
 import { useTranslation } from "react-i18next";
 import { makeStyles } from "@material-ui/core/styles";
 import ActivityIcon from "../Track/ActivityIcon";
-import { ActivityMode } from "../../utils/Enums";
+import { ActivityMode } from "../../utils/enums";
 
 const useStyles = makeStyles((theme) => ({
     label: {
