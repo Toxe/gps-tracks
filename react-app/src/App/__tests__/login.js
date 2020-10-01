@@ -7,6 +7,7 @@ import "jest-extended";
 import "expect-more-jest";
 import jwt from "jsonwebtoken";
 import axiosMock from "axios";
+import { sampleTracks } from "../../../test/sampleTracks";
 import { AuthProvider } from "../../Auth/AuthProvider";
 import App from "../App";
 
@@ -34,58 +35,7 @@ describe("Login into the application", () => {
                     },
                 })
                 .mockResolvedValueOnce({
-                    data: [
-                        {
-                            activity_mode: 1,
-                            avg_speed: 3.0769410345863024,
-                            gpxfile_id: 1,
-                            id: 1,
-                            length2d: 117.894318190882,
-                            length3d: 118.20254402707839,
-                            links: {
-                                download: "/api/users/1/gpxfiles/1/download/example.gpx",
-                                file: "/api/users/1/gpxfiles/1",
-                                owner: "/api/users/1",
-                                segments: "/api/users/1/tracks/1/segments",
-                                thumbnail: "/thumbnails/9d494b69-cbfd-4c76-975a-0b87217fe9b4.png",
-                            },
-                            max_speed: 0.0,
-                            moving_time: 89.0,
-                            stopped_time: 162.0,
-                            thumbnail: "9d494b69-cbfd-4c76-975a-0b87217fe9b4",
-                            time_end: "2007-10-14T10:14:08",
-                            time_start: "2007-10-14T10:09:57",
-                            title: "Example gpx",
-                            total_downhill: 3.0,
-                            total_uphill: 3.0,
-                            user_id: 1,
-                        },
-                        {
-                            activity_mode: 1,
-                            avg_speed: 3.0769410345863024,
-                            gpxfile_id: 2,
-                            id: 2,
-                            length2d: 117.894318190882,
-                            length3d: 118.20254402707839,
-                            links: {
-                                download: "/api/users/1/gpxfiles/2/download/example.gpx",
-                                file: "/api/users/1/gpxfiles/2",
-                                owner: "/api/users/1",
-                                segments: "/api/users/1/tracks/2/segments",
-                                thumbnail: "/thumbnails/3e143f7a-7db4-4236-85cb-8dae09aa9241.png",
-                            },
-                            max_speed: 0.0,
-                            moving_time: 89.0,
-                            stopped_time: 162.0,
-                            thumbnail: "3e143f7a-7db4-4236-85cb-8dae09aa9241",
-                            time_end: "2007-10-14T10:14:08",
-                            time_start: "2007-10-14T10:09:57",
-                            title: "Example gpx",
-                            total_downhill: 3.0,
-                            total_uphill: 3.0,
-                            user_id: 1,
-                        },
-                    ],
+                    data: sampleTracks(),
                 });
 
             const { getByRole, getByLabelText, findByRole } = render(
