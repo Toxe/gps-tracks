@@ -7,7 +7,7 @@ import "jest-extended";
 import "expect-more-jest";
 import LoginForm from "../LoginForm";
 
-function setupLoginForm() {
+function setupEmptyLoginForm() {
     const handleLogin = jest.fn();
 
     const { getByRole, getByLabelText } = render(<LoginForm handleLogin={handleLogin} />);
@@ -16,28 +16,26 @@ function setupLoginForm() {
     const emailTextbox = getByRole("textbox", { name: /Email Address/i });
     const loginButton = getByRole("button", { name: /Sign in/i });
 
+    userEvent.clear(emailTextbox);
+    userEvent.clear(passwordTextbox);
+
     return { emailTextbox, passwordTextbox, loginButton, handleLogin };
 }
 
 describe("LoginForm", () => {
     describe("With all input fields filled", () => {
         test("When all input fields are filled out, sign-in button should be enabled", () => {
-            const { emailTextbox, passwordTextbox, loginButton } = setupLoginForm();
+            const { emailTextbox, passwordTextbox, loginButton } = setupEmptyLoginForm();
 
-            userEvent.clear(emailTextbox);
             userEvent.type(emailTextbox, "user@example.com");
-
-            userEvent.clear(passwordTextbox);
             userEvent.type(passwordTextbox, "password");
 
             expect(loginButton).toBeEnabled();
         });
 
         test("When sign-in button clicked, call handleLogin", () => {
-            const { emailTextbox, passwordTextbox, loginButton, handleLogin } = setupLoginForm();
+            const { emailTextbox, passwordTextbox, loginButton, handleLogin } = setupEmptyLoginForm();
 
-            userEvent.clear(emailTextbox);
-            userEvent.clear(passwordTextbox);
             userEvent.type(emailTextbox, "user@example.com");
             userEvent.type(passwordTextbox, "password");
             userEvent.click(loginButton);
@@ -49,29 +47,22 @@ describe("LoginForm", () => {
 
     describe("With one or more input fields empty", () => {
         test("When all login fields are empty, sign-in button should be disabled", () => {
-            const { emailTextbox, passwordTextbox, loginButton } = setupLoginForm();
-
-            userEvent.clear(emailTextbox);
-            userEvent.clear(passwordTextbox);
+            const { loginButton } = setupEmptyLoginForm();
 
             expect(loginButton).toBeDisabled();
         });
 
         test("When email field is empty, sign-in button should be disabled", () => {
-            const { emailTextbox, passwordTextbox, loginButton } = setupLoginForm();
+            const { emailTextbox, loginButton } = setupEmptyLoginForm();
 
-            userEvent.clear(emailTextbox);
-            userEvent.clear(passwordTextbox);
             userEvent.type(emailTextbox, "user@example.com");
 
             expect(loginButton).toBeDisabled();
         });
 
         test("When password field is empty, sign-in button should be disabled", () => {
-            const { emailTextbox, passwordTextbox, loginButton } = setupLoginForm();
+            const { passwordTextbox, loginButton } = setupEmptyLoginForm();
 
-            userEvent.clear(emailTextbox);
-            userEvent.clear(passwordTextbox);
             userEvent.type(passwordTextbox, "user@example.com");
 
             expect(loginButton).toBeDisabled();
