@@ -5,7 +5,7 @@ import { makeStyles } from "@material-ui/core/styles";
 import { AppBar, Box, Hidden, IconButton, Link, Toolbar, Tooltip, Typography } from "@material-ui/core";
 import GitHubIcon from "@material-ui/icons/GitHub";
 import MenuIcon from "@material-ui/icons/Menu";
-import { useAuth } from "../../Auth/AuthProvider";
+import { useAuth } from "../../auth/AuthProvider";
 import UserMenu from "./UserMenu";
 import LanguageSelection from "./LanguageSelection";
 

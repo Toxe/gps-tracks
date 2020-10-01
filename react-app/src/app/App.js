@@ -1,6 +1,6 @@
 import React, { Suspense } from "react";
 import { BrowserRouter } from "react-router-dom";
-import { useAuth } from "../Auth/AuthProvider";
+import { useAuth } from "../auth/AuthProvider";
 import AuthenticatedApp from "./AuthenticatedApp";
 import UnauthenticatedApp from "./UnauthenticatedApp";
 import Loading from "../content/Loading";
