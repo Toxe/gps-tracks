@@ -1,13 +1,16 @@
 import React, { useState } from "react";
 import { useTranslation } from "react-i18next";
 import { makeStyles } from "@material-ui/core/styles";
-import Button from "@material-ui/core/Button";
-import TextField from "@material-ui/core/TextField";
-import Typography from "@material-ui/core/Typography";
+import { Container, Typography, Button, TextField } from "@material-ui/core";
 import { useAuth } from "../../Auth/AuthProvider";
 import RequestError from "../../utils/RequestError";
 
 const useStyles = makeStyles((theme) => ({
+    container: {
+        display: "flex",
+        flexDirection: "column",
+        alignItems: "center",
+    },
     form: {
         marginTop: theme.spacing(1),
     },
@@ -42,7 +45,7 @@ export default function LoginForm() {
     };
 
     return (
-        <>
+        <Container maxWidth="xs" className={classes.container}>
             <Typography variant="h4">{t("login_title")}</Typography>
             <form className={classes.form} noValidate onSubmit={handleSubmit}>
                 <TextField
@@ -82,6 +85,6 @@ export default function LoginForm() {
                 </Button>
                 {requestError}
             </form>
-        </>
+        </Container>
     );
 }

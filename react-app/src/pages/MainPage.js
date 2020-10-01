@@ -1,7 +1,6 @@
 import React, { useState } from "react";
 import { Routes, Route, Navigate } from "react-router-dom";
-import { makeStyles } from "@material-ui/core/styles";
-import { Box } from "@material-ui/core";
+import PageContent from "../content/PageContent";
 import Header from "../components/Header/Header";
 import Navigation from "../components/Navigation/Navigation";
 import AllTracks from "../content/AllTracks";
@@ -14,12 +13,7 @@ import { TracksSortProvider } from "../components/TracksSort/TracksSortProvider"
 import { TracksSearchProvider } from "../components/TracksSearch/TracksSearchProvider";
 import { LastVisitedAllTracksPageProvider } from "../components/DeleteTrack/LastVisitedAllTracksPageProvider";
 
-const useStyles = makeStyles((theme) => ({
-    toolbar: theme.mixins.toolbar,
-}));
-
 export default function MainPage() {
-    const classes = useStyles();
     const [mobileNavigationOpen, setMobileNavigationOpen] = useState(false);
 
     const handleMobileNavigationToggle = () => {
@@ -36,8 +30,7 @@ export default function MainPage() {
                             mobileNavigationOpen={mobileNavigationOpen}
                             handleMobileNavigationToggle={handleMobileNavigationToggle}
                         />
-                        <Box flexGrow={1} p={3}>
-                            <div className={classes.toolbar} />
+                        <PageContent>
                             <LastVisitedAllTracksPageProvider>
                                 <Routes>
                                     <Route path="tracks" element={<AllTracks />} />
@@ -47,7 +40,7 @@ export default function MainPage() {
                                 </Routes>
                             </LastVisitedAllTracksPageProvider>
                             {Boolean(parseInt(process.env.REACT_APP_AUTH_INFO)) && <AuthInfo />}
-                        </Box>
+                        </PageContent>
                     </TracksSortProvider>
                 </TracksSearchProvider>
             </TracksFilterProvider>
