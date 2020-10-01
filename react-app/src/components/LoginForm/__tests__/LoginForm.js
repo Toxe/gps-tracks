@@ -8,13 +8,15 @@ import "expect-more-jest";
 import LoginForm from "../LoginForm";
 
 function setupLoginForm() {
-    const { getByRole, getByLabelText } = render(<LoginForm />);
+    const handleLogin = jest.fn();
+
+    const { getByRole, getByLabelText } = render(<LoginForm handleLogin={handleLogin} />);
 
     const passwordTextbox = getByLabelText(/Password/i);
     const emailTextbox = getByRole("textbox", { name: /Email Address/i });
     const loginButton = getByRole("button", { name: /Sign in/i });
 
-    return { emailTextbox, passwordTextbox, loginButton };
+    return { emailTextbox, passwordTextbox, loginButton, handleLogin };
 }
 
 describe("LoginForm", () => {
@@ -29,6 +31,19 @@ describe("LoginForm", () => {
             userEvent.type(passwordTextbox, "password");
 
             expect(loginButton).toBeEnabled();
+        });
+
+        test("When sign-in button clicked, call handleLogin", () => {
+            const { emailTextbox, passwordTextbox, loginButton, handleLogin } = setupLoginForm();
+
+            userEvent.clear(emailTextbox);
+            userEvent.clear(passwordTextbox);
+            userEvent.type(emailTextbox, "user@example.com");
+            userEvent.type(passwordTextbox, "password");
+            userEvent.click(loginButton);
+
+            expect(handleLogin).toHaveBeenCalledTimes(1);
+            expect(handleLogin).toHaveBeenCalledWith({ email: "user@example.com", password: "password" });
         });
     });
 
