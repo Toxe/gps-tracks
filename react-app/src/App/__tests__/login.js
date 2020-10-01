@@ -8,6 +8,7 @@ import "expect-more-jest";
 import jwt from "jsonwebtoken";
 import axiosMock from "axios";
 import { sampleTracks } from "../../test/sampleTracks";
+import { sampleUser } from "../../test/sampleUsers";
 import { AuthProvider } from "../../Auth/AuthProvider";
 import App from "../App";
 
@@ -25,14 +26,7 @@ describe("Login into the application", () => {
 
             axiosMock.get
                 .mockResolvedValueOnce({
-                    data: {
-                        id: 1,
-                        links: {
-                            gpxfiles: "/api/users/1/gpxfiles",
-                            tracks: "/api/users/1/tracks",
-                        },
-                        username: "Username",
-                    },
+                    data: sampleUser(1),
                 })
                 .mockResolvedValueOnce({
                     data: sampleTracks(),
@@ -70,7 +64,7 @@ describe("Login into the application", () => {
 
             // when logged-in we should see an "Upload" button and the user menu
             await findByRole("button", { name: "Upload" });
-            await findByRole("button", { name: "Username" });
+            await findByRole("button", { name: "User #1" });
         });
     });
 });
