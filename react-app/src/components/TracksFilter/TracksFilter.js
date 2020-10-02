@@ -5,7 +5,7 @@ import { makeStyles } from "@material-ui/core/styles";
 import { Box, FormControl, InputLabel, ListItemIcon, ListItemText, MenuItem, Select } from "@material-ui/core";
 import { useTracksFilter } from "./TracksFilterProvider";
 import { getSearchParam } from "../../utils/urlSearchParams";
-import ActivityIcon from "../Track/ActivityIcon";
+import { ActivityIcon } from "../Track";
 import { ActivityMode } from "../../utils/enums";
 
 const useStyles = makeStyles((theme) => ({

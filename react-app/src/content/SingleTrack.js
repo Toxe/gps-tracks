@@ -3,7 +3,7 @@ import { useTranslation } from "react-i18next";
 import { useParams } from "react-router-dom";
 import { Box } from "@material-ui/core";
 import { Alert, AlertTitle } from "@material-ui/lab";
-import Track from "../components/Track/Track";
+import { Track } from "../components/Track";
 import TrackMap from "../components/TrackMap/TrackMap";
 import TrackDetails from "../components/Track/TrackDetails";
 import DownloadTrackButton from "../components/DownloadTrack/DownloadTrackButton";

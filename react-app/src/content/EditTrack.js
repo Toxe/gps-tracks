@@ -4,7 +4,7 @@ import { useNavigate } from "react-router-dom";
 import { makeStyles } from "@material-ui/core/styles";
 import { useParams } from "react-router-dom";
 import { Button, FormControl, FormLabel, RadioGroup, TextField, Typography } from "@material-ui/core";
-import Track from "../components/Track/Track";
+import { Track } from "../components/Track";
 import ActivityRadio from "../components/EditTrack/ActivityRadio";
 import { useTracks } from "../api/TracksProvider";
 import { ActivityMode } from "../utils/enums";

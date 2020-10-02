@@ -1,9 +1,7 @@
 import React from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import { Typography } from "@material-ui/core";
-import ActivityIcon from "../Track/ActivityIcon";
-import Distance from "../Track/Distance";
-import Duration from "../Track/Duration";
+import { ActivityIcon, Distance, Duration } from "../Track";
 import TracksCounter from "../TracksCounter";
 import SpacerColumn from "./SpacerColumn";
 
@@ -20,8 +18,9 @@ export default function StatsRow({ stats, activity }) {
     const classes = useStyles();
     const activityStats = stats.get(activity);
 
-    if (!activityStats || activityStats.count === 0)
+    if (!activityStats || activityStats.count === 0) {
         return null;
+    }
 
     return (
         <tr>
