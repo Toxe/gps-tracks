@@ -1,6 +1,6 @@
 import "jest-extended";
 import "expect-more-jest";
-import { sampleTracks, sampleTrack } from "../sampleTracks";
+import { sampleTracks, sampleTrack } from "./sampleTracks";
 
 describe("sampleTracks()", () => {
     it("Returns list of track objects", () => {

@@ -4,10 +4,10 @@ import userEvent from "@testing-library/user-event";
 import "@testing-library/jest-dom";
 import "jest-extended";
 import "expect-more-jest";
-import { sampleAuthTokens } from "../../test/sampleAuthTokens";
-import { AuthProvider } from "../../auth/AuthProvider";
-import { saveAuthTokensToLocalStorage, removeAuthTokensFromLocalStorage } from "../../auth/API";
-import AuthInfo from "../AuthInfo";
+import { sampleAuthTokens } from "../test/sampleAuthTokens";
+import { AuthProvider } from "./AuthProvider";
+import { saveAuthTokensToLocalStorage, removeAuthTokensFromLocalStorage } from "./API";
+import AuthInfo from "./AuthInfo";
 
 function matchByTextContent(queryText) {
     return (content, node) => node.textContent === queryText;

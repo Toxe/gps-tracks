@@ -1,6 +1,6 @@
 import "jest-extended";
 import "expect-more-jest";
-import { sampleUsers, sampleUser } from "../sampleUsers";
+import { sampleUsers, sampleUser } from "./sampleUsers";
 
 describe("sampleUsers()", () => {
     it("Returns list of user objects", () => {

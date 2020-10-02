@@ -1,5 +1,5 @@
 import React from "react";
-import "../../i18n-tests";
+import "../i18n-tests";
 import { render, waitFor } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import "@testing-library/jest-dom";
@@ -7,9 +7,9 @@ import "jest-extended";
 import "expect-more-jest";
 import { BrowserRouter } from "react-router-dom";
 import axiosMock from "axios";
-import { AuthProvider } from "../../auth/AuthProvider";
-import { UserProvider } from "../../api/UserProvider";
-import LoginPage from "../LoginPage";
+import { AuthProvider } from "../auth/AuthProvider";
+import { UserProvider } from "../api/UserProvider";
+import LoginPage from "./LoginPage";
 
 jest.mock("axios");
 

@@ -1,13 +1,13 @@
 import React from "react";
-import "../../i18n-tests";
+import "../i18n-tests";
 import { render } from "@testing-library/react";
 import "@testing-library/jest-dom";
 import "jest-extended";
 import "expect-more-jest";
-import { sampleAuthTokens } from "../../test/sampleAuthTokens";
-import { AuthProvider } from "../../auth/AuthProvider";
-import { saveAuthTokensToLocalStorage, removeAuthTokensFromLocalStorage } from "../../auth/API";
-import App from "../App";
+import { sampleAuthTokens } from "../test/sampleAuthTokens";
+import { AuthProvider } from "../auth/AuthProvider";
+import { saveAuthTokensToLocalStorage, removeAuthTokensFromLocalStorage } from "../auth/API";
+import App from "./App";
 
 describe("App", () => {
     afterEach(() => {

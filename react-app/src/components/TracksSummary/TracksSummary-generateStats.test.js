@@ -1,8 +1,8 @@
 import "jest-extended";
 import "expect-more-jest";
-import { sampleTracks } from "../../../test/sampleTracks";
-import { generateStats } from "../TracksSummary";
-import { ActivityMode } from "../../../utils/enums";
+import { sampleTracks } from "../../test/sampleTracks";
+import { generateStats } from "./TracksSummary";
+import { ActivityMode } from "../../utils/enums";
 
 describe("generateStats()", () => {
     describe("With good data", () => {

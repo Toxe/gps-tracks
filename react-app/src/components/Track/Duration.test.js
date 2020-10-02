@@ -1,10 +1,10 @@
 import React from "react";
-import "../../../i18n-tests";
+import "../../i18n-tests";
 import { render } from "@testing-library/react";
 import "@testing-library/jest-dom";
 import "jest-extended";
 import "expect-more-jest";
-import Duration from "../Duration";
+import Duration from "./Duration";
 
 describe("Duration", () => {
     describe("With durations from 0 to 59 seconds", () => {

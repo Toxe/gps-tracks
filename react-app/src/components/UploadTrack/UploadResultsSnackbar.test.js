@@ -1,10 +1,10 @@
 import React from "react";
-import "../../../i18n-tests";
+import "../../i18n-tests";
 import { render } from "@testing-library/react";
 import "@testing-library/jest-dom";
 import "jest-extended";
 import "expect-more-jest";
-import UploadResultsSnackbar from "../UploadResultsSnackbar";
+import UploadResultsSnackbar from "./UploadResultsSnackbar";
 
 describe("UploadResultsSnackbar", () => {
     describe("With at least one successful upload", () => {
