@@ -23,7 +23,7 @@ async function errorResponseInterceptor(error, refresh) {
     const origRequest = error.config;
     const origResponse = error.response;
 
-    if (origResponse.status === 401 && origResponse.data.error === "Token has expired" && !origRequest._retry) {
+    if (origResponse && origResponse.status === 401 && origResponse.data.error === "Token has expired" && !origRequest._retry) {
         if (isRefreshing) {
             // already refreshing, queue request
             pendingRequestsQueue.push(origRequest);
