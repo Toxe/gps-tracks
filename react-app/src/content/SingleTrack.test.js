@@ -62,6 +62,7 @@ describe("SingleTrack", () => {
             );
 
             await findByText("Track not found");
+            await findByText("The track you are looking for does not exist.");
         });
     });
 });
