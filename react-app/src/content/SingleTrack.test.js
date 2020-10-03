@@ -18,6 +18,7 @@ jest.mock("react-leaflet"); // don't actually render the Leaflet map
 
 describe("SingleTrack", () => {
     afterEach(() => {
+        axiosMock.get.mockReset();
         removeAuthTokensFromLocalStorage();
     });
 

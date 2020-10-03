@@ -16,6 +16,7 @@ jest.mock("axios");
 
 describe("AllTracks", () => {
     afterEach(() => {
+        axiosMock.get.mockReset();
         removeAuthTokensFromLocalStorage();
     });
 
