@@ -20,7 +20,7 @@ describe("AllTracks", () => {
     });
 
     describe("With existing tracks", () => {
-        test("Should show list of tracks", async () => {
+        test("When given sample tracks, should show list of 5 tracks", async () => {
             const { access_token, refresh_token } = sampleAuthTokens(1);
             saveAuthTokensToLocalStorage(access_token, refresh_token);
 
@@ -43,7 +43,7 @@ describe("AllTracks", () => {
     });
 
     describe("Without tracks", () => {
-        test('Should show "No tracks found" message', async () => {
+        test('When given no tracks, should show "No tracks found" message', async () => {
             const { access_token, refresh_token } = sampleAuthTokens(1);
             saveAuthTokensToLocalStorage(access_token, refresh_token);
 
