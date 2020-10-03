@@ -34,7 +34,11 @@ describe("AllTracks", () => {
                 </AuthProvider>
             );
 
-            await findByText("Track 025");
+            await findByText("Track 21");
+            await findByText("Track 28");
+            await findByText("Track 47");
+            await findByText("Track 85");
+            await findByText("Track 87");
         });
     });
 
