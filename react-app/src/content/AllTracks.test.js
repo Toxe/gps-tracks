@@ -39,7 +39,7 @@ describe("AllTracks", () => {
     });
 
     describe("Without tracks", () => {
-        test('Should show "No tracks found" text', async () => {
+        test('Should show "No tracks found" message', async () => {
             const { access_token, refresh_token } = sampleAuthTokens(1);
             saveAuthTokensToLocalStorage(access_token, refresh_token);
 
