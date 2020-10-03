@@ -13,7 +13,7 @@ export function useAuth() {
     return context;
 }
 
-export function AuthProvider(props) {
+export function AuthProvider({ children }) {
     const [authId, setAuthId] = useState(null);
 
     useEffect(() => {
@@ -40,5 +40,5 @@ export function AuthProvider(props) {
         await authRefresh();
     };
 
-    return <AuthContext.Provider value={{ authId, login, logout, refresh }}>{props.children}</AuthContext.Provider>;
+    return <AuthContext.Provider value={{ authId, login, logout, refresh }}>{children}</AuthContext.Provider>;
 }

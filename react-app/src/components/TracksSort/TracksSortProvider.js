@@ -17,30 +17,33 @@ const TracksSortContext = React.createContext();
 export function useTracksSort() {
     const context = useContext(TracksSortContext);
 
-    if (!context)
+    if (!context) {
         throw new Error("useTracksSort must be used within a TracksSortProvider");
+    }
 
     return context;
 }
 
-export function TracksSortProvider(props) {
+export function TracksSortProvider({ children }) {
     const [sortBy, setSortBy] = useState("date");
     const [sortOrder, setSortOrder] = useState(defaultSortOrder["date"]);
 
     const sortTracks = (tracks) => {
-        if (!tracks || tracks.length === 0)
+        if (!tracks || tracks.length === 0) {
             return [];
+        }
 
         return [...tracks].sort(compare(sortBy, sortOrder));
-    }
+    };
 
     const getDefaultSortOrder = (sort) => {
         return defaultSortOrder[sort];
-    }
+    };
 
     return (
-        <TracksSortContext.Provider value={{ sortBy, sortOrder, setSortBy, setSortOrder, sortTracks, getDefaultSortOrder }}>
-            {props.children}
+        <TracksSortContext.Provider
+            value={{ sortBy, sortOrder, setSortBy, setSortOrder, sortTracks, getDefaultSortOrder }}>
+            {children}
         </TracksSortContext.Provider>
     );
 }

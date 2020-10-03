@@ -14,7 +14,7 @@ export function useTracks() {
     return context;
 }
 
-export function TracksProvider(props) {
+export function TracksProvider({ children }) {
     const { user } = useUser();
     const [tracks, setTracks] = useState([]);
 
@@ -58,7 +58,7 @@ export function TracksProvider(props) {
 
     return (
         <TracksContext.Provider value={{ tracks, getTrack, editTrack, deleteTrack, uploadTracks }}>
-            {props.children}
+            {children}
         </TracksContext.Provider>
     );
 }

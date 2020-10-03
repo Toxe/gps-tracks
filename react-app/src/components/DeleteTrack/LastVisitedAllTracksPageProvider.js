@@ -13,7 +13,7 @@ export function useLastVisitedAllTracksPage() {
     return context;
 }
 
-export function LastVisitedAllTracksPageProvider(props) {
+export function LastVisitedAllTracksPageProvider({ children }) {
     const [lastVisitedAllTracksPage, setLastVisitedAllTracksPage] = useState(null);
     const navigate = useNavigate();
 
@@ -28,7 +28,7 @@ export function LastVisitedAllTracksPageProvider(props) {
     return (
         <LastVisitedAllTracksPageContext.Provider
             value={{ updateLastVisitedAllTracksPage, returnToLastVisitedAllTracksPage }}>
-            {props.children}
+            {children}
         </LastVisitedAllTracksPageContext.Provider>
     );
 }

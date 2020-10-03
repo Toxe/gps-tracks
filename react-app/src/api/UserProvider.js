@@ -7,13 +7,14 @@ const UserContext = React.createContext();
 export function useUser() {
     const context = useContext(UserContext);
 
-    if (!context)
+    if (!context) {
         throw new Error("useUser must be used within a UserProvider");
+    }
 
     return context;
 }
 
-export function UserProvider(props) {
+export function UserProvider({ children }) {
     const { authId } = useAuth();
     const [user, setUser] = useState(null);
 
@@ -28,5 +29,5 @@ export function UserProvider(props) {
         }
     }, [authId]);
 
-    return <UserContext.Provider value={{ user }}>{props.children}</UserContext.Provider>;
+    return <UserContext.Provider value={{ user }}>{children}</UserContext.Provider>;
 }

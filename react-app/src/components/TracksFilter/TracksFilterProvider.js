@@ -6,13 +6,14 @@ const TracksFilterContext = React.createContext();
 export function useTracksFilter() {
     const context = useContext(TracksFilterContext);
 
-    if (!context)
+    if (!context) {
         throw new Error("useTracksFilter must be used within a TracksFilterProvider");
+    }
 
     return context;
 }
 
-export function TracksFilterProvider(props) {
+export function TracksFilterProvider({ children }) {
     const { tracks } = useTracks();
     const [activityFilter, setActivityFilter] = useState("");
     const [yearFilter, setYearFilter] = useState("");
@@ -25,8 +26,9 @@ export function TracksFilterProvider(props) {
     }, [tracks]);
 
     const filterTracks = () => {
-        if (!tracks || tracks.length === 0)
+        if (!tracks || tracks.length === 0) {
             return [];
+        }
 
         let filteredTracks = tracks;
 
@@ -54,7 +56,7 @@ export function TracksFilterProvider(props) {
                 availableActivities,
                 availableYears,
             }}>
-            {props.children}
+            {children}
         </TracksFilterContext.Provider>
     );
 }
@@ -64,15 +66,19 @@ function convertToStrings(list) {
 }
 
 function listAvailableActivities(tracks) {
-    if (!tracks || tracks.length === 0)
+    if (!tracks || tracks.length === 0) {
         return [];
+    }
 
     return convertToStrings(Array.from(new Set(tracks.map((t) => t.activity_mode))).sort());
 }
 
 function listAvailableYears(tracks) {
-    if (!tracks || tracks.length === 0)
+    if (!tracks || tracks.length === 0) {
         return [];
+    }
 
-    return convertToStrings(Array.from(new Set(tracks.map((t) => new Date(t.time_start).getFullYear()))).sort((a, b) => b - a));
+    return convertToStrings(
+        Array.from(new Set(tracks.map((t) => new Date(t.time_start).getFullYear()))).sort((a, b) => b - a)
+    );
 }
