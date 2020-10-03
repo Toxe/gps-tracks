@@ -9,6 +9,7 @@ import ActivityRadio from "../components/EditTrack/ActivityRadio";
 import { useTracks } from "../api/TracksProvider";
 import { ActivityMode } from "../utils/enums";
 import RequestError from "../utils/RequestError";
+import TrackNotFound from "../components/TrackNotFound/TrackNotFound";
 
 const useStyles = makeStyles((theme) => ({
     title: {
@@ -65,7 +66,7 @@ export default function EditTrack() {
     };
 
     if (!track) {
-        return null;
+        return <TrackNotFound />;
     }
 
     const hasChanges = values.title !== track.title || values.activity_mode !== track.activity_mode;
