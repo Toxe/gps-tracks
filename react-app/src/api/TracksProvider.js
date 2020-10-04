@@ -34,7 +34,7 @@ export function TracksProvider({ children }) {
         return tracks.find((t) => t.id === trackId);
     };
 
-    const editTrack = async (trackId, values) => {
+    const updateTrack = async (trackId, values) => {
         const response = await axios.put(`/api/users/${user.id}/tracks/${trackId}`, values);
         const track = response.data;
         setTracks(tracks.map((t) => (t.id === track.id ? track : t)));
@@ -57,7 +57,7 @@ export function TracksProvider({ children }) {
     };
 
     return (
-        <TracksContext.Provider value={{ tracks, getTrack, editTrack, deleteTrack, uploadTracks }}>
+        <TracksContext.Provider value={{ tracks, getTrack, updateTrack, deleteTrack, uploadTracks }}>
             {children}
         </TracksContext.Provider>
     );

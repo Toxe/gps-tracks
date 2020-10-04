@@ -33,7 +33,7 @@ export default function EditTrack() {
     const classes = useStyles();
     const navigate = useNavigate();
     const { trackId } = useParams();
-    const { getTrack, editTrack } = useTracks();
+    const { getTrack, updateTrack } = useTracks();
     const [track, setTrack] = useState(null);
     const [requestError, setRequestError] = useState(null);
     const [values, setValues] = useState(null);
@@ -58,7 +58,7 @@ export default function EditTrack() {
 
     const handleSave = async () => {
         try {
-            await editTrack(track.id, values);
+            await updateTrack(track.id, values);
             navigate(`/tracks/${track.id}`);
         } catch (error) {
             setRequestError(<RequestError error={error} handleClose={() => setRequestError(null)} />);
