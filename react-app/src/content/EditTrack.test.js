@@ -9,11 +9,14 @@ import axiosMock from "axios";
 import { sampleAuthTokens } from "../test/sampleAuthTokens";
 import { AuthProvider } from "../auth/AuthProvider";
 import { saveAuthTokensToLocalStorage, removeAuthTokensFromLocalStorage } from "../auth/API";
-import { sampleTracks } from "../test/sampleTracks";
+import { sampleTrack, sampleTracks } from "../test/sampleTracks";
 import { sampleUser } from "../test/sampleUsers";
+import { sampleTrackSegments } from "../test/sampleTrackSegments";
+import { ActivityMode } from "../utils/enums";
 import App from "../app/App";
 
 jest.mock("axios");
+jest.mock("react-leaflet"); // don't actually render the Leaflet map
 
 function matchByTextContent(queryText) {
     return (content, node) => node.textContent === queryText;
@@ -22,8 +25,6 @@ function matchByTextContent(queryText) {
 function setupEditTrackPage() {
     const { access_token, refresh_token } = sampleAuthTokens(1);
     saveAuthTokensToLocalStorage(access_token, refresh_token);
-
-    axiosMock.get.mockResolvedValueOnce({ data: sampleUser(1) }).mockResolvedValueOnce({ data: sampleTracks() });
 
     window.history.pushState({}, "Test Page", "/tracks/21/edit");
 
@@ -36,11 +37,16 @@ function setupEditTrackPage() {
 
 describe("EditTrack", () => {
     afterEach(() => {
+        axiosMock.get.mockReset();
         removeAuthTokensFromLocalStorage();
     });
 
     describe("With existing track", () => {
         test("When loading route /tracks/21/edit, show edit page for track 21", async () => {
+            axiosMock.get
+                .mockResolvedValueOnce({ data: sampleUser(1) })
+                .mockResolvedValueOnce({ data: sampleTracks() });
+
             const { findByText } = setupEditTrackPage();
 
             await findByText("Track 21");
@@ -50,6 +56,10 @@ describe("EditTrack", () => {
         });
 
         test('When selecting different activity mode, "Save Changes" button becomes enabled', async () => {
+            axiosMock.get
+                .mockResolvedValueOnce({ data: sampleUser(1) })
+                .mockResolvedValueOnce({ data: sampleTracks() });
+
             const { findByRole } = setupEditTrackPage();
 
             const saveChangesButton = await findByRole("button", { name: "Save Changes" });
@@ -62,6 +72,10 @@ describe("EditTrack", () => {
         });
 
         test('When typing in a new track title, "Save Changes" button becomes enabled', async () => {
+            axiosMock.get
+                .mockResolvedValueOnce({ data: sampleUser(1) })
+                .mockResolvedValueOnce({ data: sampleTracks() });
+
             const { findByRole, findByDisplayValue } = setupEditTrackPage();
 
             const saveChangesButton = await findByRole("button", { name: "Save Changes" });
@@ -71,6 +85,56 @@ describe("EditTrack", () => {
 
             userEvent.type(titleTextbox, "new title");
             expect(saveChangesButton).toBeEnabled();
+        });
+    });
+
+    describe("With editing a track", () => {
+        test('When clicking "Save Changes", update track data and reload track details page with new values', async () => {
+            axiosMock.get
+                .mockResolvedValueOnce({ data: sampleUser(1) })
+                .mockResolvedValueOnce({ data: sampleTracks() })
+                .mockResolvedValueOnce({ data: sampleTrackSegments() });
+
+            axiosMock.put.mockResolvedValueOnce({
+                data: { ...sampleTrack(21), title: "Track 21changed", activity_mode: ActivityMode.HIKING },
+            });
+
+            const { findByText, findByRole, findByDisplayValue } = setupEditTrackPage();
+
+            // change values
+            userEvent.click(await findByRole("radio", { name: "Hiking" }));
+            userEvent.type(await findByDisplayValue("Track 21"), "changed");
+
+            // click "Save Changes"
+            userEvent.click(await findByRole("button", { name: "Save Changes" }));
+
+            // go back to track details page
+            await findByText("Track 21changed");
+            await findByText("Edit");
+            await findByText("Download");
+            await findByText("Delete");
+        });
+
+        test('When clicking "Cancel", discard changes and reload track details page with old values', async () => {
+            axiosMock.get
+                .mockResolvedValueOnce({ data: sampleUser(1) })
+                .mockResolvedValueOnce({ data: sampleTracks() })
+                .mockResolvedValueOnce({ data: sampleTrackSegments() });
+
+            const { findByText, findByRole, findByDisplayValue } = setupEditTrackPage();
+
+            // change values
+            userEvent.click(await findByRole("radio", { name: "Hiking" }));
+            userEvent.type(await findByDisplayValue("Track 21"), "changed");
+
+            // click "Cancel"
+            userEvent.click(await findByRole("button", { name: "Cancel" }));
+
+            // go back to track details page
+            await findByText("Track 21");
+            await findByText("Edit");
+            await findByText("Download");
+            await findByText("Delete");
         });
     });
 
