@@ -10,7 +10,7 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 export default function TrackDetails({ track }) {
-    const { i18n } = useTranslation();
+    const { t, i18n } = useTranslation();
     const classes = useStyles();
 
     if (!track) {
@@ -28,23 +28,23 @@ export default function TrackDetails({ track }) {
             <tbody>
                 <tr>
                     <td>
-                        <Typography variant="body1"><strong>Start:</strong> {time_start}</Typography>
+                        <Typography variant="body1"><strong>{t("track_time_start")}:</strong> {time_start}</Typography>
                     </td>
                     <td className={classes.spacer}>
-                        <Typography variant="body1"><strong>Ziel:</strong> {time_end}</Typography>
+                        <Typography variant="body1"><strong>{t("track_time_end")}:</strong> {time_end}</Typography>
                     </td>
                 </tr>
                 <tr>
                     <td>
-                        <Typography variant="body1"><strong>Bergauf:</strong> {uphill} m</Typography>
+                        <Typography variant="body1"><strong>{t("track_uphill")}:</strong> {uphill} m</Typography>
                     </td>
                     <td className={classes.spacer}>
-                        <Typography variant="body1"><strong>Bergab:</strong> {downhill} m</Typography>
+                        <Typography variant="body1"><strong>{t("track_downhill")}:</strong> {downhill} m</Typography>
                     </td>
                 </tr>
                 <tr>
                     <td colSpan="2">
-                        <Typography variant="body1"><strong>Maximale Geschwindigkeit:</strong> {max_speed} km/h</Typography>
+                        <Typography variant="body1"><strong>{t("track_max_speed")}:</strong> {max_speed} km/h</Typography>
                     </td>
                 </tr>
             </tbody>
