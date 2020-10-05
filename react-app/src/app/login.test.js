@@ -10,11 +10,17 @@ import { sampleAuthTokens } from "../test/sampleAuthTokens";
 import { sampleTracks } from "../test/sampleTracks";
 import { sampleUser } from "../test/sampleUsers";
 import { AuthProvider } from "../auth/AuthProvider";
+import { removeAuthTokensFromLocalStorage } from "../auth/API";
 import App from "./App";
 
 jest.mock("axios");
 
 describe("Login into the application", () => {
+    afterEach(() => {
+        axiosMock.get.mockReset();
+        removeAuthTokensFromLocalStorage();
+    });
+
     describe("Without authenticated user", () => {
         test("When login successful, show main page", async () => {
             const { access_token, refresh_token } = sampleAuthTokens(1);
