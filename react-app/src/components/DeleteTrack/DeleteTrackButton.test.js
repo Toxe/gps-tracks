@@ -33,7 +33,7 @@ describe("DeleteTrackButton", () => {
                 .mockResolvedValueOnce({ data: sampleTracks() })
                 .mockResolvedValueOnce({ data: sampleTrackSegments() });
 
-            axiosMock.delete.mockResolvedValueOnce({ response: { status: 204 } });
+            axiosMock.delete.mockResolvedValueOnce({ status: 204 });
 
             window.history.pushState({}, "Test Page", "/tracks/21");
 
