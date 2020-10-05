@@ -34,13 +34,13 @@ describe("SingleTrack", () => {
 
             window.history.pushState({}, "Test Page", "/tracks/21");
 
-            const { findByText } = render(
+            const { findByText, findByRole } = render(
                 <AuthProvider>
                     <App />
                 </AuthProvider>
             );
 
-            await findByText("Track 21");
+            await findByRole("heading", { name: "Track 21" });
             await findByText("Edit");
             await findByText("Download");
             await findByText("Delete");

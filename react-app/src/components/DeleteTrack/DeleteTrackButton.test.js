@@ -37,19 +37,19 @@ describe("DeleteTrackButton", () => {
 
             window.history.pushState({}, "Test Page", "/tracks/21");
 
-            const { findByText, findAllByText, findByRole, getByText, queryByText } = render(
+            const { findAllByText, findByRole, getByText, queryByText } = render(
                 <AuthProvider>
                     <App />
                 </AuthProvider>
             );
 
-            await findByText("Track 21");
+            await findByRole("heading", { name: "Track 21" });
             const deleteButton = await findByRole("button", { name: "Delete" });
 
             // open delete dialog
             userEvent.click(deleteButton);
 
-            await findByText("Do you really want to delete this track?");
+            await findByRole("heading", { name: "Do you really want to delete this track?" });
             const submitButton = await findByRole("button", { name: "Yes, delete!" });
 
             // click "Yes, delete!" button

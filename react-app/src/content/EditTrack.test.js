@@ -44,9 +44,9 @@ describe("EditTrack", () => {
                 .mockResolvedValueOnce({ data: sampleUser(1) })
                 .mockResolvedValueOnce({ data: sampleTracks() });
 
-            const { findByText } = setupEditTrackPage();
+            const { findByText, findByRole } = setupEditTrackPage();
 
-            await findByText("Track 21");
+            await findByRole("heading", { name: "Track 21" });
             await findByText(matchByTextContent("Edit track “Track 21”"));
             await findByText("Cancel");
             await findByText("Save Changes");
@@ -106,7 +106,7 @@ describe("EditTrack", () => {
             userEvent.click(await findByRole("button", { name: "Save Changes" }));
 
             // go back to track details page
-            await findByText("Track 21changed");
+            await findByRole("heading", { name: "Track 21changed" });
             await findByText("Edit");
             await findByText("Download");
             await findByText("Delete");
@@ -128,7 +128,7 @@ describe("EditTrack", () => {
             userEvent.click(await findByRole("button", { name: "Cancel" }));
 
             // go back to track details page
-            await findByText("Track 21");
+            await findByRole("heading", { name: "Track 21" });
             await findByText("Edit");
             await findByText("Download");
             await findByText("Delete");

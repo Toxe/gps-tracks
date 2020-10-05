@@ -29,17 +29,17 @@ describe("AllTracks", () => {
                 .mockResolvedValueOnce({ data: sampleUser(1) })
                 .mockResolvedValueOnce({ data: sampleTracks() });
 
-            const { findByText } = render(
+            const { findByRole } = render(
                 <AuthProvider>
                     <App />
                 </AuthProvider>
             );
 
-            await findByText("Track 21");
-            await findByText("Track 28");
-            await findByText("Track 47");
-            await findByText("Track 85");
-            await findByText("Track 87");
+            await findByRole("heading", { name: "Track 21" });
+            await findByRole("heading", { name: "Track 28" });
+            await findByRole("heading", { name: "Track 47" });
+            await findByRole("heading", { name: "Track 85" });
+            await findByRole("heading", { name: "Track 87" });
         });
     });
 

@@ -38,7 +38,7 @@ describe("UploadTrackButton", () => {
 
             userEvent.click(await findByRole("button", { name: "Upload" }));
 
-            await findByText("Upload file");
+            await findByRole("heading", { name: "Upload file" });
             await findByText("Drag and drop one or more .gpx files here or click");
         });
     });
