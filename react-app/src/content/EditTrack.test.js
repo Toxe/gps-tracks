@@ -7,6 +7,7 @@ import "jest-extended";
 import "expect-more-jest";
 import axiosMock from "axios";
 import { sampleAuthTokens } from "../test/sampleAuthTokens";
+import { matchByTextContent } from "../test/matchByTextContent";
 import { AuthProvider } from "../auth/AuthProvider";
 import { saveAuthTokensToLocalStorage, removeAuthTokensFromLocalStorage } from "../auth/API";
 import { sampleTrack, sampleTracks } from "../test/sampleTracks";
@@ -17,10 +18,6 @@ import App from "../app/App";
 
 jest.mock("axios");
 jest.mock("react-leaflet"); // don't actually render the Leaflet map
-
-function matchByTextContent(queryText) {
-    return (content, node) => node.textContent === queryText;
-}
 
 function setupEditTrackPage() {
     const { access_token, refresh_token } = sampleAuthTokens(1);
