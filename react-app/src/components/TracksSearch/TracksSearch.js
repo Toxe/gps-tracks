@@ -1,6 +1,6 @@
 import React, { useEffect } from "react";
 import { useSearchParams } from "react-router-dom";
-import { useTracksSearch } from "./TracksSearchProvider";
+import { useTracksSearch } from "../../App/AuthenticatedApp/MainPage/TracksSearchProvider";
 import SearchField from "./SearchField";
 import { getSearchParam, setOrRemoveDefaultSearchParam } from "../../utils/urlSearchParams";
 

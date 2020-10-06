@@ -5,6 +5,9 @@ import TracksSort from "../components/TracksSort/TracksSort";
 import TracksSearch from "../components/TracksSearch/TracksSearch";
 import TracksSummary from "../components/TracksSummary/TracksSummary";
 import TracksList from "../components/TracksList/TracksList";
+import { useTracksFilter } from "../App/AuthenticatedApp/MainPage/TracksFilterProvider";
+import { useTracksSort } from "../App/AuthenticatedApp/MainPage/TracksSortProvider";
+import { useTracksSearch } from "../App/AuthenticatedApp/MainPage/TracksSearchProvider";
 import { useLastVisitedAllTracksPage } from "../App/AuthenticatedApp/MainPage/LastVisitedAllTracksPageProvider";
 
 export default function AllTracks() {
