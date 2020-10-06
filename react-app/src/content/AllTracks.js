@@ -5,10 +5,7 @@ import TracksSort from "../components/TracksSort/TracksSort";
 import TracksSearch from "../components/TracksSearch/TracksSearch";
 import TracksSummary from "../components/TracksSummary/TracksSummary";
 import TracksList from "../components/TracksList/TracksList";
-import { useTracksFilter } from "../components/TracksFilter/TracksFilterProvider";
-import { useTracksSort } from "../components/TracksSort/TracksSortProvider";
-import { useTracksSearch } from "../components/TracksSearch/TracksSearchProvider";
-import { useLastVisitedAllTracksPage } from "../App/AuthenticatedApp/MainPage/LastVisitedAllTracksPageProvider/LastVisitedAllTracksPageProvider";
+import { useLastVisitedAllTracksPage } from "../App/AuthenticatedApp/MainPage/LastVisitedAllTracksPageProvider";
 
 export default function AllTracks() {
     const { updateLastVisitedAllTracksPage } = useLastVisitedAllTracksPage();
