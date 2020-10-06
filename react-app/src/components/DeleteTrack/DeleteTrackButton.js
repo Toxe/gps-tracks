@@ -4,7 +4,7 @@ import { makeStyles } from "@material-ui/core/styles";
 import { Button, Dialog, DialogTitle, DialogContent, DialogContentText, DialogActions } from "@material-ui/core";
 import { useTracks } from "../../api/TracksProvider";
 import DeleteIcon from "@material-ui/icons/Delete";
-import { useLastVisitedAllTracksPage } from "./LastVisitedAllTracksPageProvider";
+import { useLastVisitedAllTracksPage } from "../../App/AuthenticatedApp/MainPage/LastVisitedAllTracksPageProvider";
 
 const useStyles = makeStyles((theme) => ({
     button: {

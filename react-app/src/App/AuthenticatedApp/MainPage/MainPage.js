@@ -10,7 +10,7 @@ import { AuthInfo } from "../../../Auth";
 import { TracksFilterProvider } from "../../../components/TracksFilter/TracksFilterProvider";
 import { TracksSortProvider } from "../../../components/TracksSort/TracksSortProvider";
 import { TracksSearchProvider } from "../../../components/TracksSearch/TracksSearchProvider";
-import { LastVisitedAllTracksPageProvider } from "../../../components/DeleteTrack/LastVisitedAllTracksPageProvider";
+import { LastVisitedAllTracksPageProvider } from "./LastVisitedAllTracksPageProvider";
 
 export default function MainPage() {
     const [mobileNavigationOpen, setMobileNavigationOpen] = useState(false);
