@@ -5,8 +5,8 @@ import "@testing-library/jest-dom";
 import "jest-extended";
 import "expect-more-jest";
 import { sampleAuthTokens } from "../test/sampleAuthTokens";
-import { AuthProvider } from "../auth/AuthProvider";
-import { saveAuthTokensToLocalStorage, removeAuthTokensFromLocalStorage } from "../auth/API";
+import { AuthProvider } from "../Auth/AuthProvider";
+import { saveAuthTokensToLocalStorage, removeAuthTokensFromLocalStorage } from "../Auth/API";
 import App from "./App";
 
 describe("App", () => {

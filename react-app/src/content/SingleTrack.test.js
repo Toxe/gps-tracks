@@ -6,12 +6,12 @@ import "jest-extended";
 import "expect-more-jest";
 import axiosMock from "axios";
 import { sampleAuthTokens } from "../test/sampleAuthTokens";
-import { AuthProvider } from "../auth/AuthProvider";
-import { saveAuthTokensToLocalStorage, removeAuthTokensFromLocalStorage } from "../auth/API";
+import { AuthProvider } from "../Auth/AuthProvider";
+import { saveAuthTokensToLocalStorage, removeAuthTokensFromLocalStorage } from "../Auth/API";
 import { sampleTracks } from "../test/sampleTracks";
 import { sampleTrackSegments } from "../test/sampleTrackSegments";
 import { sampleUser } from "../test/sampleUsers";
-import App from "../app/App";
+import App from "../App/App";
 
 jest.mock("axios");
 jest.mock("react-leaflet"); // don't actually render the Leaflet map

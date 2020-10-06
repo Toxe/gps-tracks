@@ -7,7 +7,7 @@ import "jest-extended";
 import "expect-more-jest";
 import { BrowserRouter } from "react-router-dom";
 import axiosMock from "axios";
-import { AuthProvider } from "../auth/AuthProvider";
+import { AuthProvider } from "../Auth/AuthProvider";
 import { UserProvider } from "../api/UserProvider";
 import LoginPage from "./LoginPage";
 

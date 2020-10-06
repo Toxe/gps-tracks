@@ -3,7 +3,7 @@ import { Box } from "@material-ui/core";
 import PageContent from "../content/PageContent";
 import Header from "../components/Header/Header";
 import LoginForm from "../components/LoginForm/LoginForm";
-import { useAuth } from "../auth/AuthProvider";
+import { useAuth } from "../Auth/AuthProvider";
 
 export default function LoginPage() {
     const { login } = useAuth();

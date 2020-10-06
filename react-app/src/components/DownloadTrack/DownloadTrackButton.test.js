@@ -7,13 +7,13 @@ import "jest-extended";
 import "expect-more-jest";
 import axiosMock from "axios";
 import { saveAs as saveAsMock } from "file-saver";
-import { AuthProvider } from "../../auth/AuthProvider";
-import { saveAuthTokensToLocalStorage, removeAuthTokensFromLocalStorage } from "../../auth/API";
+import { AuthProvider } from "../../Auth/AuthProvider";
+import { saveAuthTokensToLocalStorage, removeAuthTokensFromLocalStorage } from "../../Auth/API";
 import { sampleAuthTokens } from "../../test/sampleAuthTokens";
 import { sampleTracks } from "../../test/sampleTracks";
 import { sampleUser } from "../../test/sampleUsers";
 import { sampleTrackSegments } from "../../test/sampleTrackSegments";
-import App from "../../app/App";
+import App from "../../App/App";
 
 jest.mock("axios");
 jest.mock("file-saver");

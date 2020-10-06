@@ -9,12 +9,12 @@ import axiosMock from "axios";
 import { sampleAuthTokens } from "../test/sampleAuthTokens";
 import { sampleTracks } from "../test/sampleTracks";
 import { sampleUser } from "../test/sampleUsers";
-import { AuthProvider } from "../auth/AuthProvider";
+import { AuthProvider } from "../Auth/AuthProvider";
 import {
     saveAuthTokensToLocalStorage,
     removeAuthTokensFromLocalStorage,
     getAuthTokensFromLocalStorage,
-} from "../auth/API";
+} from "../Auth/API";
 import App from "./App";
 
 jest.mock("axios");

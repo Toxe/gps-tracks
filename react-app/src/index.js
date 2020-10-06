@@ -7,8 +7,8 @@ import "fontsource-roboto/700.css";
 import "./index.css";
 import "./i18n";
 import { CssBaseline } from "@material-ui/core";
-import { AuthProvider } from "./auth/AuthProvider";
-import App from "./app/App";
+import { AuthProvider } from "./Auth/AuthProvider";
+import App from "./App/App";
 
 ReactDOM.render(
     <React.StrictMode>
