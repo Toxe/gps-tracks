@@ -1,16 +1,16 @@
 import React, { useState } from "react";
 import { Routes, Route, Navigate } from "react-router-dom";
-import PageContent from "../content/PageContent";
-import Header from "../components/Header/Header";
-import Navigation from "../components/Navigation/Navigation";
-import AllTracks from "../content/AllTracks";
-import SingleTrack from "../content/SingleTrack";
-import EditTrack from "../content/EditTrack";
-import { AuthInfo } from "../Auth";
-import { TracksFilterProvider } from "../components/TracksFilter/TracksFilterProvider";
-import { TracksSortProvider } from "../components/TracksSort/TracksSortProvider";
-import { TracksSearchProvider } from "../components/TracksSearch/TracksSearchProvider";
-import { LastVisitedAllTracksPageProvider } from "../components/DeleteTrack/LastVisitedAllTracksPageProvider";
+import PageContent from "../../../content/PageContent";
+import Header from "../../../components/Header/Header";
+import Navigation from "../../../components/Navigation/Navigation";
+import AllTracks from "../../../content/AllTracks";
+import SingleTrack from "../../../content/SingleTrack";
+import EditTrack from "../../../content/EditTrack";
+import { AuthInfo } from "../../../Auth";
+import { TracksFilterProvider } from "../../../components/TracksFilter/TracksFilterProvider";
+import { TracksSortProvider } from "../../../components/TracksSort/TracksSortProvider";
+import { TracksSearchProvider } from "../../../components/TracksSearch/TracksSearchProvider";
+import { LastVisitedAllTracksPageProvider } from "../../../components/DeleteTrack/LastVisitedAllTracksPageProvider";
 
 export default function MainPage() {
     const [mobileNavigationOpen, setMobileNavigationOpen] = useState(false);
