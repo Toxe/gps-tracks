@@ -99,5 +99,19 @@ describe("TracksSearch", () => {
             expect(queryByRole("heading", { name: "Track 85" })).not.toBeInTheDocument();
             expect(queryByRole("heading", { name: "Track 87" })).not.toBeInTheDocument();
         });
+
+        test('When click on "Clear search" button, clear search field and show all tracks', async () => {
+            const { findByText, findByTitle, findByRole } = setupPageWithUrlParams("search=nothing");
+
+            await findByText("No tracks found.");
+
+            userEvent.click(await findByTitle("Clear search"));
+
+            await findByRole("heading", { name: "Track 21" });
+            await findByRole("heading", { name: "Track 28" });
+            await findByRole("heading", { name: "Track 47" });
+            await findByRole("heading", { name: "Track 85" });
+            await findByRole("heading", { name: "Track 87" });
+        });
     });
 });
