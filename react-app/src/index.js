@@ -7,7 +7,7 @@ import "fontsource-roboto/700.css";
 import "./index.css";
 import "./i18n";
 import { CssBaseline } from "@material-ui/core";
-import { AuthProvider } from "./Auth/AuthProvider";
+import { AuthProvider } from "./Auth";
 import { App } from "./App";
 
 ReactDOM.render(

@@ -4,7 +4,7 @@ import { useNavigate } from "react-router-dom";
 import { makeStyles } from "@material-ui/core/styles";
 import { Button, Hidden, IconButton, Menu, MenuItem } from "@material-ui/core";
 import AccountCircleIcon from "@material-ui/icons/AccountCircle";
-import { useAuth } from "../../Auth/AuthProvider";
+import { useAuth } from "../../Auth";
 import { useUser } from "../../api/UserProvider";
 
 const useStyles = makeStyles((theme) => ({
