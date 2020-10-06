@@ -11,7 +11,7 @@ import { saveAuthTokensToLocalStorage, removeAuthTokensFromLocalStorage } from "
 import { sampleTracks } from "../test/sampleTracks";
 import { sampleTrackSegments } from "../test/sampleTrackSegments";
 import { sampleUser } from "../test/sampleUsers";
-import App from "../App/App";
+import { App } from "../App";
 
 jest.mock("axios");
 jest.mock("react-leaflet"); // don't actually render the Leaflet map

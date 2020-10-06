@@ -13,7 +13,7 @@ import { sampleAuthTokens } from "../../test/sampleAuthTokens";
 import { sampleTracks } from "../../test/sampleTracks";
 import { sampleUser } from "../../test/sampleUsers";
 import { sampleTrackSegments } from "../../test/sampleTrackSegments";
-import App from "../../App/App";
+import { App } from "../../App";
 
 jest.mock("axios");
 jest.mock("file-saver");

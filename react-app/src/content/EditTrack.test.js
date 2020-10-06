@@ -14,7 +14,7 @@ import { sampleTrack, sampleTracks } from "../test/sampleTracks";
 import { sampleUser } from "../test/sampleUsers";
 import { sampleTrackSegments } from "../test/sampleTrackSegments";
 import { ActivityMode } from "../utils/enums";
-import App from "../App/App";
+import { App } from "../App";
 
 jest.mock("axios");
 jest.mock("react-leaflet"); // don't actually render the Leaflet map

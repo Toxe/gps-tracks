@@ -11,7 +11,7 @@ import { saveAuthTokensToLocalStorage, removeAuthTokensFromLocalStorage } from "
 import { sampleAuthTokens } from "../../test/sampleAuthTokens";
 import { sampleTracks } from "../../test/sampleTracks";
 import { sampleUser } from "../../test/sampleUsers";
-import App from "../../App/App";
+import { App } from "../../App";
 
 jest.mock("axios");
 
