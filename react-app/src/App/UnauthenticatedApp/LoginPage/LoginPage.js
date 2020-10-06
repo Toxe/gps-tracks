@@ -1,9 +1,9 @@
 import React from "react";
 import { Box } from "@material-ui/core";
-import PageContent from "../content/PageContent";
-import Header from "../components/Header/Header";
-import LoginForm from "../components/LoginForm/LoginForm";
-import { useAuth } from "../Auth";
+import PageContent from "../../../content/PageContent";
+import Header from "../../../components/Header/Header";
+import { useAuth } from "../../../Auth";
+import LoginForm from "./LoginForm";
 
 export default function LoginPage() {
     const { login } = useAuth();
