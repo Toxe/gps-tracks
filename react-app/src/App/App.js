@@ -3,7 +3,7 @@ import { BrowserRouter } from "react-router-dom";
 import { useAuth } from "../Auth";
 import AuthenticatedApp from "./AuthenticatedApp";
 import UnauthenticatedApp from "./UnauthenticatedApp";
-import Loading from "../content/Loading";
+import Loading from "./Loading";
 
 export default function App() {
     const { authId } = useAuth();
