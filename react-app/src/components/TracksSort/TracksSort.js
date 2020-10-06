@@ -2,7 +2,7 @@ import React, { useEffect } from "react";
 import { useTranslation } from "react-i18next";
 import { useSearchParams } from "react-router-dom";
 import { makeStyles } from "@material-ui/core/styles";
-import { Box, FormControl, InputLabel, MenuItem, Select, TableSortLabel } from "@material-ui/core";
+import { Box, FormControl, InputLabel, MenuItem, Select, TableSortLabel, Tooltip } from "@material-ui/core";
 import { useTracksSort } from "./TracksSortProvider";
 import { getSearchParam, setOrRemoveDefaultSearchParam } from "../../utils/urlSearchParams";
 
@@ -29,7 +29,7 @@ export default function TracksSort() {
         setOrRemoveDefaultSearchParam(searchParams, "sort", sort, "date");
         setOrRemoveDefaultSearchParam(searchParams, "order", order, getDefaultSortOrder(sort));
         setSearchParams(searchParams);
-    }
+    };
 
     const handleChangeSortBy = (e) => {
         updateSortURLParams(e.target.value, getDefaultSortOrder(e.target.value));
@@ -54,7 +54,9 @@ export default function TracksSort() {
                     <MenuItem value="distance">{t("sort_by_distance")}</MenuItem>
                 </Select>
             </FormControl>
-            <TableSortLabel active direction={sortOrder} onClick={handleChangeSortOrder} />
+            <Tooltip title={t("sort_button_change_sort_order")}>
+                <TableSortLabel active direction={sortOrder} onClick={handleChangeSortOrder} />
+            </Tooltip>
         </Box>
     );
 }
