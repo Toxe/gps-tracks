@@ -3,8 +3,8 @@ import { useTranslation } from "react-i18next";
 import { useSearchParams } from "react-router-dom";
 import { makeStyles } from "@material-ui/core/styles";
 import { Box, FormControl, InputLabel, MenuItem, Select, TableSortLabel, Tooltip } from "@material-ui/core";
-import { useTracksSort } from "../../App/AuthenticatedApp/MainPage/TracksSortProvider";
-import { getSearchParam, setOrRemoveDefaultSearchParam } from "../../utils/urlSearchParams";
+import { getSearchParam, setOrRemoveDefaultSearchParam } from "../../../../utils/urlSearchParams";
+import { useTracksSort } from "../TracksSortProvider";
 
 const useStyles = makeStyles((theme) => ({
     sortForm: {
