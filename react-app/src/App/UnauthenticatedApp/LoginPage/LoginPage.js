@@ -1,6 +1,6 @@
 import React from "react";
 import { Box } from "@material-ui/core";
-import PageContent from "../../shared/PageContent";
+import { PageContent } from "../../shared/PageContent";
 import { Header } from "../../shared/Header";
 import { useAuth } from "../../../Auth";
 import LoginForm from "./LoginForm";
