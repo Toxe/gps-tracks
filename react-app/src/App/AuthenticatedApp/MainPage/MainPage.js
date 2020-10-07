@@ -5,7 +5,7 @@ import { PageContent } from "../../shared/PageContent";
 import { Header } from "../../shared/Header";
 import { AllTracks } from "./AllTracks";
 import SingleTrack from "./SingleTrack";
-import EditTrack from "./EditTrack";
+import { EditTrack } from "./EditTrack";
 import { Navigation } from "./Navigation";
 import { TracksFilterProvider } from "./TracksFilterProvider";
 import { TracksSortProvider } from "./TracksSortProvider";
