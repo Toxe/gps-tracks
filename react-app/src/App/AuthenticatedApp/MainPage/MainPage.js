@@ -3,7 +3,7 @@ import { Routes, Route, Navigate } from "react-router-dom";
 import { AuthInfo } from "../../../Auth";
 import { PageContent } from "../../shared/PageContent";
 import { Header } from "../../shared/Header";
-import AllTracks from "./AllTracks";
+import { AllTracks } from "./AllTracks";
 import SingleTrack from "./SingleTrack";
 import EditTrack from "./EditTrack";
 import { Navigation } from "./Navigation";

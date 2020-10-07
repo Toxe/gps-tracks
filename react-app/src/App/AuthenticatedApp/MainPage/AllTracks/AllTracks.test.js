@@ -1,15 +1,15 @@
 import React from "react";
-import "../../../i18n-tests";
+import "../../../../i18n-tests";
 import { render } from "@testing-library/react";
 import "@testing-library/jest-dom";
 import "jest-extended";
 import "expect-more-jest";
 import axiosMock from "axios";
-import { AuthProvider, saveAuthTokensToLocalStorage, removeAuthTokensFromLocalStorage } from "../../../Auth";
-import { sampleAuthTokens } from "../../../test/sampleAuthTokens";
-import { sampleTracks } from "../../../test/sampleTracks";
-import { sampleUser } from "../../../test/sampleUsers";
-import { App } from "../../../App";
+import { AuthProvider, saveAuthTokensToLocalStorage, removeAuthTokensFromLocalStorage } from "../../../../Auth";
+import { sampleAuthTokens } from "../../../../test/sampleAuthTokens";
+import { sampleTracks } from "../../../../test/sampleTracks";
+import { sampleUser } from "../../../../test/sampleUsers";
+import { App } from "../../../../App";
 
 jest.mock("axios");
 
