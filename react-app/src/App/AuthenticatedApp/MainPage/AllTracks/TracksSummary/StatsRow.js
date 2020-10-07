@@ -1,8 +1,8 @@
 import React from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import { Typography } from "@material-ui/core";
-import { ActivityIcon, Distance, Duration } from "../Track";
-import TracksCounter from "../TracksCounter";
+import { ActivityIcon, Distance, Duration } from "../../../../../components/Track";
+import TracksCounter from "../../../../../components/TracksCounter";
 import SpacerColumn from "./SpacerColumn";
 
 const useStyles = makeStyles((theme) => ({
