@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
 import { Box } from "@material-ui/core";
-import RequestError from "../../../../utils/RequestError";
+import { RequestError } from "../../../../shared/RequestError";
 import { useTracks } from "../../TracksProvider";
 import { Track } from "../shared/Track";
 import { TrackNotFound } from "../shared/TrackNotFound";

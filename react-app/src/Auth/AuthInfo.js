@@ -3,8 +3,8 @@ import { makeStyles } from "@material-ui/core/styles";
 import { Typography, IconButton, Box } from "@material-ui/core";
 import ExpandLessIcon from "@material-ui/icons/ExpandLess";
 import ExpandMoreIcon from "@material-ui/icons/ExpandMore";
+import { RequestError } from "../shared/RequestError";
 import TokenInfo from "./TokenInfo";
-import RequestError from "../utils/RequestError";
 import { useAuth } from "./AuthProvider";
 
 const useStyles = makeStyles(() => ({
