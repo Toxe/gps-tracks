@@ -1,7 +1,8 @@
 import React from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import { Typography } from "@material-ui/core";
-import { Distance, Duration } from "../../../../../components/Track";
+import { Duration } from "../../shared/Duration";
+import { Distance } from "../../shared/Distance";
 import { TracksCounter } from "../../shared/TracksCounter";
 import SpacerColumn from "./SpacerColumn";
 
