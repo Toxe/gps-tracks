@@ -6,12 +6,15 @@ import "@testing-library/jest-dom";
 import "jest-extended";
 import "expect-more-jest";
 import axiosMock from "axios";
+import {
+    sampleAuthTokens,
+    sampleTrack,
+    sampleTracks,
+    sampleUser,
+    sampleTrackSegments,
+    matchByTextContent,
+} from "../../../../test";
 import { AuthProvider, saveAuthTokensToLocalStorage, removeAuthTokensFromLocalStorage } from "../../../../Auth";
-import { sampleAuthTokens } from "../../../../test/sampleAuthTokens";
-import { sampleTrack, sampleTracks } from "../../../../test/sampleTracks";
-import { sampleUser } from "../../../../test/sampleUsers";
-import { sampleTrackSegments } from "../../../../test/sampleTrackSegments";
-import { matchByTextContent } from "../../../../test/matchByTextContent";
 import { ActivityMode } from "../utils/enums";
 import { App } from "../../../../App";
 

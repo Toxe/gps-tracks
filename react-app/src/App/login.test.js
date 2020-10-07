@@ -6,9 +6,7 @@ import "@testing-library/jest-dom";
 import "jest-extended";
 import "expect-more-jest";
 import axiosMock from "axios";
-import { sampleAuthTokens } from "../test/sampleAuthTokens";
-import { sampleTracks } from "../test/sampleTracks";
-import { sampleUser } from "../test/sampleUsers";
+import { sampleAuthTokens, sampleTracks, sampleUser } from "../test";
 import { AuthProvider, removeAuthTokensFromLocalStorage } from "../Auth";
 import { App } from ".";
 
