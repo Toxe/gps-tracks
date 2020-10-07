@@ -1,12 +1,12 @@
 import React, { useState } from "react";
 import { Routes, Route, Navigate } from "react-router-dom";
+import { AuthInfo } from "../../../Auth";
 import { PageContent } from "../../shared/PageContent";
 import { Header } from "../../shared/Header";
-import Navigation from "../../../components/Navigation/Navigation";
-import AllTracks from "../../../content/AllTracks";
-import SingleTrack from "../../../content/SingleTrack";
-import EditTrack from "../../../content/EditTrack";
-import { AuthInfo } from "../../../Auth";
+import AllTracks from "./AllTracks";
+import SingleTrack from "./SingleTrack";
+import EditTrack from "./EditTrack";
+import { Navigation } from "./Navigation";
 import { TracksFilterProvider } from "./TracksFilterProvider";
 import { TracksSortProvider } from "./TracksSortProvider";
 import { TracksSearchProvider } from "./TracksSearchProvider";

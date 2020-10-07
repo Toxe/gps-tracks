@@ -1,16 +1,16 @@
 import React from "react";
-import "../i18n-tests";
+import "../../../i18n-tests";
 import { render } from "@testing-library/react";
 import "@testing-library/jest-dom";
 import "jest-extended";
 import "expect-more-jest";
 import axiosMock from "axios";
-import { sampleAuthTokens } from "../test/sampleAuthTokens";
-import { AuthProvider, saveAuthTokensToLocalStorage, removeAuthTokensFromLocalStorage } from "../Auth";
-import { sampleTracks } from "../test/sampleTracks";
-import { sampleTrackSegments } from "../test/sampleTrackSegments";
-import { sampleUser } from "../test/sampleUsers";
-import { App } from "../App";
+import { AuthProvider, saveAuthTokensToLocalStorage, removeAuthTokensFromLocalStorage } from "../../../Auth";
+import { sampleAuthTokens } from "../../../test/sampleAuthTokens";
+import { sampleTracks } from "../../../test/sampleTracks";
+import { sampleTrackSegments } from "../../../test/sampleTrackSegments";
+import { sampleUser } from "../../../test/sampleUsers";
+import { App } from "../../../App";
 
 jest.mock("axios");
 jest.mock("react-leaflet"); // don't actually render the Leaflet map

@@ -3,12 +3,12 @@ import { useNavigate } from "react-router-dom";
 import { makeStyles, useTheme } from "@material-ui/core/styles";
 import { Box, Divider, Drawer, Hidden, List, ListItem, ListItemIcon, ListItemText } from "@material-ui/core";
 import ViewListIcon from "@material-ui/icons/ViewList";
-import { useTracks } from "../../api/TracksProvider";
+import { useTracks } from "../../../../api/TracksProvider";
+import TracksCounter from "../../../../components/TracksCounter";
+import UploadTrackButton from "../../../../components/UploadTrack/UploadTrackButton";
+import { countActivities, countYears } from "../../../../utils/tracksStats";
 import NavigationYearList from "./NavigationYearList";
 import NavigationActivityList from "./NavigationActivityList";
-import TracksCounter from "../TracksCounter";
-import { countActivities, countYears } from "../../utils/tracksStats";
-import UploadTrackButton from "../UploadTrack/UploadTrackButton";
 
 const drawerWidth = 200;
 
