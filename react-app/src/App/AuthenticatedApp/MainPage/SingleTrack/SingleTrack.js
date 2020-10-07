@@ -1,15 +1,15 @@
 import React, { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
 import { Box } from "@material-ui/core";
-import { useTracks } from "../../TracksProvider";
 import { Track } from "../../../../components/Track";
-import TrackNotFound from "../../../../components/TrackNotFound/TrackNotFound";
+import RequestError from "../../../../utils/RequestError";
+import { useTracks } from "../../TracksProvider";
+import { TrackNotFound } from "../shared/TrackNotFound";
+import DownloadTrackButton from "./DownloadTrackButton";
 import TrackMap from "./TrackMap";
 import TrackDetails from "./TrackDetails";
-import DownloadTrackButton from "./DownloadTrackButton";
 import EditTrackButton from "./EditTrackButton";
 import DeleteTrackButton from "./DeleteTrackButton";
-import RequestError from "../../../../utils/RequestError";
 
 export default function SingleTrack() {
     const { trackId } = useParams();
