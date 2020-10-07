@@ -5,10 +5,10 @@ import { makeStyles } from "@material-ui/core/styles";
 import { useParams } from "react-router-dom";
 import { Button, FormControl, FormLabel, RadioGroup, TextField, Typography } from "@material-ui/core";
 import { RequestError } from "../../../../shared/RequestError";
-import { ActivityMode } from "../../../../utils/enums";
 import { useTracks } from "../../TracksProvider";
 import { Track } from "../shared/Track";
 import { TrackNotFound } from "../shared/TrackNotFound";
+import { ActivityMode } from "../utils/enums";
 import ActivityRadio from "./ActivityRadio";
 
 const useStyles = makeStyles((theme) => ({

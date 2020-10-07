@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import { Paper } from "@material-ui/core";
-import { ActivityMode } from "../../../../../utils/enums";
+import { ActivityMode } from "../../utils/enums";
 import StatsRow from "./StatsRow";
 import TotalRow from "./TotalRow";
 

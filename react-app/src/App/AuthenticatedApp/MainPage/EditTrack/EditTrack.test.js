@@ -12,7 +12,7 @@ import { sampleTrack, sampleTracks } from "../../../../test/sampleTracks";
 import { sampleUser } from "../../../../test/sampleUsers";
 import { sampleTrackSegments } from "../../../../test/sampleTrackSegments";
 import { matchByTextContent } from "../../../../test/matchByTextContent";
-import { ActivityMode } from "../../../../utils/enums";
+import { ActivityMode } from "../utils/enums";
 import { App } from "../../../../App";
 
 jest.mock("axios");

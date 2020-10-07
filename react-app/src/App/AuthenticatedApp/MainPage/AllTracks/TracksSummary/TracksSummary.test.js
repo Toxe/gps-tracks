@@ -1,7 +1,7 @@
 import "jest-extended";
 import "expect-more-jest";
-import { ActivityMode } from "../../../../../utils/enums";
 import { sampleTracks } from "../../../../../test/sampleTracks";
+import { ActivityMode } from "../../utils/enums";
 import { generateStats } from "./TracksSummary";
 
 describe("generateStats()", () => {
