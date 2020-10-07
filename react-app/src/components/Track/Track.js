@@ -1,7 +1,7 @@
 import React from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import { Grid, Paper } from "@material-ui/core";
-import ActivityIcon from "./ActivityIcon";
+import { ActivityIcon } from "../../App/AuthenticatedApp/MainPage/shared/ActivityIcon";
 import FormattedDate from "./FormattedDate";
 import Distance from "./Distance";
 import Duration from "./Duration";

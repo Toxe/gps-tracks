@@ -3,10 +3,10 @@ import { useTranslation } from "react-i18next";
 import { useSearchParams } from "react-router-dom";
 import { makeStyles } from "@material-ui/core/styles";
 import { Box, FormControl, InputLabel, ListItemIcon, ListItemText, MenuItem, Select } from "@material-ui/core";
-import { ActivityIcon } from "../../../../components/Track";
 import { ActivityMode } from "../../../../utils/enums";
 import { getSearchParam } from "../../../../utils/urlSearchParams";
 import { useTracksFilter } from "../TracksFilterProvider";
+import { ActivityIcon } from "../shared/ActivityIcon";
 
 const useStyles = makeStyles((theme) => ({
     filterForm: {
