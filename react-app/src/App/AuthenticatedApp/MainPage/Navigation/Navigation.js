@@ -5,10 +5,10 @@ import { Box, Divider, Drawer, Hidden, List, ListItem, ListItemIcon, ListItemTex
 import ViewListIcon from "@material-ui/icons/ViewList";
 import { useTracks } from "../../TracksProvider";
 import TracksCounter from "../../../../components/TracksCounter";
-import UploadTrackButton from "../../../../components/UploadTrack/UploadTrackButton";
 import { countActivities, countYears } from "../../../../utils/tracksStats";
 import NavigationYearList from "./NavigationYearList";
 import NavigationActivityList from "./NavigationActivityList";
+import { UploadTrackButton } from "./UploadTrackButton";
 
 const drawerWidth = 200;
 
@@ -37,8 +37,7 @@ export default function Navigation({ mobileNavigationOpen, handleMobileNavigatio
     }, [tracks]);
 
     const handleNavigationClick = (redirectURL) => {
-        if (mobileNavigationOpen)
-            handleMobileNavigationToggle();
+        if (mobileNavigationOpen) handleMobileNavigationToggle();
 
         navigate(redirectURL);
     };
@@ -55,8 +54,15 @@ export default function Navigation({ mobileNavigationOpen, handleMobileNavigatio
                 </ListItem>
             </List>
             <Divider />
-            {countedYears && <NavigationYearList countedYears={countedYears} handleNavigationClick={handleNavigationClick} />}
-            {countedActivities && <NavigationActivityList countedActivities={countedActivities} handleNavigationClick={handleNavigationClick} />}
+            {countedYears && (
+                <NavigationYearList countedYears={countedYears} handleNavigationClick={handleNavigationClick} />
+            )}
+            {countedActivities && (
+                <NavigationActivityList
+                    countedActivities={countedActivities}
+                    handleNavigationClick={handleNavigationClick}
+                />
+            )}
             <Box mt={2} mx="auto">
                 <UploadTrackButton />
             </Box>
