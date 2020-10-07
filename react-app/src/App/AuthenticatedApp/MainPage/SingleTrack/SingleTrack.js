@@ -1,15 +1,15 @@
 import React, { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
 import { Box } from "@material-ui/core";
-import { useTracks } from "../TracksProvider";
-import { Track } from "../../../components/Track";
-import TrackMap from "../../../components/TrackMap/TrackMap";
-import TrackDetails from "../../../components/Track/TrackDetails";
-import DownloadTrackButton from "../../../components/DownloadTrack/DownloadTrackButton";
-import EditTrackButton from "../../../components/EditTrack/EditTrackButton";
-import DeleteTrackButton from "../../../components/DeleteTrack/DeleteTrackButton";
-import TrackNotFound from "../../../components/TrackNotFound/TrackNotFound";
-import RequestError from "../../../utils/RequestError";
+import { useTracks } from "../../TracksProvider";
+import { Track } from "../../../../components/Track";
+import TrackMap from "../../../../components/TrackMap/TrackMap";
+import TrackDetails from "../../../../components/Track/TrackDetails";
+import DownloadTrackButton from "../../../../components/DownloadTrack/DownloadTrackButton";
+import EditTrackButton from "../../../../components/EditTrack/EditTrackButton";
+import DeleteTrackButton from "../../../../components/DeleteTrack/DeleteTrackButton";
+import TrackNotFound from "../../../../components/TrackNotFound/TrackNotFound";
+import RequestError from "../../../../utils/RequestError";
 
 export default function SingleTrack() {
     const { trackId } = useParams();
