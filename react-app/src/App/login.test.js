@@ -10,7 +10,7 @@ import { sampleAuthTokens } from "../test/sampleAuthTokens";
 import { sampleTracks } from "../test/sampleTracks";
 import { sampleUser } from "../test/sampleUsers";
 import { AuthProvider, removeAuthTokensFromLocalStorage } from "../Auth";
-import App from "./App";
+import { App } from ".";
 
 jest.mock("axios");
 

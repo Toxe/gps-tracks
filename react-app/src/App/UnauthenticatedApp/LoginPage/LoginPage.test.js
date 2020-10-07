@@ -9,7 +9,7 @@ import { BrowserRouter } from "react-router-dom";
 import axiosMock from "axios";
 import { AuthProvider } from "../../../Auth";
 import { UserProvider } from "../../../api/UserProvider";
-import LoginPage from "./LoginPage";
+import { LoginPage } from ".";
 
 jest.mock("axios");
 
