@@ -5,10 +5,10 @@ import { useTracks } from "../../TracksProvider";
 import { Track } from "../../../../components/Track";
 import TrackMap from "../../../../components/TrackMap/TrackMap";
 import TrackDetails from "../../../../components/Track/TrackDetails";
-import DownloadTrackButton from "../../../../components/DownloadTrack/DownloadTrackButton";
-import EditTrackButton from "../../../../components/EditTrack/EditTrackButton";
-import DeleteTrackButton from "../../../../components/DeleteTrack/DeleteTrackButton";
 import TrackNotFound from "../../../../components/TrackNotFound/TrackNotFound";
+import DownloadTrackButton from "./DownloadTrackButton";
+import EditTrackButton from "./EditTrackButton";
+import DeleteTrackButton from "./DeleteTrackButton";
 import RequestError from "../../../../utils/RequestError";
 
 export default function SingleTrack() {
