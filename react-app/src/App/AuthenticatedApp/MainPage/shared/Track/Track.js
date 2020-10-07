@@ -1,9 +1,9 @@
 import React from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import { Grid, Paper } from "@material-ui/core";
-import { ActivityIcon } from "../../App/AuthenticatedApp/MainPage/shared/ActivityIcon";
-import { Distance } from "../../App/AuthenticatedApp/MainPage/shared/Distance";
-import { Duration } from "../../App/AuthenticatedApp/MainPage/shared/Duration";
+import { ActivityIcon } from "../ActivityIcon";
+import { Distance } from "../Distance";
+import { Duration } from "../Duration";
 import FormattedDate from "./FormattedDate";
 import AverageSpeed from "./AverageSpeed";
 import Thumbnail from "./Thumbnail";

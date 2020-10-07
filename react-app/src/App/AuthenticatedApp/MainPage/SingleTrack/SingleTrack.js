@@ -1,9 +1,9 @@
 import React, { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
 import { Box } from "@material-ui/core";
-import { Track } from "../../../../components/Track";
 import RequestError from "../../../../utils/RequestError";
 import { useTracks } from "../../TracksProvider";
+import { Track } from "../shared/Track";
 import { TrackNotFound } from "../shared/TrackNotFound";
 import DownloadTrackButton from "./DownloadTrackButton";
 import TrackMap from "./TrackMap";
