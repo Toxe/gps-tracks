@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useContext } from "react";
 import axios from "axios";
-import { useUser } from "../api/UserProvider";
+import { useUser } from "../UserProvider";
 
 const TracksContext = React.createContext();
 

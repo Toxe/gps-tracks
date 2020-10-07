@@ -3,7 +3,7 @@ import { useTranslation } from "react-i18next";
 import { Button } from "@material-ui/core";
 import { DropzoneDialog } from "material-ui-dropzone";
 import PublishIcon from "@material-ui/icons/Publish";
-import { useTracks } from "../../api/TracksProvider";
+import { useTracks } from "../../App/AuthenticatedApp/TracksProvider";
 import UploadInProgressSnackbar from "./UploadInProgressSnackbar";
 import UploadResultsSnackbar from "./UploadResultsSnackbar";
 

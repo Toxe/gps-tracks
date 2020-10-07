@@ -1,5 +1,5 @@
 import React, { useState, useContext, useEffect } from "react";
-import { useTracks } from "../../../../api/TracksProvider";
+import { useTracks } from "../../TracksProvider";
 
 const TracksFilterContext = React.createContext();
 

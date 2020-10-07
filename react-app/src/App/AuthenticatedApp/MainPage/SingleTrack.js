@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
 import { Box } from "@material-ui/core";
-import { useTracks } from "../../../api/TracksProvider";
+import { useTracks } from "../TracksProvider";
 import { Track } from "../../../components/Track";
 import TrackMap from "../../../components/TrackMap/TrackMap";
 import TrackDetails from "../../../components/Track/TrackDetails";
