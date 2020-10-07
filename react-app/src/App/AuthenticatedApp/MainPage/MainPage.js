@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { Routes, Route, Navigate } from "react-router-dom";
 import PageContent from "../../shared/PageContent";
-import Header from "../../../components/Header/Header";
+import { Header } from "../../shared/Header";
 import Navigation from "../../../components/Navigation/Navigation";
 import AllTracks from "../../../content/AllTracks";
 import SingleTrack from "../../../content/SingleTrack";
