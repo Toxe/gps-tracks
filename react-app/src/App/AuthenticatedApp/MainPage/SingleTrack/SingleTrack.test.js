@@ -4,10 +4,13 @@ import { render } from "@testing-library/react";
 import "@testing-library/jest-dom";
 import "jest-extended";
 import "expect-more-jest";
+import { BrowserRouter } from "react-router-dom";
 import axiosMock from "axios";
 import { sampleAuthTokens, sampleTracks, sampleUser, sampleTrackSegments } from "../../../../test";
 import { AuthProvider, saveAuthTokensToLocalStorage, removeAuthTokensFromLocalStorage } from "../../../../Auth";
-import { App } from "../../../../App";
+import { TracksProvider } from "../../TracksProvider";
+import { UserProvider } from "../../UserProvider";
+import { MainPage } from "..";
 
 jest.mock("axios");
 jest.mock("react-leaflet"); // don't actually render the Leaflet map
@@ -32,7 +35,13 @@ describe("SingleTrack", () => {
 
             const { findByText, findByRole } = render(
                 <AuthProvider>
-                    <App />
+                    <BrowserRouter>
+                        <UserProvider>
+                            <TracksProvider>
+                                <MainPage />
+                            </TracksProvider>
+                        </UserProvider>
+                    </BrowserRouter>
                 </AuthProvider>
             );
 
@@ -54,7 +63,13 @@ describe("SingleTrack", () => {
 
             const { findByText } = render(
                 <AuthProvider>
-                    <App />
+                    <BrowserRouter>
+                        <UserProvider>
+                            <TracksProvider>
+                                <MainPage />
+                            </TracksProvider>
+                        </UserProvider>
+                    </BrowserRouter>
                 </AuthProvider>
             );
 

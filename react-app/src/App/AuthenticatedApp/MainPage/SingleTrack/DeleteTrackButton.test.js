@@ -1,49 +1,20 @@
 import React from "react";
 import "../../../../i18n-tests";
-import { render } from "@testing-library/react";
+import { render, waitFor } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import "@testing-library/jest-dom";
 import "jest-extended";
 import "expect-more-jest";
-import axiosMock from "axios";
-import { sampleAuthTokens, sampleTracks, sampleUser, sampleTrackSegments } from "../../../../test";
-import { AuthProvider, saveAuthTokensToLocalStorage, removeAuthTokensFromLocalStorage } from "../../../../Auth";
-import { App } from "../../../../App";
-
-jest.mock("axios");
-jest.mock("react-leaflet"); // don't actually render the Leaflet map
+import DeleteTrackButton from "./DeleteTrackButton";
 
 describe("DeleteTrackButton", () => {
-    afterEach(() => {
-        axiosMock.get.mockReset();
-        removeAuthTokensFromLocalStorage();
-    });
-
-    describe("With track details page opened", () => {
-        test('When clicking "Yes, delete!" button, delete track and navigate to /tracks', async () => {
-            const { access_token, refresh_token } = sampleAuthTokens(1);
-            saveAuthTokensToLocalStorage(access_token, refresh_token);
-
-            axiosMock.get
-                .mockResolvedValueOnce({ data: sampleUser(1) })
-                .mockResolvedValueOnce({ data: sampleTracks() })
-                .mockResolvedValueOnce({ data: sampleTrackSegments() });
-
-            axiosMock.delete.mockResolvedValueOnce({ status: 204 });
-
-            window.history.pushState({}, "Test Page", "/tracks/21");
-
-            const { findAllByText, findByRole, getByText, queryByText } = render(
-                <AuthProvider>
-                    <App />
-                </AuthProvider>
-            );
-
-            await findByRole("heading", { name: "Track 21" });
-            const deleteButton = await findByRole("button", { name: "Delete" });
+    describe('With "Delete" button rendered', () => {
+        test('When clicking "Yes, delete!", call handleDeleteTrack and close dialog', async () => {
+            const handleDeleteTrack = jest.fn();
+            const { findByRole, queryByRole } = render(<DeleteTrackButton handleDeleteTrack={handleDeleteTrack} />);
 
             // open delete dialog
-            userEvent.click(deleteButton);
+            userEvent.click(await findByRole("button", { name: "Delete" }));
 
             await findByRole("heading", { name: "Do you really want to delete this track?" });
             const submitButton = await findByRole("button", { name: "Yes, delete!" });
@@ -51,14 +22,37 @@ describe("DeleteTrackButton", () => {
             // click "Yes, delete!" button
             userEvent.click(submitButton);
 
-            // automatically navigate back to /tracks
-            await findAllByText("4 Tracks");
+            // close dialog, delete track
+            expect(handleDeleteTrack).toHaveBeenCalled();
 
-            expect(getByText("Track 28")).toBeInTheDocument();
-            expect(getByText("Track 47")).toBeInTheDocument();
-            expect(getByText("Track 85")).toBeInTheDocument();
-            expect(getByText("Track 87")).toBeInTheDocument();
-            expect(queryByText("Track 21")).not.toBeInTheDocument();
+            await waitFor(() =>
+                expect(
+                    queryByRole("heading", { name: "Do you really want to delete this track?" })
+                ).not.toBeInTheDocument()
+            );
+        });
+
+        test('When clicking "Cancel", close dialog', async () => {
+            const handleDeleteTrack = jest.fn();
+            const { findByRole, queryByRole } = render(<DeleteTrackButton handleDeleteTrack={handleDeleteTrack} />);
+
+            // open delete dialog
+            userEvent.click(await findByRole("button", { name: "Delete" }));
+
+            await findByRole("heading", { name: "Do you really want to delete this track?" });
+            const cancelButton = await findByRole("button", { name: "Cancel" });
+
+            // click "Cancel" button
+            userEvent.click(cancelButton);
+
+            // close dialog, don't delete track
+            expect(handleDeleteTrack).not.toHaveBeenCalled();
+
+            await waitFor(() =>
+                expect(
+                    queryByRole("heading", { name: "Do you really want to delete this track?" })
+                ).not.toBeInTheDocument()
+            );
         });
     });
 });

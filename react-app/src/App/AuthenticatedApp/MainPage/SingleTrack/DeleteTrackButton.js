@@ -1,10 +1,9 @@
-import React, { useState } from "react";
+import React from "react";
 import { useTranslation } from "react-i18next";
 import { makeStyles } from "@material-ui/core/styles";
 import { Button, Dialog, DialogTitle, DialogContent, DialogContentText, DialogActions } from "@material-ui/core";
 import DeleteIcon from "@material-ui/icons/Delete";
-import { useTracks } from "../../TracksProvider";
-import { useLastVisitedAllTracksPage } from "../LastVisitedAllTracksPageProvider";
+import { useDeleteTrackButton } from "./hooks";
 
 const useStyles = makeStyles((theme) => ({
     button: {
@@ -12,36 +11,10 @@ const useStyles = makeStyles((theme) => ({
     },
 }));
 
-export default function DeleteTrackButton({ track, updateRequestError }) {
+export default function DeleteTrackButton({ handleDeleteTrack }) {
     const { t } = useTranslation();
     const classes = useStyles();
-    const [dialogVisible, setDialogVisible] = useState(false);
-    const { deleteTrack } = useTracks();
-    const { returnToLastVisitedAllTracksPage } = useLastVisitedAllTracksPage();
-
-    if (!track) {
-        return null;
-    }
-
-    const handleOpen = () => {
-        setDialogVisible(true);
-    };
-
-    const handleCancel = () => {
-        setDialogVisible(false);
-    };
-
-    const handleSubmit = async () => {
-        setDialogVisible(false);
-
-        try {
-            await deleteTrack(track);
-            updateRequestError(null);
-            returnToLastVisitedAllTracksPage();
-        } catch (error) {
-            updateRequestError(error);
-        }
-    };
+    const { dialogVisible, handleOpen, handleCancel, handleSubmit } = useDeleteTrackButton(handleDeleteTrack);
 
     return (
         <div>

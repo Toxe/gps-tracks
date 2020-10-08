@@ -1,5 +1,4 @@
 import React from "react";
-import { useNavigate } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 import { makeStyles } from "@material-ui/core/styles";
 import { Button } from "@material-ui/core";
@@ -11,14 +10,9 @@ const useStyles = makeStyles((theme) => ({
     },
 }));
 
-export default function EditTrackButton() {
+export default function EditTrackButton({ handleEditTrack }) {
     const { t } = useTranslation();
     const classes = useStyles();
-    const navigate = useNavigate();
-
-    const handleClick = () => {
-        navigate("edit");
-    };
 
     return (
         <div>
@@ -27,7 +21,7 @@ export default function EditTrackButton() {
                 color="primary"
                 startIcon={<EditIcon />}
                 className={classes.button}
-                onClick={handleClick}>
+                onClick={handleEditTrack}>
                 {t("button_edit_track")}
             </Button>
         </div>
