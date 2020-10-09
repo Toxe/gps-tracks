@@ -7,9 +7,9 @@ import "expect-more-jest";
 import { BrowserRouter } from "react-router-dom";
 import axiosMock from "axios";
 import { sampleTrack, sampleTrackSegments } from "../../../../test";
-import * as TracksProviderExports from "../../TracksProvider/TracksProvider";
-import * as UserProviderExports from "../../UserProvider/UserProvider";
-import * as LastVisitedAllTracksPageProviderExports from "../LastVisitedAllTracksPageProvider/LastVisitedAllTracksPageProvider";
+import * as tracksProviderExports from "../../TracksProvider/TracksProvider";
+import * as userProviderExports from "../../UserProvider/UserProvider";
+import * as lastVisitedAllTracksPageProviderExports from "../LastVisitedAllTracksPageProvider/LastVisitedAllTracksPageProvider";
 import { SingleTrack } from ".";
 
 jest.mock("axios");
@@ -25,15 +25,13 @@ function setup(getTrack) {
     const deleteTrack = jest.fn();
     const returnToLastVisitedAllTracksPage = jest.fn();
 
-    const useTracksSpy = jest.spyOn(TracksProviderExports, "useTracks");
-    const useUserSpy = jest.spyOn(UserProviderExports, "useUser");
-    const useLastVisitedAllTracksPageSpy = jest.spyOn(
-        LastVisitedAllTracksPageProviderExports,
-        "useLastVisitedAllTracksPage"
-    );
-
+    const useTracksSpy = jest.spyOn(tracksProviderExports, "useTracks");
     useTracksSpy.mockReturnValue({ getTrack, deleteTrack });
+
+    const useUserSpy = jest.spyOn(userProviderExports, "useUser");
     useUserSpy.mockReturnValue({ user: 1 });
+
+    const useLastVisitedAllTracksPageSpy = jest.spyOn(lastVisitedAllTracksPageProviderExports, "useLastVisitedAllTracksPage");
     useLastVisitedAllTracksPageSpy.mockReturnValue({ returnToLastVisitedAllTracksPage });
 
     return render(
