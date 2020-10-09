@@ -4,19 +4,19 @@ import { sampleGPXFiles, sampleGPXFile } from "./sampleGPXFiles";
 
 describe("sampleGPXFiles()", () => {
     it("Returns list of gpx file objects", () => {
-        const tracks = sampleGPXFiles();
+        const gpxfiles = sampleGPXFiles();
 
-        expect(tracks).toBeArray();
-        expect(tracks).not.toBeEmptyArray();
+        expect(gpxfiles).toBeArray();
+        expect(gpxfiles).not.toBeEmptyArray();
     });
 });
 
 describe("sampleGPXFile()", () => {
     test("When called with id of existing file, return gpx file object", () => {
-        const track = sampleGPXFile(21);
+        const gpxfile = sampleGPXFile(21);
 
-        expect(track).toBeObject();
-        expect(track.id).toBe(21);
+        expect(gpxfile).toBeObject();
+        expect(gpxfile.id).toBe(21);
     });
 
     test("When called with id of non-existing file, return undefined", () => {
