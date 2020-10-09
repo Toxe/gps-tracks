@@ -9,7 +9,7 @@ import axiosMock from "axios";
 import { sampleTrack, sampleTrackSegments } from "../../../../test";
 import * as tracksProviderExports from "../../TracksProvider/TracksProvider";
 import * as userProviderExports from "../../UserProvider/UserProvider";
-import * as lastVisitedAllTracksPageProviderExports from "../LastVisitedAllTracksPageProvider/LastVisitedAllTracksPageProvider";
+import * as lastVisitedAllTracksPageProviderExports from "../MainPageProviders/LastVisitedAllTracksPageProvider/LastVisitedAllTracksPageProvider";
 import { SingleTrack } from ".";
 
 jest.mock("axios");

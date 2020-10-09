@@ -4,7 +4,7 @@ import { useNavigate, useParams } from "react-router-dom";
 import { saveAs } from "file-saver";
 import { RequestError } from "../../../../../shared/RequestError";
 import { useTracks } from "../../../TracksProvider";
-import { useLastVisitedAllTracksPage } from "../../LastVisitedAllTracksPageProvider";
+import { useLastVisitedAllTracksPage } from "../../MainPageProviders/LastVisitedAllTracksPageProvider";
 
 export default function useSingleTrack() {
     const { trackId } = useParams();

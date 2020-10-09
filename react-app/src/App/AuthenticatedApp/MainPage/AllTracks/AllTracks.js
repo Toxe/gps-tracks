@@ -1,14 +1,14 @@
 import React, { useEffect } from "react";
 import { Box } from "@material-ui/core";
+import { useTracksFilter } from "../MainPageProviders/TracksFilterProvider";
+import { useTracksSort } from "../MainPageProviders/TracksSortProvider";
+import { useTracksSearch } from "../MainPageProviders/TracksSearchProvider";
+import { useLastVisitedAllTracksPage } from "../MainPageProviders/LastVisitedAllTracksPageProvider";
 import TracksFilter from "./TracksFilter";
 import TracksList from "./TracksList";
 import TracksSort from "./TracksSort";
 import { TracksSearch } from "./TracksSearch";
 import { TracksSummary } from "./TracksSummary";
-import { useTracksFilter } from "../TracksFilterProvider";
-import { useTracksSort } from "../TracksSortProvider";
-import { useTracksSearch } from "../TracksSearchProvider";
-import { useLastVisitedAllTracksPage } from "../LastVisitedAllTracksPageProvider";
 
 export default function AllTracks() {
     const { updateLastVisitedAllTracksPage } = useLastVisitedAllTracksPage();

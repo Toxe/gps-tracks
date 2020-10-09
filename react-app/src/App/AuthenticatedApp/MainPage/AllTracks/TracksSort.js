@@ -3,7 +3,7 @@ import { useTranslation } from "react-i18next";
 import { useSearchParams } from "react-router-dom";
 import { makeStyles } from "@material-ui/core/styles";
 import { Box, FormControl, InputLabel, MenuItem, Select, TableSortLabel, Tooltip } from "@material-ui/core";
-import { useTracksSort } from "../TracksSortProvider";
+import { useTracksSort } from "../MainPageProviders/TracksSortProvider";
 import { getSearchParam, setOrRemoveDefaultSearchParam } from "./utils/urlSearchParams";
 
 const useStyles = makeStyles((theme) => ({
