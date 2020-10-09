@@ -6,44 +6,52 @@ import "jest-extended";
 import "expect-more-jest";
 import { BrowserRouter } from "react-router-dom";
 import axiosMock from "axios";
-import { sampleAuthTokens, sampleTracks, sampleUser, sampleTrackSegments } from "../../../../test";
-import { AuthProvider, saveAuthTokensToLocalStorage, removeAuthTokensFromLocalStorage } from "../../../../Auth";
-import { TracksProvider } from "../../TracksProvider";
-import { UserProvider } from "../../UserProvider";
-import { MainPage } from "..";
+import { sampleTrack, sampleTrackSegments } from "../../../../test";
+import * as TracksProviderExports from "../../TracksProvider/TracksProvider";
+import * as UserProviderExports from "../../UserProvider/UserProvider";
+import * as LastVisitedAllTracksPageProviderExports from "../LastVisitedAllTracksPageProvider/LastVisitedAllTracksPageProvider";
+import { SingleTrack } from ".";
 
 jest.mock("axios");
 jest.mock("react-leaflet"); // don't actually render the Leaflet map
+jest.mock("react-router-dom", () => ({
+    ...jest.requireActual("react-router-dom"), // require the original module to not be mocked
+    useNavigate: () => jest.fn(),
+}));
+
+function setup(getTrack) {
+    axiosMock.get.mockResolvedValueOnce({ data: sampleTrackSegments() });
+
+    const deleteTrack = jest.fn();
+    const returnToLastVisitedAllTracksPage = jest.fn();
+
+    const useTracksSpy = jest.spyOn(TracksProviderExports, "useTracks");
+    const useUserSpy = jest.spyOn(UserProviderExports, "useUser");
+    const useLastVisitedAllTracksPageSpy = jest.spyOn(
+        LastVisitedAllTracksPageProviderExports,
+        "useLastVisitedAllTracksPage"
+    );
+
+    useTracksSpy.mockReturnValue({ getTrack, deleteTrack });
+    useUserSpy.mockReturnValue({ user: 1 });
+    useLastVisitedAllTracksPageSpy.mockReturnValue({ returnToLastVisitedAllTracksPage });
+
+    return render(
+        <BrowserRouter>
+            <SingleTrack />
+        </BrowserRouter>
+    );
+}
 
 describe("SingleTrack", () => {
     afterEach(() => {
         axiosMock.get.mockReset();
-        removeAuthTokensFromLocalStorage();
     });
 
     describe("With existing track", () => {
-        test("When loading route /tracks/21, show details of track 21", async () => {
-            const { access_token, refresh_token } = sampleAuthTokens(1);
-            saveAuthTokensToLocalStorage(access_token, refresh_token);
-
-            axiosMock.get
-                .mockResolvedValueOnce({ data: sampleUser(1) })
-                .mockResolvedValueOnce({ data: sampleTracks() })
-                .mockResolvedValueOnce({ data: sampleTrackSegments() });
-
-            window.history.pushState({}, "Test Page", "/tracks/21");
-
-            const { findByText, findByRole } = render(
-                <AuthProvider>
-                    <BrowserRouter>
-                        <UserProvider>
-                            <TracksProvider>
-                                <MainPage />
-                            </TracksProvider>
-                        </UserProvider>
-                    </BrowserRouter>
-                </AuthProvider>
-            );
+        test("When loading data for existing track, show track details", async () => {
+            const getTrack = jest.fn(() => sampleTrack(21));
+            const { findByText, findByRole } = setup(getTrack);
 
             await findByRole("heading", { name: "Track 21" });
             await findByText("Edit");
@@ -53,25 +61,9 @@ describe("SingleTrack", () => {
     });
 
     describe("With non-existing track", () => {
-        test('When loading route of non-existant track, show "Track not found" message', async () => {
-            const { access_token, refresh_token } = sampleAuthTokens(1);
-            saveAuthTokensToLocalStorage(access_token, refresh_token);
-
-            axiosMock.get.mockResolvedValueOnce({ data: sampleUser(1) }).mockResolvedValueOnce({ data: [] });
-
-            window.history.pushState({}, "Test Page", "/tracks/9999");
-
-            const { findByText } = render(
-                <AuthProvider>
-                    <BrowserRouter>
-                        <UserProvider>
-                            <TracksProvider>
-                                <MainPage />
-                            </TracksProvider>
-                        </UserProvider>
-                    </BrowserRouter>
-                </AuthProvider>
-            );
+        test('When loading data for non-existing track, show "Track not found" message', async () => {
+            const getTrack = jest.fn(() => null);
+            const { findByText } = setup(getTrack);
 
             await findByText("Track not found");
             await findByText("The track you are looking for does not exist.");
