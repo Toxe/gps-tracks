@@ -1,4 +1,4 @@
-import { sampleTrack } from ".";
+import { sampleTrack } from "./sampleTracks";
 
 const gpxfiles = [
     {
