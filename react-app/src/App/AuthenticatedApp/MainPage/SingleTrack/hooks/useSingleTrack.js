@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from "react";
-import axios from "axios";
 import { useNavigate, useParams } from "react-router-dom";
 import { saveAs } from "file-saver";
 import { RequestError } from "../../../../../shared/RequestError";
+import { Tracks } from "../../../api";
 import { useTracks } from "../../../TracksProvider";
 import { useLastVisitedAllTracksPage } from "../../MainPageProviders/LastVisitedAllTracksPageProvider";
 
@@ -30,8 +30,8 @@ export default function useSingleTrack() {
         try {
             updateRequestError(null);
             const filename = track.links.download.split("/").pop();
-            const response = await axios.get(track.links.download, { responseType: "blob" });
-            saveAs(response.data, filename);
+            const blob = await Tracks.download(track);
+            saveAs(blob, filename);
         } catch (error) {
             updateRequestError(error);
         }

@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useContext } from "react";
-import axios from "axios";
 import { useAuth } from "../../../Auth";
+import { Users } from "../api";
 
 const UserContext = React.createContext();
 
@@ -20,8 +20,7 @@ export function UserProvider({ children }) {
 
     useEffect(() => {
         async function queryUser(id) {
-            const response = await axios.get(`/api/users/${authId}`);
-            setUser(response.data);
+            setUser(await Users.get(id));
         }
 
         if (authId) {

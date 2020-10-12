@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useContext } from "react";
-import axios from "axios";
+import { GPXFiles, Tracks, Users } from "../api";
 import { useUser } from "../UserProvider";
 
 const TracksContext = React.createContext();
@@ -20,8 +20,7 @@ export function TracksProvider({ children }) {
 
     useEffect(() => {
         async function queryTracks(user) {
-            const response = await axios.get(user.links.tracks);
-            setTracks(response.data);
+            setTracks(await Users.tracks(user));
         }
 
         if (user) {
@@ -35,18 +34,17 @@ export function TracksProvider({ children }) {
     };
 
     const updateTrack = async (trackId, values) => {
-        const response = await axios.put(`/api/users/${user.id}/tracks/${trackId}`, values);
-        const track = response.data;
+        const track = await Tracks.update(user, trackId, values);
         setTracks(tracks.map((t) => (t.id === track.id ? track : t)));
     };
 
     const deleteTrack = async (track) => {
-        await axios.delete(track.links.delete);
+        await Tracks.delete(track);
         setTracks(tracks.filter((t) => t.id !== track.id));
     };
 
     const uploadTracks = async (files, handleUploadFinished) => {
-        const calls = files.map((f) => prepareUploadRequest(user.id, f));
+        const calls = files.map((f) => GPXFiles.upload(user, f));
         const responses = await Promise.all(calls);
 
         const successfulResponses = responses.filter((r) => r.status === 201);
@@ -61,17 +59,4 @@ export function TracksProvider({ children }) {
             {children}
         </TracksContext.Provider>
     );
-}
-
-async function prepareUploadRequest(userId, file) {
-    try {
-        const formData = new FormData();
-        formData.append("file", file);
-
-        return await axios.post(`/api/users/${userId}/gpxfiles`, formData, {
-            headers: { "Content-Type": "multipart/form-data" },
-        });
-    } catch (error) {
-        return error;
-    }
 }
