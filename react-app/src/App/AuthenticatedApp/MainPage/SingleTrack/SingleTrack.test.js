@@ -5,14 +5,13 @@ import "@testing-library/jest-dom";
 import "jest-extended";
 import "expect-more-jest";
 import { BrowserRouter } from "react-router-dom";
-import axiosMock from "axios";
 import { sampleTrack, sampleTrackSegments } from "../../../../test";
+import { Tracks } from "../../api";
 import * as tracksProviderExports from "../../TracksProvider/TracksProvider";
 import * as userProviderExports from "../../UserProvider/UserProvider";
 import * as lastVisitedAllTracksPageProviderExports from "../MainPageProviders/LastVisitedAllTracksPageProvider/LastVisitedAllTracksPageProvider";
 import { SingleTrack } from ".";
 
-jest.mock("axios");
 jest.mock("react-leaflet"); // don't actually render the Leaflet map
 jest.mock("react-router-dom", () => ({
     ...jest.requireActual("react-router-dom"), // require the original module to not be mocked
@@ -20,19 +19,13 @@ jest.mock("react-router-dom", () => ({
 }));
 
 function setup(getTrack) {
-    axiosMock.get.mockResolvedValueOnce({ data: sampleTrackSegments() });
-
     const deleteTrack = jest.fn();
     const returnToLastVisitedAllTracksPage = jest.fn();
 
-    const useTracksSpy = jest.spyOn(tracksProviderExports, "useTracks");
-    useTracksSpy.mockReturnValue({ getTrack, deleteTrack });
-
-    const useUserSpy = jest.spyOn(userProviderExports, "useUser");
-    useUserSpy.mockReturnValue({ user: 1 });
-
-    const useLastVisitedAllTracksPageSpy = jest.spyOn(lastVisitedAllTracksPageProviderExports, "useLastVisitedAllTracksPage");
-    useLastVisitedAllTracksPageSpy.mockReturnValue({ returnToLastVisitedAllTracksPage });
+    jest.spyOn(tracksProviderExports, "useTracks").mockReturnValue({ getTrack, deleteTrack });
+    jest.spyOn(userProviderExports, "useUser").mockReturnValue({ user: 1 });
+    jest.spyOn(lastVisitedAllTracksPageProviderExports, "useLastVisitedAllTracksPage").mockReturnValue({ returnToLastVisitedAllTracksPage });
+    jest.spyOn(Tracks, "segments").mockReturnValueOnce(sampleTrackSegments());
 
     return render(
         <BrowserRouter>
@@ -42,10 +35,6 @@ function setup(getTrack) {
 }
 
 describe("SingleTrack", () => {
-    afterEach(() => {
-        axiosMock.get.mockReset();
-    });
-
     describe("With existing track", () => {
         test("When showing existing track, show track details", async () => {
             const getTrack = jest.fn(() => sampleTrack(21));
