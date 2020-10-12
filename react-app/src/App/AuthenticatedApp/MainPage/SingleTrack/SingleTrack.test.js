@@ -47,7 +47,7 @@ describe("SingleTrack", () => {
     });
 
     describe("With existing track", () => {
-        test("When loading data for existing track, show track details", async () => {
+        test("When showing existing track, show track details", async () => {
             const getTrack = jest.fn(() => sampleTrack(21));
             const { findByText, findByRole } = setup(getTrack);
 
@@ -59,7 +59,7 @@ describe("SingleTrack", () => {
     });
 
     describe("With non-existing track", () => {
-        test('When loading data for non-existing track, show "Track not found" message', async () => {
+        test('When showing non-existing track, show "Track not found" message', async () => {
             const getTrack = jest.fn(() => null);
             const { findByText } = setup(getTrack);
 
