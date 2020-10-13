@@ -1,7 +1,8 @@
 import React, { useState, useEffect, useContext } from "react";
 import axios from "axios";
-import { removeResponseInterceptor } from "./ResponseInterceptor";
-import { authRefresh, authInit } from "./API";
+import jwt from "jsonwebtoken";
+import { addResponseInterceptor, removeResponseInterceptor } from "./ResponseInterceptor";
+import { TokenDecodeError } from "./errors";
 import { Auth } from "./api/Auth";
 import { TokenStorage } from "./api/TokenStorage";
 
@@ -23,14 +24,17 @@ export function AuthProvider({ children }) {
     useEffect(() => {
         try {
             // init auth from already existing tokens
-            const tokens = TokenStorage.getTokens();
-            setAuthId(authInit(tokens.access_token, tokens.refresh_token));
+            const id = initFromTokens(TokenStorage.getTokens());
+            addResponseInterceptor(refresh);
+            setAuthId(id);
         } catch (error) {}
     }, [setAuthId]);
 
     const login = async (credentials) => {
-        const { access_token, refresh_token } = await Auth.login(credentials);
-        setAuthId(authInit(access_token, refresh_token));
+        const tokens = await Auth.login(credentials);
+        const id = initFromTokens(tokens);
+        addResponseInterceptor(refresh);
+        setAuthId(id);
     };
 
     const logout = async () => {
@@ -56,8 +60,33 @@ export function AuthProvider({ children }) {
     };
 
     const refresh = async () => {
-        await authRefresh();
+        const refresh_token = TokenStorage.getRefreshToken();
+        const access_token = await Auth.refresh(refresh_token);
+
+        TokenStorage.saveTokens({ access_token, refresh_token });
+        axios.defaults.headers["Authorization"] = `Bearer ${access_token}`;
     };
 
     return <AuthContext.Provider value={{ authId, login, logout, refresh }}>{children}</AuthContext.Provider>;
+}
+
+function initFromTokens(tokens) {
+    let identity = undefined;
+
+    try {
+        const access_token_data = jwt.decode(tokens.access_token);
+        const refresh_token_data = jwt.decode(tokens.refresh_token);
+
+        if (access_token_data === null || refresh_token_data === null)
+            throw new TokenDecodeError("Unable to decode token");
+
+        identity = access_token_data.identity;
+    } catch (err) {
+        throw new TokenDecodeError("Unable to decode token");
+    }
+
+    TokenStorage.saveTokens(tokens);
+    axios.defaults.headers["Authorization"] = `Bearer ${tokens.access_token}`;
+
+    return identity;
 }
