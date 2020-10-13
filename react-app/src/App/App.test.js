@@ -15,8 +15,7 @@ describe("App", () => {
 
     describe("With authenticated user", () => {
         test("When user is logged in, show AuthenticatedApp", () => {
-            const { access_token, refresh_token } = sampleAuthTokens(1);
-            saveAuthTokensToLocalStorage(access_token, refresh_token);
+            saveAuthTokensToLocalStorage(sampleAuthTokens(1));
 
             const { getByRole } = render(
                 <AuthProvider>

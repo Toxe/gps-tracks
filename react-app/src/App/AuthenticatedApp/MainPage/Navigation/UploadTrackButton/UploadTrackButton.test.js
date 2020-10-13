@@ -20,8 +20,7 @@ describe("UploadTrackButton", () => {
 
     describe("With authenticated user", () => {
         test('When "Upload" button clicked, show upload dialog', async () => {
-            const { access_token, refresh_token } = sampleAuthTokens(1);
-            saveAuthTokensToLocalStorage(access_token, refresh_token);
+            saveAuthTokensToLocalStorage(sampleAuthTokens(1));
 
             axiosMock.get
                 .mockResolvedValueOnce({ data: sampleUser(1) })

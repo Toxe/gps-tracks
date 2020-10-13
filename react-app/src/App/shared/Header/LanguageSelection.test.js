@@ -20,8 +20,7 @@ describe("LanguageSelection", () => {
 
     describe('With language set to "en"', () => {
         test('When click on "Deutsch", change language to German', async () => {
-            const { access_token, refresh_token } = sampleAuthTokens(1);
-            saveAuthTokensToLocalStorage(access_token, refresh_token);
+            saveAuthTokensToLocalStorage(sampleAuthTokens(1));
 
             axiosMock.get
                 .mockResolvedValueOnce({ data: sampleUser(1) })

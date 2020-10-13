@@ -13,8 +13,7 @@ import { App } from "../../../../App";
 jest.mock("axios");
 
 function setupPageWithUrlParams(urlParams) {
-    const { access_token, refresh_token } = sampleAuthTokens(1);
-    saveAuthTokensToLocalStorage(access_token, refresh_token);
+    saveAuthTokensToLocalStorage(sampleAuthTokens(1));
 
     axiosMock.get.mockResolvedValueOnce({ data: sampleUser(1) }).mockResolvedValueOnce({ data: sampleTracks() });
 

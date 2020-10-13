@@ -18,10 +18,9 @@ describe("Login into the application", () => {
 
     describe("Without authenticated user", () => {
         test("When login successful, show main page", async () => {
-            const { access_token, refresh_token } = sampleAuthTokens(1);
             const user = sampleUser(1);
 
-            const authLoginSpy = jest.spyOn(Auth, "login").mockReturnValueOnce({ access_token, refresh_token });
+            const authLoginSpy = jest.spyOn(Auth, "login").mockReturnValueOnce(sampleAuthTokens(1));
             const usersGetSpy = jest.spyOn(Users, "get").mockReturnValueOnce(user);
             const usersTracksSpy = jest.spyOn(Users, "tracks").mockReturnValueOnce(sampleTracks());
 

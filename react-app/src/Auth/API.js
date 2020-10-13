@@ -4,9 +4,9 @@ import { TokenDecodeError } from "./errors";
 import { addResponseInterceptor, removeResponseInterceptor } from "./ResponseInterceptor";
 import { Auth } from "./api/Auth";
 
-export function saveAuthTokensToLocalStorage(access_token, refresh_token) {
-    localStorage.setItem("access_token", access_token);
-    localStorage.setItem("refresh_token", refresh_token);
+export function saveAuthTokensToLocalStorage(tokens) {
+    localStorage.setItem("access_token", tokens.access_token);
+    localStorage.setItem("refresh_token", tokens.refresh_token);
 }
 
 export function removeAuthTokensFromLocalStorage() {
@@ -36,7 +36,7 @@ export function authInit(access_token, refresh_token) {
         throw new TokenDecodeError("Unable to decode token");
     }
 
-    saveAuthTokensToLocalStorage(access_token, refresh_token);
+    saveAuthTokensToLocalStorage({ access_token, refresh_token });
     axios.defaults.headers["Authorization"] = `Bearer ${access_token}`;
 
     addResponseInterceptor(authRefresh);
@@ -75,6 +75,6 @@ export async function authRefresh() {
     const { refresh_token } = getAuthTokensFromLocalStorage();
     const access_token = await Auth.refresh(refresh_token);
 
-    saveAuthTokensToLocalStorage(access_token, refresh_token);
+    saveAuthTokensToLocalStorage({ access_token, refresh_token });
     axios.defaults.headers["Authorization"] = `Bearer ${access_token}`;
 }

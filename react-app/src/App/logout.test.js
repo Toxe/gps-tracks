@@ -23,8 +23,7 @@ describe("Logout from the application", () => {
 
     describe("With authenticated user", () => {
         test('When click on "Logout" button, logout and navigate to login page', async () => {
-            const { access_token, refresh_token } = sampleAuthTokens(1);
-            saveAuthTokensToLocalStorage(access_token, refresh_token);
+            saveAuthTokensToLocalStorage(sampleAuthTokens(1));
 
             jest.spyOn(Users, "get").mockReturnValueOnce(sampleUser(1));
             jest.spyOn(Users, "tracks").mockReturnValueOnce(sampleTracks());

@@ -16,8 +16,8 @@ describe("AuthInfo", () => {
 
     describe("With authenticated user", () => {
         test("When user is logged in, show identity, access_token and refresh_token", async () => {
-            const { access_token, refresh_token, identity } = sampleAuthTokens(1);
-            saveAuthTokensToLocalStorage(access_token, refresh_token);
+            const { access_token, refresh_token } = sampleAuthTokens(1);
+            saveAuthTokensToLocalStorage({ access_token, refresh_token });
 
             const { findByText } = render(
                 <AuthProvider>
@@ -25,7 +25,7 @@ describe("AuthInfo", () => {
                 </AuthProvider>
             );
 
-            await findByText(matchByTextContent(`identity: ${identity}`));
+            await findByText(matchByTextContent(`identity: 1`));
             await findByText(matchByTextContent(`access_token: ${access_token}`));
             await findByText(matchByTextContent(`refresh_token: ${refresh_token}`));
             await findByText(matchByTextContent("expires: in 15 minutes"));
@@ -33,8 +33,8 @@ describe("AuthInfo", () => {
         });
 
         test("When minimize button clicked, show only identity and access_token expiration time", async () => {
-            const { access_token, refresh_token, identity } = sampleAuthTokens(1);
-            saveAuthTokensToLocalStorage(access_token, refresh_token);
+            const { access_token, refresh_token } = sampleAuthTokens(1);
+            saveAuthTokensToLocalStorage({ access_token, refresh_token });
 
             const { findByText, getByLabelText } = render(
                 <AuthProvider>
@@ -44,7 +44,7 @@ describe("AuthInfo", () => {
 
             userEvent.click(getByLabelText("minimize"));
 
-            await findByText(matchByTextContent(`identity: ${identity}`));
+            await findByText(matchByTextContent(`identity: 1`));
             await findByText(matchByTextContent("access_token: expires in 15 minutes"));
         });
     });

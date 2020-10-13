@@ -19,8 +19,7 @@ describe("AllTracks", () => {
 
     describe("With existing tracks", () => {
         test("When given sample tracks, should show list of 5 tracks", async () => {
-            const { access_token, refresh_token } = sampleAuthTokens(1);
-            saveAuthTokensToLocalStorage(access_token, refresh_token);
+            saveAuthTokensToLocalStorage(sampleAuthTokens(1));
 
             axiosMock.get
                 .mockResolvedValueOnce({ data: sampleUser(1) })
@@ -42,8 +41,7 @@ describe("AllTracks", () => {
 
     describe("Without tracks", () => {
         test('When given no tracks, should show "No tracks found" message', async () => {
-            const { access_token, refresh_token } = sampleAuthTokens(1);
-            saveAuthTokensToLocalStorage(access_token, refresh_token);
+            saveAuthTokensToLocalStorage(sampleAuthTokens(1));
 
             axiosMock.get.mockResolvedValueOnce({ data: sampleUser(1) }).mockResolvedValueOnce({ data: [] });
 

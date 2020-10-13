@@ -21,9 +21,7 @@ import { App } from "../../../../App";
 jest.mock("react-leaflet"); // don't actually render the Leaflet map
 
 function setupEditTrackPage(trackId) {
-    const { access_token, refresh_token } = sampleAuthTokens(1);
-    saveAuthTokensToLocalStorage(access_token, refresh_token);
-
+    saveAuthTokensToLocalStorage(sampleAuthTokens(1));
     window.history.pushState({}, "Test Page", `/tracks/${trackId}/edit`);
 
     return render(
