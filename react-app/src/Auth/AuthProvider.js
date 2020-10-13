@@ -1,5 +1,6 @@
 import React, { useState, useEffect, useContext } from "react";
-import { authLogin, authLogout, authRefresh, authInit, getAuthTokensFromLocalStorage } from "./API";
+import { authLogout, authRefresh, authInit, getAuthTokensFromLocalStorage } from "./API";
+import { Auth } from "./api/Auth";
 
 const AuthContext = React.createContext();
 
@@ -25,9 +26,8 @@ export function AuthProvider({ children }) {
     }, [setAuthId]);
 
     const login = async (credentials) => {
-        const id = await authLogin(credentials);
-        setAuthId(id);
-        return id;
+        const { access_token, refresh_token } = await Auth.login(credentials);
+        setAuthId(authInit(access_token, refresh_token));
     };
 
     const logout = async () => {

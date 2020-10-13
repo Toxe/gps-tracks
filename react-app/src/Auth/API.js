@@ -44,11 +44,6 @@ export function authInit(access_token, refresh_token) {
     return identity;
 }
 
-export async function authLogin(credentials) {
-    const { access_token, refresh_token } = await Auth.login(credentials);
-    return authInit(access_token, refresh_token);
-}
-
 export async function authLogout() {
     // remove interceptor first to not resend logout requests with expired access tokens
     removeResponseInterceptor();
