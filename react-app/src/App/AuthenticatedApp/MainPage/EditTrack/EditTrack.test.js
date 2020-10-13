@@ -5,7 +5,6 @@ import userEvent from "@testing-library/user-event";
 import "@testing-library/jest-dom";
 import "jest-extended";
 import "expect-more-jest";
-import axiosMock from "axios";
 import {
     sampleAuthTokens,
     sampleTrack,
@@ -15,10 +14,10 @@ import {
     matchByTextContent,
 } from "../../../../test";
 import { AuthProvider, saveAuthTokensToLocalStorage, removeAuthTokensFromLocalStorage } from "../../../../Auth";
+import { Tracks, Users } from "../../api";
 import { ActivityMode } from "../utils/enums";
 import { App } from "../../../../App";
 
-jest.mock("axios");
 jest.mock("react-leaflet"); // don't actually render the Leaflet map
 
 function setupEditTrackPage() {
@@ -36,15 +35,13 @@ function setupEditTrackPage() {
 
 describe("EditTrack", () => {
     afterEach(() => {
-        axiosMock.get.mockReset();
         removeAuthTokensFromLocalStorage();
     });
 
     describe("With existing track", () => {
         test("When loading route /tracks/21/edit, show edit page for track 21", async () => {
-            axiosMock.get
-                .mockResolvedValueOnce({ data: sampleUser(1) })
-                .mockResolvedValueOnce({ data: sampleTracks() });
+            jest.spyOn(Users, "get").mockReturnValueOnce(sampleUser(1));
+            jest.spyOn(Users, "tracks").mockReturnValueOnce(sampleTracks());
 
             const { findByText, findByRole } = setupEditTrackPage();
 
@@ -55,9 +52,8 @@ describe("EditTrack", () => {
         });
 
         test('When selecting different activity mode, "Save Changes" button becomes enabled', async () => {
-            axiosMock.get
-                .mockResolvedValueOnce({ data: sampleUser(1) })
-                .mockResolvedValueOnce({ data: sampleTracks() });
+            jest.spyOn(Users, "get").mockReturnValueOnce(sampleUser(1));
+            jest.spyOn(Users, "tracks").mockReturnValueOnce(sampleTracks());
 
             const { findByRole } = setupEditTrackPage();
 
@@ -71,9 +67,8 @@ describe("EditTrack", () => {
         });
 
         test('When typing in a new track title, "Save Changes" button becomes enabled', async () => {
-            axiosMock.get
-                .mockResolvedValueOnce({ data: sampleUser(1) })
-                .mockResolvedValueOnce({ data: sampleTracks() });
+            jest.spyOn(Users, "get").mockReturnValueOnce(sampleUser(1));
+            jest.spyOn(Users, "tracks").mockReturnValueOnce(sampleTracks());
 
             const { findByRole, findByDisplayValue } = setupEditTrackPage();
 
@@ -89,13 +84,13 @@ describe("EditTrack", () => {
 
     describe("With editing a track", () => {
         test('When clicking "Save Changes", update track data and reload track details page with new values', async () => {
-            axiosMock.get
-                .mockResolvedValueOnce({ data: sampleUser(1) })
-                .mockResolvedValueOnce({ data: sampleTracks() })
-                .mockResolvedValueOnce({ data: sampleTrackSegments() });
-
-            axiosMock.put.mockResolvedValueOnce({
-                data: { ...sampleTrack(21), title: "Track 21changed", activity_mode: ActivityMode.HIKING },
+            jest.spyOn(Users, "get").mockReturnValueOnce(sampleUser(1));
+            jest.spyOn(Users, "tracks").mockReturnValueOnce(sampleTracks());
+            jest.spyOn(Tracks, "segments").mockReturnValueOnce(sampleTrackSegments());
+            jest.spyOn(Tracks, "update").mockReturnValueOnce({
+                ...sampleTrack(21),
+                title: "Track 21changed",
+                activity_mode: ActivityMode.HIKING,
             });
 
             const { findByText, findByRole, findByDisplayValue } = setupEditTrackPage();
@@ -115,10 +110,9 @@ describe("EditTrack", () => {
         });
 
         test('When clicking "Cancel", discard changes and reload track details page with old values', async () => {
-            axiosMock.get
-                .mockResolvedValueOnce({ data: sampleUser(1) })
-                .mockResolvedValueOnce({ data: sampleTracks() })
-                .mockResolvedValueOnce({ data: sampleTrackSegments() });
+            jest.spyOn(Users, "get").mockReturnValueOnce(sampleUser(1));
+            jest.spyOn(Users, "tracks").mockReturnValueOnce(sampleTracks());
+            jest.spyOn(Tracks, "segments").mockReturnValueOnce(sampleTrackSegments());
 
             const { findByText, findByRole, findByDisplayValue } = setupEditTrackPage();
 
@@ -142,7 +136,8 @@ describe("EditTrack", () => {
             const { access_token, refresh_token } = sampleAuthTokens(1);
             saveAuthTokensToLocalStorage(access_token, refresh_token);
 
-            axiosMock.get.mockResolvedValueOnce({ data: sampleUser(1) }).mockResolvedValueOnce({ data: [] });
+            jest.spyOn(Users, "get").mockReturnValueOnce(sampleUser(1));
+            jest.spyOn(Users, "tracks").mockReturnValueOnce([]);
 
             window.history.pushState({}, "Test Page", "/tracks/9999/edit");
 
