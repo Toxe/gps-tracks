@@ -20,11 +20,11 @@ import { App } from "../../../../App";
 
 jest.mock("react-leaflet"); // don't actually render the Leaflet map
 
-function setupEditTrackPage() {
+function setupEditTrackPage(trackId) {
     const { access_token, refresh_token } = sampleAuthTokens(1);
     saveAuthTokensToLocalStorage(access_token, refresh_token);
 
-    window.history.pushState({}, "Test Page", "/tracks/21/edit");
+    window.history.pushState({}, "Test Page", `/tracks/${trackId}/edit`);
 
     return render(
         <AuthProvider>
@@ -43,7 +43,7 @@ describe("EditTrack", () => {
             jest.spyOn(Users, "get").mockReturnValueOnce(sampleUser(1));
             jest.spyOn(Users, "tracks").mockReturnValueOnce(sampleTracks());
 
-            const { findByText, findByRole } = setupEditTrackPage();
+            const { findByText, findByRole } = setupEditTrackPage(21);
 
             await findByRole("heading", { name: "Track 21" });
             await findByText(matchByTextContent("Edit track “Track 21”"));
@@ -55,7 +55,7 @@ describe("EditTrack", () => {
             jest.spyOn(Users, "get").mockReturnValueOnce(sampleUser(1));
             jest.spyOn(Users, "tracks").mockReturnValueOnce(sampleTracks());
 
-            const { findByRole } = setupEditTrackPage();
+            const { findByRole } = setupEditTrackPage(21);
 
             const saveChangesButton = await findByRole("button", { name: "Save Changes" });
             const hikingRadioButton = await findByRole("radio", { name: "Hiking" });
@@ -70,7 +70,7 @@ describe("EditTrack", () => {
             jest.spyOn(Users, "get").mockReturnValueOnce(sampleUser(1));
             jest.spyOn(Users, "tracks").mockReturnValueOnce(sampleTracks());
 
-            const { findByRole, findByDisplayValue } = setupEditTrackPage();
+            const { findByRole, findByDisplayValue } = setupEditTrackPage(21);
 
             const saveChangesButton = await findByRole("button", { name: "Save Changes" });
             const titleTextbox = await findByDisplayValue("Track 21");
@@ -93,7 +93,7 @@ describe("EditTrack", () => {
                 activity_mode: ActivityMode.HIKING,
             });
 
-            const { findByText, findByRole, findByDisplayValue } = setupEditTrackPage();
+            const { findByText, findByRole, findByDisplayValue } = setupEditTrackPage(21);
 
             // change values
             userEvent.click(await findByRole("radio", { name: "Hiking" }));
@@ -114,7 +114,7 @@ describe("EditTrack", () => {
             jest.spyOn(Users, "tracks").mockReturnValueOnce(sampleTracks());
             jest.spyOn(Tracks, "segments").mockReturnValueOnce(sampleTrackSegments());
 
-            const { findByText, findByRole, findByDisplayValue } = setupEditTrackPage();
+            const { findByText, findByRole, findByDisplayValue } = setupEditTrackPage(21);
 
             // change values
             userEvent.click(await findByRole("radio", { name: "Hiking" }));
@@ -133,19 +133,10 @@ describe("EditTrack", () => {
 
     describe("With non-existing track", () => {
         test('When loading route of non-existant track, show "Track not found" message', async () => {
-            const { access_token, refresh_token } = sampleAuthTokens(1);
-            saveAuthTokensToLocalStorage(access_token, refresh_token);
-
             jest.spyOn(Users, "get").mockReturnValueOnce(sampleUser(1));
             jest.spyOn(Users, "tracks").mockReturnValueOnce([]);
 
-            window.history.pushState({}, "Test Page", "/tracks/9999/edit");
-
-            const { findByText } = render(
-                <AuthProvider>
-                    <App />
-                </AuthProvider>
-            );
+            const { findByText } = setupEditTrackPage(9999);
 
             await findByText("Track not found");
             await findByText("The track you are looking for does not exist.");
