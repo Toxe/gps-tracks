@@ -3,8 +3,7 @@ import axios from "axios";
 import jwt from "jsonwebtoken";
 import { addResponseInterceptor, removeResponseInterceptor } from "./ResponseInterceptor";
 import { TokenDecodeError } from "./errors";
-import { Auth } from "./api/Auth";
-import { TokenStorage } from "./api/TokenStorage";
+import { Auth, TokenStorage } from "./api";
 
 const AuthContext = React.createContext();
 

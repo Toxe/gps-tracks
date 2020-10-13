@@ -1,6 +1,6 @@
 import "jest-extended";
 import "expect-more-jest";
-import { TokenStorage } from "./TokenStorage";
+import { TokenStorage } from ".";
 import { sampleAuthTokens } from "../../test";
 
 describe("TokenStorage", () => {

@@ -4,8 +4,7 @@ import "@testing-library/jest-dom";
 import "jest-extended";
 import "expect-more-jest";
 import { sampleAuthTokens } from "../test";
-import { Auth } from "./api/Auth";
-import { TokenStorage } from "./api/TokenStorage";
+import { Auth, TokenStorage } from "./api";
 import { AuthProvider, useAuth } from ".";
 
 describe("useAuth()", () => {

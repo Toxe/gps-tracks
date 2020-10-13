@@ -3,7 +3,7 @@ import { makeStyles } from "@material-ui/core/styles";
 import { Typography } from "@material-ui/core";
 import formatDistanceToNowStrict from "date-fns/formatDistanceToNowStrict";
 import jwt from "jsonwebtoken";
-import { TokenStorage } from "./api/TokenStorage";
+import { TokenStorage } from "./api";
 
 const useStyles = makeStyles(() => ({
     expired: {
