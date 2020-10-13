@@ -1,5 +1,7 @@
 import React, { useState, useEffect, useContext } from "react";
-import { authLogout, authRefresh, authInit } from "./API";
+import axios from "axios";
+import { removeResponseInterceptor } from "./ResponseInterceptor";
+import { authRefresh, authInit } from "./API";
 import { Auth } from "./api/Auth";
 import { TokenStorage } from "./api/TokenStorage";
 
@@ -32,9 +34,25 @@ export function AuthProvider({ children }) {
     };
 
     const logout = async () => {
-        // no matter what happens, always "logout" locally first
+        // remove interceptor first to not resend logout requests with expired access tokens
+        removeResponseInterceptor();
+
+        // prepare logout calls
+        const logoutCalls = Auth.prepareLogoutCalls(TokenStorage.getRefreshToken());
+
+        // no matter what happens, always "logout" locally first by clearing all auth info
         setAuthId(null);
-        await authLogout();
+        TokenStorage.clearTokens();
+        delete axios.defaults.headers["Authorization"];
+
+        try {
+            await Promise.all(logoutCalls);
+        } catch (error) {
+            // ignore "401 Token has expired" responses because the access token may have already expired
+            if (!(error.response.status === 401 && error.response.data.error === "Token has expired")) {
+                throw error;
+            }
+        }
     };
 
     const refresh = async () => {

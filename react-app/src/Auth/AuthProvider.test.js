@@ -63,4 +63,22 @@ describe("useAuth()", () => {
             expect(TokenStorage.getTokens()).toEqual({ access_token: null, refresh_token: null });
         });
     });
+
+    describe("Logout", () => {
+        test("When logout successful, authId should be null and auth tokens removed from local storage", async () => {
+            TokenStorage.saveTokens(sampleAuthTokens(1));
+
+            jest.spyOn(Auth, "prepareLogoutCalls").mockReturnValueOnce([Promise.resolve(), Promise.resolve()]);
+
+            const wrapper = ({ children }) => <AuthProvider>{children}</AuthProvider>;
+            const { result } = renderHook(() => useAuth(), { wrapper });
+
+            expect(result.current.authId).toBe(1);
+
+            await act(() => result.current.logout());
+
+            expect(result.current.authId).toBeNull();
+            expect(TokenStorage.getTokens()).toEqual({ access_token: null, refresh_token: null });
+        });
+    });
 });
