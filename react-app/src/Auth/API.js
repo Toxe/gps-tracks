@@ -2,6 +2,7 @@ import axios from "axios";
 import jwt from "jsonwebtoken";
 import { TokenDecodeError } from "./errors";
 import { addResponseInterceptor, removeResponseInterceptor } from "./ResponseInterceptor";
+import { Auth } from "./api/Auth";
 
 export function saveAuthTokensToLocalStorage(access_token, refresh_token) {
     localStorage.setItem("access_token", access_token);
@@ -44,8 +45,8 @@ export function authInit(access_token, refresh_token) {
 }
 
 export async function authLogin(credentials) {
-    const response = await axios.post("/auth/login", credentials);
-    return authInit(response.data.access_token, response.data.refresh_token);
+    const { access_token, refresh_token } = await Auth.login(credentials);
+    return authInit(access_token, refresh_token);
 }
 
 export async function authLogout() {
@@ -54,17 +55,14 @@ export async function authLogout() {
 
     // prepare logout calls
     const { refresh_token } = getAuthTokensFromLocalStorage();
-    const logout1 = axios.delete("/auth/logout");
-    const logout2 = axios.delete("/auth/logout2", {
-        headers: { Authorization: `Bearer ${refresh_token}` },
-    });
+    const logoutCalls = Auth.prepareLogoutCalls(refresh_token);
 
     // no matter what happens, always "logout" locally first by clearing all auth info
     removeAuthTokensFromLocalStorage();
     delete axios.defaults.headers["Authorization"];
 
     try {
-        await axios.all([logout1, logout2]);
+        await Promise.all(logoutCalls);
     } catch (error) {
         // ignore "401 Token has expired" responses because the access token may already have expired
         if (!(error.response.status === 401 && error.response.data.error === "Token has expired")) {
@@ -75,13 +73,8 @@ export async function authLogout() {
 
 export async function authRefresh() {
     const { refresh_token } = getAuthTokensFromLocalStorage();
+    const access_token = await Auth.refresh(refresh_token);
 
-    const response = await axios.post("/auth/refresh", null, {
-        headers: { Authorization: `Bearer ${refresh_token}` },
-    });
-
-    saveAuthTokensToLocalStorage(response.data.access_token, refresh_token);
-    axios.defaults.headers["Authorization"] = `Bearer ${response.data.access_token}`;
-
-    return response.data.access_token;
+    saveAuthTokensToLocalStorage(access_token, refresh_token);
+    axios.defaults.headers["Authorization"] = `Bearer ${access_token}`;
 }

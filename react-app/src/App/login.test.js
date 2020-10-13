@@ -5,30 +5,25 @@ import userEvent from "@testing-library/user-event";
 import "@testing-library/jest-dom";
 import "jest-extended";
 import "expect-more-jest";
-import axiosMock from "axios";
 import { sampleAuthTokens, sampleTracks, sampleUser } from "../test";
 import { AuthProvider, removeAuthTokensFromLocalStorage } from "../Auth";
+import { Auth } from "../Auth/api/Auth";
+import { Users } from "./AuthenticatedApp/api";
 import { App } from ".";
-
-jest.mock("axios");
 
 describe("Login into the application", () => {
     afterEach(() => {
-        axiosMock.get.mockReset();
         removeAuthTokensFromLocalStorage();
     });
 
     describe("Without authenticated user", () => {
         test("When login successful, show main page", async () => {
             const { access_token, refresh_token } = sampleAuthTokens(1);
+            const user = sampleUser(1);
 
-            axiosMock.post.mockResolvedValueOnce({
-                data: { access_token, refresh_token },
-            });
-
-            axiosMock.get
-                .mockResolvedValueOnce({ data: sampleUser(1) })
-                .mockResolvedValueOnce({ data: sampleTracks() });
+            const authLoginSpy = jest.spyOn(Auth, "login").mockReturnValueOnce({ access_token, refresh_token });
+            const usersGetSpy = jest.spyOn(Users, "get").mockReturnValueOnce(user);
+            const usersTracksSpy = jest.spyOn(Users, "tracks").mockReturnValueOnce(sampleTracks());
 
             const { getByRole, getByLabelText, findByRole } = render(
                 <AuthProvider>
@@ -50,15 +45,14 @@ describe("Login into the application", () => {
             // login
             userEvent.click(loginButton);
 
-            await waitFor(() => expect(axiosMock.post).toHaveBeenCalledTimes(1));
-            expect(axiosMock.post).toHaveBeenCalledWith("/auth/login", {
-                email: "user@example.com",
-                password: "password",
-            });
+            await waitFor(() => expect(authLoginSpy).toHaveBeenCalledTimes(1));
+            expect(authLoginSpy).toHaveBeenCalledWith({ email: "user@example.com", password: "password" });
 
-            await waitFor(() => expect(axiosMock.get).toHaveBeenCalledTimes(2));
-            expect(axiosMock.get).toHaveBeenNthCalledWith(1, "/api/users/1");
-            expect(axiosMock.get).toHaveBeenNthCalledWith(2, "/api/users/1/tracks");
+            await waitFor(() => expect(usersGetSpy).toHaveBeenCalledTimes(1));
+            expect(usersGetSpy).toHaveBeenCalledWith(1);
+
+            await waitFor(() => expect(usersTracksSpy).toHaveBeenCalledTimes(1));
+            expect(usersTracksSpy).toHaveBeenCalledWith(user);
 
             // when logged-in we should see an "Upload" button and the user menu
             await findByRole("button", { name: "Upload" });
