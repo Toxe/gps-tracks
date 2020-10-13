@@ -5,7 +5,6 @@ import userEvent from "@testing-library/user-event";
 import "@testing-library/jest-dom";
 import "jest-extended";
 import "expect-more-jest";
-import axiosMock from "axios";
 import { sampleAuthTokens, sampleTracks, sampleUser } from "../test";
 import {
     AuthProvider,
@@ -13,13 +12,12 @@ import {
     removeAuthTokensFromLocalStorage,
     getAuthTokensFromLocalStorage,
 } from "../Auth";
+import { Auth } from "../Auth/api/Auth";
+import { Users } from "./AuthenticatedApp/api";
 import { App } from ".";
-
-jest.mock("axios");
 
 describe("Logout from the application", () => {
     afterEach(() => {
-        axiosMock.get.mockReset();
         removeAuthTokensFromLocalStorage();
     });
 
@@ -28,11 +26,9 @@ describe("Logout from the application", () => {
             const { access_token, refresh_token } = sampleAuthTokens(1);
             saveAuthTokensToLocalStorage(access_token, refresh_token);
 
-            axiosMock.get
-                .mockResolvedValueOnce({ data: sampleUser(1) })
-                .mockResolvedValueOnce({ data: sampleTracks() });
-
-            axiosMock.delete.mockResolvedValueOnce({}).mockResolvedValueOnce({});
+            jest.spyOn(Users, "get").mockReturnValueOnce(sampleUser(1));
+            jest.spyOn(Users, "tracks").mockReturnValueOnce(sampleTracks());
+            jest.spyOn(Auth, "prepareLogoutCalls").mockReturnValueOnce([Promise.resolve(), Promise.resolve()]);
 
             const { findByRole, findByText } = render(
                 <AuthProvider>
