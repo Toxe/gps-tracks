@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useContext } from "react";
-import { authLogout, authRefresh, authInit, getAuthTokensFromLocalStorage } from "./API";
+import { authLogout, authRefresh, authInit } from "./API";
 import { Auth } from "./api/Auth";
+import { TokenStorage } from "./api/TokenStorage";
 
 const AuthContext = React.createContext();
 
@@ -20,7 +21,7 @@ export function AuthProvider({ children }) {
     useEffect(() => {
         try {
             // init auth from already existing tokens
-            const tokens = getAuthTokensFromLocalStorage();
+            const tokens = TokenStorage.getTokens();
             setAuthId(authInit(tokens.access_token, tokens.refresh_token));
         } catch (error) {}
     }, [setAuthId]);

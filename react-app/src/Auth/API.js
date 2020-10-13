@@ -3,23 +3,7 @@ import jwt from "jsonwebtoken";
 import { TokenDecodeError } from "./errors";
 import { addResponseInterceptor, removeResponseInterceptor } from "./ResponseInterceptor";
 import { Auth } from "./api/Auth";
-
-export function saveAuthTokensToLocalStorage(tokens) {
-    localStorage.setItem("access_token", tokens.access_token);
-    localStorage.setItem("refresh_token", tokens.refresh_token);
-}
-
-export function removeAuthTokensFromLocalStorage() {
-    localStorage.removeItem("access_token");
-    localStorage.removeItem("refresh_token");
-}
-
-export function getAuthTokensFromLocalStorage() {
-    const access_token = localStorage.getItem("access_token");
-    const refresh_token = localStorage.getItem("refresh_token");
-
-    return { access_token, refresh_token };
-}
+import { TokenStorage } from "./api/TokenStorage";
 
 export function authInit(access_token, refresh_token) {
     let identity = undefined;
@@ -36,7 +20,7 @@ export function authInit(access_token, refresh_token) {
         throw new TokenDecodeError("Unable to decode token");
     }
 
-    saveAuthTokensToLocalStorage({ access_token, refresh_token });
+    TokenStorage.saveTokens({ access_token, refresh_token });
     axios.defaults.headers["Authorization"] = `Bearer ${access_token}`;
 
     addResponseInterceptor(authRefresh);
@@ -49,11 +33,11 @@ export async function authLogout() {
     removeResponseInterceptor();
 
     // prepare logout calls
-    const { refresh_token } = getAuthTokensFromLocalStorage();
+    const refresh_token = TokenStorage.getRefreshToken();
     const logoutCalls = Auth.prepareLogoutCalls(refresh_token);
 
     // no matter what happens, always "logout" locally first by clearing all auth info
-    removeAuthTokensFromLocalStorage();
+    TokenStorage.clearTokens();
     delete axios.defaults.headers["Authorization"];
 
     try {
@@ -67,9 +51,9 @@ export async function authLogout() {
 }
 
 export async function authRefresh() {
-    const { refresh_token } = getAuthTokensFromLocalStorage();
+    const refresh_token = TokenStorage.getRefreshToken();
     const access_token = await Auth.refresh(refresh_token);
 
-    saveAuthTokensToLocalStorage({ access_token, refresh_token });
+    TokenStorage.saveTokens({ access_token, refresh_token });
     axios.defaults.headers["Authorization"] = `Bearer ${access_token}`;
 }

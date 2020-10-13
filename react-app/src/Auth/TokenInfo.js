@@ -3,7 +3,7 @@ import { makeStyles } from "@material-ui/core/styles";
 import { Typography } from "@material-ui/core";
 import formatDistanceToNowStrict from "date-fns/formatDistanceToNowStrict";
 import jwt from "jsonwebtoken";
-import { getAuthTokensFromLocalStorage } from "./API";
+import { TokenStorage } from "./api/TokenStorage";
 
 const useStyles = makeStyles(() => ({
     expired: {
@@ -24,7 +24,7 @@ export default function TokenInfo({ tokenName, minimized }) {
 
     useEffect(() => {
         const interval = setInterval(() => {
-            const tokens = getAuthTokensFromLocalStorage();
+            const tokens = TokenStorage.getTokens();
 
             if (tokens && tokens[tokenName]) {
                 const decoded = jwt.decode(tokens[tokenName]);

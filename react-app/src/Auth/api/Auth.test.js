@@ -1,8 +1,8 @@
 import "jest-extended";
 import "expect-more-jest";
 import axiosMock from "axios";
-import { Auth } from "./Auth";
 import { sampleAuthTokens } from "../../test";
+import { Auth } from "./Auth";
 
 jest.mock("axios");
 

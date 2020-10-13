@@ -5,12 +5,12 @@ import "jest-extended";
 import "expect-more-jest";
 import { sampleAuthTokens } from "../test";
 import { Auth } from "./api/Auth";
-import { getAuthTokensFromLocalStorage, removeAuthTokensFromLocalStorage } from "./API";
+import { TokenStorage } from "./api/TokenStorage";
 import { AuthProvider, useAuth } from ".";
 
 describe("useAuth()", () => {
     afterEach(() => {
-        removeAuthTokensFromLocalStorage();
+        TokenStorage.clearTokens();
     });
 
     describe("Basic functionality", () => {
@@ -38,7 +38,7 @@ describe("useAuth()", () => {
             await act(() => result.current.login({ email: "user@example.com", password: "password" }));
 
             expect(result.current.authId).toBe(1);
-            expect(getAuthTokensFromLocalStorage()).toEqual({ access_token, refresh_token });
+            expect(TokenStorage.getTokens()).toEqual({ access_token, refresh_token });
         });
 
         test("When credentials are null, throw error and don't log in", async () => {
@@ -48,7 +48,7 @@ describe("useAuth()", () => {
             await expect(result.current.login(null)).rejects.toThrow(new TypeError("invalid arguments"));
 
             expect(result.current.authId).toBeNull();
-            expect(getAuthTokensFromLocalStorage()).toEqual({ access_token: null, refresh_token: null });
+            expect(TokenStorage.getTokens()).toEqual({ access_token: null, refresh_token: null });
         });
 
         test("When credentials are incomplete, throw error and don't log in", async () => {
@@ -60,7 +60,7 @@ describe("useAuth()", () => {
             );
 
             expect(result.current.authId).toBeNull();
-            expect(getAuthTokensFromLocalStorage()).toEqual({ access_token: null, refresh_token: null });
+            expect(TokenStorage.getTokens()).toEqual({ access_token: null, refresh_token: null });
         });
     });
 });

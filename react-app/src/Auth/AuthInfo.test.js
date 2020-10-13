@@ -5,19 +5,19 @@ import "@testing-library/jest-dom";
 import "jest-extended";
 import "expect-more-jest";
 import { sampleAuthTokens, matchByTextContent } from "../test";
+import { TokenStorage } from "./api/TokenStorage";
 import { AuthProvider } from "./AuthProvider";
-import { saveAuthTokensToLocalStorage, removeAuthTokensFromLocalStorage } from "./API";
 import AuthInfo from "./AuthInfo";
 
 describe("AuthInfo", () => {
     afterEach(() => {
-        removeAuthTokensFromLocalStorage();
+        TokenStorage.clearTokens();
     });
 
     describe("With authenticated user", () => {
         test("When user is logged in, show identity, access_token and refresh_token", async () => {
             const { access_token, refresh_token } = sampleAuthTokens(1);
-            saveAuthTokensToLocalStorage({ access_token, refresh_token });
+            TokenStorage.saveTokens({ access_token, refresh_token });
 
             const { findByText } = render(
                 <AuthProvider>
@@ -34,7 +34,7 @@ describe("AuthInfo", () => {
 
         test("When minimize button clicked, show only identity and access_token expiration time", async () => {
             const { access_token, refresh_token } = sampleAuthTokens(1);
-            saveAuthTokensToLocalStorage({ access_token, refresh_token });
+            TokenStorage.saveTokens({ access_token, refresh_token });
 
             const { findByText, getByLabelText } = render(
                 <AuthProvider>
