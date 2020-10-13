@@ -13,7 +13,8 @@ import {
     sampleTrackSegments,
     matchByTextContent,
 } from "../../../../test";
-import { AuthProvider, saveAuthTokensToLocalStorage, removeAuthTokensFromLocalStorage } from "../../../../Auth";
+import { AuthProvider } from "../../../../Auth";
+import { TokenStorage } from "../../../../Auth/api";
 import { Tracks, Users } from "../../api";
 import { ActivityMode } from "../utils/enums";
 import { App } from "../../../../App";
@@ -21,7 +22,7 @@ import { App } from "../../../../App";
 jest.mock("react-leaflet"); // don't actually render the Leaflet map
 
 function setupEditTrackPage(trackId) {
-    saveAuthTokensToLocalStorage(sampleAuthTokens(1));
+    TokenStorage.saveTokens(sampleAuthTokens(1));
     window.history.pushState({}, "Test Page", `/tracks/${trackId}/edit`);
 
     return render(
@@ -33,7 +34,7 @@ function setupEditTrackPage(trackId) {
 
 describe("EditTrack", () => {
     afterEach(() => {
-        removeAuthTokensFromLocalStorage();
+        TokenStorage.clearTokens();
     });
 
     describe("With existing track", () => {

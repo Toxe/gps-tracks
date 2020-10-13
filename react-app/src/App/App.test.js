@@ -5,17 +5,18 @@ import "@testing-library/jest-dom";
 import "jest-extended";
 import "expect-more-jest";
 import { sampleAuthTokens } from "../test";
-import { AuthProvider, saveAuthTokensToLocalStorage, removeAuthTokensFromLocalStorage } from "../Auth";
+import { AuthProvider } from "../Auth";
+import { TokenStorage } from "../Auth/api";
 import { App } from ".";
 
 describe("App", () => {
     afterEach(() => {
-        removeAuthTokensFromLocalStorage();
+        TokenStorage.clearTokens();
     });
 
     describe("With authenticated user", () => {
         test("When user is logged in, show AuthenticatedApp", () => {
-            saveAuthTokensToLocalStorage(sampleAuthTokens(1));
+            TokenStorage.saveTokens(sampleAuthTokens(1));
 
             const { getByRole } = render(
                 <AuthProvider>

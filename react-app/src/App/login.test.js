@@ -6,14 +6,14 @@ import "@testing-library/jest-dom";
 import "jest-extended";
 import "expect-more-jest";
 import { sampleAuthTokens, sampleTracks, sampleUser } from "../test";
-import { AuthProvider, removeAuthTokensFromLocalStorage } from "../Auth";
-import { Auth } from "../Auth/api/Auth";
+import { AuthProvider } from "../Auth";
+import { Auth, TokenStorage } from "../Auth/api";
 import { Users } from "./AuthenticatedApp/api";
 import { App } from ".";
 
 describe("Login into the application", () => {
     afterEach(() => {
-        removeAuthTokensFromLocalStorage();
+        TokenStorage.clearTokens();
     });
 
     describe("Without authenticated user", () => {

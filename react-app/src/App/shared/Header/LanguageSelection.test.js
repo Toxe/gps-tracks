@@ -7,7 +7,8 @@ import "jest-extended";
 import "expect-more-jest";
 import axiosMock from "axios";
 import { sampleAuthTokens, sampleTracks, sampleUser } from "../../../test";
-import { AuthProvider, saveAuthTokensToLocalStorage, removeAuthTokensFromLocalStorage } from "../../../Auth";
+import { AuthProvider } from "../../../Auth";
+import { TokenStorage } from "../../../Auth/api";
 import { App } from "../../../App";
 
 jest.mock("axios");
@@ -15,12 +16,12 @@ jest.mock("axios");
 describe("LanguageSelection", () => {
     afterEach(() => {
         axiosMock.get.mockReset();
-        removeAuthTokensFromLocalStorage();
+        TokenStorage.clearTokens();
     });
 
     describe('With language set to "en"', () => {
         test('When click on "Deutsch", change language to German', async () => {
-            saveAuthTokensToLocalStorage(sampleAuthTokens(1));
+            TokenStorage.saveTokens(sampleAuthTokens(1));
 
             axiosMock.get
                 .mockResolvedValueOnce({ data: sampleUser(1) })

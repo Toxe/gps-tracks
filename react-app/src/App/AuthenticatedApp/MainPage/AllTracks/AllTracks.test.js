@@ -6,7 +6,8 @@ import "jest-extended";
 import "expect-more-jest";
 import axiosMock from "axios";
 import { sampleAuthTokens, sampleTracks, sampleUser } from "../../../../test";
-import { AuthProvider, saveAuthTokensToLocalStorage, removeAuthTokensFromLocalStorage } from "../../../../Auth";
+import { AuthProvider } from "../../../../Auth";
+import { TokenStorage } from "../../../../Auth/api";
 import { App } from "../../../../App";
 
 jest.mock("axios");
@@ -14,12 +15,12 @@ jest.mock("axios");
 describe("AllTracks", () => {
     afterEach(() => {
         axiosMock.get.mockReset();
-        removeAuthTokensFromLocalStorage();
+        TokenStorage.clearTokens();
     });
 
     describe("With existing tracks", () => {
         test("When given sample tracks, should show list of 5 tracks", async () => {
-            saveAuthTokensToLocalStorage(sampleAuthTokens(1));
+            TokenStorage.saveTokens(sampleAuthTokens(1));
 
             axiosMock.get
                 .mockResolvedValueOnce({ data: sampleUser(1) })
@@ -41,7 +42,7 @@ describe("AllTracks", () => {
 
     describe("Without tracks", () => {
         test('When given no tracks, should show "No tracks found" message', async () => {
-            saveAuthTokensToLocalStorage(sampleAuthTokens(1));
+            TokenStorage.saveTokens(sampleAuthTokens(1));
 
             axiosMock.get.mockResolvedValueOnce({ data: sampleUser(1) }).mockResolvedValueOnce({ data: [] });
 

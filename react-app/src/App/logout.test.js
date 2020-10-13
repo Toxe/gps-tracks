@@ -6,24 +6,19 @@ import "@testing-library/jest-dom";
 import "jest-extended";
 import "expect-more-jest";
 import { sampleAuthTokens, sampleTracks, sampleUser } from "../test";
-import {
-    AuthProvider,
-    saveAuthTokensToLocalStorage,
-    removeAuthTokensFromLocalStorage,
-    getAuthTokensFromLocalStorage,
-} from "../Auth";
-import { Auth } from "../Auth/api/Auth";
+import { AuthProvider } from "../Auth";
+import { Auth, TokenStorage } from "../Auth/api";
 import { Users } from "./AuthenticatedApp/api";
 import { App } from ".";
 
 describe("Logout from the application", () => {
     afterEach(() => {
-        removeAuthTokensFromLocalStorage();
+        TokenStorage.clearTokens();
     });
 
     describe("With authenticated user", () => {
         test('When click on "Logout" button, logout and navigate to login page', async () => {
-            saveAuthTokensToLocalStorage(sampleAuthTokens(1));
+            TokenStorage.saveTokens(sampleAuthTokens(1));
 
             jest.spyOn(Users, "get").mockReturnValueOnce(sampleUser(1));
             jest.spyOn(Users, "tracks").mockReturnValueOnce(sampleTracks());
@@ -43,7 +38,7 @@ describe("Logout from the application", () => {
             await findByRole("heading", { name: "Sign in" });
 
             // access and refresh tokens should have been removed from local storage
-            expect(getAuthTokensFromLocalStorage()).toEqual({ access_token: null, refresh_token: null });
+            expect(TokenStorage.getTokens()).toEqual({ access_token: null, refresh_token: null });
         });
     });
 });
