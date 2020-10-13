@@ -1,7 +1,7 @@
 import axios from "axios";
 
-export const GPXFiles = {
-    upload: async (user, file) => {
+export class GPXFiles {
+    static async upload(user, file) {
         if (!user || !file) {
             throw new TypeError("invalid arguments");
         }
@@ -12,5 +12,5 @@ export const GPXFiles = {
         return await axios.post(`/api/users/${user.id}/gpxfiles`, formData, {
             headers: { "Content-Type": "multipart/form-data" },
         });
-    },
-};
+    }
+}
