@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import { Routes, Route, Navigate } from "react-router-dom";
 import { AuthInfo } from "../../../Auth";
 import { PageContent } from "../../shared/PageContent";
@@ -8,13 +8,10 @@ import { SingleTrack } from "./SingleTrack";
 import { EditTrack } from "./EditTrack";
 import { Navigation } from "./Navigation";
 import { MainPageProviders } from "./MainPageProviders";
+import { useMainPage } from "./hooks";
 
 export default function MainPage() {
-    const [mobileNavigationOpen, setMobileNavigationOpen] = useState(false);
-
-    const handleMobileNavigationToggle = () => {
-        setMobileNavigationOpen(!mobileNavigationOpen);
-    };
+    const { mobileNavigationOpen, handleMobileNavigationToggle } = useMainPage();
 
     return (
         <MainPageProviders>
