@@ -22,6 +22,11 @@ describe("Users API", () => {
             expect(user.id).toBe(1);
             expect(user.links).toBeObject();
         });
+
+        test("When called with invalid arguments, reject and return TypeError", async () => {
+            expect.assertions(1);
+            await expect(Users.get(null)).rejects.toEqual(new TypeError("invalid arguments"));
+        });
     });
 
     describe("Query user tracks", () => {
@@ -34,6 +39,11 @@ describe("Users API", () => {
             expect(axiosMock.get).toHaveBeenCalledWith(user.links.tracks);
             expect(tracks).toBeArray();
             expect(tracks).toHaveLength(5);
+        });
+
+        test("When called with invalid arguments, reject and return TypeError", async () => {
+            expect.assertions(1);
+            await expect(Users.tracks(null)).rejects.toEqual(new TypeError("invalid arguments"));
         });
     });
 });

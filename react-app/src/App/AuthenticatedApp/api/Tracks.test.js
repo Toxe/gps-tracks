@@ -24,6 +24,11 @@ describe("Tracks API", () => {
             expect(track.id).toBe(21);
             expect(track.title).toBe("new title");
         });
+
+        test("When called with invalid arguments, reject and return TypeError", async () => {
+            expect.assertions(1);
+            await expect(Tracks.update(null, null, null)).rejects.toEqual(new TypeError("invalid arguments"));
+        });
     });
 
     describe("Delete track", () => {
@@ -33,6 +38,11 @@ describe("Tracks API", () => {
             const status = await Tracks.delete(sampleTrack(21));
 
             expect(status).toBe(204);
+        });
+
+        test("When called with invalid arguments, reject and return TypeError", async () => {
+            expect.assertions(1);
+            await expect(Tracks.delete(null)).rejects.toEqual(new TypeError("invalid arguments"));
         });
     });
 
@@ -47,6 +57,11 @@ describe("Tracks API", () => {
 
             expect(blob).toBeInstanceOf(Blob);
         });
+
+        test("When called with invalid arguments, reject and return TypeError", async () => {
+            expect.assertions(1);
+            await expect(Tracks.download(null)).rejects.toEqual(new TypeError("invalid arguments"));
+        });
     });
 
     describe("Download track segments", () => {
@@ -56,6 +71,11 @@ describe("Tracks API", () => {
             const segments = await Tracks.segments(sampleTrack(21));
 
             expect(segments).toBeArray();
+        });
+
+        test("When called with invalid arguments, reject and return TypeError", async () => {
+            expect.assertions(1);
+            await expect(Tracks.segments(null)).rejects.toEqual(new TypeError("invalid arguments"));
         });
     });
 });
