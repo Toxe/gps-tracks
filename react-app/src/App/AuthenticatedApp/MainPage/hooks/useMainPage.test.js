@@ -5,10 +5,6 @@ import "jest-extended";
 import "expect-more-jest";
 import { useMainPage } from ".";
 
-afterEach(() => {
-    jest.restoreAllMocks();
-});
-
 describe("useMainPage()", () => {
     describe("Mobile navigation", () => {
         test("Mobile navigation should be closed by default", () => {
