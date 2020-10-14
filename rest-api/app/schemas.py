@@ -44,6 +44,7 @@ class TrackSchema(Schema):
             "owner": url_for("api.get_user", user_id=obj.user_id),
             "file": url_for("api.get_user_gpxfile", user_id=obj.user_id, gpxfile_id=obj.gpxfile_id),
             "segments": url_for("api.get_user_track_segments", user_id=obj.user_id, track_id=obj.id),
+            "update": url_for("api.update_user_track", user_id=obj.user_id, track_id=obj.id),
             "delete": url_for("api.delete_user_track", user_id=obj.user_id, track_id=obj.id),
             "thumbnail": url_for("thumbnails.get_thumbnail", filename="{}.png".format(obj.thumbnail)),
             "download": self.download_link(obj),

@@ -62,7 +62,8 @@ def test_get_track_returns_valid_links(client, auth, example_users):
     r = client.get("/api/users/{}/tracks/{}".format(auth.id, track_id), headers=auth.headers)
     assert r.status_code == 200
     data = r.get_json()
-    assert len(data["links"]) == 6
+    assert len(data["links"]) == 7
+    assert "update" in data["links"]
     assert "delete" in data["links"]
     assert client.get(data["links"]["file"], headers=auth.headers).status_code == 200
     assert client.get(data["links"]["owner"], headers=auth.headers).status_code == 200
