@@ -34,6 +34,7 @@ function setupEditTrackPage(trackId) {
 
 describe("EditTrack", () => {
     afterEach(() => {
+        jest.restoreAllMocks();
         TokenStorage.clearTokens();
     });
 

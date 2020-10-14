@@ -9,6 +9,7 @@ import { AuthProvider, useAuth } from ".";
 
 describe("useAuth()", () => {
     afterEach(() => {
+        jest.restoreAllMocks();
         TokenStorage.clearTokens();
     });
 

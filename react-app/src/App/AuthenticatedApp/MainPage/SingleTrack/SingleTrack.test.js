@@ -35,6 +35,10 @@ function setupSingleTrackComponent(getTrack) {
 }
 
 describe("SingleTrack", () => {
+    afterEach(() => {
+        jest.restoreAllMocks();
+    });
+
     describe("With existing track", () => {
         test("When showing existing track, show track details", async () => {
             const getTrack = jest.fn(() => sampleTrack(21));

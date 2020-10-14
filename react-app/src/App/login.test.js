@@ -13,6 +13,7 @@ import { App } from ".";
 
 describe("Login into the application", () => {
     afterEach(() => {
+        jest.restoreAllMocks();
         TokenStorage.clearTokens();
     });
 
