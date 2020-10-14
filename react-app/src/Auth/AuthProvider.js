@@ -64,6 +64,8 @@ export function AuthProvider({ children }) {
 
         TokenStorage.saveTokens({ access_token, refresh_token });
         axios.defaults.headers["Authorization"] = `Bearer ${access_token}`;
+
+        return access_token;
     };
 
     return <AuthContext.Provider value={{ authId, login, logout, refresh }}>{children}</AuthContext.Provider>;
