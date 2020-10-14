@@ -18,7 +18,7 @@ jest.mock("react-router-dom", () => ({
     useNavigate: () => jest.fn(),
 }));
 
-function setup(getTrack) {
+function setupSingleTrackComponent(getTrack) {
     const deleteTrack = jest.fn();
     const returnToLastVisitedAllTracksPage = jest.fn();
 
@@ -38,7 +38,7 @@ describe("SingleTrack", () => {
     describe("With existing track", () => {
         test("When showing existing track, show track details", async () => {
             const getTrack = jest.fn(() => sampleTrack(21));
-            const { findByText, findByRole } = setup(getTrack);
+            const { findByText, findByRole } = setupSingleTrackComponent(getTrack);
 
             await findByRole("heading", { name: "Track 21" });
             await findByText("Edit");
@@ -50,7 +50,7 @@ describe("SingleTrack", () => {
     describe("With non-existing track", () => {
         test('When showing non-existing track, show "Track not found" message', async () => {
             const getTrack = jest.fn(() => null);
-            const { findByText } = setup(getTrack);
+            const { findByText } = setupSingleTrackComponent(getTrack);
 
             await findByText("Track not found");
             await findByText("The track you are looking for does not exist.");
