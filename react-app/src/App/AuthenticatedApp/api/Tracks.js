@@ -1,12 +1,12 @@
 import axios from "axios";
 
 export class Tracks {
-    static async update(user, trackId, values) {
-        if (!user || !values || !Number.isInteger(trackId)) {
+    static async update(track, values) {
+        if (!track || "links" in track === false || "update" in track.links === false || !values) {
             throw new TypeError("invalid arguments");
         }
 
-        const response = await axios.put(`/api/users/${user.id}/tracks/${trackId}`, values);
+        const response = await axios.put(track.links.update, values);
         return response.data;
     }
 

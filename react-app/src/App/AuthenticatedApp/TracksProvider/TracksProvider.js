@@ -33,9 +33,9 @@ export function TracksProvider({ children }) {
         return tracks.find((t) => t.id === trackId);
     };
 
-    const updateTrack = async (trackId, values) => {
-        const track = await Tracks.update(user, trackId, values);
-        setTracks(tracks.map((t) => (t.id === track.id ? track : t)));
+    const updateTrack = async (track, values) => {
+        const updatedTrack = await Tracks.update(track, values);
+        setTracks(tracks.map((t) => (t.id === updatedTrack.id ? updatedTrack : t)));
     };
 
     const deleteTrack = async (track) => {

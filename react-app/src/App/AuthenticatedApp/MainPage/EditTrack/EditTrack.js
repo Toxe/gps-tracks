@@ -58,7 +58,7 @@ export default function EditTrack() {
 
     const handleSave = async () => {
         try {
-            await updateTrack(track.id, values);
+            await updateTrack(track, values);
             navigate(`/tracks/${track.id}`);
         } catch (error) {
             setRequestError(<RequestError error={error} handleClose={() => setRequestError(null)} />);

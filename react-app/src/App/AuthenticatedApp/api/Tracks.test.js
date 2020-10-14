@@ -2,7 +2,7 @@ import "jest-extended";
 import "expect-more-jest";
 import axiosMock from "axios";
 import { Tracks } from ".";
-import { sampleUser, sampleTrack, sampleTrackSegments } from "../../../test";
+import { sampleTrack, sampleTrackSegments } from "../../../test";
 
 jest.mock("axios");
 
@@ -13,21 +13,21 @@ describe("Tracks API", () => {
 
     describe("Update track data", () => {
         test("When called with valid arguments, return updated track data", async () => {
-            const user = sampleUser(1);
-            const newValues = { ...sampleTrack(21), title: "new title" };
+            const track = sampleTrack(21);
+            const newValues = { ...track, title: "new title" };
 
             axiosMock.put.mockResolvedValueOnce({ status: 200, data: newValues });
 
-            const track = await Tracks.update(user, 21, newValues);
+            const updatedTrack = await Tracks.update(track, newValues);
 
-            expect(track).toBeObject();
-            expect(track.id).toBe(21);
-            expect(track.title).toBe("new title");
+            expect(updatedTrack).toBeObject();
+            expect(updatedTrack.id).toBe(21);
+            expect(updatedTrack.title).toBe("new title");
         });
 
         test("When called with invalid arguments, reject and return TypeError", async () => {
             expect.assertions(1);
-            await expect(Tracks.update(null, null, null)).rejects.toEqual(new TypeError("invalid arguments"));
+            await expect(Tracks.update(null, null)).rejects.toEqual(new TypeError("invalid arguments"));
         });
     });
 
