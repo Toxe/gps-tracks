@@ -1,7 +1,7 @@
 import React from "react";
 import { useTranslation } from "react-i18next";
 import { makeStyles } from "@material-ui/core/styles";
-import { ActivityIcon } from "../shared/ActivityIcon";
+import { ActivityIcon } from "../shared";
 import { ActivityMode } from "../utils/enums";
 
 const useStyles = makeStyles((theme) => ({

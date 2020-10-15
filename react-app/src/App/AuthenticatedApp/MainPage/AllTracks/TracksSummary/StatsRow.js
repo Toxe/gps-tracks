@@ -1,10 +1,7 @@
 import React from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import { Typography } from "@material-ui/core";
-import { ActivityIcon } from "../../shared/ActivityIcon";
-import { Duration } from "../../shared/Duration";
-import { Distance } from "../../shared/Distance";
-import { TracksCounter } from "../../shared/TracksCounter";
+import { ActivityIcon, Duration, Distance, TracksCounter } from "../../shared";
 import SpacerColumn from "./SpacerColumn";
 
 const useStyles = makeStyles((theme) => ({

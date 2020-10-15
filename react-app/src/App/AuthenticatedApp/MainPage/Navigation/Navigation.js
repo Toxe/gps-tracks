@@ -4,7 +4,7 @@ import { makeStyles, useTheme } from "@material-ui/core/styles";
 import { Box, Divider, Drawer, Hidden, List, ListItem, ListItemIcon, ListItemText } from "@material-ui/core";
 import ViewListIcon from "@material-ui/icons/ViewList";
 import { useTracks } from "../../TracksProvider";
-import { TracksCounter } from "../shared/TracksCounter";
+import { TracksCounter } from "../shared";
 import NavigationYearList from "./NavigationYearList";
 import NavigationActivityList from "./NavigationActivityList";
 import { UploadTrackButton } from "./UploadTrackButton";

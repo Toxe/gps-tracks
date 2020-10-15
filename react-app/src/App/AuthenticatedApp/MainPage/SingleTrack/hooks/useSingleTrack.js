@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import { saveAs } from "file-saver";
-import { RequestError } from "../../../../../shared/RequestError";
+import { RequestError } from "../../../../../shared";
 import { Tracks } from "../../../api";
 import { useTracks } from "../../../TracksProvider";
 import { useLastVisitedAllTracksPage } from "../../MainPageProviders/LastVisitedAllTracksPageProvider";

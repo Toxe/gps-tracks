@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import { useTranslation } from "react-i18next";
 import { makeStyles } from "@material-ui/core/styles";
 import { Alert, Pagination } from "@material-ui/lab";
-import { Track } from "../shared/Track";
+import { Track } from "../shared";
 
 const tracksPerPage = 25;
 

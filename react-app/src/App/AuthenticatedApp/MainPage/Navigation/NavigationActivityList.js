@@ -1,6 +1,6 @@
 import React from "react";
 import { Chip, Divider, List, ListItem, ListItemIcon } from "@material-ui/core";
-import { ActivityIcon } from "../shared/ActivityIcon";
+import { ActivityIcon } from "../shared";
 
 export default function NavigationActivityList({ countedActivities, handleNavigationClick }) {
     const activities = [...countedActivities.keys()].sort();

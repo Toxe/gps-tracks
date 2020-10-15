@@ -1,7 +1,6 @@
 import React from "react";
 import { Box } from "@material-ui/core";
-import { Track } from "../shared/Track";
-import { TrackNotFound } from "../shared/TrackNotFound";
+import { Track, TrackNotFound } from "../shared";
 import DownloadTrackButton from "./DownloadTrackButton";
 import TrackMap from "./TrackMap";
 import TrackDetails from "./TrackDetails";

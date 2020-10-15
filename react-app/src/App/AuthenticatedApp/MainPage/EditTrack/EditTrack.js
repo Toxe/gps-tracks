@@ -4,10 +4,9 @@ import { useNavigate } from "react-router-dom";
 import { makeStyles } from "@material-ui/core/styles";
 import { useParams } from "react-router-dom";
 import { Button, FormControl, FormLabel, RadioGroup, TextField, Typography } from "@material-ui/core";
-import { RequestError } from "../../../../shared/RequestError";
+import { RequestError } from "../../../../shared";
 import { useTracks } from "../../TracksProvider";
-import { Track } from "../shared/Track";
-import { TrackNotFound } from "../shared/TrackNotFound";
+import { Track, TrackNotFound } from "../shared";
 import { ActivityMode } from "../utils/enums";
 import ActivityRadio from "./ActivityRadio";
 

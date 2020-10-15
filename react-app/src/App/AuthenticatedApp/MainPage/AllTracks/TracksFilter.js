@@ -4,7 +4,7 @@ import { useSearchParams } from "react-router-dom";
 import { makeStyles } from "@material-ui/core/styles";
 import { Box, FormControl, InputLabel, ListItemIcon, ListItemText, MenuItem, Select } from "@material-ui/core";
 import { useTracksFilter } from "../MainPageProviders/TracksFilterProvider";
-import { ActivityIcon } from "../shared/ActivityIcon";
+import { ActivityIcon } from "../shared";
 import { ActivityMode } from "../utils/enums";
 import { getSearchParam } from "./utils/urlSearchParams";
 

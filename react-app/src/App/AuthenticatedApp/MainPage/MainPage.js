@@ -1,8 +1,7 @@
 import React from "react";
 import { Routes, Route, Navigate } from "react-router-dom";
 import { AuthInfo } from "../../../Auth";
-import { PageContent } from "../../shared/PageContent";
-import { Header } from "../../shared/Header";
+import { Header, PageContent } from "../../shared";
 import { AllTracks } from "./AllTracks";
 import { SingleTrack } from "./SingleTrack";
 import { EditTrack } from "./EditTrack";

@@ -3,7 +3,7 @@ import { makeStyles } from "@material-ui/core/styles";
 import { Typography, IconButton, Box } from "@material-ui/core";
 import ExpandLessIcon from "@material-ui/icons/ExpandLess";
 import ExpandMoreIcon from "@material-ui/icons/ExpandMore";
-import { RequestError } from "../shared/RequestError";
+import { RequestError } from "../shared";
 import TokenInfo from "./TokenInfo";
 import { useAuth } from "./AuthProvider";
 
