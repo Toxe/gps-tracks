@@ -47,8 +47,8 @@ describe("useEditTrack()", () => {
 
     describe("Saving changes", () => {
         test("When saving changes, should not show a request error", async () => {
-            const updateTrack = jest.fn();
             const track = sampleTrack(21);
+            const updateTrack = jest.fn();
             const { result } = renderUseEditTrackHook(track, updateTrack);
 
             await act(() => result.current.handleSave({ title: "new title", activity_mode: 0 }));
@@ -68,6 +68,15 @@ describe("useEditTrack()", () => {
 
             expect(updateTrack).toHaveBeenCalled();
             expect(result.current.requestError).not.toBeNull();
+        });
+
+        test("When calling handleSave with invalid values, should throw TypeError", async () => {
+            const track = sampleTrack(21);
+            const updateTrack = jest.fn();
+            const { result } = renderUseEditTrackHook(track, updateTrack);
+
+            expect.assertions(1);
+            await expect(result.current.handleSave(null)).rejects.toEqual(new TypeError("invalid arguments"));
         });
     });
 
