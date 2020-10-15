@@ -8,9 +8,9 @@ import { BrowserRouter } from "react-router-dom";
 import { saveAs as saveAsMock } from "file-saver";
 import { sampleTrack } from "../../../../../test";
 import { Tracks } from "../../../api";
-import * as tracksProviderExports from "../../../TracksProvider/TracksProvider";
-import * as userProviderExports from "../../../UserProvider/UserProvider";
-import * as lastVisitedAllTracksPageProviderExports from "../../MainPageProviders/LastVisitedAllTracksPageProvider/LastVisitedAllTracksPageProvider";
+import { useTracks } from "../../../TracksProvider";
+import { useUser } from "../../../UserProvider";
+import { useLastVisitedAllTracksPage } from "../../MainPageProviders/LastVisitedAllTracksPageProvider";
 import { useSingleTrack } from ".";
 
 jest.mock("file-saver");
@@ -20,15 +20,18 @@ jest.mock("react-router-dom", () => ({
     useNavigate: () => jest.fn(),
 }));
 
-function setupBasicMocks(getTrack, deleteTrack) {
-    const returnToLastVisitedAllTracksPage = jest.fn();
+jest.mock("../../../TracksProvider");
+jest.mock("../../../UserProvider");
+jest.mock("../../MainPageProviders/LastVisitedAllTracksPageProvider");
 
-    jest.spyOn(tracksProviderExports, "useTracks").mockReturnValue({ getTrack, deleteTrack });
-    jest.spyOn(userProviderExports, "useUser").mockReturnValue({ user: 1 });
-    jest.spyOn(lastVisitedAllTracksPageProviderExports, "useLastVisitedAllTracksPage").mockReturnValue({ returnToLastVisitedAllTracksPage });
+function setupBasicMocks(getTrack, deleteTrack) {
+    useTracks.mockReturnValue({ getTrack, deleteTrack });
+    useUser.mockReturnValue({ user: 1 });
+    useLastVisitedAllTracksPage.mockReturnValue({ returnToLastVisitedAllTracksPage: jest.fn() });
 }
 
 afterEach(() => {
+    jest.resetAllMocks();
     jest.restoreAllMocks();
 });
 
