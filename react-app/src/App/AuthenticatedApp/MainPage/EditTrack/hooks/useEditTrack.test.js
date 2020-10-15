@@ -33,30 +33,6 @@ describe("useEditTrack()", () => {
             expect(result.current.track).toBe(track);
         });
 
-        test('"formValues" should contain the track title and activity mode', () => {
-            const track = sampleTrack(21);
-            const getTrack = jest.fn(() => track);
-            useTracks.mockReturnValue({ getTrack });
-
-            const wrapper = ({ children }) => <BrowserRouter>{children}</BrowserRouter>;
-            const { result } = renderHook(() => useEditTrack(), { wrapper });
-
-            expect(result.current.formValues).toBeObject();
-            expect(result.current.formValues.title).toBe(track.title);
-            expect(result.current.formValues.activity_mode).toBe(track.activity_mode);
-        });
-
-        test('"formValuesChanged" should default to false', () => {
-            const track = sampleTrack(21);
-            const getTrack = jest.fn(() => track);
-            useTracks.mockReturnValue({ getTrack });
-
-            const wrapper = ({ children }) => <BrowserRouter>{children}</BrowserRouter>;
-            const { result } = renderHook(() => useEditTrack(), { wrapper });
-
-            expect(result.current.formValuesChanged).toBeFalse();
-        });
-
         test('"requestError" should be null', () => {
             const track = sampleTrack(21);
             const getTrack = jest.fn(() => track);
@@ -66,68 +42,6 @@ describe("useEditTrack()", () => {
             const { result } = renderHook(() => useEditTrack(), { wrapper });
 
             expect(result.current.requestError).toBeNull();
-        });
-    });
-
-    describe("Changing form values", () => {
-        test("When changing activity mode, formValues should change and formValuesChanged should be true", () => {
-            const track = sampleTrack(21);
-            const getTrack = jest.fn(() => track);
-            useTracks.mockReturnValue({ getTrack });
-
-            const wrapper = ({ children }) => <BrowserRouter>{children}</BrowserRouter>;
-            const { result } = renderHook(() => useEditTrack(), { wrapper });
-
-            act(() => result.current.handleChange({ target: { name: "activity_mode", value: 1 } }));
-
-            expect(result.current.formValues.activity_mode).toBe(1);
-            expect(result.current.formValuesChanged).toBeTrue();
-        });
-
-        test("When changing activity mode back to its default value, formValues should not contain any changes and formValuesChanged should be false", () => {
-            const track = sampleTrack(21);
-            const getTrack = jest.fn(() => track);
-            useTracks.mockReturnValue({ getTrack });
-
-            const wrapper = ({ children }) => <BrowserRouter>{children}</BrowserRouter>;
-            const { result } = renderHook(() => useEditTrack(), { wrapper });
-
-            act(() => result.current.handleChange({ target: { name: "activity_mode", value: 1 } }));
-            act(() => result.current.handleChange({ target: { name: "activity_mode", value: 0 } }));
-
-            expect(result.current.formValues.title).toBe(track.title);
-            expect(result.current.formValues.activity_mode).toBe(track.activity_mode);
-            expect(result.current.formValuesChanged).toBeFalse();
-        });
-
-        test("When changing track title, formValues should change and formValuesChanged should be true", () => {
-            const track = sampleTrack(21);
-            const getTrack = jest.fn(() => track);
-            useTracks.mockReturnValue({ getTrack });
-
-            const wrapper = ({ children }) => <BrowserRouter>{children}</BrowserRouter>;
-            const { result } = renderHook(() => useEditTrack(), { wrapper });
-
-            act(() => result.current.handleChange({ target: { name: "title", value: "new title" } }));
-
-            expect(result.current.formValues.title).toBe("new title");
-            expect(result.current.formValuesChanged).toBeTrue();
-        });
-
-        test("When changing title back to its default value, formValues should not contain any changes and formValuesChanged should be false", () => {
-            const track = sampleTrack(21);
-            const getTrack = jest.fn(() => track);
-            useTracks.mockReturnValue({ getTrack });
-
-            const wrapper = ({ children }) => <BrowserRouter>{children}</BrowserRouter>;
-            const { result } = renderHook(() => useEditTrack(), { wrapper });
-
-            act(() => result.current.handleChange({ target: { name: "title", value: "new title" } }));
-            act(() => result.current.handleChange({ target: { name: "title", value: track.title } }));
-
-            expect(result.current.formValues.title).toBe(track.title);
-            expect(result.current.formValues.activity_mode).toBe(track.activity_mode);
-            expect(result.current.formValuesChanged).toBeFalse();
         });
     });
 
@@ -141,7 +55,7 @@ describe("useEditTrack()", () => {
             const wrapper = ({ children }) => <BrowserRouter>{children}</BrowserRouter>;
             const { result } = renderHook(() => useEditTrack(), { wrapper });
 
-            await act(() => result.current.handleSave());
+            await act(() => result.current.handleSave({ title: "new title", activity_mode: 0 }));
 
             expect(updateTrack).toHaveBeenCalled();
             expect(result.current.requestError).toBeNull();
@@ -159,7 +73,7 @@ describe("useEditTrack()", () => {
             const wrapper = ({ children }) => <BrowserRouter>{children}</BrowserRouter>;
             const { result } = renderHook(() => useEditTrack(), { wrapper });
 
-            await act(() => result.current.handleSave());
+            await act(() => result.current.handleSave({ title: "new title", activity_mode: 0 }));
 
             expect(updateTrack).toHaveBeenCalled();
             expect(result.current.requestError).not.toBeNull();

@@ -10,32 +10,17 @@ export default function useEditTrack() {
     const { getTrack, updateTrack } = useTracks();
     const [track, setTrack] = useState(null);
     const [requestError, setRequestError] = useState(null);
-    const [formValues, setFormValues] = useState(null);
-    const [formValuesChanged, setFormValuesChanged] = useState(false);
 
     useEffect(() => {
         const t = getTrack(trackId);
         setTrack(t);
-
-        if (t) {
-            setFormValues({ activity_mode: t.activity_mode, title: t.title });
-        }
     }, [trackId, getTrack]);
 
-    useEffect(() => {
-        if (track && formValues) {
-            setFormValuesChanged(formValues.title !== track.title || formValues.activity_mode !== track.activity_mode);
-        } else {
-            setFormValuesChanged(false);
+    const handleSave = async (formValues) => {
+        if (!formValues) {
+            throw new TypeError("invalid arguments");
         }
-    }, [track, formValues]);
 
-    const handleChange = (e) => {
-        const value = e.target.name === "activity_mode" ? Number(e.target.value) : e.target.value;
-        setFormValues({ ...formValues, [e.target.name]: value });
-    };
-
-    const handleSave = async () => {
         try {
             await updateTrack(track, formValues);
             navigate(`/tracks/${track.id}`);
@@ -48,5 +33,5 @@ export default function useEditTrack() {
         navigate(`/tracks/${track.id}`);
     };
 
-    return { track, formValues, formValuesChanged, requestError, handleChange, handleSave, handleCancel };
+    return { track, requestError, handleSave, handleCancel };
 }
