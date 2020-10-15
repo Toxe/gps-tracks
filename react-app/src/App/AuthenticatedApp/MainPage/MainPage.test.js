@@ -8,18 +8,21 @@ import { BrowserRouter } from "react-router-dom";
 import { sampleTrack, sampleTracks, sampleTrackSegments } from "../../../test";
 import { AuthProvider } from "../../../Auth";
 import { Tracks } from "../api";
-import * as tracksProviderExports from "../TracksProvider/TracksProvider";
-import * as userProviderExports from "../UserProvider/UserProvider";
+import { useTracks } from "../TracksProvider";
+import { useUser } from "../UserProvider";
 import { MainPage } from ".";
 
 jest.mock("react-leaflet"); // don't actually render the Leaflet map
+
+jest.mock("../TracksProvider");
+jest.mock("../UserProvider");
 
 function renderWithRoute(route) {
     const tracks = sampleTracks();
     const getTrack = jest.fn(() => sampleTrack(21));
 
-    jest.spyOn(userProviderExports, "useUser").mockReturnValue({ user: 1 });
-    jest.spyOn(tracksProviderExports, "useTracks").mockReturnValue({ tracks, getTrack });
+    useUser.mockReturnValue({ user: 1 });
+    useTracks.mockReturnValue({ tracks, getTrack });
 
     window.history.pushState({}, "Test Page", route);
 
