@@ -1,5 +1,4 @@
 import React from "react";
-import "../../../../../i18n-tests";
 import { renderHook, act } from "@testing-library/react-hooks";
 import "@testing-library/jest-dom";
 import "jest-extended";
