@@ -1,14 +1,11 @@
-import React, { useState, useEffect } from "react";
+import React from "react";
 import { useTranslation, Trans } from "react-i18next";
-import { useNavigate } from "react-router-dom";
 import { makeStyles } from "@material-ui/core/styles";
-import { useParams } from "react-router-dom";
 import { Button, FormControl, FormLabel, RadioGroup, TextField, Typography } from "@material-ui/core";
-import { RequestError } from "../../../../shared";
-import { useTracks } from "../../TracksProvider";
 import { Track, TrackNotFound } from "../shared";
 import { ActivityMode } from "../utils/enums";
 import ActivityRadio from "./ActivityRadio";
+import { useEditTrack } from "./hooks";
 
 const useStyles = makeStyles((theme) => ({
     title: {
@@ -30,45 +27,19 @@ const useStyles = makeStyles((theme) => ({
 export default function EditTrack() {
     const { t } = useTranslation();
     const classes = useStyles();
-    const navigate = useNavigate();
-    const { trackId } = useParams();
-    const { getTrack, updateTrack } = useTracks();
-    const [track, setTrack] = useState(null);
-    const [requestError, setRequestError] = useState(null);
-    const [values, setValues] = useState(null);
-
-    useEffect(() => {
-        const t = getTrack(trackId);
-        setTrack(t);
-
-        if (t) {
-            setValues({ activity_mode: t.activity_mode, title: t.title });
-        }
-    }, [trackId, getTrack]);
-
-    const handleChange = (e) => {
-        const value = e.target.name === "activity_mode" ? Number(e.target.value) : e.target.value;
-        setValues({ ...values, [e.target.name]: value });
-    };
-
-    const handleCancel = () => {
-        navigate(`/tracks/${track.id}`);
-    };
-
-    const handleSave = async () => {
-        try {
-            await updateTrack(track, values);
-            navigate(`/tracks/${track.id}`);
-        } catch (error) {
-            setRequestError(<RequestError error={error} handleClose={() => setRequestError(null)} />);
-        }
-    };
+    const {
+        track,
+        formValues,
+        formValuesChanged,
+        requestError,
+        handleChange,
+        handleSave,
+        handleCancel,
+    } = useEditTrack();
 
     if (!track) {
         return <TrackNotFound />;
     }
-
-    const hasChanges = values.title !== track.title || values.activity_mode !== track.activity_mode;
 
     return (
         <div>
@@ -79,14 +50,14 @@ export default function EditTrack() {
                 </Typography>
                 <FormControl component="fieldset">
                     <FormLabel component="legend">{t("edit_track_label_activity")}</FormLabel>
-                    <RadioGroup name="activity_mode" value={values.activity_mode} onChange={handleChange}>
+                    <RadioGroup name="activity_mode" value={formValues.activity_mode} onChange={handleChange}>
                         <ActivityRadio activity={ActivityMode.BIKE} />
                         <ActivityRadio activity={ActivityMode.HIKING} />
                     </RadioGroup>
                 </FormControl>
                 <TextField
                     name="title"
-                    value={values.title}
+                    value={formValues.title}
                     onChange={handleChange}
                     label={t("edit_track_label_title")}
                     className={classes.titleTextfield}
@@ -96,7 +67,7 @@ export default function EditTrack() {
                 <Button variant="contained" onClick={handleCancel} className={classes.cancelButton}>
                     {t("button_cancel")}
                 </Button>
-                <Button variant="contained" color="primary" disabled={!hasChanges} onClick={handleSave}>
+                <Button variant="contained" color="primary" disabled={!formValuesChanged} onClick={handleSave}>
                     {t("button_save_changes")}
                 </Button>
             </div>
