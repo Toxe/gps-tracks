@@ -5,11 +5,9 @@ import "@testing-library/jest-dom";
 import "jest-extended";
 import "expect-more-jest";
 import { BrowserRouter } from "react-router-dom";
-import { sampleTrack, sampleTrackSegments } from "../../../../test";
+import { spyOnHook, sampleTrack, sampleTrackSegments } from "../../../../test";
 import { Tracks } from "../../api";
-import * as tracksProviderExports from "../../TracksProvider/TracksProvider";
-import * as userProviderExports from "../../UserProvider/UserProvider";
-import * as lastVisitedAllTracksPageProviderExports from "../MainPageProviders/LastVisitedAllTracksPageProvider/LastVisitedAllTracksPageProvider";
+import * as useSingleTrack from "./hooks/useSingleTrack";
 import { SingleTrack } from ".";
 
 jest.mock("react-leaflet"); // don't actually render the Leaflet map
@@ -18,14 +16,6 @@ jest.mock("react-router-dom", () => ({
     useNavigate: () => jest.fn(),
 }));
 
-function setupBasicMocks(getTrack, deleteTrack) {
-    const returnToLastVisitedAllTracksPage = jest.fn();
-
-    jest.spyOn(tracksProviderExports, "useTracks").mockReturnValue({ getTrack, deleteTrack });
-    jest.spyOn(userProviderExports, "useUser").mockReturnValue({ user: 1 });
-    jest.spyOn(lastVisitedAllTracksPageProviderExports, "useLastVisitedAllTracksPage").mockReturnValue({ returnToLastVisitedAllTracksPage });
-}
-
 afterEach(() => {
     jest.restoreAllMocks();
 });
@@ -33,9 +23,7 @@ afterEach(() => {
 describe("SingleTrack", () => {
     describe("With existing track", () => {
         test("When showing existing track, show track details", async () => {
-            const getTrack = jest.fn(() => sampleTrack(21));
-            setupBasicMocks(getTrack, null);
-
+            spyOnHook(useSingleTrack).mockReturnValue({ track: sampleTrack(21) });
             jest.spyOn(Tracks, "segments").mockReturnValueOnce(sampleTrackSegments());
 
             const { findByText, findByRole } = render(
@@ -53,9 +41,7 @@ describe("SingleTrack", () => {
 
     describe("With non-existing track", () => {
         test('When showing non-existing track, show "Track not found" message', async () => {
-            const getTrack = jest.fn(() => null);
-            setupBasicMocks(getTrack, null);
-
+            spyOnHook(useSingleTrack).mockReturnValue({ track: null });
             jest.spyOn(Tracks, "segments").mockReturnValueOnce(sampleTrackSegments());
 
             const { findByText } = render(
