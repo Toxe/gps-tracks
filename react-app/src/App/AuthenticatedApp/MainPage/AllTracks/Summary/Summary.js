@@ -30,7 +30,7 @@ export function generateStats(allTracks, activity) {
     return { activity, distance, count, duration };
 }
 
-export default function TracksSummary({ tracks }) {
+export default function Summary({ tracks }) {
     const classes = useStyles();
     const [stats, setStats] = useState(null);
 

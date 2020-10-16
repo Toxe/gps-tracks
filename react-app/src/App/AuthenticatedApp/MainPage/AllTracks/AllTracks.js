@@ -4,7 +4,7 @@ import Filter from "./Filter";
 import List from "./List";
 import Sort from "./Sort";
 import { Search } from "./Search";
-import { TracksSummary } from "./TracksSummary";
+import { Summary } from "./Summary";
 import { useAllTracks } from "./hooks";
 
 export default function AllTracks() {
@@ -12,7 +12,7 @@ export default function AllTracks() {
 
     return (
         <>
-            <TracksSummary tracks={filteredAndSortedTracks} />
+            <Summary tracks={filteredAndSortedTracks} />
             <Box display="flex" alignItems="flex-end">
                 <Filter />
                 <Search />

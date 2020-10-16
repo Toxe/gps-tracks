@@ -2,7 +2,7 @@ import "jest-extended";
 import "expect-more-jest";
 import { sampleTracks } from "../../../../../test";
 import { ActivityMode } from "../../utils/enums";
-import { generateStats } from "./TracksSummary";
+import { generateStats } from "./Summary";
 
 describe("generateStats()", () => {
     describe("With good data", () => {
