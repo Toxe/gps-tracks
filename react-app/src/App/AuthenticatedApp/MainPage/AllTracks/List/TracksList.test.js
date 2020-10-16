@@ -10,7 +10,7 @@ import TracksList from "./TracksList";
 
 describe("TracksList", () => {
     describe("Show TracksList", () => {
-        test("With tracks containing 5 sample tracks, should show list of 5 tracks", () => {
+        test("When tracks contains 5 sample tracks, should show list of 5 tracks", () => {
             const { getByRole } = render(
                 <BrowserRouter>
                     <TracksList tracks={sampleTracks()} />

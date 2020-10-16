@@ -8,7 +8,7 @@ import Pager from "./Pager";
 
 describe("Pager", () => {
     describe("Show Pager", () => {
-        test("With numPages 3, should show pager with 3 pages", () => {
+        test("When numPages is 3, should show pager with 3 pages", () => {
             const { getByRole } = render(<Pager showPager={true} numPages={3} page={1} handleChangePage={jest.fn()} />);
 
             getByRole("button", { name: "page 1" });
@@ -18,7 +18,7 @@ describe("Pager", () => {
             getByRole("button", { name: "Go to previous page" });
         });
 
-        test("With click on page, should call handleChangePage", () => {
+        test("When clicked on page, should call handleChangePage", () => {
             const handleChangePage = jest.fn();
 
             const { getByRole } = render(
