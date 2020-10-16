@@ -4,6 +4,8 @@ import { useTracksSort } from "../../MainPageProviders/TracksSortProvider";
 import { useTracksSearch } from "../../MainPageProviders/TracksSearchProvider";
 import { useLastVisitedAllTracksPage } from "../../MainPageProviders/LastVisitedAllTracksPageProvider";
 
+const tracksPerPage = 25;
+
 export default function useAllTracks() {
     const { updateLastVisitedAllTracksPage } = useLastVisitedAllTracksPage();
     const { filterTracks } = useTracksFilter();
@@ -16,5 +18,5 @@ export default function useAllTracks() {
         updateLastVisitedAllTracksPage();
     });
 
-    return { filteredAndSortedTracks };
+    return { filteredAndSortedTracks, tracksPerPage };
 }

@@ -1,14 +1,14 @@
 import React from "react";
 import { Box } from "@material-ui/core";
 import Filter from "./Filter";
-import List from "./List";
 import Sort from "./Sort";
+import { List } from "./List";
 import { Search } from "./Search";
 import { Summary } from "./Summary";
 import { useAllTracks } from "./hooks";
 
 export default function AllTracks() {
-    const { filteredAndSortedTracks } = useAllTracks();
+    const { filteredAndSortedTracks, tracksPerPage } = useAllTracks();
 
     return (
         <>
@@ -19,7 +19,7 @@ export default function AllTracks() {
                 <Box flexGrow={1} />
                 <Sort />
             </Box>
-            <List tracks={filteredAndSortedTracks} />
+            <List tracks={filteredAndSortedTracks} tracksPerPage={tracksPerPage} />
         </>
     );
 }
