@@ -1,7 +1,7 @@
 import React from "react";
 import { Box } from "@material-ui/core";
 import Filter from "./Filter";
-import TracksList from "./TracksList";
+import List from "./List";
 import TracksSort from "./TracksSort";
 import { TracksSearch } from "./TracksSearch";
 import { TracksSummary } from "./TracksSummary";
@@ -19,7 +19,7 @@ export default function AllTracks() {
                 <Box flexGrow={1} />
                 <TracksSort />
             </Box>
-            <TracksList tracks={filteredAndSortedTracks} />
+            <List tracks={filteredAndSortedTracks} />
         </>
     );
 }

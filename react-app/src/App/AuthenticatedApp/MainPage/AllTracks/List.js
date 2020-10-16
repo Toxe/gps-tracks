@@ -15,7 +15,7 @@ const useStyles = makeStyles((theme) => ({
     },
 }));
 
-export default function TracksList({ tracks }) {
+export default function List({ tracks }) {
     const { t } = useTranslation();
     const classes = useStyles();
     const [page, setPage] = useState(1);
