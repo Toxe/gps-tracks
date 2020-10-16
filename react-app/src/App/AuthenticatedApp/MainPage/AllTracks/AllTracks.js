@@ -1,10 +1,6 @@
 import React from "react";
 import { Box } from "@material-ui/core";
-import { useTracksFilter } from "../MainPageProviders/TracksFilterProvider";
-import { useTracksSort } from "../MainPageProviders/TracksSortProvider";
-import { useTracksSearch } from "../MainPageProviders/TracksSearchProvider";
-import { useLastVisitedAllTracksPage } from "../MainPageProviders/LastVisitedAllTracksPageProvider";
-import TracksFilter from "./TracksFilter";
+import Filter from "./Filter";
 import TracksList from "./TracksList";
 import TracksSort from "./TracksSort";
 import { TracksSearch } from "./TracksSearch";

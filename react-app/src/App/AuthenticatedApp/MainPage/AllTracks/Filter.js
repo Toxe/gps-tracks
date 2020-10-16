@@ -18,7 +18,7 @@ const useStyles = makeStyles((theme) => ({
     },
 }));
 
-export default function TracksFilter() {
+export default function Filter() {
     const { t } = useTranslation();
     const classes = useStyles();
     const [searchParams, setSearchParams] = useSearchParams();

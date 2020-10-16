@@ -9,7 +9,7 @@ import axiosMock from "axios";
 import { sampleAuthTokens, sampleTracks, sampleUser } from "../../../../test";
 import { AuthProvider } from "../../../../Auth";
 import { TokenStorage } from "../../../../Auth/api";
-import { App } from "../../../../App";
+import { App } from "../../..";
 
 jest.mock("axios");
 
@@ -32,7 +32,7 @@ function setupPage() {
     return setupPageWithUrlParams(undefined);
 }
 
-describe("TracksFilter", () => {
+describe("Filter", () => {
     afterEach(() => {
         axiosMock.get.mockReset();
         TokenStorage.clearTokens();
