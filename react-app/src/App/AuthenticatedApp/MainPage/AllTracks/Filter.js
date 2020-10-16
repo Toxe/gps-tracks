@@ -1,12 +1,10 @@
-import React, { useEffect } from "react";
+import React from "react";
 import { useTranslation } from "react-i18next";
-import { useSearchParams } from "react-router-dom";
 import { makeStyles } from "@material-ui/core/styles";
 import { Box, FormControl, InputLabel, ListItemIcon, ListItemText, MenuItem, Select } from "@material-ui/core";
-import { useTracksFilter } from "../MainPageProviders/TracksFilterProvider";
 import { ActivityIcon } from "../shared";
 import { ActivityMode } from "../utils/enums";
-import { getSearchParam } from "./utils/urlSearchParams";
+import { useFilter } from "./hooks";
 
 const useStyles = makeStyles((theme) => ({
     filterForm: {
@@ -21,25 +19,7 @@ const useStyles = makeStyles((theme) => ({
 export default function Filter() {
     const { t } = useTranslation();
     const classes = useStyles();
-    const [searchParams, setSearchParams] = useSearchParams();
-    const {
-        activityFilter,
-        yearFilter,
-        setActivityFilter,
-        setYearFilter,
-        availableActivities,
-        availableYears,
-    } = useTracksFilter();
-
-    useEffect(() => {
-        setYearFilter(getSearchParam(searchParams, "year", ""));
-        setActivityFilter(getSearchParam(searchParams, "activity", ""));
-    }, [searchParams, setYearFilter, setActivityFilter]);
-
-    const handleChangeFilter = (filter, event) => {
-        searchParams.set(filter, event.target.value);
-        setSearchParams(searchParams);
-    };
+    const { activityFilter, yearFilter, availableActivities, availableYears, handleChangeFilter } = useFilter();
 
     const createActivityMenuItem = (activity) => {
         return (
