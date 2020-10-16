@@ -4,32 +4,28 @@ import { render } from "@testing-library/react";
 import "@testing-library/jest-dom";
 import "jest-extended";
 import "expect-more-jest";
-import axiosMock from "axios";
-import { sampleAuthTokens, sampleTracks, sampleUser } from "../../../../test";
-import { AuthProvider } from "../../../../Auth";
-import { TokenStorage } from "../../../../Auth/api";
-import { App } from "../../../../App";
+import { BrowserRouter } from "react-router-dom";
+import { sampleTracks, spyOnHook } from "../../../../test";
+import { MainPageProviders } from "../MainPageProviders";
+import * as useAllTracks from "./hooks/useAllTracks";
+import { AllTracks } from ".";
 
-jest.mock("axios");
+afterEach(() => {
+    jest.resetAllMocks();
+    jest.restoreAllMocks();
+});
 
 describe("AllTracks", () => {
-    afterEach(() => {
-        axiosMock.get.mockReset();
-        TokenStorage.clearTokens();
-    });
-
     describe("With existing tracks", () => {
         test("When given sample tracks, should show list of 5 tracks", async () => {
-            TokenStorage.saveTokens(sampleAuthTokens(1));
-
-            axiosMock.get
-                .mockResolvedValueOnce({ data: sampleUser(1) })
-                .mockResolvedValueOnce({ data: sampleTracks() });
+            spyOnHook(useAllTracks).mockReturnValue({ filteredAndSortedTracks: sampleTracks() });
 
             const { findByRole } = render(
-                <AuthProvider>
-                    <App />
-                </AuthProvider>
+                <BrowserRouter>
+                    <MainPageProviders>
+                        <AllTracks />
+                    </MainPageProviders>
+                </BrowserRouter>
             );
 
             await findByRole("heading", { name: "Track 21" });
@@ -42,14 +38,14 @@ describe("AllTracks", () => {
 
     describe("Without tracks", () => {
         test('When given no tracks, should show "No tracks found" message', async () => {
-            TokenStorage.saveTokens(sampleAuthTokens(1));
-
-            axiosMock.get.mockResolvedValueOnce({ data: sampleUser(1) }).mockResolvedValueOnce({ data: [] });
+            spyOnHook(useAllTracks).mockReturnValue({ filteredAndSortedTracks: null });
 
             const { findByText } = render(
-                <AuthProvider>
-                    <App />
-                </AuthProvider>
+                <BrowserRouter>
+                    <MainPageProviders>
+                        <AllTracks />
+                    </MainPageProviders>
+                </BrowserRouter>
             );
 
             await findByText("No tracks found.");

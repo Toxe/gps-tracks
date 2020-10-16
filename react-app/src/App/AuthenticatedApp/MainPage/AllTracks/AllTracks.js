@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React from "react";
 import { Box } from "@material-ui/core";
 import { useTracksFilter } from "../MainPageProviders/TracksFilterProvider";
 import { useTracksSort } from "../MainPageProviders/TracksSortProvider";
@@ -9,29 +9,21 @@ import TracksList from "./TracksList";
 import TracksSort from "./TracksSort";
 import { TracksSearch } from "./TracksSearch";
 import { TracksSummary } from "./TracksSummary";
+import { useAllTracks } from "./hooks";
 
 export default function AllTracks() {
-    const { updateLastVisitedAllTracksPage } = useLastVisitedAllTracksPage();
-    const { filterTracks } = useTracksFilter();
-    const { sortTracks } = useTracksSort();
-    const { searchTracks } = useTracksSearch();
-
-    const sortedTracks = sortTracks(searchTracks(filterTracks()));
-
-    useEffect(() => {
-        updateLastVisitedAllTracksPage();
-    });
+    const { filteredAndSortedTracks } = useAllTracks();
 
     return (
         <>
-            <TracksSummary tracks={sortedTracks} />
+            <TracksSummary tracks={filteredAndSortedTracks} />
             <Box display="flex" alignItems="flex-end">
-                <TracksFilter />
+                <Filter />
                 <TracksSearch />
                 <Box flexGrow={1} />
                 <TracksSort />
             </Box>
-            <TracksList tracks={sortedTracks} />
+            <TracksList tracks={filteredAndSortedTracks} />
         </>
     );
 }
