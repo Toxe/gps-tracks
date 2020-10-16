@@ -32,7 +32,7 @@ function setupPage() {
     return setupPageWithUrlParams(undefined);
 }
 
-describe("TracksSearch", () => {
+describe("Search", () => {
     afterEach(() => {
         axiosMock.get.mockReset();
         TokenStorage.clearTokens();

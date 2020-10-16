@@ -4,7 +4,7 @@ import { useTracksSearch } from "../../MainPageProviders/TracksSearchProvider";
 import { getSearchParam, setOrRemoveDefaultSearchParam } from "../utils/urlSearchParams";
 import SearchField from "./SearchField";
 
-export default function TracksSearch() {
+export default function Search() {
     const [searchParams, setSearchParams] = useSearchParams();
     const { searchText, setSearchText } = useTracksSearch();
 

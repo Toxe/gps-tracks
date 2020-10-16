@@ -3,7 +3,7 @@ import { Box } from "@material-ui/core";
 import Filter from "./Filter";
 import List from "./List";
 import Sort from "./Sort";
-import { TracksSearch } from "./TracksSearch";
+import { Search } from "./Search";
 import { TracksSummary } from "./TracksSummary";
 import { useAllTracks } from "./hooks";
 
@@ -15,7 +15,7 @@ export default function AllTracks() {
             <TracksSummary tracks={filteredAndSortedTracks} />
             <Box display="flex" alignItems="flex-end">
                 <Filter />
-                <TracksSearch />
+                <Search />
                 <Box flexGrow={1} />
                 <Sort />
             </Box>
