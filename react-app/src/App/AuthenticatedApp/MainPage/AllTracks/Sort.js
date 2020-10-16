@@ -13,7 +13,7 @@ const useStyles = makeStyles((theme) => ({
     },
 }));
 
-export default function TracksSort() {
+export default function Sort() {
     const { t } = useTranslation();
     const classes = useStyles();
     const [searchParams, setSearchParams] = useSearchParams();

@@ -32,7 +32,7 @@ function setupPage() {
     return setupPageWithUrlParams(undefined);
 }
 
-describe("TracksSort", () => {
+describe("Sort", () => {
     afterEach(() => {
         axiosMock.get.mockReset();
         TokenStorage.clearTokens();
