@@ -35,7 +35,7 @@ describe("useUser()", () => {
     });
 
     describe("With authenticated user", () => {
-        test('When authId is 1, "user" should be an object containing the data of sample user 1', async () => {
+        test('When authId is 1, "user" should be an object containing the data of user 1', async () => {
             const user = sampleUser(1);
 
             useAuth.mockReturnValue({ authId: 1 });
