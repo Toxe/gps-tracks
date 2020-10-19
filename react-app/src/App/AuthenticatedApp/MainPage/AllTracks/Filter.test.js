@@ -5,131 +5,104 @@ import userEvent from "@testing-library/user-event";
 import "@testing-library/jest-dom";
 import "jest-extended";
 import "expect-more-jest";
-import axiosMock from "axios";
-import { sampleAuthTokens, sampleTracks, sampleUser } from "../../../../test";
-import { AuthProvider } from "../../../../Auth";
-import { TokenStorage } from "../../../../Auth/api";
-import { App } from "../../..";
+import { spyOnHook } from "../../../../test";
+import * as useFilter from "./hooks/useFilter";
+import Filter from "./Filter";
 
-jest.mock("axios");
+function renderFilter(activityFilter, yearFilter) {
+    const availableActivities = ["0", "1"];
+    const availableYears = ["2018", "2019", "2020"];
+    const handleChangeFilter = jest.fn();
 
-function setupPageWithUrlParams(urlParams) {
-    TokenStorage.saveTokens(sampleAuthTokens(1));
+    spyOnHook(useFilter).mockReturnValue({
+        activityFilter,
+        yearFilter,
+        availableActivities,
+        availableYears,
+        handleChangeFilter,
+    });
 
-    axiosMock.get.mockResolvedValueOnce({ data: sampleUser(1) }).mockResolvedValueOnce({ data: sampleTracks() });
-
-    const url = urlParams ? `/tracks?${urlParams}` : "/tracks";
-    window.history.pushState({}, "Test Page", url);
-
-    return render(
-        <AuthProvider>
-            <App />
-        </AuthProvider>
-    );
+    return { ...render(<Filter />), handleChangeFilter };
 }
 
-function setupPage() {
-    return setupPageWithUrlParams(undefined);
-}
+afterEach(() => {
+    jest.resetAllMocks();
+    jest.restoreAllMocks();
+});
 
 describe("Filter", () => {
-    afterEach(() => {
-        axiosMock.get.mockReset();
-        TokenStorage.clearTokens();
-    });
+    describe("With no specific filter settings", () => {
+        test('When available activities are "0" and "1", should show filter menu with 2 activities', async () => {
+            const { getByLabelText, findByRole } = renderFilter("", "");
 
-    describe('With "/tracks" page', () => {
-        test("When changing no filter settings, show 5 tracks", async () => {
-            const { findByRole } = setupPage();
+            userEvent.click(getByLabelText("Activity"));
 
-            await findByRole("heading", { name: "Track 21" });
-            await findByRole("heading", { name: "Track 28" });
-            await findByRole("heading", { name: "Track 47" });
-            await findByRole("heading", { name: "Track 85" });
-            await findByRole("heading", { name: "Track 87" });
+            await findByRole("option", { name: "All" });
+            await findByRole("option", { name: "Bike" });
+            await findByRole("option", { name: "Hiking" });
         });
 
-        test('When setting activity to "Bike", show 3 tracks', async () => {
-            const { findByRole, findByLabelText, queryByRole } = setupPage();
+        test('When available years are "2018", "2019" and "2020", should show filter menu with 3 years', async () => {
+            const { getByLabelText, findByRole } = renderFilter("", "");
 
-            userEvent.click(await findByLabelText("Activity"));
+            userEvent.click(getByLabelText("Year"));
+
+            await findByRole("option", { name: "All" });
+            await findByRole("option", { name: "2018" });
+            await findByRole("option", { name: "2019" });
+            await findByRole("option", { name: "2020" });
+        });
+    });
+
+    describe("With selected activity filter option", () => {
+        test('When activity filter is "0", selected option should be "Bike"', async () => {
+            const { getByLabelText } = renderFilter("0", "");
+
+            getByLabelText("Activity");
+            getByLabelText("Bike");
+        });
+
+        test('When activity filter is "all", selected option should be "All"', async () => {
+            const { getByLabelText } = renderFilter("all", "");
+
+            getByLabelText("Activity");
+            getByLabelText("All");
+        });
+    });
+
+    describe("With selected year filter option", () => {
+        test('When year filter is "2019", selected option should be "2019"', async () => {
+            const { getByLabelText } = renderFilter("", "2019");
+
+            getByLabelText("Year");
+            getByLabelText("2019");
+        });
+
+        test('When year filter is "all", selected option should be "All"', async () => {
+            const { getByLabelText } = renderFilter("", "all");
+
+            getByLabelText("Year");
+            getByLabelText("All");
+        });
+    });
+
+    describe("Selecting a filter option", () => {
+        test("When selecting a different activity, should call handleChangeFilter", async () => {
+            const { getByLabelText, findByRole, handleChangeFilter } = renderFilter("", "");
+
+            userEvent.click(getByLabelText("Activity"));
             userEvent.click(await findByRole("option", { name: "Bike" }));
 
-            await findByRole("heading", { name: "Track 21" });
-            await findByRole("heading", { name: "Track 85" });
-            await findByRole("heading", { name: "Track 87" });
-            expect(queryByRole("heading", { name: "Track 28" })).not.toBeInTheDocument();
-            expect(queryByRole("heading", { name: "Track 47" })).not.toBeInTheDocument();
+            expect(handleChangeFilter).toHaveBeenCalled();
         });
 
-        test('When setting year to "2017", show 2 tracks', async () => {
-            const { findByRole, findByLabelText, queryByRole } = setupPage();
+        test("When selecting a different year, should call handleChangeFilter", async () => {
+            const { getByLabelText, findByRole, handleChangeFilter } = renderFilter("", "");
 
-            userEvent.click(await findByLabelText("Year"));
-            userEvent.click(await findByRole("option", { name: "2017" }));
+            userEvent.click(getByLabelText("Year"));
+            userEvent.click(await findByRole("option", { name: "2020" }));
 
-            await findByRole("heading", { name: "Track 21" });
-            await findByRole("heading", { name: "Track 28" });
-            expect(queryByRole("heading", { name: "Track 47" })).not.toBeInTheDocument();
-            expect(queryByRole("heading", { name: "Track 85" })).not.toBeInTheDocument();
-            expect(queryByRole("heading", { name: "Track 87" })).not.toBeInTheDocument();
-        });
-
-        test('When setting activity to "Hiking" and year to "2017", show 1 track', async () => {
-            const { findByRole, findByLabelText, queryByRole } = setupPage();
-
-            userEvent.click(await findByLabelText("Activity"));
-            userEvent.click(await findByRole("option", { name: "Hiking" }));
-            userEvent.click(await findByLabelText("Year"));
-            userEvent.click(await findByRole("option", { name: "2017" }));
-
-            await findByRole("heading", { name: "Track 28" });
-            expect(queryByRole("heading", { name: "Track 21" })).not.toBeInTheDocument();
-            expect(queryByRole("heading", { name: "Track 47" })).not.toBeInTheDocument();
-            expect(queryByRole("heading", { name: "Track 85" })).not.toBeInTheDocument();
-            expect(queryByRole("heading", { name: "Track 87" })).not.toBeInTheDocument();
-        });
-    });
-
-    describe("With filter params in URL", () => {
-        test('When URL params are "activity=all&year=all", show 5 tracks', async () => {
-            const { findByRole } = setupPageWithUrlParams("activity=all&year=all");
-
-            await findByRole("heading", { name: "Track 21" });
-            await findByRole("heading", { name: "Track 28" });
-            await findByRole("heading", { name: "Track 47" });
-            await findByRole("heading", { name: "Track 85" });
-            await findByRole("heading", { name: "Track 87" });
-        });
-
-        test('When URL params are "activity=0", show 3 tracks', async () => {
-            const { findByRole, queryByRole } = setupPageWithUrlParams("activity=0");
-
-            await findByRole("heading", { name: "Track 21" });
-            await findByRole("heading", { name: "Track 85" });
-            await findByRole("heading", { name: "Track 87" });
-            expect(queryByRole("heading", { name: "Track 28" })).not.toBeInTheDocument();
-            expect(queryByRole("heading", { name: "Track 47" })).not.toBeInTheDocument();
-        });
-
-        test('When URL params are "year=2017", show 2 tracks', async () => {
-            const { findByRole, queryByRole } = setupPageWithUrlParams("year=2017");
-
-            await findByRole("heading", { name: "Track 21" });
-            await findByRole("heading", { name: "Track 28" });
-            expect(queryByRole("heading", { name: "Track 47" })).not.toBeInTheDocument();
-            expect(queryByRole("heading", { name: "Track 85" })).not.toBeInTheDocument();
-            expect(queryByRole("heading", { name: "Track 87" })).not.toBeInTheDocument();
-        });
-
-        test('When URL params are "activity=1&year=2017", show 1 track', async () => {
-            const { findByRole, queryByRole } = setupPageWithUrlParams("activity=1&year=2017");
-
-            await findByRole("heading", { name: "Track 28" });
-            expect(queryByRole("heading", { name: "Track 21" })).not.toBeInTheDocument();
-            expect(queryByRole("heading", { name: "Track 47" })).not.toBeInTheDocument();
-            expect(queryByRole("heading", { name: "Track 85" })).not.toBeInTheDocument();
-            expect(queryByRole("heading", { name: "Track 87" })).not.toBeInTheDocument();
+            expect(handleChangeFilter).toHaveBeenCalled();
         });
     });
 });
