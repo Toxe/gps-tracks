@@ -25,6 +25,8 @@ export function UserProvider({ children }) {
 
         if (authId) {
             queryUser(authId);
+        } else {
+            setUser(null);
         }
     }, [authId]);
 
