@@ -25,6 +25,8 @@ export function TracksProvider({ children }) {
 
         if (user) {
             queryTracks(user);
+        } else {
+            setTracks([]);
         }
     }, [user]);
 
