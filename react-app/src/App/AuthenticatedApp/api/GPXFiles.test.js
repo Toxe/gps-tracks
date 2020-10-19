@@ -16,7 +16,7 @@ describe("GPXFiles API", () => {
             axiosMock.post.mockResolvedValueOnce({ status: 201, data: sampleGPXFile(21) });
 
             const user = sampleUser(1);
-            var file = new File(["content"], "test.gpx", { type: "application/gpx+xml" });
+            const file = new File(["content"], "test.gpx", { type: "application/gpx+xml" });
 
             const response = await GPXFiles.upload(user, file);
 
@@ -26,7 +26,7 @@ describe("GPXFiles API", () => {
 
         test("When user is null, reject and return TypeError", async () => {
             const user = null;
-            var file = new File(["content"], "test.gpx", { type: "application/gpx+xml" });
+            const file = new File(["content"], "test.gpx", { type: "application/gpx+xml" });
 
             expect.assertions(1);
             await expect(GPXFiles.upload(user, file)).rejects.toEqual(new TypeError("invalid arguments"));
@@ -34,7 +34,7 @@ describe("GPXFiles API", () => {
 
         test("When user is undefined, reject and return TypeError", async () => {
             const user = undefined;
-            var file = new File(["content"], "test.gpx", { type: "application/gpx+xml" });
+            const file = new File(["content"], "test.gpx", { type: "application/gpx+xml" });
 
             expect.assertions(1);
             await expect(GPXFiles.upload(user, file)).rejects.toEqual(new TypeError("invalid arguments"));
@@ -42,7 +42,7 @@ describe("GPXFiles API", () => {
 
         test("When file is null, reject and return TypeError", async () => {
             const user = sampleUser(1);
-            var file = null;
+            const file = null;
 
             expect.assertions(1);
             await expect(GPXFiles.upload(user, file)).rejects.toEqual(new TypeError("invalid arguments"));
@@ -50,7 +50,7 @@ describe("GPXFiles API", () => {
 
         test("When file is undefined, reject and return TypeError", async () => {
             const user = sampleUser(1);
-            var file = undefined;
+            const file = undefined;
 
             expect.assertions(1);
             await expect(GPXFiles.upload(user, file)).rejects.toEqual(new TypeError("invalid arguments"));
