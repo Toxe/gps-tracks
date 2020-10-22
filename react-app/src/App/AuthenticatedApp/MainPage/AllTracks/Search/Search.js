@@ -1,21 +1,9 @@
-import React, { useEffect } from "react";
-import { useSearchParams } from "react-router-dom";
-import { useTracksSearch } from "../../MainPageProviders/TracksSearchProvider";
-import { getSearchParam, setOrRemoveDefaultSearchParam } from "../utils/urlSearchParams";
+import React from "react";
 import SearchField from "./SearchField";
+import { useSearch } from "./hooks";
 
 export default function Search() {
-    const [searchParams, setSearchParams] = useSearchParams();
-    const { searchText, setSearchText } = useTracksSearch();
-
-    useEffect(() => {
-        setSearchText(getSearchParam(searchParams, "search", ""));
-    }, [searchParams, setSearchText]);
-
-    const updateSearch = (text) => {
-        setOrRemoveDefaultSearchParam(searchParams, "search", text, "");
-        setSearchParams(searchParams);
-    };
+    const { searchText, updateSearch } = useSearch();
 
     return <SearchField initialSearchText={searchText} updateSearch={updateSearch} />;
 }
