@@ -5,7 +5,7 @@ import "expect-more-jest";
 import { useList } from ".";
 
 function generateTracks(length, offset=0) {
-    return Array.from({ length }, (_, i) => i + 1 + offset);
+    return Array(length).map((_, i) => i + 1 + offset);
 }
 
 describe("useList()", () => {
