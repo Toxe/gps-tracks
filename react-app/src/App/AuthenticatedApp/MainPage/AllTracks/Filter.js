@@ -4,7 +4,6 @@ import { makeStyles } from "@material-ui/core/styles";
 import { Box, FormControl, InputLabel, ListItemIcon, ListItemText, MenuItem, Select } from "@material-ui/core";
 import { ActivityIcon } from "../shared";
 import { ActivityMode } from "../utils/enums";
-import { useFilter } from "./hooks";
 
 const useStyles = makeStyles((theme) => ({
     filterForm: {
@@ -16,10 +15,15 @@ const useStyles = makeStyles((theme) => ({
     },
 }));
 
-export default function Filter() {
+export default function Filter({
+    activityFilter,
+    yearFilter,
+    availableActivities,
+    availableYears,
+    handleChangeFilter,
+}) {
     const { t } = useTranslation();
     const classes = useStyles();
-    const { activityFilter, yearFilter, availableActivities, availableYears, handleChangeFilter } = useFilter();
 
     const createActivityMenuItem = (activity) => {
         return (

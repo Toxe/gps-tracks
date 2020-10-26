@@ -11,9 +11,14 @@ export default function AllTracks() {
     const {
         filteredAndSortedTracks,
         tracksPerPage,
+        activityFilter,
+        yearFilter,
         searchText,
         sortBy,
         sortOrder,
+        availableActivities,
+        availableYears,
+        handleChangeFilter,
         handleUpdateSearchText,
         handleChangeSortBy,
         handleChangeSortOrder,
@@ -23,7 +28,13 @@ export default function AllTracks() {
         <>
             <Summary tracks={filteredAndSortedTracks} />
             <Box display="flex" alignItems="flex-end">
-                <Filter />
+                <Filter
+                    activityFilter={activityFilter}
+                    yearFilter={yearFilter}
+                    availableActivities={availableActivities}
+                    availableYears={availableYears}
+                    handleChangeFilter={handleChangeFilter}
+                />
                 <Search searchText={searchText} handleUpdateSearchText={handleUpdateSearchText} />
                 <Box flexGrow={1} />
                 <Sort
