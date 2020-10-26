@@ -12,15 +12,15 @@ const useStyles = makeStyles(() => ({
     },
 }));
 
-export default function SearchField({ initialSearchText, updateSearch }) {
+export default function SearchField({ initialSearchText, handleUpdateSearchText }) {
     const { t } = useTranslation();
     const classes = useStyles();
     const [searchFieldContent, setSearchFieldContent] = useState(initialSearchText);
 
     // update URL search param after a short delay once the user stopped typing
     const debouncedUpdateSearch = useCallback(
-        debounce((text) => updateSearch(text), 300),
-        [updateSearch]
+        debounce((text) => handleUpdateSearchText(text), 300),
+        [handleUpdateSearchText]
     );
 
     useEffect(() => {

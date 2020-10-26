@@ -1,9 +1,6 @@
 import React from "react";
 import SearchField from "./SearchField";
-import { useSearch } from "./hooks";
 
-export default function Search() {
-    const { searchText, updateSearch } = useSearch();
-
-    return <SearchField initialSearchText={searchText} updateSearch={updateSearch} />;
+export default function Search({ searchText, handleUpdateSearchText }) {
+    return <SearchField initialSearchText={searchText} handleUpdateSearchText={handleUpdateSearchText} />;
 }

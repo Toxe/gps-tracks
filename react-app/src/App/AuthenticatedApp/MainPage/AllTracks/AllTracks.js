@@ -8,14 +8,14 @@ import { Summary } from "./Summary";
 import { useAllTracks } from "./hooks";
 
 export default function AllTracks() {
-    const { filteredAndSortedTracks, tracksPerPage } = useAllTracks();
+    const { filteredAndSortedTracks, tracksPerPage, searchText, handleUpdateSearchText } = useAllTracks();
 
     return (
         <>
             <Summary tracks={filteredAndSortedTracks} />
             <Box display="flex" alignItems="flex-end">
                 <Filter />
-                <Search />
+                <Search searchText={searchText} handleUpdateSearchText={handleUpdateSearchText} />
                 <Box flexGrow={1} />
                 <Sort />
             </Box>
