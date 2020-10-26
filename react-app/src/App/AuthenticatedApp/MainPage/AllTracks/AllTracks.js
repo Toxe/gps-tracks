@@ -8,7 +8,16 @@ import { Summary } from "./Summary";
 import { useAllTracks } from "./hooks";
 
 export default function AllTracks() {
-    const { filteredAndSortedTracks, tracksPerPage, searchText, handleUpdateSearchText } = useAllTracks();
+    const {
+        filteredAndSortedTracks,
+        tracksPerPage,
+        searchText,
+        sortBy,
+        sortOrder,
+        handleUpdateSearchText,
+        handleChangeSortBy,
+        handleChangeSortOrder,
+    } = useAllTracks();
 
     return (
         <>
@@ -17,7 +26,12 @@ export default function AllTracks() {
                 <Filter />
                 <Search searchText={searchText} handleUpdateSearchText={handleUpdateSearchText} />
                 <Box flexGrow={1} />
-                <Sort />
+                <Sort
+                    sortBy={sortBy}
+                    sortOrder={sortOrder}
+                    handleChangeSortBy={handleChangeSortBy}
+                    handleChangeSortOrder={handleChangeSortOrder}
+                />
             </Box>
             <List tracks={filteredAndSortedTracks} tracksPerPage={tracksPerPage} />
         </>

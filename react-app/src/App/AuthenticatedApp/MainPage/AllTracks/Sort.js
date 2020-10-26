@@ -2,7 +2,6 @@ import React from "react";
 import { useTranslation } from "react-i18next";
 import { makeStyles } from "@material-ui/core/styles";
 import { Box, FormControl, InputLabel, MenuItem, Select, TableSortLabel, Tooltip } from "@material-ui/core";
-import { useSort } from "./hooks";
 
 const useStyles = makeStyles((theme) => ({
     sortForm: {
@@ -11,10 +10,9 @@ const useStyles = makeStyles((theme) => ({
     },
 }));
 
-export default function Sort() {
+export default function Sort({ sortBy, sortOrder, handleChangeSortBy, handleChangeSortOrder }) {
     const { t } = useTranslation();
     const classes = useStyles();
-    const { sortBy, sortOrder, handleChangeSortBy, handleChangeSortOrder } = useSort();
 
     return (
         <Box display="flex" alignItems="flex-end">
