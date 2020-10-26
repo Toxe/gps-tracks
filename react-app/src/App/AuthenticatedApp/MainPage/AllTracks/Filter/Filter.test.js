@@ -1,28 +1,29 @@
 import React from "react";
-import "../../../../i18n-tests";
+import "../../../../../i18n-tests";
 import { render } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import "@testing-library/jest-dom";
 import "jest-extended";
 import "expect-more-jest";
-import { spyOnHook } from "../../../../test";
-import * as useFilter from "./hooks/useFilter";
-import Filter from "./Filter";
+import { Filter } from ".";
 
 function renderFilter(activityFilter, yearFilter) {
     const availableActivities = ["0", "1"];
     const availableYears = ["2018", "2019", "2020"];
     const handleChangeFilter = jest.fn();
 
-    spyOnHook(useFilter).mockReturnValue({
-        activityFilter,
-        yearFilter,
-        availableActivities,
-        availableYears,
+    return {
+        ...render(
+            <Filter
+                activityFilter={activityFilter}
+                yearFilter={yearFilter}
+                availableActivities={availableActivities}
+                availableYears={availableYears}
+                handleChangeFilter={handleChangeFilter}
+            />
+        ),
         handleChangeFilter,
-    });
-
-    return { ...render(<Filter />), handleChangeFilter };
+    };
 }
 
 afterEach(() => {
