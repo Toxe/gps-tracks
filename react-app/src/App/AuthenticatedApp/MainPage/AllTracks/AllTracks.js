@@ -1,7 +1,7 @@
 import React from "react";
 import { Box } from "@material-ui/core";
 import Filter from "./Filter";
-import Sort from "./Sort";
+import { Sort } from "./Sort";
 import { List } from "./List";
 import { Search } from "./Search";
 import { Summary } from "./Summary";

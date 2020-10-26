@@ -6,10 +6,10 @@ import "@testing-library/jest-dom";
 import "jest-extended";
 import "expect-more-jest";
 import axiosMock from "axios";
-import { sampleAuthTokens, sampleTracks, sampleUser } from "../../../../test";
-import { AuthProvider } from "../../../../Auth";
-import { TokenStorage } from "../../../../Auth/api";
-import { App } from "../../../../App";
+import { sampleAuthTokens, sampleTracks, sampleUser } from "../../../../../test";
+import { AuthProvider } from "../../../../../Auth";
+import { TokenStorage } from "../../../../../Auth/api";
+import { App } from "../../../../../App";
 
 jest.mock("axios");
 
