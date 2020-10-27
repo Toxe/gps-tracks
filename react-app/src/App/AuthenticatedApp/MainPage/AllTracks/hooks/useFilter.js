@@ -1,20 +1,13 @@
 import { useState, useEffect } from "react";
 import { useSearchParams } from "react-router-dom";
-import { useTracks } from "../../../TracksProvider";
 import { getSearchParam } from "../utils/urlSearchParams";
 
-export default function useFilter() {
+export default function useFilter(tracks) {
     const [searchParams, setSearchParams] = useSearchParams();
-    const { tracks } = useTracks();
     const [activityFilter, setActivityFilter] = useState("");
     const [yearFilter, setYearFilter] = useState("");
-    const [availableActivities, setAvailableActivities] = useState([]);
-    const [availableYears, setAvailableYears] = useState([]);
-
-    useEffect(() => {
-        setAvailableActivities(listAvailableActivities(tracks));
-        setAvailableYears(listAvailableYears(tracks));
-    }, [tracks]);
+    const availableActivities = listAvailableActivities(tracks);
+    const availableYears = listAvailableYears(tracks);
 
     useEffect(() => {
         setYearFilter(getSearchParam(searchParams, "year", ""));

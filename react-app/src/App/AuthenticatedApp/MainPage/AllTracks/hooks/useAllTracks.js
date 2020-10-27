@@ -1,10 +1,12 @@
 import { useEffect } from "react";
+import { useTracks } from "../../../TracksProvider";
 import { useLastVisitedAllTracksPage } from "../../MainPageProviders/LastVisitedAllTracksPageProvider";
 import { useFilter, useSearch, useSort } from ".";
 
 const tracksPerPage = 25;
 
 export default function useAllTracks() {
+    const { tracks } = useTracks();
     const {
         activityFilter,
         yearFilter,
@@ -12,7 +14,7 @@ export default function useAllTracks() {
         availableYears,
         handleChangeFilter,
         filterTracks,
-    } = useFilter();
+    } = useFilter(tracks);
     const { searchText, handleUpdateSearchText, searchTracks } = useSearch();
     const { sortBy, sortOrder, handleChangeSortBy, handleChangeSortOrder, sortTracks } = useSort();
     const { updateLastVisitedAllTracksPage } = useLastVisitedAllTracksPage();
