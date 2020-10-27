@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import { useSearchParams } from "react-router-dom";
-import { getSearchParam } from "../utils/urlSearchParams";
+import { getSearchParam } from "../../utils/urlSearchParams";
 
 export default function useFilter(tracks) {
     const [searchParams, setSearchParams] = useSearchParams();

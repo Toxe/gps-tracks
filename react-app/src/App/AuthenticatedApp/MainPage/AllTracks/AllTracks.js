@@ -1,10 +1,10 @@
 import React from "react";
 import { Box } from "@material-ui/core";
-import { Filter } from "./Filter";
-import { Sort } from "./Sort";
 import { List } from "./List";
-import { Search } from "./Search";
 import { Summary } from "./Summary";
+import { Filter } from "./Filter";
+import { Search } from "./Search";
+import { Sort } from "./Sort";
 import { useAllTracks } from "./hooks";
 
 export default function AllTracks() {

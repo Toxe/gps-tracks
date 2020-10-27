@@ -1,7 +1,9 @@
 import { useEffect } from "react";
 import { useTracks } from "../../../TracksProvider";
 import { useLastVisitedAllTracksPage } from "../../MainPageProviders/LastVisitedAllTracksPageProvider";
-import { useFilter, useSearch, useSort } from ".";
+import { useFilter } from "../Filter";
+import { useSearch } from "../Search";
+import { useSort } from "../Sort";
 
 const tracksPerPage = 25;
 
