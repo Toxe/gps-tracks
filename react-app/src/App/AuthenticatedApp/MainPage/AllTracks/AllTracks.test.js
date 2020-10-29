@@ -18,7 +18,27 @@ afterEach(() => {
 describe("AllTracks", () => {
     describe("With existing tracks", () => {
         test("When given sample tracks, should show list of 5 tracks", async () => {
-            spyOnHook(useAllTracks).mockReturnValue({ filteredAndSortedTracks: sampleTracks() });
+            const filteredAndSortedTracks = sampleTracks();
+            const tracksPerPage = 25;
+            const activityFilter = "";
+            const yearFilter = "";
+            const searchText = "";
+            const sortBy = "date";
+            const sortOrder = "desc";
+            const availableActivities = [];
+            const availableYears = [];
+
+            spyOnHook(useAllTracks).mockReturnValue({
+                filteredAndSortedTracks,
+                tracksPerPage,
+                activityFilter,
+                yearFilter,
+                searchText,
+                sortBy,
+                sortOrder,
+                availableActivities,
+                availableYears,
+            });
 
             const { findByRole } = render(
                 <BrowserRouter>
@@ -38,7 +58,27 @@ describe("AllTracks", () => {
 
     describe("Without tracks", () => {
         test('When given no tracks, should show "No tracks found" message', async () => {
-            spyOnHook(useAllTracks).mockReturnValue({ filteredAndSortedTracks: null });
+            const filteredAndSortedTracks = null;
+            const tracksPerPage = 25;
+            const activityFilter = "";
+            const yearFilter = "";
+            const searchText = "";
+            const sortBy = "date";
+            const sortOrder = "desc";
+            const availableActivities = [];
+            const availableYears = [];
+
+            spyOnHook(useAllTracks).mockReturnValue({
+                filteredAndSortedTracks,
+                tracksPerPage,
+                activityFilter,
+                yearFilter,
+                searchText,
+                sortBy,
+                sortOrder,
+                availableActivities,
+                availableYears,
+            });
 
             const { findByText } = render(
                 <BrowserRouter>
