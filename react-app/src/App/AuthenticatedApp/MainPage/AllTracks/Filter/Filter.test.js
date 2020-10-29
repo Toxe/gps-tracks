@@ -10,7 +10,8 @@ import { Filter } from ".";
 function renderFilter(activityFilter, yearFilter) {
     const availableActivities = ["0", "1"];
     const availableYears = ["2018", "2019", "2020"];
-    const handleChangeFilter = jest.fn();
+    const handleChangeActivityFilter = jest.fn();
+    const handleChangeYearFilter = jest.fn();
 
     return {
         ...render(
@@ -19,10 +20,12 @@ function renderFilter(activityFilter, yearFilter) {
                 yearFilter={yearFilter}
                 availableActivities={availableActivities}
                 availableYears={availableYears}
-                handleChangeFilter={handleChangeFilter}
+                handleChangeActivityFilter={handleChangeActivityFilter}
+                handleChangeYearFilter={handleChangeYearFilter}
             />
         ),
-        handleChangeFilter,
+        handleChangeActivityFilter,
+        handleChangeYearFilter,
     };
 }
 
@@ -88,22 +91,22 @@ describe("Filter", () => {
     });
 
     describe("Selecting a filter option", () => {
-        test("When selecting a different activity, should call handleChangeFilter", async () => {
-            const { getByLabelText, findByRole, handleChangeFilter } = renderFilter("", "");
+        test("When selecting a different activity, should call handleChangeActivityFilter", async () => {
+            const { getByLabelText, findByRole, handleChangeActivityFilter } = renderFilter("", "");
 
             userEvent.click(getByLabelText("Activity"));
             userEvent.click(await findByRole("option", { name: "Bike" }));
 
-            expect(handleChangeFilter).toHaveBeenCalled();
+            expect(handleChangeActivityFilter).toHaveBeenCalled();
         });
 
-        test("When selecting a different year, should call handleChangeFilter", async () => {
-            const { getByLabelText, findByRole, handleChangeFilter } = renderFilter("", "");
+        test("When selecting a different year, should call handleChangeYearFilter", async () => {
+            const { getByLabelText, findByRole, handleChangeYearFilter } = renderFilter("", "");
 
             userEvent.click(getByLabelText("Year"));
             userEvent.click(await findByRole("option", { name: "2020" }));
 
-            expect(handleChangeFilter).toHaveBeenCalled();
+            expect(handleChangeYearFilter).toHaveBeenCalled();
         });
     });
 });
