@@ -9,17 +9,17 @@ import { TokenStorage } from "./api";
 import { AuthProvider } from "./AuthProvider";
 import AuthInfo from "./AuthInfo";
 
-describe("AuthInfo", () => {
-    afterEach(() => {
-        TokenStorage.clearTokens();
-    });
+afterEach(() => {
+    TokenStorage.clearTokens();
+});
 
+describe("AuthInfo", () => {
     describe("With authenticated user", () => {
         test("When user is logged in, show identity, access_token and refresh_token", async () => {
             const { access_token, refresh_token } = sampleAuthTokens(1);
             TokenStorage.saveTokens({ access_token, refresh_token });
 
-            const { findByText } = render(
+            const { findByText, queryByText } = render(
                 <AuthProvider>
                     <AuthInfo />
                 </AuthProvider>
@@ -29,7 +29,12 @@ describe("AuthInfo", () => {
             await findByText(matchByTextContent(`access_token: ${access_token}`));
             await findByText(matchByTextContent(`refresh_token: ${refresh_token}`));
             await findByText(matchByTextContent("expires: in 15 minutes"));
-            await findByText(matchByTextContent("expires: in 30 days"));
+
+            // this might say either "in 30 days" or "in 1 month"
+            const exp1 = queryByText(matchByTextContent("expires: in 30 days"));
+            const exp2 = queryByText(matchByTextContent("expires: in 1 month"));
+
+            expect(exp1 !== null || exp2 !== null).toBeTrue();
         });
 
         test("When minimize button clicked, show only identity and access_token expiration time", async () => {
