@@ -1,2 +1,2 @@
 export { default as Search } from "./Search";
-export { useSearch } from "./hooks";
+export { useSearching } from "./hooks";

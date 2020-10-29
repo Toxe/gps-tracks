@@ -1,9 +1,9 @@
 import { useEffect } from "react";
 import { useTracks } from "../../../TracksProvider";
 import { useLastVisitedAllTracksPage } from "../../MainPageProviders/LastVisitedAllTracksPageProvider";
-import { useFilter } from "../Filter";
-import { useSearch } from "../Search";
-import { useSort } from "../Sort";
+import { useFiltering } from "../Filter";
+import { useSearching } from "../Search";
+import { useSorting } from "../Sort";
 
 const tracksPerPage = 25;
 
@@ -17,9 +17,9 @@ export default function useAllTracks() {
         handleChangeActivityFilter,
         handleChangeYearFilter,
         filterTracks,
-    } = useFilter(tracks);
-    const { searchText, handleUpdateSearchText, searchTracks } = useSearch();
-    const { sortBy, sortOrder, handleChangeSortBy, handleChangeSortOrder, sortTracks } = useSort();
+    } = useFiltering(tracks);
+    const { searchText, handleUpdateSearchText, searchTracks } = useSearching();
+    const { sortBy, sortOrder, handleChangeSortBy, handleChangeSortOrder, sortTracks } = useSorting();
     const { updateLastVisitedAllTracksPage } = useLastVisitedAllTracksPage();
 
     const filteredAndSortedTracks = sortTracks(searchTracks(filterTracks()));

@@ -1,2 +1,2 @@
 export { default as Sort } from "./Sort";
-export { useSort } from "./hooks";
+export { useSorting } from "./hooks";
