@@ -1,6 +1,6 @@
-import { useState, useEffect } from "react";
 import { useSearchParams } from "react-router-dom";
-import { getSearchParam, setOrRemoveDefaultSearchParam } from "../../utils/urlSearchParams";
+import { setOrRemoveDefaultSearchParam } from "../../utils/urlSearchParams";
+import { useURLParamSortBy, useURLParamSortOrder } from ".";
 
 const compareFunctions = {
     date: (a, b) => new Date(a.time_start) - new Date(b.time_start),
@@ -16,14 +16,21 @@ distance: "desc",
 
 export default function useSort() {
     const [searchParams, setSearchParams] = useSearchParams();
-    const [sortBy, setSortBy] = useState("date");
-    const [sortOrder, setSortOrder] = useState(defaultSortOrder["date"]);
 
-    useEffect(() => {
-        const sort = getSearchParam(searchParams, "sort", "date");
-        setSortBy(sort);
-        setSortOrder(getSearchParam(searchParams, "order", defaultSortOrder[sort]));
-    }, [searchParams, setSortBy, setSortOrder]);
+    const updateSortByURLParam = (newSortBy) => {
+        setOrRemoveDefaultSearchParam(searchParams, "sort", newSortBy, "date");
+        setOrRemoveDefaultSearchParam(searchParams, "order", defaultSortOrder[newSortBy], defaultSortOrder[newSortBy]);
+        setSearchParams(searchParams);
+    };
+
+    const updateSortOrderURLParam = (newSortOrder) => {
+        setOrRemoveDefaultSearchParam(searchParams, "sort", sortBy, "date");
+        setOrRemoveDefaultSearchParam(searchParams, "order", newSortOrder, defaultSortOrder[sortBy]);
+        setSearchParams(searchParams);
+    };
+
+    const { sortBy, handleChangeSortBy } = useURLParamSortBy(updateSortByURLParam);
+    const { sortOrder, handleChangeSortOrder } = useURLParamSortOrder(updateSortOrderURLParam, defaultSortOrder);
 
     const sortTracks = (tracks) => {
         if (!tracks || tracks.length === 0) {
@@ -31,20 +38,6 @@ export default function useSort() {
         }
 
         return [...tracks].sort(compare(sortBy, sortOrder));
-    };
-
-    const updateSortURLParams = (sort, order) => {
-        setOrRemoveDefaultSearchParam(searchParams, "sort", sort, "date");
-        setOrRemoveDefaultSearchParam(searchParams, "order", order, defaultSortOrder[sort]);
-        setSearchParams(searchParams);
-    };
-
-    const handleChangeSortBy = (e) => {
-        updateSortURLParams(e.target.value, defaultSortOrder[e.target.value]);
-    };
-
-    const handleChangeSortOrder = () => {
-        updateSortURLParams(sortBy, sortOrder === "asc" ? "desc" : "asc");
     };
 
     return { sortBy, sortOrder, handleChangeSortBy, handleChangeSortOrder, sortTracks };

@@ -13,7 +13,7 @@ const useStyles = makeStyles((theme) => ({
     },
 }));
 
-export default function FilterYear({ yearFilter, availableYears, handleChangeFilter }) {
+export default function FilterYear({ yearFilter, availableYears, handleChangeYearFilter }) {
     const { t } = useTranslation();
     const classes = useStyles();
 
@@ -25,7 +25,7 @@ export default function FilterYear({ yearFilter, availableYears, handleChangeFil
                 labelId="year-filter-select-label"
                 id="year-filter-select"
                 value={yearFilter === "all" || availableYears.includes(yearFilter) ? yearFilter : ""}
-                onChange={(e) => handleChangeFilter("year", e)}>
+                onChange={(e) => handleChangeYearFilter(e.target.value)}>
                 <MenuItem value="all">{t("filter_all")}</MenuItem>
                 {availableYears.map((year) => (
                     <MenuItem key={year} value={year}>

@@ -15,7 +15,7 @@ const useStyles = makeStyles((theme) => ({
     },
 }));
 
-export default function FilterActivity({ activityFilter, availableActivities, handleChangeFilter }) {
+export default function FilterActivity({ activityFilter, availableActivities, handleChangeActivityFilter }) {
     const { t } = useTranslation();
     const classes = useStyles();
 
@@ -40,7 +40,7 @@ export default function FilterActivity({ activityFilter, availableActivities, ha
                 labelId="activity-filter-select-label"
                 id="activity-filter-select"
                 value={activityFilter === "all" || availableActivities.includes(activityFilter) ? activityFilter : ""}
-                onChange={(e) => handleChangeFilter("activity", e)}>
+                onChange={(e) => handleChangeActivityFilter(e.target.value)}>
                 <MenuItem value="all">{t("filter_all")}</MenuItem>
                 {availableActivities.map((activity) => createActivityMenuItem(activity))}
             </Select>

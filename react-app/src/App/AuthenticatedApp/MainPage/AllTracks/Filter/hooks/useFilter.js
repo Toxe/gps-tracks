@@ -1,18 +1,10 @@
-import { useState, useEffect } from "react";
-import { useSearchParams } from "react-router-dom";
-import { getSearchParam } from "../../utils/urlSearchParams";
+import { useURLParamActivity, useURLParamYear } from ".";
 
 export default function useFilter(tracks) {
-    const [searchParams, setSearchParams] = useSearchParams();
-    const [activityFilter, setActivityFilter] = useState("");
-    const [yearFilter, setYearFilter] = useState("");
+    const { activityFilter, handleChangeActivityFilter } = useURLParamActivity();
+    const { yearFilter, handleChangeYearFilter } = useURLParamYear();
     const availableActivities = listAvailableActivities(tracks);
     const availableYears = listAvailableYears(tracks);
-
-    useEffect(() => {
-        setYearFilter(getSearchParam(searchParams, "year", ""));
-        setActivityFilter(getSearchParam(searchParams, "activity", ""));
-    }, [searchParams, setYearFilter, setActivityFilter]);
 
     const filterTracks = () => {
         if (!tracks || tracks.length === 0) {
@@ -34,12 +26,15 @@ export default function useFilter(tracks) {
         return filteredTracks;
     };
 
-    const handleChangeFilter = (filter, event) => {
-        searchParams.set(filter, event.target.value);
-        setSearchParams(searchParams);
+    return {
+        activityFilter,
+        yearFilter,
+        availableActivities,
+        availableYears,
+        handleChangeActivityFilter,
+        handleChangeYearFilter,
+        filterTracks,
     };
-
-    return { activityFilter, yearFilter, availableActivities, availableYears, handleChangeFilter, filterTracks };
 }
 
 function convertToStrings(list) {

@@ -14,7 +14,8 @@ export default function useAllTracks() {
         yearFilter,
         availableActivities,
         availableYears,
-        handleChangeFilter,
+        handleChangeActivityFilter,
+        handleChangeYearFilter,
         filterTracks,
     } = useFilter(tracks);
     const { searchText, handleUpdateSearchText, searchTracks } = useSearch();
@@ -37,7 +38,8 @@ export default function useAllTracks() {
         sortOrder,
         availableActivities,
         availableYears,
-        handleChangeFilter,
+        handleChangeActivityFilter,
+        handleChangeYearFilter,
         handleUpdateSearchText,
         handleChangeSortBy,
         handleChangeSortOrder,

@@ -18,7 +18,8 @@ export default function AllTracks() {
         sortOrder,
         availableActivities,
         availableYears,
-        handleChangeFilter,
+        handleChangeActivityFilter,
+        handleChangeYearFilter,
         handleUpdateSearchText,
         handleChangeSortBy,
         handleChangeSortOrder,
@@ -33,7 +34,8 @@ export default function AllTracks() {
                     yearFilter={yearFilter}
                     availableActivities={availableActivities}
                     availableYears={availableYears}
-                    handleChangeFilter={handleChangeFilter}
+                    handleChangeActivityFilter={handleChangeActivityFilter}
+                    handleChangeYearFilter={handleChangeYearFilter}
                 />
                 <Search searchText={searchText} handleUpdateSearchText={handleUpdateSearchText} />
                 <Box flexGrow={1} />

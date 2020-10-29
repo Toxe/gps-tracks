@@ -8,19 +8,20 @@ export default function Filter({
     yearFilter,
     availableActivities,
     availableYears,
-    handleChangeFilter,
+    handleChangeActivityFilter,
+    handleChangeYearFilter,
 }) {
     return (
         <Box>
             <FilterActivity
                 activityFilter={activityFilter}
                 availableActivities={availableActivities}
-                handleChangeFilter={handleChangeFilter}
+                handleChangeActivityFilter={handleChangeActivityFilter}
             />
             <FilterYear
                 yearFilter={yearFilter}
                 availableYears={availableYears}
-                handleChangeFilter={handleChangeFilter}
+                handleChangeYearFilter={handleChangeYearFilter}
             />
         </Box>
     );

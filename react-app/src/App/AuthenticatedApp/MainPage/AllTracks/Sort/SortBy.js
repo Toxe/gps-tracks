@@ -22,7 +22,7 @@ export default function SortBy({ sortBy, handleChangeSortBy }) {
                 id="sort-by-select"
                 value={sortBy}
                 autoWidth
-                onChange={handleChangeSortBy}>
+                onChange={(event) => handleChangeSortBy(event.target.value)}>
                 <MenuItem value="date">{t("sort_by_date")}</MenuItem>
                 <MenuItem value="name">{t("sort_by_name")}</MenuItem>
                 <MenuItem value="distance">{t("sort_by_distance")}</MenuItem>
