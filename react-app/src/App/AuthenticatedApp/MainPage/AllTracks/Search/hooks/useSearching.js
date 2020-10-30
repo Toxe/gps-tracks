@@ -8,6 +8,10 @@ export default function useSearching() {
             return [];
         }
 
+        if (searchText === "") {
+            return tracks;
+        }
+
         const searchFor = searchText.toLowerCase();
         return tracks.filter((t) => t.title.toLowerCase().includes(searchFor));
     };
