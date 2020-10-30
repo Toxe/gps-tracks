@@ -14,7 +14,7 @@ distance: "desc",
     name: "asc",
 };
 
-export default function useSort() {
+export default function useSorting() {
     const [searchParams, setSearchParams] = useSearchParams();
 
     const updateSortByURLParam = (newSortBy) => {

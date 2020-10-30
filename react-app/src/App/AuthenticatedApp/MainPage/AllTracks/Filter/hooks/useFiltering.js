@@ -1,6 +1,6 @@
 import { useURLParamActivity, useURLParamYear } from ".";
 
-export default function useFilter(tracks) {
+export default function useFiltering(tracks) {
     const { activityFilter, handleChangeActivityFilter } = useURLParamActivity();
     const { yearFilter, handleChangeYearFilter } = useURLParamYear();
     const availableActivities = listAvailableActivities(tracks);

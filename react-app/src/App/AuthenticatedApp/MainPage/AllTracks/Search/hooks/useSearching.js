@@ -1,6 +1,6 @@
 import { useURLParamSearch } from ".";
 
-export default function useSearch() {
+export default function useSearching() {
     const { searchText, handleUpdateSearchText } = useURLParamSearch();
 
     const searchTracks = (tracks) => {
