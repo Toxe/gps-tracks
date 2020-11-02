@@ -1,5 +1,5 @@
 import React from "react";
-import { renderHook, act } from "@testing-library/react-hooks";
+import { renderHook } from "@testing-library/react-hooks";
 import "@testing-library/jest-dom";
 import "jest-extended";
 import "expect-more-jest";
@@ -81,18 +81,18 @@ describe("useSearching()", () => {
     });
 
     describe("Without tracks", () => {
-        test('When "tracks" is null, searchTracks should return empty array', () => {
-            const wrapper = ({ children }) => <BrowserRouter>{children}</BrowserRouter>;
-            const { result } = renderHook(() => useSearching(), { wrapper });
-
-            expect(result.current.searchTracks(null)).toBeEmptyArray();
-        });
-
         test('When "tracks" is empty array, searchTracks should return empty array', () => {
             const wrapper = ({ children }) => <BrowserRouter>{children}</BrowserRouter>;
             const { result } = renderHook(() => useSearching(), { wrapper });
 
             expect(result.current.searchTracks([])).toBeEmptyArray();
+        });
+
+        test('When "tracks" is null, searchTracks should return empty array', () => {
+            const wrapper = ({ children }) => <BrowserRouter>{children}</BrowserRouter>;
+            const { result } = renderHook(() => useSearching(), { wrapper });
+
+            expect(result.current.searchTracks(null)).toBeEmptyArray();
         });
     });
 });
