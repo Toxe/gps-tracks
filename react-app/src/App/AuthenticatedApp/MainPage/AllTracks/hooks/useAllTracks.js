@@ -19,7 +19,7 @@ export default function useAllTracks() {
         filterTracks,
     } = useFiltering(tracks);
     const { searchText, handleUpdateSearchText, searchTracks } = useSearching();
-    const { sortBy, sortOrder, handleChangeSortBy, handleChangeSortOrder, sortTracks } = useSorting();
+    const { sortBy, sortOrder, handleChangeSortBy, handleFlipSortOrder, sortTracks } = useSorting();
     const { updateLastVisitedAllTracksPage } = useLastVisitedAllTracksPage();
 
     const filteredAndSortedTracks = sortTracks(searchTracks(filterTracks()));
@@ -42,6 +42,6 @@ export default function useAllTracks() {
         handleChangeYearFilter,
         handleUpdateSearchText,
         handleChangeSortBy,
-        handleChangeSortOrder,
+        handleFlipSortOrder,
     };
 }

@@ -22,7 +22,7 @@ export default function AllTracks() {
         handleChangeYearFilter,
         handleUpdateSearchText,
         handleChangeSortBy,
-        handleChangeSortOrder,
+        handleFlipSortOrder,
     } = useAllTracks();
 
     return (
@@ -43,7 +43,7 @@ export default function AllTracks() {
                     sortBy={sortBy}
                     sortOrder={sortOrder}
                     handleChangeSortBy={handleChangeSortBy}
-                    handleChangeSortOrder={handleChangeSortOrder}
+                    handleFlipSortOrder={handleFlipSortOrder}
                 />
             </Box>
             <List tracks={filteredAndSortedTracks} tracksPerPage={tracksPerPage} />

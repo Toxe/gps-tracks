@@ -11,9 +11,9 @@ export default function useURLParamSortOrder(updateSortOrderURLParam, defaultSor
         setSortOrder(getSearchParam(searchParams, "order", defaultSortOrder[sortBy]));
     }, [searchParams, defaultSortOrder]);
 
-    const handleChangeSortOrder = () => {
+    const handleFlipSortOrder = () => {
         updateSortOrderURLParam(sortOrder === "asc" ? "desc" : "asc");
     };
 
-    return { sortOrder, handleChangeSortOrder };
+    return { sortOrder, handleFlipSortOrder };
 }

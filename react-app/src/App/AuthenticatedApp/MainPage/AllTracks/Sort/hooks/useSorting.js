@@ -30,7 +30,7 @@ export default function useSorting() {
     };
 
     const { sortBy, handleChangeSortBy } = useURLParamSortBy(updateSortByURLParam);
-    const { sortOrder, handleChangeSortOrder } = useURLParamSortOrder(updateSortOrderURLParam, defaultSortOrder);
+    const { sortOrder, handleFlipSortOrder } = useURLParamSortOrder(updateSortOrderURLParam, defaultSortOrder);
 
     const sortTracks = (tracks) => {
         if (!tracks || tracks.length === 0) {
@@ -40,7 +40,7 @@ export default function useSorting() {
         return [...tracks].sort(compare(sortBy, sortOrder));
     };
 
-    return { sortBy, sortOrder, handleChangeSortBy, handleChangeSortOrder, sortTracks };
+    return { sortBy, sortOrder, handleChangeSortBy, handleFlipSortOrder, sortTracks };
 }
 
 function compare(sortBy, sortOrder) {
