@@ -252,4 +252,17 @@ describe("useSorting()", () => {
             expect(result.current.sortTracks(null)).toBeEmptyArray();
         });
     });
+
+    describe("With URL params", () => {
+        test('When "sort" and "order" URLs params are set, should initialize to the same values', () => {
+            const searchParams = new URLSearchParams({ sort: "distance", order: "asc" });
+            window.history.replaceState({}, "", `${window.location.pathname}?${searchParams}`);
+
+            const wrapper = ({ children }) => <BrowserRouter>{children}</BrowserRouter>;
+            const { result } = renderHook(() => useSorting(), { wrapper });
+
+            expect(result.current.sortBy).toBe("distance");
+            expect(result.current.sortOrder).toBe("asc");
+        });
+    });
 });
