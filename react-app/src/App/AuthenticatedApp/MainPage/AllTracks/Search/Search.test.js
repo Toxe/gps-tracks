@@ -28,5 +28,13 @@ describe("Search", () => {
 
             await waitFor(() => expect(handleUpdateSearchText).toHaveBeenCalledWith("search text"));
         });
+
+        test('When clicking on "Clear search" button, search field should be empty', async () => {
+            const { findByTitle, findByPlaceholderText } = render(<Search searchText="search text" />);
+
+            userEvent.click(await findByTitle("Clear search"));
+
+            expect(await findByPlaceholderText("Search…")).toHaveValue("");
+        });
     });
 });
