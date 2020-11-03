@@ -29,11 +29,6 @@ function renderFilter(activityFilter, yearFilter) {
     };
 }
 
-afterEach(() => {
-    jest.resetAllMocks();
-    jest.restoreAllMocks();
-});
-
 describe("Filter", () => {
     describe("With no specific filter settings", () => {
         test('When available activities are "0" and "1", should show filter menu with 2 activities', async () => {

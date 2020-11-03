@@ -7,11 +7,6 @@ import "jest-extended";
 import "expect-more-jest";
 import { Search } from ".";
 
-afterEach(() => {
-    jest.resetAllMocks();
-    jest.restoreAllMocks();
-});
-
 describe("Search", () => {
     describe("With search field", () => {
         test("When passing an initial search text, should show search field with search text", async () => {
