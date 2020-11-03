@@ -117,6 +117,109 @@ describe("useFiltering()", () => {
         });
     });
 
+    describe('With tracks and activityFilter == "all" and yearFilter == "all"', () => {
+        test("When calling filterTracks, should return all tracks", () => {
+            const tracks = [
+                { activity_mode: 0, time_start: "2017-06-02T13:18:14.999000" },
+                { activity_mode: 1, time_start: "2018-06-02T13:18:14.999000" },
+            ];
+
+            spyOnHook(useURLParamActivity).mockReturnValue({ activityFilter: "all" });
+            spyOnHook(useURLParamYear).mockReturnValue({ yearFilter: "all" });
+
+            const wrapper = ({ children }) => <BrowserRouter>{children}</BrowserRouter>;
+            const { result } = renderHook(() => useFiltering(tracks), { wrapper });
+
+            const filteredTracks = result.current.filterTracks();
+
+            expect(filteredTracks).toBeArrayOfObjects();
+            expect(filteredTracks).toBeSameLengthAs(tracks);
+            expect(filteredTracks).toContainValues(tracks);
+        });
+    });
+
+    describe("With tracks and filtering by activity", () => {
+        test('When activityFilter is "1", should return only tracks with activity_mode == 1', () => {
+            const tracks = [
+                { activity_mode: 1, time_start: "2017-06-02T13:18:14.999000" },
+                { activity_mode: 0, time_start: "2018-06-02T13:18:14.999000" },
+                { activity_mode: 0, time_start: "2019-06-02T13:18:14.999000" },
+                { activity_mode: 1, time_start: "2020-06-02T13:18:14.999000" },
+            ];
+
+            spyOnHook(useURLParamActivity).mockReturnValue({ activityFilter: "1" });
+            spyOnHook(useURLParamYear).mockReturnValue({ yearFilter: "" });
+
+            const wrapper = ({ children }) => <BrowserRouter>{children}</BrowserRouter>;
+            const { result } = renderHook(() => useFiltering(tracks), { wrapper });
+
+            const filteredTracks = result.current.filterTracks();
+
+            expect(filteredTracks).toBeArrayOfObjects();
+            expect(filteredTracks).toHaveLength(2);
+            expect(filteredTracks[0].activity_mode).toBe(1);
+            expect(filteredTracks[1].activity_mode).toBe(1);
+        });
+
+        test('When activityFilter is "1" and no tracks with activity_mode == 1 exist, should return empty array', () => {
+            const tracks = [
+                { activity_mode: 0, time_start: "2018-06-02T13:18:14.999000" },
+                { activity_mode: 0, time_start: "2019-06-02T13:18:14.999000" },
+            ];
+
+            spyOnHook(useURLParamActivity).mockReturnValue({ activityFilter: "1" });
+            spyOnHook(useURLParamYear).mockReturnValue({ yearFilter: "" });
+
+            const wrapper = ({ children }) => <BrowserRouter>{children}</BrowserRouter>;
+            const { result } = renderHook(() => useFiltering(tracks), { wrapper });
+
+            const filteredTracks = result.current.filterTracks();
+
+            expect(filteredTracks).toBeEmptyArray();
+        });
+    });
+
+    describe("With tracks and filtering by year", () => {
+        test('When yearFilter is "2020", should return only tracks with time_start of 2020', () => {
+            const tracks = [
+                { activity_mode: 1, time_start: "2017-01-02T13:18:14.999000" },
+                { activity_mode: 0, time_start: "2020-02-02T13:18:14.999000" },
+                { activity_mode: 0, time_start: "2019-03-02T13:18:14.999000" },
+                { activity_mode: 1, time_start: "2020-04-02T13:18:14.999000" },
+            ];
+
+            spyOnHook(useURLParamActivity).mockReturnValue({ activityFilter: "" });
+            spyOnHook(useURLParamYear).mockReturnValue({ yearFilter: "2020" });
+
+            const wrapper = ({ children }) => <BrowserRouter>{children}</BrowserRouter>;
+            const { result } = renderHook(() => useFiltering(tracks), { wrapper });
+
+            const filteredTracks = result.current.filterTracks();
+
+            expect(filteredTracks).toBeArrayOfObjects();
+            expect(filteredTracks).toHaveLength(2);
+            expect(filteredTracks[0].time_start).toMatch(/^2020-/);
+            expect(filteredTracks[1].time_start).toMatch(/^2020-/);
+        });
+
+        test('When yearFilter is "2020" and no tracks with time_start of 2020 exist, should return empty array', () => {
+            const tracks = [
+                { activity_mode: 0, time_start: "2018-06-02T13:18:14.999000" },
+                { activity_mode: 0, time_start: "2019-06-02T13:18:14.999000" },
+            ];
+
+            spyOnHook(useURLParamActivity).mockReturnValue({ activityFilter: "" });
+            spyOnHook(useURLParamYear).mockReturnValue({ yearFilter: "2020" });
+
+            const wrapper = ({ children }) => <BrowserRouter>{children}</BrowserRouter>;
+            const { result } = renderHook(() => useFiltering(tracks), { wrapper });
+
+            const filteredTracks = result.current.filterTracks();
+
+            expect(filteredTracks).toBeEmptyArray();
+        });
+    });
+
     describe("Without tracks, checking filterTracks returns", () => {
         test('When "tracks" is empty array, filterTracks should return empty array', () => {
             const wrapper = ({ children }) => <BrowserRouter>{children}</BrowserRouter>;
