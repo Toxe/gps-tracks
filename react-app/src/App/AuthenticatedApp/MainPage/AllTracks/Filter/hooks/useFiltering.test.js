@@ -1,5 +1,5 @@
 import React from "react";
-import { renderHook } from "@testing-library/react-hooks";
+import { renderHook, act } from "@testing-library/react-hooks";
 import "@testing-library/jest-dom";
 import "jest-extended";
 import "expect-more-jest";
@@ -12,6 +12,9 @@ import { useFiltering } from ".";
 afterEach(() => {
     jest.resetAllMocks();
     jest.restoreAllMocks();
+
+    // remove all URL search params
+    window.history.replaceState({}, "", window.location.pathname);
 });
 
 describe("useFiltering()", () => {
@@ -145,6 +148,43 @@ describe("useFiltering()", () => {
 
             expect(result.current.availableActivities).toBeEmptyArray();
             expect(result.current.availableYears).toBeEmptyArray();
+        });
+    });
+
+    describe("With URL params", () => {
+        test('When changing activityFilter, should set "activity" URL param', () => {
+            const wrapper = ({ children }) => <BrowserRouter>{children}</BrowserRouter>;
+            const { result } = renderHook(() => useFiltering([]), { wrapper });
+
+            act(() => result.current.handleChangeActivityFilter("1"));
+
+            const url = new URL(window.location.href);
+
+            expect(result.current.activityFilter).toBe("1");
+            expect(url.searchParams.get("activity")).toBe("1");
+        });
+
+        test('When changing yearFilter, should set "year" URL param', () => {
+            const wrapper = ({ children }) => <BrowserRouter>{children}</BrowserRouter>;
+            const { result } = renderHook(() => useFiltering([]), { wrapper });
+
+            act(() => result.current.handleChangeYearFilter("2020"));
+
+            const url = new URL(window.location.href);
+
+            expect(result.current.yearFilter).toBe("2020");
+            expect(url.searchParams.get("year")).toBe("2020");
+        });
+
+        test('When "activity" and "year" URLs params are set, should initialize to the same values', () => {
+            const searchParams = new URLSearchParams({ activity: "1", year: "2020" });
+            window.history.replaceState({}, "", `${window.location.pathname}?${searchParams}`);
+
+            const wrapper = ({ children }) => <BrowserRouter>{children}</BrowserRouter>;
+            const { result } = renderHook(() => useFiltering([]), { wrapper });
+
+            expect(result.current.activityFilter).toBe("1");
+            expect(result.current.yearFilter).toBe("2020");
         });
     });
 });
