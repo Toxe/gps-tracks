@@ -1,5 +1,5 @@
 import React from "react";
-import { renderHook } from "@testing-library/react-hooks";
+import { renderHook, act } from "@testing-library/react-hooks";
 import "@testing-library/jest-dom";
 import "jest-extended";
 import "expect-more-jest";
@@ -13,6 +13,9 @@ const tracks = [{ title: "Track 01" }, { title: "track 02" }, { title: "Track 3"
 afterEach(() => {
     jest.resetAllMocks();
     jest.restoreAllMocks();
+
+    // remove all URL search params
+    window.history.replaceState({}, "", window.location.pathname);
 });
 
 describe("useSearching()", () => {
@@ -93,6 +96,30 @@ describe("useSearching()", () => {
             const { result } = renderHook(() => useSearching(), { wrapper });
 
             expect(result.current.searchTracks(null)).toBeEmptyArray();
+        });
+    });
+
+    describe("With URL params", () => {
+        test('When changing searchText, should set "search" URL param', () => {
+            const wrapper = ({ children }) => <BrowserRouter>{children}</BrowserRouter>;
+            const { result } = renderHook(() => useSearching(), { wrapper });
+
+            act(() => result.current.handleUpdateSearchText("search text"));
+
+            const url = new URL(window.location.href);
+
+            expect(result.current.searchText).toBe("search text");
+            expect(url.searchParams.get("search")).toBe("search text");
+        });
+
+        test('When "search" URL param is set, should initialize to the same value', () => {
+            const searchParams = new URLSearchParams({ search: "search text" });
+            window.history.replaceState({}, "", `${window.location.pathname}?${searchParams}`);
+
+            const wrapper = ({ children }) => <BrowserRouter>{children}</BrowserRouter>;
+            const { result } = renderHook(() => useSearching(), { wrapper });
+
+            expect(result.current.searchText).toBe("search text");
         });
     });
 });
