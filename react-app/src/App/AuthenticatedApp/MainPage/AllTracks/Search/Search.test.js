@@ -1,114 +1,37 @@
 import React from "react";
 import "../../../../../i18n-tests";
-import { render } from "@testing-library/react";
+import { render, waitFor } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import "@testing-library/jest-dom";
 import "jest-extended";
 import "expect-more-jest";
-import axiosMock from "axios";
-import { sampleAuthTokens, sampleTracks, sampleUser } from "../../../../../test";
-import { AuthProvider } from "../../../../../Auth";
-import { TokenStorage } from "../../../../../Auth/api";
-import { App } from "../../../../../App";
+import { Search } from ".";
 
-jest.mock("axios");
-
-function setupPageWithUrlParams(urlParams) {
-    TokenStorage.saveTokens(sampleAuthTokens(1));
-
-    axiosMock.get.mockResolvedValueOnce({ data: sampleUser(1) }).mockResolvedValueOnce({ data: sampleTracks() });
-
-    const url = urlParams ? `/tracks?${urlParams}` : "/tracks";
-    window.history.pushState({}, "Test Page", url);
-
-    return render(
-        <AuthProvider>
-            <App />
-        </AuthProvider>
-    );
-}
-
-function setupPage() {
-    return setupPageWithUrlParams(undefined);
-}
+afterEach(() => {
+    jest.resetAllMocks();
+    jest.restoreAllMocks();
+});
 
 describe("Search", () => {
-    afterEach(() => {
-        axiosMock.get.mockReset();
-        TokenStorage.clearTokens();
-    });
+    describe("With search field", () => {
+        test("When passing an initial search text, should show search field with search text", async () => {
+            const { getByDisplayValue } = render(
+                <Search searchText="search text" handleUpdateSearchText={jest.fn()} />
+            );
 
-    describe('With "/tracks" page', () => {
-        test("When search field is empty, show 5 tracks", async () => {
-            const { findByRole } = setupPage();
-
-            await findByRole("heading", { name: "Track 21" });
-            await findByRole("heading", { name: "Track 28" });
-            await findByRole("heading", { name: "Track 47" });
-            await findByRole("heading", { name: "Track 85" });
-            await findByRole("heading", { name: "Track 87" });
+            getByDisplayValue("search text");
         });
 
-        test('When searching for "Track 8", show 2 tracks', async () => {
-            const { findByRole, queryByRole, findByPlaceholderText } = setupPage();
+        test("When typing in search text, should call handleUpdateSearchText", async () => {
+            const handleUpdateSearchText = jest.fn();
 
-            userEvent.type(await findByPlaceholderText("Search…"), "Track 8");
+            const { findByPlaceholderText } = render(
+                <Search searchText="" handleUpdateSearchText={handleUpdateSearchText} />
+            );
 
-            await findByRole("heading", { name: "Track 85" });
-            await findByRole("heading", { name: "Track 87" });
-            expect(queryByRole("heading", { name: "Track 21" })).not.toBeInTheDocument();
-            expect(queryByRole("heading", { name: "Track 28" })).not.toBeInTheDocument();
-            expect(queryByRole("heading", { name: "Track 47" })).not.toBeInTheDocument();
-        });
+            userEvent.type(await findByPlaceholderText("Search…"), "search text");
 
-        test('When searching for "nothing", show "No tracks found" message', async () => {
-            const { findByText, queryByRole, findByPlaceholderText } = setupPage();
-
-            userEvent.type(await findByPlaceholderText("Search…"), "nothing");
-
-            await findByText("No tracks found.");
-            expect(queryByRole("heading", { name: "Track 21" })).not.toBeInTheDocument();
-            expect(queryByRole("heading", { name: "Track 28" })).not.toBeInTheDocument();
-            expect(queryByRole("heading", { name: "Track 47" })).not.toBeInTheDocument();
-            expect(queryByRole("heading", { name: "Track 85" })).not.toBeInTheDocument();
-            expect(queryByRole("heading", { name: "Track 87" })).not.toBeInTheDocument();
-        });
-    });
-
-    describe("With search params in URL", () => {
-        test('When URL params are "search=Track+8", show 2 tracks', async () => {
-            const { findByRole, queryByRole } = setupPageWithUrlParams("search=Track+8");
-
-            await findByRole("heading", { name: "Track 85" });
-            await findByRole("heading", { name: "Track 87" });
-            expect(queryByRole("heading", { name: "Track 21" })).not.toBeInTheDocument();
-            expect(queryByRole("heading", { name: "Track 28" })).not.toBeInTheDocument();
-            expect(queryByRole("heading", { name: "Track 47" })).not.toBeInTheDocument();
-        });
-
-        test('When URL params are "search=nothing", show 2 tracks', async () => {
-            const { findByText, queryByRole } = setupPageWithUrlParams("search=nothing");
-
-            await findByText("No tracks found.");
-            expect(queryByRole("heading", { name: "Track 21" })).not.toBeInTheDocument();
-            expect(queryByRole("heading", { name: "Track 28" })).not.toBeInTheDocument();
-            expect(queryByRole("heading", { name: "Track 47" })).not.toBeInTheDocument();
-            expect(queryByRole("heading", { name: "Track 85" })).not.toBeInTheDocument();
-            expect(queryByRole("heading", { name: "Track 87" })).not.toBeInTheDocument();
-        });
-
-        test('When click on "Clear search" button, clear search field and show all tracks', async () => {
-            const { findByText, findByTitle, findByRole } = setupPageWithUrlParams("search=nothing");
-
-            await findByText("No tracks found.");
-
-            userEvent.click(await findByTitle("Clear search"));
-
-            await findByRole("heading", { name: "Track 21" });
-            await findByRole("heading", { name: "Track 28" });
-            await findByRole("heading", { name: "Track 47" });
-            await findByRole("heading", { name: "Track 85" });
-            await findByRole("heading", { name: "Track 87" });
+            await waitFor(() => expect(handleUpdateSearchText).toHaveBeenCalledWith("search text"));
         });
     });
 });
