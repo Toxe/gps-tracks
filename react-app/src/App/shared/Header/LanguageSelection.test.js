@@ -5,33 +5,21 @@ import userEvent from "@testing-library/user-event";
 import "@testing-library/jest-dom";
 import "jest-extended";
 import "expect-more-jest";
-import axiosMock from "axios";
-import { sampleAuthTokens, sampleTracks, sampleUser } from "../../../test";
-import { AuthProvider } from "../../../Auth";
-import { TokenStorage } from "../../../Auth/api";
+import { useAuth } from "../../../Auth";
 import { App } from "../../../App";
 
-jest.mock("axios");
+jest.mock("../../../Auth");
+
+afterEach(() => {
+    jest.resetAllMocks();
+    jest.restoreAllMocks();
+});
 
 describe("LanguageSelection", () => {
-    afterEach(() => {
-        axiosMock.get.mockReset();
-        TokenStorage.clearTokens();
-    });
-
     describe('With language set to "en"', () => {
         test('When click on "Deutsch", change language to German', async () => {
-            TokenStorage.saveTokens(sampleAuthTokens(1));
-
-            axiosMock.get
-                .mockResolvedValueOnce({ data: sampleUser(1) })
-                .mockResolvedValueOnce({ data: sampleTracks() });
-
-            const { findByRole, findByLabelText } = render(
-                <AuthProvider>
-                    <App />
-                </AuthProvider>
-            );
+            useAuth.mockReturnValue({ authId: 1 });
+            const { findByRole, findByLabelText } = render(<App />);
 
             // open language selection menu and click on "Deutsch"
             userEvent.click(await findByLabelText("English"));
