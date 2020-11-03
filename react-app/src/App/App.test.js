@@ -4,25 +4,21 @@ import { render } from "@testing-library/react";
 import "@testing-library/jest-dom";
 import "jest-extended";
 import "expect-more-jest";
-import { sampleAuthTokens } from "../test";
-import { AuthProvider } from "../Auth";
-import { TokenStorage } from "../Auth/api";
+import { useAuth } from "../Auth";
 import { App } from ".";
 
-describe("App", () => {
-    afterEach(() => {
-        TokenStorage.clearTokens();
-    });
+jest.mock("../Auth");
 
+afterEach(() => {
+    jest.resetAllMocks();
+    jest.restoreAllMocks();
+});
+
+describe("App", () => {
     describe("With authenticated user", () => {
         test("When user is logged in, show AuthenticatedApp", () => {
-            TokenStorage.saveTokens(sampleAuthTokens(1));
-
-            const { getByRole } = render(
-                <AuthProvider>
-                    <App />
-                </AuthProvider>
-            );
+            useAuth.mockReturnValue({ authId: 1 });
+            const { getByRole } = render(<App />);
 
             getByRole("button", { name: "Upload" });
         });
@@ -30,11 +26,8 @@ describe("App", () => {
 
     describe("Without authenticated user", () => {
         test("When user is not logged in, show UnauthenticatedApp", () => {
-            const { getByRole } = render(
-                <AuthProvider>
-                    <App />
-                </AuthProvider>
-            );
+            useAuth.mockReturnValue({ authId: null });
+            const { getByRole } = render(<App />);
 
             getByRole("button", { name: "Sign in" });
         });
