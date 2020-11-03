@@ -5,132 +5,43 @@ import userEvent from "@testing-library/user-event";
 import "@testing-library/jest-dom";
 import "jest-extended";
 import "expect-more-jest";
-import axiosMock from "axios";
-import { sampleAuthTokens, sampleTracks, sampleUser } from "../../../../../test";
-import { AuthProvider } from "../../../../../Auth";
-import { TokenStorage } from "../../../../../Auth/api";
-import { App } from "../../../../../App";
-
-jest.mock("axios");
-
-function setupPageWithUrlParams(urlParams) {
-    TokenStorage.saveTokens(sampleAuthTokens(1));
-
-    axiosMock.get.mockResolvedValueOnce({ data: sampleUser(1) }).mockResolvedValueOnce({ data: sampleTracks() });
-
-    const url = urlParams ? `/tracks?${urlParams}` : "/tracks";
-    window.history.pushState({}, "Test Page", url);
-
-    return render(
-        <AuthProvider>
-            <App />
-        </AuthProvider>
-    );
-}
-
-function setupPage() {
-    return setupPageWithUrlParams(undefined);
-}
+import { Sort } from ".";
 
 describe("Sort", () => {
-    afterEach(() => {
-        axiosMock.get.mockReset();
-        TokenStorage.clearTokens();
-    });
+    describe("With default settings", () => {
+        test("When selecting different sortBy option, should call handleChangeSortBy", async () => {
+            const handleChangeSortBy = jest.fn();
 
-    describe('With "/tracks" page', () => {
-        test("When sorting by default, sort by date descending", async () => {
-            const { findAllByRole } = setupPage();
-
-            const tracks = await findAllByRole("heading", { name: /Track / });
-            expect(tracks).toHaveLength(5);
-            expect(tracks[0]).toHaveTextContent("Track 85");
-            expect(tracks[1]).toHaveTextContent("Track 87");
-            expect(tracks[2]).toHaveTextContent("Track 47");
-            expect(tracks[3]).toHaveTextContent("Track 28");
-            expect(tracks[4]).toHaveTextContent("Track 21");
-        });
-
-        test("When selecting sort by name, sort by name ascending", async () => {
-            const { findAllByRole, findByLabelText, findByRole } = setupPage();
+            const { findByLabelText, findByRole } = render(
+                <Sort
+                    sortBy="date"
+                    sortOrder="desc"
+                    handleChangeSortBy={handleChangeSortBy}
+                    handleFlipSortOrder={jest.fn()}
+                />
+            );
 
             userEvent.click(await findByLabelText("Sort by"));
             userEvent.click(await findByRole("option", { name: "Name" }));
 
-            const tracks = await findAllByRole("heading", { name: /Track / });
-            expect(tracks).toHaveLength(5);
-            expect(tracks[0]).toHaveTextContent("Track 21");
-            expect(tracks[1]).toHaveTextContent("Track 28");
-            expect(tracks[2]).toHaveTextContent("Track 47");
-            expect(tracks[3]).toHaveTextContent("Track 85");
-            expect(tracks[4]).toHaveTextContent("Track 87");
+            expect(handleChangeSortBy).toHaveBeenCalledWith("name");
         });
 
-        test("When selecting sort by distance, sort by distance descending", async () => {
-            const { findAllByRole, findByLabelText, findByRole } = setupPage();
+        test("When clicking on reverse order button, should call handleFlipSortOrder", async () => {
+            const handleFlipSortOrder = jest.fn();
 
-            userEvent.click(await findByLabelText("Sort by"));
-            userEvent.click(await findByRole("option", { name: "Distance" }));
-
-            const tracks = await findAllByRole("heading", { name: /Track / });
-            expect(tracks).toHaveLength(5);
-            expect(tracks[0]).toHaveTextContent("Track 85");
-            expect(tracks[1]).toHaveTextContent("Track 87");
-            expect(tracks[2]).toHaveTextContent("Track 21");
-            expect(tracks[3]).toHaveTextContent("Track 47");
-            expect(tracks[4]).toHaveTextContent("Track 28");
-        });
-
-        test("When clicking on reverse order button, change sort order from descending to ascending", async () => {
-            const { findAllByRole, findByTitle } = setupPage();
+            const { findByTitle } = render(
+                <Sort
+                    sortBy="date"
+                    sortOrder="desc"
+                    handleChangeSortBy={jest.fn()}
+                    handleFlipSortOrder={handleFlipSortOrder}
+                />
+            );
 
             userEvent.click(await findByTitle("Change sort order"));
 
-            const tracks = await findAllByRole("heading", { name: /Track / });
-            expect(tracks).toHaveLength(5);
-            expect(tracks[0]).toHaveTextContent("Track 21");
-            expect(tracks[1]).toHaveTextContent("Track 28");
-            expect(tracks[2]).toHaveTextContent("Track 47");
-            expect(tracks[3]).toHaveTextContent("Track 87");
-            expect(tracks[4]).toHaveTextContent("Track 85");
-        });
-    });
-
-    describe("With sort params in URL", () => {
-        test('When URL params are "order=asc", sort by (default) date ascending', async () => {
-            const { findAllByRole } = setupPageWithUrlParams("order=asc");
-
-            const tracks = await findAllByRole("heading", { name: /Track / });
-            expect(tracks).toHaveLength(5);
-            expect(tracks[0]).toHaveTextContent("Track 21");
-            expect(tracks[1]).toHaveTextContent("Track 28");
-            expect(tracks[2]).toHaveTextContent("Track 47");
-            expect(tracks[3]).toHaveTextContent("Track 87");
-            expect(tracks[4]).toHaveTextContent("Track 85");
-        });
-
-        test('When URL params are "sort=name&order=desc", sort by name descending', async () => {
-            const { findAllByRole } = setupPageWithUrlParams("sort=name&order=desc");
-
-            const tracks = await findAllByRole("heading", { name: /Track / });
-            expect(tracks).toHaveLength(5);
-            expect(tracks[0]).toHaveTextContent("Track 87");
-            expect(tracks[1]).toHaveTextContent("Track 85");
-            expect(tracks[2]).toHaveTextContent("Track 47");
-            expect(tracks[3]).toHaveTextContent("Track 28");
-            expect(tracks[4]).toHaveTextContent("Track 21");
-        });
-
-        test('When URL params are "sort=distance&order=asc", sort by distance ascending', async () => {
-            const { findAllByRole } = setupPageWithUrlParams("sort=distance&order=asc");
-
-            const tracks = await findAllByRole("heading", { name: /Track / });
-            expect(tracks).toHaveLength(5);
-            expect(tracks[0]).toHaveTextContent("Track 28");
-            expect(tracks[1]).toHaveTextContent("Track 47");
-            expect(tracks[2]).toHaveTextContent("Track 21");
-            expect(tracks[3]).toHaveTextContent("Track 87");
-            expect(tracks[4]).toHaveTextContent("Track 85");
+            expect(handleFlipSortOrder).toHaveBeenCalled();
         });
     });
 });
