@@ -5,33 +5,22 @@ import userEvent from "@testing-library/user-event";
 import "@testing-library/jest-dom";
 import "jest-extended";
 import "expect-more-jest";
-import axiosMock from "axios";
-import { sampleAuthTokens, sampleTracks, sampleUser } from "../../../../../test";
-import { AuthProvider } from "../../../../../Auth";
-import { TokenStorage } from "../../../../../Auth/api";
-import { App } from "../../../../../App";
+import { useTracks } from "../../../TracksProvider";
+import { UploadTrackButton } from ".";
 
-jest.mock("axios");
+jest.mock("../../../TracksProvider");
+
+afterEach(() => {
+    jest.resetAllMocks();
+    jest.restoreAllMocks();
+});
 
 describe("UploadTrackButton", () => {
-    afterEach(() => {
-        axiosMock.get.mockReset();
-        TokenStorage.clearTokens();
-    });
-
-    describe("With authenticated user", () => {
+    describe("With visible UploadTrackButton", () => {
         test('When "Upload" button clicked, show upload dialog', async () => {
-            TokenStorage.saveTokens(sampleAuthTokens(1));
+            useTracks.mockReturnValue({ uploadTracks: jest.fn() });
 
-            axiosMock.get
-                .mockResolvedValueOnce({ data: sampleUser(1) })
-                .mockResolvedValueOnce({ data: sampleTracks() });
-
-            const { findByText, findByRole } = render(
-                <AuthProvider>
-                    <App />
-                </AuthProvider>
-            );
+            const { findByText, findByRole } = render(<UploadTrackButton />);
 
             userEvent.click(await findByRole("button", { name: "Upload" }));
 
