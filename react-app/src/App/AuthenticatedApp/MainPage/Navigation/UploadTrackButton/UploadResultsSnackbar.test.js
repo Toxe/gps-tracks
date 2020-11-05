@@ -1,9 +1,12 @@
 import React from "react";
 import "../../../../../i18n-tests";
 import { render } from "@testing-library/react";
+import userEvent from "@testing-library/user-event";
 import "@testing-library/jest-dom";
 import "jest-extended";
 import "expect-more-jest";
+import { spyOnHook } from "../../../../../test";
+import * as useUploadResultsSnackbar from "./hooks/useUploadResultsSnackbar";
 import UploadResultsSnackbar from "./UploadResultsSnackbar";
 
 describe("UploadResultsSnackbar", () => {
@@ -38,6 +41,19 @@ describe("UploadResultsSnackbar", () => {
         it("Works with no upload files", () => {
             const { getByText } = render(<UploadResultsSnackbar numFiles={0} numFilesUploadedSuccessfully={0} />);
             getByText("No files could be imported.");
+        });
+    });
+
+    describe("With UploadResultsSnackbar visible", () => {
+        test('When "Close" button clicked, should call handleClose', () => {
+            const handleClose = jest.fn();
+
+            spyOnHook(useUploadResultsSnackbar).mockReturnValue({ open: true, handleClose });
+
+            const { getByRole } = render(<UploadResultsSnackbar numFiles={1} numFilesUploadedSuccessfully={1} />);
+
+            userEvent.click(getByRole("button", { name: "Close" }));
+            expect(handleClose).toHaveBeenCalled();
         });
     });
 });

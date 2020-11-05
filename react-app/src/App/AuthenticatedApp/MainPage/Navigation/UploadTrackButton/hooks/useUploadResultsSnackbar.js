@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { useTranslation } from "react-i18next";
 
-export default function useUploadResultsSnackbar() {
+export default function useUploadResultsSnackbar(numFiles, numFilesUploadedSuccessfully) {
     const { t } = useTranslation();
     const [open, setOpen] = useState(true);
 
@@ -25,5 +25,7 @@ export default function useUploadResultsSnackbar() {
         }
     };
 
-    return { open, handleClose, getMessage };
+    const [messageSeverity, message] = getMessage(numFiles, numFilesUploadedSuccessfully);
+
+    return { open, handleClose, message, messageSeverity };
 }
