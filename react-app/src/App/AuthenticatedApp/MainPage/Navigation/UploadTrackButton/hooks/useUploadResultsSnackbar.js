@@ -6,11 +6,9 @@ export default function useUploadResultsSnackbar() {
     const [open, setOpen] = useState(true);
 
     const handleClose = (event, reason) => {
-        if (reason === "clickaway") {
-            return;
+        if (reason !== "clickaway") {
+            setOpen(false);
         }
-
-        setOpen(false);
     };
 
     const getMessage = (numFiles, numFilesUploadedSuccessfully) => {
