@@ -5,9 +5,9 @@ import { makeStyles } from "@material-ui/core/styles";
 import { AppBar, Box, Hidden, IconButton, Link, Toolbar, Tooltip, Typography } from "@material-ui/core";
 import GitHubIcon from "@material-ui/icons/GitHub";
 import MenuIcon from "@material-ui/icons/Menu";
-import { useAuth } from "../../../Auth";
 import UserMenu from "./UserMenu";
 import LanguageSelection from "./LanguageSelection";
+import { useHeader } from "./hooks";
 
 const useStyles = makeStyles((theme) => ({
     appBar: {
@@ -18,7 +18,7 @@ const useStyles = makeStyles((theme) => ({
 export default function Header({ handleMobileNavigationToggle }) {
     const { t } = useTranslation();
     const classes = useStyles();
-    const { authId } = useAuth();
+    const { authId } = useHeader();
 
     return (
         <AppBar position="fixed" className={classes.appBar}>
