@@ -1,11 +1,9 @@
-import React, { useState } from "react";
+import React from "react";
 import { useTranslation } from "react-i18next";
-import { useNavigate } from "react-router-dom";
 import { makeStyles } from "@material-ui/core/styles";
 import { Button, Hidden, IconButton, Menu, MenuItem } from "@material-ui/core";
 import AccountCircleIcon from "@material-ui/icons/AccountCircle";
-import { useAuth } from "../../../Auth";
-import { useUser } from "../../AuthenticatedApp/UserProvider";
+import { useUserMenu } from "./hooks";
 
 const useStyles = makeStyles((theme) => ({
     menuButton: { marginRight: theme.spacing(2) },
@@ -14,32 +12,18 @@ const useStyles = makeStyles((theme) => ({
 export default function UserMenu() {
     const { t } = useTranslation();
     const classes = useStyles();
-    const [menuAnchorEl, setMenuAnchorEl] = useState(null);
-    const { logout } = useAuth();
-    const { user } = useUser();
-    const navigate = useNavigate();
+    const {
+        user,
+        menuAnchorEl,
+        handleMenu,
+        handleMenuClose,
+        handleMenuTracksClick,
+        handleMenuLogoutClick,
+    } = useUserMenu();
 
-    const handleMenu = (e) => {
-        setMenuAnchorEl(e.currentTarget);
-    };
-
-    const handleMenuClose = () => {
-        setMenuAnchorEl(null);
-    };
-
-    const handleMenuTracksClick = () => {
-        handleMenuClose();
-        navigate("/");
-    };
-
-    const handleMenuLogoutClick = async () => {
-        handleMenuClose();
-        await logout();
-        navigate("/");
-    };
-
-    if (!user)
+    if (!user) {
         return null;
+    }
 
     return (
         <>
