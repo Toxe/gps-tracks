@@ -1,26 +1,13 @@
-import React, { useState } from "react";
+import React from "react";
 import { useTranslation } from "react-i18next";
 import { Button, Hidden, IconButton, Menu, MenuItem, Tooltip } from "@material-ui/core";
 import TranslateIcon from "@material-ui/icons/Translate";
 import ExpandMoreIcon from "@material-ui/icons/ExpandMore";
+import { useLanguageSelection } from "./hooks";
 
 export default function LanguageSelection() {
-    const { t, i18n } = useTranslation();
-    const [menuAnchorEl, setMenuAnchorEl] = useState(null);
-    const languageName = i18n.language === "en" ? "English" : "Deutsch";
-
-    const handleMenu = (e) => {
-        setMenuAnchorEl(e.currentTarget);
-    };
-
-    const handleMenuClose = () => {
-        setMenuAnchorEl(null);
-    };
-
-    const handleChangeLanguage = (language) => {
-        handleMenuClose();
-        i18n.changeLanguage(language);
-    };
+    const { t } = useTranslation();
+    const { languageName, menuAnchorEl, handleMenu, handleMenuClose, handleChangeLanguage } = useLanguageSelection();
 
     return (
         <>
