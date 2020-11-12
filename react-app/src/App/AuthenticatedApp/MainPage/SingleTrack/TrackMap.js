@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { makeStyles } from "@material-ui/core/styles";
-import { Map, Polyline, TileLayer } from "react-leaflet";
+import { MapContainer, Polyline, TileLayer } from "react-leaflet";
 import { latLngBounds } from "leaflet";
 import { Tracks } from "../../api";
 
@@ -33,12 +33,12 @@ export default function TrackMap({ track }) {
     }
 
     return (
-        <Map bounds={bounds} className={classes.map}>
+        <MapContainer bounds={bounds} className={classes.map}>
             <TileLayer
                 attribution='&amp;copy <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
                 url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
             />
             <Polyline color="blue" positions={segments} weight={4} />
-        </Map>
+        </MapContainer>
     );
 }
