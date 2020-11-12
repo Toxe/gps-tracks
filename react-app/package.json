@@ -11,7 +11,7 @@
     "file-saver": "^2.0.2",
     "fontsource-roboto": "^3.0.3",
     "history": "^5.0.0",
-    "i18next": "^19.7.0",
+    "i18next": "^19.8.3",
     "i18next-browser-languagedetector": "^6.0.1",
     "i18next-http-backend": "^1.0.21",
     "jsonwebtoken": "^8.5.1",
