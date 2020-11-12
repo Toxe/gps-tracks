@@ -1,32 +1,44 @@
 import React from "react";
-import "../../../i18n-tests";
-import { render } from "@testing-library/react";
+import i18n from "../../../i18n-tests";
+import { render, waitFor } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import "@testing-library/jest-dom";
 import "jest-extended";
 import "expect-more-jest";
-import { useAuth } from "../../../Auth";
-import { App } from "../../../App";
+import LanguageSelection from "./LanguageSelection";
 
-jest.mock("../../../Auth");
-
-afterEach(() => {
-    jest.resetAllMocks();
-    jest.restoreAllMocks();
+afterEach(async () => {
+    await waitFor(() => i18n.changeLanguage("en"));
 });
 
 describe("LanguageSelection", () => {
     describe('With language set to "en"', () => {
-        test('When click on "Deutsch", change language to German', async () => {
-            useAuth.mockReturnValue({ authId: 1 });
-            const { findByRole, findByLabelText } = render(<App />);
+        test('When clicking on "Deutsch" in the mobile language selection menu, change language to German', async () => {
+            const { findByLabelText, findAllByRole } = render(<LanguageSelection />);
 
-            // open language selection menu and click on "Deutsch"
-            userEvent.click(await findByLabelText("English"));
+            // find and open language selection menu
+            const menuButtons = await findAllByRole("button", { name: "Change language" });
+            userEvent.click(menuButtons.find((el) => el.className.includes("MuiIconButton-root")));
+
+            // click on "Deutsch"
             userEvent.click(await findByLabelText("Deutsch"));
 
-            // the "Upload" button should now be called "Hochladen"
-            await findByRole("button", { name: "Hochladen" });
+            // the language menu should now be labeled "Sprache wechseln"
+            expect(await findAllByRole("button", { name: "Sprache wechseln" })).toHaveLength(2);
+        });
+
+        test('When clicking on "Deutsch" in the normal language selection menu, change language to German', async () => {
+            const { findByLabelText, findAllByRole } = render(<LanguageSelection />);
+
+            // find and open language selection menu
+            const menuButtons = await findAllByRole("button", { name: "Change language" });
+            userEvent.click(menuButtons.find((el) => el.className.includes("MuiButton-root")));
+
+            // click on "Deutsch"
+            userEvent.click(await findByLabelText("Deutsch"));
+
+            // the language menu should now be labeled "Sprache wechseln"
+            expect(await findAllByRole("button", { name: "Sprache wechseln" })).toHaveLength(2);
         });
     });
 });
