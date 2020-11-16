@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useCallback } from "react";
+import React, { useState, useEffect, useMemo } from "react";
 import { useTranslation } from "react-i18next";
 import { makeStyles } from "@material-ui/core/styles";
 import { InputAdornment, TextField } from "@material-ui/core";
@@ -18,10 +18,9 @@ export default function SearchField({ initialSearchText, handleUpdateSearchText 
     const [searchFieldContent, setSearchFieldContent] = useState(initialSearchText);
 
     // update URL search param after a short delay once the user stopped typing
-    const debouncedUpdateSearch = useCallback(
-        debounce((text) => handleUpdateSearchText(text), 300),
-        [handleUpdateSearchText]
-    );
+    const debouncedUpdateSearch = useMemo(() => debounce((text) => handleUpdateSearchText(text), 300), [
+        handleUpdateSearchText,
+    ]);
 
     useEffect(() => {
         setSearchFieldContent(initialSearchText);
