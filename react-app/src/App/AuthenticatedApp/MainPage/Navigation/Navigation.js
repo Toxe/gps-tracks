@@ -1,14 +1,12 @@
-import React, { useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom";
+import React from "react";
 import { makeStyles, useTheme } from "@material-ui/core/styles";
 import { Box, Divider, Drawer, Hidden, List, ListItem, ListItemIcon, ListItemText } from "@material-ui/core";
 import ViewListIcon from "@material-ui/icons/ViewList";
-import { useTracks } from "../../TracksProvider";
 import { TracksCounter } from "../shared";
 import NavigationYearList from "./NavigationYearList";
 import NavigationActivityList from "./NavigationActivityList";
 import { UploadTrackButton } from "./UploadTrackButton";
-import { countActivities, countYears } from "./tracksStats";
+import { useNavigation } from "./hooks";
 
 const drawerWidth = 200;
 
@@ -26,21 +24,10 @@ const useStyles = makeStyles((theme) => ({
 export default function Navigation({ mobileNavigationOpen, handleMobileNavigationToggle }) {
     const classes = useStyles();
     const theme = useTheme();
-    const navigate = useNavigate();
-    const { tracks } = useTracks();
-    const [countedYears, setCountedYears] = useState(null);
-    const [countedActivities, setCountedActivities] = useState(null);
-
-    useEffect(() => {
-        setCountedYears(countYears(tracks));
-        setCountedActivities(countActivities(tracks));
-    }, [tracks]);
-
-    const handleNavigationClick = (redirectURL) => {
-        if (mobileNavigationOpen) handleMobileNavigationToggle();
-
-        navigate(redirectURL);
-    };
+    const { numTracks, countedYears, countedActivities, handleNavigationClick } = useNavigation(
+        mobileNavigationOpen,
+        handleMobileNavigationToggle
+    );
 
     const drawer = (
         <>
@@ -50,7 +37,7 @@ export default function Navigation({ mobileNavigationOpen, handleMobileNavigatio
                     <ListItemIcon>
                         <ViewListIcon />
                     </ListItemIcon>
-                    <ListItemText primary={<TracksCounter count={tracks.length} />} />
+                    <ListItemText primary={<TracksCounter count={numTracks} />} />
                 </ListItem>
             </List>
             <Divider />
