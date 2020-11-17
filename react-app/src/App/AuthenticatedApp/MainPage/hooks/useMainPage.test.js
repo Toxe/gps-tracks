@@ -28,6 +28,13 @@ describe("useMainPage()", () => {
     });
 
     describe("Navigate to pages", () => {
+        test("Can call navigateToAllTracks", () => {
+            const wrapper = ({ children }) => <BrowserRouter>{children}</BrowserRouter>;
+            const { result } = renderHook(() => useMainPage(), { wrapper });
+
+            act(() => result.current.navigateToAllTracks(1));
+        });
+
         test("Can call navigateToSingleTrack", () => {
             const wrapper = ({ children }) => <BrowserRouter>{children}</BrowserRouter>;
             const { result } = renderHook(() => useMainPage(), { wrapper });
