@@ -13,7 +13,6 @@ import { useLastVisitedAllTracksPage } from "../../MainPageProviders/LastVisited
 import { useSingleTrack } from ".";
 
 jest.mock("file-saver");
-jest.mock("react-leaflet"); // don't actually render the Leaflet map
 jest.mock("react-router-dom", () => ({
     ...jest.requireActual("react-router-dom"), // require the original module to not be mocked
     useNavigate: () => jest.fn(),

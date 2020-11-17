@@ -9,8 +9,6 @@ import { sampleTrack, matchByTextContent, spyOnHook } from "../../../../test";
 import * as useEditTrack from "./hooks/useEditTrack";
 import { EditTrack } from ".";
 
-jest.mock("react-leaflet"); // don't actually render the Leaflet map
-
 function setupEditTrackPage() {
     return render(
         <BrowserRouter>
