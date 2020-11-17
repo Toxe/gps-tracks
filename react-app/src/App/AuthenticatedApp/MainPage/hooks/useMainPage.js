@@ -13,5 +13,9 @@ export default function useMainPage() {
         navigate(`/tracks/${trackId}`);
     };
 
-    return { mobileNavigationOpen, handleMobileNavigationToggle, navigateToSingleTrack };
+    const navigateToEditTrack = (trackId) => {
+        navigate(`/tracks/${trackId}/edit`);
+    };
+
+    return { mobileNavigationOpen, handleMobileNavigationToggle, navigateToSingleTrack, navigateToEditTrack };
 }

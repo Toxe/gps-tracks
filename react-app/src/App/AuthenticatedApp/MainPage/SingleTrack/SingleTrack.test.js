@@ -10,11 +10,6 @@ import * as useSingleTrack from "./hooks/useSingleTrack";
 import * as useTrackMap from "./hooks/useTrackMap";
 import { SingleTrack } from ".";
 
-jest.mock("react-router-dom", () => ({
-    ...jest.requireActual("react-router-dom"), // require the original module to not be mocked
-    useNavigate: () => jest.fn(),
-}));
-
 afterEach(() => {
     jest.resetAllMocks();
     jest.restoreAllMocks();

@@ -1,18 +1,17 @@
 import React, { useState, useEffect } from "react";
-import { useNavigate, useParams } from "react-router-dom";
+import { useParams } from "react-router-dom";
 import { saveAs } from "file-saver";
 import { RequestError } from "../../../../../shared";
 import { Tracks } from "../../../api";
 import { useTracks } from "../../../TracksProvider";
 import { useLastVisitedAllTracksPage } from "../../MainPageProviders/LastVisitedAllTracksPageProvider";
 
-export default function useSingleTrack() {
+export default function useSingleTrack(navigateToEditTrack) {
     const { trackId } = useParams();
     const { getTrack, deleteTrack } = useTracks();
     const { returnToLastVisitedAllTracksPage } = useLastVisitedAllTracksPage();
     const [track, setTrack] = useState(undefined);
     const [requestError, setRequestError] = useState(null);
-    const navigate = useNavigate();
 
     useEffect(() => {
         setTrack(getTrack(trackId));
@@ -48,7 +47,7 @@ export default function useSingleTrack() {
     };
 
     const handleEditTrack = () => {
-        navigate("edit");
+        navigateToEditTrack(trackId);
     };
 
     return { track, requestError, handleDownloadTrack, handleDeleteTrack, handleEditTrack };

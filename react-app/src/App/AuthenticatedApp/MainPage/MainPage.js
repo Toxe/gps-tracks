@@ -10,7 +10,12 @@ import { MainPageProviders } from "./MainPageProviders";
 import { useMainPage } from "./hooks";
 
 export default function MainPage() {
-    const { mobileNavigationOpen, handleMobileNavigationToggle, navigateToSingleTrack } = useMainPage();
+    const {
+        mobileNavigationOpen,
+        handleMobileNavigationToggle,
+        navigateToSingleTrack,
+        navigateToEditTrack,
+    } = useMainPage();
 
     return (
         <MainPageProviders>
@@ -22,11 +27,8 @@ export default function MainPage() {
             <PageContent>
                 <Routes>
                     <Route path="tracks" element={<AllTracks />} />
-                    <Route path="tracks/:trackId" element={<SingleTrack />} />
-                    <Route
-                        path="tracks/:trackId/edit"
-                        element={<EditTrack navigateToSingleTrack={navigateToSingleTrack} />}
-                    />
+                    <Route path="tracks/:trackId" element={<SingleTrack navigateToEditTrack={navigateToEditTrack} />} />
+                    <Route path="tracks/:trackId/edit" element={<EditTrack navigateToSingleTrack={navigateToSingleTrack} />} />
                     <Route path="*" element={<Navigate to="/tracks" replace />} />
                 </Routes>
                 {Boolean(parseInt(process.env.REACT_APP_AUTH_INFO)) && <AuthInfo />}
