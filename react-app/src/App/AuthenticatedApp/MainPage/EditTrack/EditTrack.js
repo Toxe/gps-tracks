@@ -3,8 +3,8 @@ import { Track, TrackNotFound } from "../shared";
 import EditTrackForm from "./EditTrackForm";
 import { useEditTrack } from "./hooks";
 
-export default function EditTrack() {
-    const { track, requestError, handleSave, handleCancel } = useEditTrack();
+export default function EditTrack({ navigateToSingleTrack }) {
+    const { track, requestError, handleSave, handleCancel } = useEditTrack(navigateToSingleTrack);
 
     if (!track) {
         return <TrackNotFound />;

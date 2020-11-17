@@ -1,11 +1,9 @@
 import React, { useState, useEffect } from "react";
-import { useNavigate } from "react-router-dom";
 import { useParams } from "react-router-dom";
 import { RequestError } from "../../../../../shared";
 import { useTracks } from "../../../TracksProvider";
 
-export default function useEditTrack() {
-    const navigate = useNavigate();
+export default function useEditTrack(navigateToSingleTrack) {
     const { trackId } = useParams();
     const { getTrack, updateTrack } = useTracks();
     const [track, setTrack] = useState(null);
@@ -23,14 +21,14 @@ export default function useEditTrack() {
 
         try {
             await updateTrack(track, formValues);
-            navigate(`/tracks/${track.id}`);
+            navigateToSingleTrack(track.id);
         } catch (error) {
             setRequestError(<RequestError error={error} handleClose={() => setRequestError(null)} />);
         }
     };
 
     const handleCancel = () => {
-        navigate(`/tracks/${track.id}`);
+        navigateToSingleTrack(track.id);
     };
 
     return { track, requestError, handleSave, handleCancel };

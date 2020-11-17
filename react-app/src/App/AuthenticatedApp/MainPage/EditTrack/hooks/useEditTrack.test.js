@@ -1,26 +1,18 @@
-import React from "react";
 import { renderHook, act } from "@testing-library/react-hooks";
 import "@testing-library/jest-dom";
 import "jest-extended";
 import "expect-more-jest";
-import { BrowserRouter } from "react-router-dom";
 import { sampleTrack } from "../../../../../test";
 import { useTracks } from "../../../TracksProvider";
 import { useEditTrack } from ".";
 
-jest.mock("react-router-dom", () => ({
-    ...jest.requireActual("react-router-dom"), // require the original module to not be mocked
-    useNavigate: () => jest.fn(),
-}));
-
 jest.mock("../../../TracksProvider");
 
-function renderUseEditTrackHook(track, updateTrack) {
+function renderUseEditTrackHook(track, updateTrack, navigateToSingleTrack) {
     const getTrack = jest.fn(() => track);
     useTracks.mockReturnValue({ getTrack, updateTrack });
 
-    const wrapper = ({ children }) => <BrowserRouter>{children}</BrowserRouter>;
-    return renderHook(() => useEditTrack(), { wrapper });
+    return renderHook(() => useEditTrack(navigateToSingleTrack));
 }
 
 afterEach(() => {
@@ -32,28 +24,43 @@ describe("useEditTrack()", () => {
     describe("Default values", () => {
         test('"track" should be the current track', () => {
             const track = sampleTrack(21);
-            const { result } = renderUseEditTrackHook(track, null);
+
+            const { result } = renderUseEditTrackHook(track, null, null);
 
             expect(result.current.track).toBe(track);
         });
 
         test('"requestError" should be null', () => {
             const track = sampleTrack(21);
-            const { result } = renderUseEditTrackHook(track, null);
+            const { result } = renderUseEditTrackHook(track, null, null);
 
             expect(result.current.requestError).toBeNull();
         });
     });
 
     describe("Saving changes", () => {
-        test("When saving changes, should not show a request error", async () => {
+        test("When saving changes, should call navigateToSingleTrack", async () => {
             const track = sampleTrack(21);
+            const navigateToSingleTrack = jest.fn();
             const updateTrack = jest.fn();
-            const { result } = renderUseEditTrackHook(track, updateTrack);
+
+            const { result } = renderUseEditTrackHook(track, updateTrack, navigateToSingleTrack);
 
             await act(() => result.current.handleSave({ title: "new title", activity_mode: 0 }));
 
             expect(updateTrack).toHaveBeenCalled();
+            expect(navigateToSingleTrack).toHaveBeenCalledWith(track.id);
+        });
+
+        test("When saving changes, should not show a request error", async () => {
+            const track = sampleTrack(21);
+            const navigateToSingleTrack = jest.fn();
+            const updateTrack = jest.fn();
+
+            const { result } = renderUseEditTrackHook(track, updateTrack, navigateToSingleTrack);
+
+            await act(() => result.current.handleSave({ title: "new title", activity_mode: 0 }));
+
             expect(result.current.requestError).toBeNull();
         });
 
@@ -62,7 +69,8 @@ describe("useEditTrack()", () => {
             const updateTrack = jest.fn(() => {
                 throw new Error("something went wrong");
             });
-            const { result } = renderUseEditTrackHook(track, updateTrack);
+
+            const { result } = renderUseEditTrackHook(track, updateTrack, jest.fn());
 
             await act(() => result.current.handleSave({ title: "new title", activity_mode: 0 }));
 
@@ -73,7 +81,8 @@ describe("useEditTrack()", () => {
         test("When calling handleSave with invalid values, should throw TypeError", async () => {
             const track = sampleTrack(21);
             const updateTrack = jest.fn();
-            const { result } = renderUseEditTrackHook(track, updateTrack);
+
+            const { result } = renderUseEditTrackHook(track, updateTrack, jest.fn());
 
             expect.assertions(1);
             await expect(result.current.handleSave(null)).rejects.toEqual(new TypeError("invalid arguments"));
@@ -81,11 +90,15 @@ describe("useEditTrack()", () => {
     });
 
     describe("Cancel changes", () => {
-        test("When canceling changes, should navigate to single track page", () => {
+        test("When canceling changes, should call navigateToSingleTrack", () => {
             const track = sampleTrack(21);
-            const { result } = renderUseEditTrackHook(track, null);
+            const navigateToSingleTrack = jest.fn();
+
+            const { result } = renderUseEditTrackHook(track, null, navigateToSingleTrack);
 
             act(() => result.current.handleCancel());
+
+            expect(navigateToSingleTrack).toHaveBeenCalledWith(track.id);
         });
     });
 });
