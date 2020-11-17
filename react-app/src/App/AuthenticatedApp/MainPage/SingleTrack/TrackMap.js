@@ -1,8 +1,7 @@
-import React, { useState, useEffect } from "react";
+import React from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import { MapContainer, Polyline, TileLayer } from "react-leaflet";
-import { latLngBounds } from "leaflet";
-import { Tracks } from "../../api";
+import { useTrackMap } from "./hooks";
 
 const useStyles = makeStyles((theme) => ({
     map: {
@@ -13,22 +12,9 @@ const useStyles = makeStyles((theme) => ({
 
 export default function TrackMap({ track }) {
     const classes = useStyles();
-    const [segments, setSegments] = useState(null);
-    const [bounds, setBounds] = useState(null);
+    const { segments, bounds } = useTrackMap(track);
 
-    useEffect(() => {
-        async function loadSegments(track) {
-            const segments = await Tracks.segments(track);
-            setSegments(segments);
-            setBounds(latLngBounds(segments));
-        }
-
-        if (track) {
-            loadSegments(track);
-        }
-    }, [track]);
-
-    if (!bounds) {
+    if (!segments || !bounds) {
         return null;
     }
 
