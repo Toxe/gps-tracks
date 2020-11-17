@@ -21,6 +21,11 @@ function renderUseNavigationHook(tracks, mobileNavigationOpen = false) {
     };
 }
 
+afterEach(() => {
+    jest.resetAllMocks();
+    jest.restoreAllMocks();
+});
+
 describe("useNavigation()", () => {
     describe("With sample tracks", () => {
         test("countedActivities should contain correct data", () => {
