@@ -9,7 +9,7 @@ export default function NavigationYearList({ countedYears, handleNavigationClick
         <>
             <List dense>
                 {years.map((y) => (
-                    <ListItem key={y} button onClick={() => handleNavigationClick(`/tracks?year=${y}`)}>
+                    <ListItem key={y} button onClick={() => handleNavigationClick(`?year=${y}`)}>
                         <ListItemIcon>
                             <FolderIcon />
                         </ListItemIcon>

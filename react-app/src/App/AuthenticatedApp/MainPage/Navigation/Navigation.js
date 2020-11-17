@@ -21,19 +21,20 @@ const useStyles = makeStyles((theme) => ({
     },
 }));
 
-export default function Navigation({ mobileNavigationOpen, handleMobileNavigationToggle }) {
+export default function Navigation({ mobileNavigationOpen, handleMobileNavigationToggle, navigateToAllTracks }) {
     const classes = useStyles();
     const theme = useTheme();
     const { numTracks, countedYears, countedActivities, handleNavigationClick } = useNavigation(
         mobileNavigationOpen,
-        handleMobileNavigationToggle
+        handleMobileNavigationToggle,
+        navigateToAllTracks
     );
 
     const drawer = (
         <>
             <div className={classes.toolbar} />
             <List>
-                <ListItem button onClick={() => handleNavigationClick("/tracks")}>
+                <ListItem button onClick={() => handleNavigationClick("")}>
                     <ListItemIcon>
                         <ViewListIcon />
                     </ListItemIcon>

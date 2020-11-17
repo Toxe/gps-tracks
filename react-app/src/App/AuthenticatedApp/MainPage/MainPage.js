@@ -13,6 +13,7 @@ export default function MainPage() {
     const {
         mobileNavigationOpen,
         handleMobileNavigationToggle,
+        navigateToAllTracks,
         navigateToSingleTrack,
         navigateToEditTrack,
     } = useMainPage();
@@ -23,6 +24,7 @@ export default function MainPage() {
             <Navigation
                 mobileNavigationOpen={mobileNavigationOpen}
                 handleMobileNavigationToggle={handleMobileNavigationToggle}
+                navigateToAllTracks={navigateToAllTracks}
             />
             <PageContent>
                 <Routes>

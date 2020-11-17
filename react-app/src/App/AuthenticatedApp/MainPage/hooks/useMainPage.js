@@ -9,6 +9,10 @@ export default function useMainPage() {
         setMobileNavigationOpen(!mobileNavigationOpen);
     };
 
+    const navigateToAllTracks = (filterParams) => {
+        navigate(`/tracks${filterParams}`);
+    };
+
     const navigateToSingleTrack = (trackId) => {
         navigate(`/tracks/${trackId}`);
     };
@@ -17,5 +21,5 @@ export default function useMainPage() {
         navigate(`/tracks/${trackId}/edit`);
     };
 
-    return { mobileNavigationOpen, handleMobileNavigationToggle, navigateToSingleTrack, navigateToEditTrack };
+    return { mobileNavigationOpen, handleMobileNavigationToggle, navigateToAllTracks, navigateToSingleTrack, navigateToEditTrack };
 }
