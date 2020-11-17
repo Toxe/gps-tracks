@@ -26,4 +26,20 @@ describe("useMainPage()", () => {
             expect(result.current.mobileNavigationOpen).toBeFalse();
         });
     });
+
+    describe("Navigate to pages", () => {
+        test("Can call navigateToSingleTrack", () => {
+            const wrapper = ({ children }) => <BrowserRouter>{children}</BrowserRouter>;
+            const { result } = renderHook(() => useMainPage(), { wrapper });
+
+            act(() => result.current.navigateToSingleTrack(1));
+        });
+
+        test("Can call navigateToEditTrack", () => {
+            const wrapper = ({ children }) => <BrowserRouter>{children}</BrowserRouter>;
+            const { result } = renderHook(() => useMainPage(), { wrapper });
+
+            act(() => result.current.navigateToEditTrack(1));
+        });
+    });
 });
