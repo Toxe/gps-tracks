@@ -5,14 +5,12 @@ import "@testing-library/jest-dom";
 import "jest-extended";
 import "expect-more-jest";
 import { BrowserRouter } from "react-router-dom";
-import { sampleTrack, sampleTracks, sampleTrackSegments } from "../../../test";
+import { sampleTrack, sampleTracks, spyOnHook } from "../../../test";
 import { AuthProvider } from "../../../Auth";
-import { Tracks } from "../api";
 import { useTracks } from "../TracksProvider";
 import { useUser } from "../UserProvider";
+import * as useTrackMap from "./SingleTrack/hooks/useTrackMap";
 import { MainPage } from ".";
-
-jest.mock("react-leaflet"); // don't actually render the Leaflet map
 
 jest.mock("../TracksProvider");
 jest.mock("../UserProvider");
@@ -35,14 +33,15 @@ function renderWithRoute(route) {
     );
 }
 
-describe("MainPage", () => {
-    afterEach(() => {
-        jest.restoreAllMocks();
-    });
+afterEach(() => {
+    jest.resetAllMocks();
+    jest.restoreAllMocks();
+});
 
+describe("MainPage", () => {
     describe("With SingleTrack content", () => {
         test("When loading route /tracks/21, show content for track 21", async () => {
-            jest.spyOn(Tracks, "segments").mockReturnValueOnce(sampleTrackSegments());
+            spyOnHook(useTrackMap).mockReturnValue({ segments: null, bounds: null }); // don't actually render the Leaflet map
 
             const { findByText } = renderWithRoute("/tracks/21");
 
