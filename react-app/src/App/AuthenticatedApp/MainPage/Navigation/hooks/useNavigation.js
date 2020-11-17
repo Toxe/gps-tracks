@@ -1,6 +1,5 @@
 import { useEffect, useState } from "react";
 import { useTracks } from "../../../TracksProvider";
-import { countActivities, countYears } from "../tracksStats";
 
 export default function useNavigation(mobileNavigationOpen, handleMobileNavigationToggle, navigateToAllTracks) {
     const { tracks } = useTracks();
@@ -23,4 +22,37 @@ export default function useNavigation(mobileNavigationOpen, handleMobileNavigati
     const numTracks = tracks ? tracks.length : 0;
 
     return { numTracks, countedYears, countedActivities, handleNavigationClick };
+}
+
+function countYears(tracks) {
+    if (!tracks || tracks.length === 0) {
+        return undefined;
+    }
+
+    const map = new Map();
+
+    tracks.forEach((t) => {
+        const date = new Date(t.time_start);
+        const year = date.getFullYear();
+        const count = map.get(year);
+        map.set(year, count === undefined ? 1 : count + 1);
+    });
+
+    return map;
+}
+
+function countActivities(tracks) {
+    if (!tracks || tracks.length === 0) {
+        return undefined;
+    }
+
+    const map = new Map();
+
+    tracks.forEach((t) => {
+        const activity = t.activity_mode;
+        const count = map.get(activity);
+        map.set(activity, count === undefined ? 1 : count + 1);
+    });
+
+    return map;
 }
