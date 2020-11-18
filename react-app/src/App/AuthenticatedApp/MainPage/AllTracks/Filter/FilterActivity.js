@@ -1,7 +1,7 @@
 import React from "react";
 import { useTranslation } from "react-i18next";
 import { makeStyles } from "@material-ui/core/styles";
-import { FormControl, InputLabel, ListItemIcon, ListItemText, MenuItem, Select } from "@material-ui/core";
+import { Box, FormControl, InputLabel, ListItemIcon, ListItemText, MenuItem, Select } from "@material-ui/core";
 import { ActivityIcon } from "../../shared";
 import { ActivityMode } from "../../utils/enums";
 
@@ -21,12 +21,14 @@ export default function FilterActivity({ activityFilter, availableActivities, ha
     const createActivityMenuItem = (activity) => {
         return (
             <MenuItem key={activity} value={activity}>
-                <ListItemIcon>
-                    <ActivityIcon activity={activity} />
-                </ListItemIcon>
-                <ListItemText>
-                    {t(Number(activity) === ActivityMode.BIKE ? "activity_bike" : "activity_hiking")}
-                </ListItemText>
+                <Box display="flex" alignItems="center">
+                    <ListItemIcon>
+                        <ActivityIcon activity={activity} />
+                    </ListItemIcon>
+                    <ListItemText>
+                        {t(Number(activity) === ActivityMode.BIKE ? "activity_bike" : "activity_hiking")}
+                    </ListItemText>
+                </Box>
             </MenuItem>
         );
     };
