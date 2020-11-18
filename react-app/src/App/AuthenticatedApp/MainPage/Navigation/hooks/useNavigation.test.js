@@ -49,7 +49,7 @@ describe("useNavigation()", () => {
         test("When calling handleNavigationClick, should call navigateToAllTracks", () => {
             const { result, navigateToAllTracks } = renderUseNavigationHook(null);
 
-            act(() => result.current.handleNavigationClick(""));
+            act(() => result.current.handleNavigationClick(null));
 
             expect(navigateToAllTracks).toHaveBeenCalled();
         });
@@ -57,7 +57,7 @@ describe("useNavigation()", () => {
         test("When calling handleNavigationClick and mobileNavigationOpen is true, should call handleMobileNavigationToggle", () => {
             const { result, handleMobileNavigationToggle } = renderUseNavigationHook(null, true);
 
-            act(() => result.current.handleNavigationClick(""));
+            act(() => result.current.handleNavigationClick(null));
 
             expect(handleMobileNavigationToggle).toHaveBeenCalled();
         });

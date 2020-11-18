@@ -8,13 +8,13 @@ export default function NavigationYearList({ countedYears, handleNavigationClick
     return (
         <>
             <List dense>
-                {years.map((y) => (
-                    <ListItem key={y} button onClick={() => handleNavigationClick(`?year=${y}`)}>
+                {years.map((year) => (
+                    <ListItem key={year} button onClick={() => handleNavigationClick({ year })}>
                         <ListItemIcon>
                             <FolderIcon />
                         </ListItemIcon>
-                        <ListItemText primary={y} />
-                        <Chip size="small" label={countedYears.get(y)} />
+                        <ListItemText primary={year} />
+                        <Chip size="small" label={countedYears.get(year)} />
                     </ListItem>
                 ))}
             </List>

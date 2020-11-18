@@ -8,8 +8,11 @@ import EditTrackButton from "./EditTrackButton";
 import DeleteTrackButton from "./DeleteTrackButton";
 import { useSingleTrack } from "./hooks";
 
-export default function SingleTrack({ navigateToEditTrack }) {
-    const { track, requestError, handleDownloadTrack, handleDeleteTrack, handleEditTrack } = useSingleTrack(navigateToEditTrack);
+export default function SingleTrack({ navigateToAllTracks, navigateToEditTrack }) {
+    const { track, requestError, handleDownloadTrack, handleDeleteTrack, handleEditTrack } = useSingleTrack(
+        navigateToAllTracks,
+        navigateToEditTrack
+    );
 
     if (!track) {
         return <TrackNotFound />;

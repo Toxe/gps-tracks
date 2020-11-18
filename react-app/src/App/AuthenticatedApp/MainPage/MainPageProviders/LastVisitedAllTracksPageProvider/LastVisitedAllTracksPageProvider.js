@@ -1,5 +1,4 @@
 import React, { useState, useContext } from "react";
-import { useNavigate } from "react-router-dom";
 
 const LastVisitedAllTracksPageContext = React.createContext();
 
@@ -14,15 +13,14 @@ export function useLastVisitedAllTracksPage() {
 }
 
 export function LastVisitedAllTracksPageProvider({ children }) {
-    const [lastVisitedAllTracksPage, setLastVisitedAllTracksPage] = useState(null);
-    const navigate = useNavigate();
+    const [lastVisitedAllTracksPageFilterParams, setLastVisitedAllTracksPageFilterParams] = useState("");
 
     const updateLastVisitedAllTracksPage = () => {
-        setLastVisitedAllTracksPage(window.location.pathname + window.location.search);
+        setLastVisitedAllTracksPageFilterParams(window.location.search);
     };
 
-    const returnToLastVisitedAllTracksPage = () => {
-        navigate(lastVisitedAllTracksPage ? lastVisitedAllTracksPage : "/tracks");
+    const returnToLastVisitedAllTracksPage = (navigateToAllTracks) => {
+        navigateToAllTracks(Object.fromEntries(new URLSearchParams(lastVisitedAllTracksPageFilterParams).entries()));
     };
 
     return (

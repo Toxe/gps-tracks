@@ -12,7 +12,8 @@ export default function useMainPage() {
     };
 
     const navigateToAllTracks = (filterParams) => {
-        navigate(`/tracks${filterParams}`);
+        const searchParams = filterParams !== null ? `?${new URLSearchParams(filterParams)}` : "";
+        navigate(`/tracks${searchParams}`);
     };
 
     const navigateToSingleTrack = (trackId, changesSaved) => {

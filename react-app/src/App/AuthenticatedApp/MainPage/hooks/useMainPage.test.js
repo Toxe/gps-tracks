@@ -32,7 +32,7 @@ describe("useMainPage()", () => {
             const wrapper = ({ children }) => <BrowserRouter>{children}</BrowserRouter>;
             const { result } = renderHook(() => useMainPage(), { wrapper });
 
-            act(() => result.current.navigateToAllTracks(1));
+            act(() => result.current.navigateToAllTracks(null));
         });
 
         test("Can call navigateToEditTrack", () => {

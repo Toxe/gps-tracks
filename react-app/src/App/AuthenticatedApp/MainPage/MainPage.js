@@ -30,7 +30,7 @@ export default function MainPage() {
             <PageContent>
                 <Routes>
                     <Route path="tracks" element={<AllTracks />} />
-                    <Route path="tracks/:trackId" element={<SingleTrack navigateToEditTrack={navigateToEditTrack} />} />
+                    <Route path="tracks/:trackId" element={<SingleTrack navigateToAllTracks={navigateToAllTracks} navigateToEditTrack={navigateToEditTrack} />} />
                     <Route path="tracks/:trackId/edit" element={<EditTrack navigateToSingleTrack={navigateToSingleTrack} />} />
                     <Route path="*" element={<Navigate to="/tracks" replace />} />
                 </Routes>

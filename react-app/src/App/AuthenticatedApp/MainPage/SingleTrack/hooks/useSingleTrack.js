@@ -6,7 +6,7 @@ import { Tracks } from "../../../api";
 import { useTracks } from "../../../TracksProvider";
 import { useLastVisitedAllTracksPage } from "../../MainPageProviders/LastVisitedAllTracksPageProvider";
 
-export default function useSingleTrack(navigateToEditTrack) {
+export default function useSingleTrack(navigateToAllTracks, navigateToEditTrack) {
     const { trackId } = useParams();
     const { getTrack, deleteTrack } = useTracks();
     const { returnToLastVisitedAllTracksPage } = useLastVisitedAllTracksPage();
@@ -40,7 +40,7 @@ export default function useSingleTrack(navigateToEditTrack) {
         try {
             await deleteTrack(track);
             updateRequestError(null);
-            returnToLastVisitedAllTracksPage();
+            returnToLastVisitedAllTracksPage(navigateToAllTracks);
         } catch (error) {
             updateRequestError(error);
         }

@@ -34,7 +34,7 @@ export default function Navigation({ mobileNavigationOpen, handleMobileNavigatio
         <>
             <div className={classes.toolbar} />
             <List>
-                <ListItem button onClick={() => handleNavigationClick("")}>
+                <ListItem button onClick={() => handleNavigationClick(null)}>
                     <ListItemIcon>
                         <ViewListIcon />
                     </ListItemIcon>

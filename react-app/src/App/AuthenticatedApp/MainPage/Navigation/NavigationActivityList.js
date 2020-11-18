@@ -8,12 +8,12 @@ export default function NavigationActivityList({ countedActivities, handleNaviga
     return (
         <>
             <List dense>
-                {activities.map((a) => (
-                    <ListItem key={a} button onClick={() => handleNavigationClick(`?activity=${a}`)}>
+                {activities.map((activity) => (
+                    <ListItem key={activity} button onClick={() => handleNavigationClick({ activity })}>
                         <ListItemIcon>
-                            <ActivityIcon activity={a} />
+                            <ActivityIcon activity={activity} />
                         </ListItemIcon>
-                        <Chip size="small" label={countedActivities.get(a)} />
+                        <Chip size="small" label={countedActivities.get(activity)} />
                     </ListItem>
                 ))}
             </List>
