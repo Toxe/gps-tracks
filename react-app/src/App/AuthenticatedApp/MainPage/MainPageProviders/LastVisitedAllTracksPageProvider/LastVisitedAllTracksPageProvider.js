@@ -19,8 +19,8 @@ export function LastVisitedAllTracksPageProvider({ children }) {
         setLastVisitedAllTracksPageFilterParams(window.location.search);
     };
 
-    const returnToLastVisitedAllTracksPage = (navigateToAllTracks) => {
-        navigateToAllTracks(Object.fromEntries(new URLSearchParams(lastVisitedAllTracksPageFilterParams).entries()));
+    const returnToLastVisitedAllTracksPage = (navigateToAllTracks, trackDeleted) => {
+        navigateToAllTracks(Object.fromEntries(new URLSearchParams(lastVisitedAllTracksPageFilterParams).entries()), trackDeleted);
     };
 
     return (

@@ -40,7 +40,7 @@ export default function useSingleTrack(navigateToAllTracks, navigateToEditTrack)
         try {
             await deleteTrack(track);
             updateRequestError(null);
-            returnToLastVisitedAllTracksPage(navigateToAllTracks);
+            returnToLastVisitedAllTracksPage(navigateToAllTracks, true);
         } catch (error) {
             updateRequestError(error);
         }

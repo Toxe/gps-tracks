@@ -28,18 +28,29 @@ describe("useMainPage()", () => {
     });
 
     describe("Navigate to pages", () => {
-        test("Can call navigateToAllTracks", () => {
-            const wrapper = ({ children }) => <BrowserRouter>{children}</BrowserRouter>;
-            const { result } = renderHook(() => useMainPage(), { wrapper });
-
-            act(() => result.current.navigateToAllTracks(null));
-        });
-
         test("Can call navigateToEditTrack", () => {
             const wrapper = ({ children }) => <BrowserRouter>{children}</BrowserRouter>;
             const { result } = renderHook(() => useMainPage(), { wrapper });
 
             act(() => result.current.navigateToEditTrack(1));
+        });
+
+        test("When calling navigateToAllTracks after deleting a track, should show trackDeletedSnackbar", () => {
+            const wrapper = ({ children }) => <BrowserRouter>{children}</BrowserRouter>;
+            const { result } = renderHook(() => useMainPage(), { wrapper });
+
+            act(() => result.current.navigateToAllTracks(1, true));
+
+            expect(result.current.trackDeletedSnackbar).not.toBeNull();
+        });
+
+        test("When calling navigateToAllTracks without deleting a track, trackDeletedSnackbar should be null", () => {
+            const wrapper = ({ children }) => <BrowserRouter>{children}</BrowserRouter>;
+            const { result } = renderHook(() => useMainPage(), { wrapper });
+
+            act(() => result.current.navigateToAllTracks(1, false));
+
+            expect(result.current.trackDeletedSnackbar).toBeNull();
         });
 
         test("When calling navigateToSingleTrack after saving changes, should show changesSavedSnackbar", () => {

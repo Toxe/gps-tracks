@@ -16,7 +16,7 @@ export default function useNavigation(mobileNavigationOpen, handleMobileNavigati
             handleMobileNavigationToggle();
         }
 
-        navigateToAllTracks(filterParams);
+        navigateToAllTracks(filterParams, false);
     };
 
     const numTracks = tracks ? tracks.length : 0;

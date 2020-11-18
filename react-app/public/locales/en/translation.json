@@ -33,6 +33,7 @@
     "sort_by_date": "Date",
     "sort_by_distance": "Distance",
     "sort_by_name": "Name",
+    "track_deleted": "Track deleted!",
     "track_distance": "Distance",
     "track_downhill": "Downhill",
     "track_duration": "Time in Motion (Hours)",

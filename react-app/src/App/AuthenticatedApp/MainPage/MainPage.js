@@ -17,6 +17,7 @@ export default function MainPage() {
         navigateToSingleTrack,
         navigateToEditTrack,
         changesSavedSnackbar,
+        trackDeletedSnackbar,
     } = useMainPage();
 
     return (
@@ -35,6 +36,7 @@ export default function MainPage() {
                     <Route path="*" element={<Navigate to="/tracks" replace />} />
                 </Routes>
                 {changesSavedSnackbar}
+                {trackDeletedSnackbar}
                 {Boolean(parseInt(process.env.REACT_APP_AUTH_INFO)) && <AuthInfo />}
             </PageContent>
         </MainPageProviders>
