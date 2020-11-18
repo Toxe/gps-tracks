@@ -71,4 +71,28 @@ describe("useMainPage()", () => {
             expect(result.current.changesSavedSnackbar).toBeNull();
         });
     });
+
+    describe("With visible ChangesSavedSnackbar", () => {
+        test('When clicking on "Close" button, should set changesSavedSnackbar to null', async () => {
+            const wrapper = ({ children }) => <BrowserRouter>{children}</BrowserRouter>;
+            const { result } = renderHook(() => useMainPage(), { wrapper });
+
+            act(() => result.current.navigateToSingleTrack(1, true));
+            act(() => result.current.changesSavedSnackbar.props.handleRemove());
+
+            expect(result.current.changesSavedSnackbar).toBeNull();
+        });
+    });
+
+    describe("With visible TrackDeletedSnackbar", () => {
+        test('When clicking on "Close" button, should set trackDeletedSnackbar to null', async () => {
+            const wrapper = ({ children }) => <BrowserRouter>{children}</BrowserRouter>;
+            const { result } = renderHook(() => useMainPage(), { wrapper });
+
+            act(() => result.current.navigateToAllTracks(1, true));
+            act(() => result.current.trackDeletedSnackbar.props.handleRemove());
+
+            expect(result.current.trackDeletedSnackbar).toBeNull();
+        });
+    });
 });
