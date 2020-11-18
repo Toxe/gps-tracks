@@ -11,7 +11,6 @@ const useStyles = makeStyles((theme) => ({
     },
     filterFormSelect: {
         minWidth: 90,
-        minHeight: 37,
     },
 }));
 
