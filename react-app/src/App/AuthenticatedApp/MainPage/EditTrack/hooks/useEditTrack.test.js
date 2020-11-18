@@ -49,7 +49,7 @@ describe("useEditTrack()", () => {
             await act(() => result.current.handleSave({ title: "new title", activity_mode: 0 }));
 
             expect(updateTrack).toHaveBeenCalled();
-            expect(navigateToSingleTrack).toHaveBeenCalledWith(track.id);
+            expect(navigateToSingleTrack).toHaveBeenCalledWith(track.id, true);
         });
 
         test("When saving changes, should not show a request error", async () => {
@@ -98,7 +98,7 @@ describe("useEditTrack()", () => {
 
             act(() => result.current.handleCancel());
 
-            expect(navigateToSingleTrack).toHaveBeenCalledWith(track.id);
+            expect(navigateToSingleTrack).toHaveBeenCalledWith(track.id, false);
         });
     });
 });

@@ -21,14 +21,14 @@ export default function useEditTrack(navigateToSingleTrack) {
 
         try {
             await updateTrack(track, formValues);
-            navigateToSingleTrack(track.id);
+            navigateToSingleTrack(track.id, true);
         } catch (error) {
             setRequestError(<RequestError error={error} handleClose={() => setRequestError(null)} />);
         }
     };
 
     const handleCancel = () => {
-        navigateToSingleTrack(track.id);
+        navigateToSingleTrack(track.id, false);
     };
 
     return { track, requestError, handleSave, handleCancel };

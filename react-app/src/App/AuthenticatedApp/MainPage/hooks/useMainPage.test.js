@@ -35,18 +35,29 @@ describe("useMainPage()", () => {
             act(() => result.current.navigateToAllTracks(1));
         });
 
-        test("Can call navigateToSingleTrack", () => {
-            const wrapper = ({ children }) => <BrowserRouter>{children}</BrowserRouter>;
-            const { result } = renderHook(() => useMainPage(), { wrapper });
-
-            act(() => result.current.navigateToSingleTrack(1));
-        });
-
         test("Can call navigateToEditTrack", () => {
             const wrapper = ({ children }) => <BrowserRouter>{children}</BrowserRouter>;
             const { result } = renderHook(() => useMainPage(), { wrapper });
 
             act(() => result.current.navigateToEditTrack(1));
+        });
+
+        test("When calling navigateToSingleTrack after saving changes, should show changesSavedSnackbar", () => {
+            const wrapper = ({ children }) => <BrowserRouter>{children}</BrowserRouter>;
+            const { result } = renderHook(() => useMainPage(), { wrapper });
+
+            act(() => result.current.navigateToSingleTrack(1, true));
+
+            expect(result.current.changesSavedSnackbar).not.toBeNull();
+        });
+
+        test("When calling navigateToSingleTrack without saving changes, changesSavedSnackbar should be null", () => {
+            const wrapper = ({ children }) => <BrowserRouter>{children}</BrowserRouter>;
+            const { result } = renderHook(() => useMainPage(), { wrapper });
+
+            act(() => result.current.navigateToSingleTrack(1, false));
+
+            expect(result.current.changesSavedSnackbar).toBeNull();
         });
     });
 });

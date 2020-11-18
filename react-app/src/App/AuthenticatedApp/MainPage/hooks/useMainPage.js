@@ -1,9 +1,11 @@
-import { useState } from "react";
+import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import ChangesSavedSnackbar from "../ChangesSavedSnackbar";
 
 export default function useMainPage() {
     const navigate = useNavigate();
     const [mobileNavigationOpen, setMobileNavigationOpen] = useState(false);
+    const [changesSavedSnackbar, setChangesSavedSnackbar] = useState(null);
 
     const handleMobileNavigationToggle = () => {
         setMobileNavigationOpen(!mobileNavigationOpen);
@@ -13,13 +15,26 @@ export default function useMainPage() {
         navigate(`/tracks${filterParams}`);
     };
 
-    const navigateToSingleTrack = (trackId) => {
+    const navigateToSingleTrack = (trackId, changesSaved) => {
         navigate(`/tracks/${trackId}`);
+
+        if (changesSaved) {
+            setChangesSavedSnackbar(<ChangesSavedSnackbar handleRemove={() => setChangesSavedSnackbar(null)} />);
+        } else {
+            setChangesSavedSnackbar(null);
+        }
     };
 
     const navigateToEditTrack = (trackId) => {
         navigate(`/tracks/${trackId}/edit`);
     };
 
-    return { mobileNavigationOpen, handleMobileNavigationToggle, navigateToAllTracks, navigateToSingleTrack, navigateToEditTrack };
+    return {
+        mobileNavigationOpen,
+        handleMobileNavigationToggle,
+        navigateToAllTracks,
+        navigateToSingleTrack,
+        navigateToEditTrack,
+        changesSavedSnackbar,
+    };
 }
