@@ -1,3 +1,4 @@
+import "../../../../../../i18n-tests";
 import { renderHook, act } from "@testing-library/react-hooks";
 import "@testing-library/jest-dom";
 import "jest-extended";
@@ -45,6 +46,15 @@ describe("useUploadTrackButton()", () => {
 
             expect(result.current.uploadInProgressSnackbar).not.toBeNull();
             expect(result.current.uploadInProgressSnackbar).toBeObject();
+        });
+
+        test("When calling handleUpload, should set uploadResultsSnackbar to null", () => {
+            useTracks.mockReturnValue({ uploadTracks: jest.fn() });
+
+            const { result } = renderHook(() => useUploadTrackButton());
+            act(() => result.current.handleUpload([]));
+
+            expect(result.current.uploadResultsSnackbar).toBeNull();
         });
 
         test("When calling handleUpload, should call uploadTracks", () => {

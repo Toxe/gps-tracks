@@ -1,15 +1,9 @@
-import { useState } from "react";
 import { useTranslation } from "react-i18next";
+import { useAlertSnackbar } from "../../../shared/AlertSnackbar";
 
-export default function useUploadResultsSnackbar(numFiles, numFilesUploadedSuccessfully) {
+export default function useUploadResultsSnackbar() {
     const { t } = useTranslation();
-    const [open, setOpen] = useState(true);
-
-    const handleClose = (event, reason) => {
-        if (reason !== "clickaway") {
-            setOpen(false);
-        }
-    };
+    const [alertSnackbar, showAlertSnackbar, hideAlertSnackbar] = useAlertSnackbar();
 
     const getMessage = (numFiles, numFilesUploadedSuccessfully) => {
         if (numFilesUploadedSuccessfully === 0) {
@@ -25,7 +19,11 @@ export default function useUploadResultsSnackbar(numFiles, numFilesUploadedSucce
         }
     };
 
-    const [messageSeverity, message] = getMessage(numFiles, numFilesUploadedSuccessfully);
+    const showUploadResultsSnackbar = (numFiles, numFilesUploadedSuccessfully) => {
+        const [messageSeverity, message] = getMessage(numFiles, numFilesUploadedSuccessfully);
+        const autoHideDuration = messageSeverity === "success" ? 5000 : null;
+        return showAlertSnackbar(message, messageSeverity, autoHideDuration);
+    };
 
-    return { open, handleClose, message, messageSeverity };
+    return [alertSnackbar, showUploadResultsSnackbar, hideAlertSnackbar];
 }
