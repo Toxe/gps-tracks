@@ -1,13 +1,14 @@
-import React, { useState } from "react";
+import { useState } from "react";
+import { useTranslation } from "react-i18next";
 import { useNavigate } from "react-router-dom";
-import ChangesSavedSnackbar from "../ChangesSavedSnackbar";
-import TrackDeletedSnackbar from "../TrackDeletedSnackbar";
+import { useAlertSnackbar } from "../shared";
 
 export default function useMainPage() {
+    const { t } = useTranslation();
     const navigate = useNavigate();
     const [mobileNavigationOpen, setMobileNavigationOpen] = useState(false);
-    const [changesSavedSnackbar, setChangesSavedSnackbar] = useState(null);
-    const [trackDeletedSnackbar, setTrackDeletedSnackbar] = useState(null);
+    const [changesSavedSnackbar, showChangesSavedSnackbar, hideChangesSavedSnackbar] = useAlertSnackbar();
+    const [trackDeletedSnackbar, showTrackDeletedSnackbar, hideTrackDeletedSnackbar] = useAlertSnackbar();
 
     const handleMobileNavigationToggle = () => {
         setMobileNavigationOpen(!mobileNavigationOpen);
@@ -18,9 +19,9 @@ export default function useMainPage() {
         navigate(`/tracks${searchParams}`);
 
         if (trackDeleted) {
-            setTrackDeletedSnackbar(<TrackDeletedSnackbar handleRemove={() => setTrackDeletedSnackbar(null)} />);
+            showTrackDeletedSnackbar(t("track_deleted"));
         } else {
-            setTrackDeletedSnackbar(null);
+            hideTrackDeletedSnackbar();
         }
     };
 
@@ -28,9 +29,9 @@ export default function useMainPage() {
         navigate(`/tracks/${trackId}`);
 
         if (changesSaved) {
-            setChangesSavedSnackbar(<ChangesSavedSnackbar handleRemove={() => setChangesSavedSnackbar(null)} />);
+            showChangesSavedSnackbar(t("changes_saved"));
         } else {
-            setChangesSavedSnackbar(null);
+            hideChangesSavedSnackbar();
         }
     };
 
