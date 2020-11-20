@@ -1,4 +1,3 @@
-import "../../../../../../i18n-tests";
 import { renderHook, act } from "@testing-library/react-hooks";
 import { useUploadResultsSnackbar } from ".";
 

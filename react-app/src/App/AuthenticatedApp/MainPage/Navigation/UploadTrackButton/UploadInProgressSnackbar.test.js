@@ -1,5 +1,4 @@
 import React from "react";
-import "../../../../../i18n-tests";
 import { render } from "@testing-library/react";
 import UploadInProgressSnackbar from "./UploadInProgressSnackbar";
 

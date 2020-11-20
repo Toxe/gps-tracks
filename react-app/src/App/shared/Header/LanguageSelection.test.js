@@ -1,7 +1,7 @@
 import React from "react";
-import i18n from "../../../i18n-tests";
 import { render, waitFor } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
+import i18n from "../../../test/i18n";
 import LanguageSelection from "./LanguageSelection";
 
 afterEach(async () => {
