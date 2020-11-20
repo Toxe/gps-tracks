@@ -1,5 +1,4 @@
-import React from "react";
-import { renderHook, act } from "@testing-library/react-hooks";
+import { renderHook } from "@testing-library/react-hooks";
 import { BrowserRouter } from "react-router-dom";
 import { sampleTracks } from "../../../../../test";
 import { useTracks } from "../../../TracksProvider";

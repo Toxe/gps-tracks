@@ -1,4 +1,3 @@
-import React from "react";
 import { renderHook } from "@testing-library/react-hooks";
 import { sampleUser } from "../../../test";
 import { useAuth } from "../../../Auth";

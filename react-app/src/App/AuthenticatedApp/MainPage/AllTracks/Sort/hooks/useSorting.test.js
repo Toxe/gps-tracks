@@ -1,4 +1,3 @@
-import React from "react";
 import { renderHook, act } from "@testing-library/react-hooks";
 import { BrowserRouter } from "react-router-dom";
 import { spyOnHook } from "../../../../../../test";

@@ -1,4 +1,3 @@
-import React from "react";
 import { renderHook, act } from "@testing-library/react-hooks";
 import { sampleGPXFile, sampleTrack, sampleTracks, sampleUser } from "../../../test";
 import { GPXFiles, Tracks, Users } from "../api";
