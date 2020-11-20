@@ -1,5 +1,3 @@
-import "jest-extended";
-import "expect-more-jest";
 import { sampleGPXFiles, sampleGPXFile } from "./sampleGPXFiles";
 
 describe("sampleGPXFiles()", () => {

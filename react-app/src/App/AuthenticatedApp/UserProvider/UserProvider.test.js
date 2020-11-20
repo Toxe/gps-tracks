@@ -1,8 +1,5 @@
 import React from "react";
-import { renderHook, act } from "@testing-library/react-hooks";
-import "@testing-library/jest-dom";
-import "jest-extended";
-import "expect-more-jest";
+import { renderHook } from "@testing-library/react-hooks";
 import { sampleUser } from "../../../test";
 import { useAuth } from "../../../Auth";
 import { Users } from "../api";

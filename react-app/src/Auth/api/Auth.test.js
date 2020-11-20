@@ -1,5 +1,3 @@
-import "jest-extended";
-import "expect-more-jest";
 import axiosMock from "axios";
 import { sampleAuthTokens } from "../../test";
 import { Auth } from ".";

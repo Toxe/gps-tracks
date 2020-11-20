@@ -1,7 +1,4 @@
 import { renderHook } from "@testing-library/react-hooks";
-import "@testing-library/jest-dom";
-import "jest-extended";
-import "expect-more-jest";
 import { sampleTrack, sampleTrackSegments } from "../../../../../test";
 import { Tracks } from "../../../api";
 import { useTrackMap } from ".";

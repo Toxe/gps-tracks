@@ -2,9 +2,6 @@ import React from "react";
 import "../../../../i18n-tests";
 import { render } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
-import "@testing-library/jest-dom";
-import "jest-extended";
-import "expect-more-jest";
 import EditTrackButton from "./EditTrackButton";
 
 describe("EditTrackButton", () => {

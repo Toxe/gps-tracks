@@ -1,5 +1,3 @@
-import "jest-extended";
-import "expect-more-jest";
 import { sampleTracks } from "../../../../../../test";
 import { ActivityMode } from "../../../utils/enums";
 import { generateStats } from "./useSummary";

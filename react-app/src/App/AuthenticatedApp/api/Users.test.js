@@ -1,5 +1,3 @@
-import "jest-extended";
-import "expect-more-jest";
 import axiosMock from "axios";
 import { Users } from ".";
 import { sampleUser, sampleTracks } from "../../../test";

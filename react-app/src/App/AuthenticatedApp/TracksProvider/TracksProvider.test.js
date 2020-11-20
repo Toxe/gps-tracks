@@ -1,8 +1,5 @@
 import React from "react";
 import { renderHook, act } from "@testing-library/react-hooks";
-import "@testing-library/jest-dom";
-import "jest-extended";
-import "expect-more-jest";
 import { sampleGPXFile, sampleTrack, sampleTracks, sampleUser } from "../../../test";
 import { GPXFiles, Tracks, Users } from "../api";
 import { useUser } from "../UserProvider";

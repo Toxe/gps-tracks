@@ -1,8 +1,5 @@
 import React from "react";
 import { renderHook, act } from "@testing-library/react-hooks";
-import "@testing-library/jest-dom";
-import "jest-extended";
-import "expect-more-jest";
 import { BrowserRouter } from "react-router-dom";
 import { spyOnHook } from "../../../../../../test";
 import * as useURLParamSearch from "./useURLParamSearch";

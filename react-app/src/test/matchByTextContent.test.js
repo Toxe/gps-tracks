@@ -1,8 +1,5 @@
 import React from "react";
 import { render } from "@testing-library/react";
-import "@testing-library/jest-dom";
-import "jest-extended";
-import "expect-more-jest";
 import { matchByTextContent } from "./matchByTextContent";
 
 describe("matchByTextContent()", () => {

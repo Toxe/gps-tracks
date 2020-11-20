@@ -1,8 +1,5 @@
 import "../../../../i18n-tests";
 import { renderHook, act } from "@testing-library/react-hooks";
-import "@testing-library/jest-dom";
-import "jest-extended";
-import "expect-more-jest";
 import { BrowserRouter } from "react-router-dom";
 import { useMainPage } from ".";
 

@@ -1,9 +1,6 @@
 import React from "react";
 import "../../../../../i18n-tests";
 import { render } from "@testing-library/react";
-import "@testing-library/jest-dom";
-import "jest-extended";
-import "expect-more-jest";
 import { BrowserRouter } from "react-router-dom";
 import { sampleTracks } from "../../../../../test";
 import TracksList from "./TracksList";

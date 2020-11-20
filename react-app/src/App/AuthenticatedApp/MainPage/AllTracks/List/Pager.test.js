@@ -1,9 +1,6 @@
 import React from "react";
 import { render } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
-import "@testing-library/jest-dom";
-import "jest-extended";
-import "expect-more-jest";
 import Pager from "./Pager";
 
 describe("Pager", () => {
