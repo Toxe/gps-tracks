@@ -10,7 +10,7 @@ import { useNavigation } from "./hooks";
 import MobileDrawer from "./MobileDrawer";
 import DesktopDrawer from "./DesktopDrawer";
 
-const drawerWidth = 200;
+export const drawerWidth = 200;
 
 const useStyles = makeStyles((theme) => ({
     toolbar: theme.mixins.toolbar,

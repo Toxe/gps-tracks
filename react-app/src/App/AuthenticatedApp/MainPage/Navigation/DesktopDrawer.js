@@ -1,8 +1,7 @@
 import React from "react";
 import { Drawer, Hidden } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
-
-const drawerWidth = 200;
+import { drawerWidth } from "./Navigation";
 
 const useStyles = makeStyles(() => ({
     drawerPaper: { width: drawerWidth },
