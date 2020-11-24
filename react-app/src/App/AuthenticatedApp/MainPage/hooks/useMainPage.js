@@ -14,16 +14,19 @@ export default function useMainPage() {
         setMobileNavigationOpen(!mobileNavigationOpen);
     }, [mobileNavigationOpen]);
 
-    const navigateToAllTracks = (filterParams, trackDeleted) => {
-        const searchParams = filterParams !== null ? `?${new URLSearchParams(filterParams)}` : "";
-        navigate(`/tracks${searchParams}`);
+    const navigateToAllTracks = useCallback(
+        (filterParams, trackDeleted) => {
+            const searchParams = filterParams !== null ? `?${new URLSearchParams(filterParams)}` : "";
+            navigate(`/tracks${searchParams}`);
 
-        if (trackDeleted) {
-            showTrackDeletedSnackbar(t("track_deleted"));
-        } else {
-            hideTrackDeletedSnackbar();
-        }
-    };
+            if (trackDeleted) {
+                showTrackDeletedSnackbar(t("track_deleted"));
+            } else {
+                hideTrackDeletedSnackbar();
+            }
+        },
+        [showTrackDeletedSnackbar, hideTrackDeletedSnackbar, navigate, t]
+    );
 
     const navigateToSingleTrack = (trackId, changesSaved) => {
         navigate(`/tracks/${trackId}`);
