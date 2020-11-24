@@ -22,7 +22,11 @@ const useStyles = makeStyles((theme) => ({
     },
 }));
 
-export default function Navigation({ mobileNavigationOpen, handleMobileNavigationToggle, navigateToAllTracks }) {
+export default React.memo(function Navigation({
+    mobileNavigationOpen,
+    handleMobileNavigationToggle,
+    navigateToAllTracks,
+}) {
     const classes = useStyles();
     const { numTracks, countedYears, countedActivities, handleNavigationClick } = useNavigation(
         mobileNavigationOpen,
@@ -69,4 +73,4 @@ export default function Navigation({ mobileNavigationOpen, handleMobileNavigatio
             <DesktopDrawer drawer={drawer} />
         </nav>
     );
-}
+});
