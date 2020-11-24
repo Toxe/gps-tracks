@@ -15,7 +15,7 @@ const useStyles = makeStyles((theme) => ({
     },
 }));
 
-export default function Header({ handleMobileNavigationToggle }) {
+export default React.memo(function Header({ handleMobileNavigationToggle }) {
     const { t } = useTranslation();
     const classes = useStyles();
     const { authId } = useHeader();
@@ -48,4 +48,4 @@ export default function Header({ handleMobileNavigationToggle }) {
             </Toolbar>
         </AppBar>
     );
-}
+});

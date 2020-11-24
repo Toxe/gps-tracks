@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useCallback } from "react";
 import { useTranslation } from "react-i18next";
 import { useNavigate } from "react-router-dom";
 import { useAlertSnackbar } from "../shared";
@@ -10,9 +10,9 @@ export default function useMainPage() {
     const [changesSavedSnackbar, showChangesSavedSnackbar, hideChangesSavedSnackbar] = useAlertSnackbar();
     const [trackDeletedSnackbar, showTrackDeletedSnackbar, hideTrackDeletedSnackbar] = useAlertSnackbar();
 
-    const handleMobileNavigationToggle = () => {
+    const handleMobileNavigationToggle = useCallback(() => {
         setMobileNavigationOpen(!mobileNavigationOpen);
-    };
+    }, [mobileNavigationOpen]);
 
     const navigateToAllTracks = (filterParams, trackDeleted) => {
         const searchParams = filterParams !== null ? `?${new URLSearchParams(filterParams)}` : "";
