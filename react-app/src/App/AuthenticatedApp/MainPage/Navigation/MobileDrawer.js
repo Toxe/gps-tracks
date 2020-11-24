@@ -7,7 +7,7 @@ const useStyles = makeStyles(() => ({
     drawerPaper: { width: drawerWidth },
 }));
 
-export default function MobileDrawer({ drawer, mobileNavigationOpen, handleMobileNavigationToggle }) {
+export default React.memo(function MobileDrawer({ drawer, mobileNavigationOpen, handleMobileNavigationToggle }) {
     const classes = useStyles();
     const theme = useTheme();
 
@@ -24,4 +24,4 @@ export default function MobileDrawer({ drawer, mobileNavigationOpen, handleMobil
             </Drawer>
         </Hidden>
     );
-}
+});

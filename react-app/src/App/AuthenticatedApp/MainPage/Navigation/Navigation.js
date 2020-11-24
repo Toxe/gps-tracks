@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useMemo } from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import { Box, Divider, List, ListItem, ListItemIcon, ListItemText } from "@material-ui/core";
 import ViewListIcon from "@material-ui/icons/ViewList";
@@ -30,32 +30,34 @@ export default function Navigation({ mobileNavigationOpen, handleMobileNavigatio
         navigateToAllTracks
     );
 
-    const drawer = (
-        <>
-            <div className={classes.toolbar} />
-            <List>
-                <ListItem button onClick={() => handleNavigationClick(null)}>
-                    <ListItemIcon>
-                        <ViewListIcon />
-                    </ListItemIcon>
-                    <ListItemText primary={<TracksCounter count={numTracks} />} />
-                </ListItem>
-            </List>
-            <Divider />
-            {countedYears && (
-                <NavigationYearList countedYears={countedYears} handleNavigationClick={handleNavigationClick} />
-            )}
-            {countedActivities && (
-                <NavigationActivityList
-                    countedActivities={countedActivities}
-                    handleNavigationClick={handleNavigationClick}
-                />
-            )}
-            <Box mt={2} mx="auto">
-                <UploadTrackButton />
-            </Box>
-        </>
-    );
+    const drawer = useMemo(() => {
+        return (
+            <>
+                <div className={classes.toolbar} />
+                <List>
+                    <ListItem button onClick={() => handleNavigationClick(null)}>
+                        <ListItemIcon>
+                            <ViewListIcon />
+                        </ListItemIcon>
+                        <ListItemText primary={<TracksCounter count={numTracks} />} />
+                    </ListItem>
+                </List>
+                <Divider />
+                {countedYears ? (
+                    <NavigationYearList countedYears={countedYears} handleNavigationClick={handleNavigationClick} />
+                ) : null}
+                {countedActivities ? (
+                    <NavigationActivityList
+                        countedActivities={countedActivities}
+                        handleNavigationClick={handleNavigationClick}
+                    />
+                ) : null}
+                <Box mt={2} mx="auto">
+                    <UploadTrackButton />
+                </Box>
+            </>
+        );
+    }, [numTracks, countedActivities, countedYears, handleNavigationClick, classes.toolbar]);
 
     return (
         <nav className={classes.drawer}>

@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, useCallback } from "react";
 import { useTracks } from "../../../TracksProvider";
 
 export default function useNavigation(mobileNavigationOpen, handleMobileNavigationToggle, navigateToAllTracks) {
@@ -11,13 +11,16 @@ export default function useNavigation(mobileNavigationOpen, handleMobileNavigati
         setCountedActivities(countActivities(tracks));
     }, [tracks]);
 
-    const handleNavigationClick = (filterParams) => {
-        if (mobileNavigationOpen) {
-            handleMobileNavigationToggle();
-        }
+    const handleNavigationClick = useCallback(
+        (filterParams) => {
+            if (mobileNavigationOpen) {
+                handleMobileNavigationToggle();
+            }
 
-        navigateToAllTracks(filterParams, false);
-    };
+            navigateToAllTracks(filterParams, false);
+        },
+        [mobileNavigationOpen, handleMobileNavigationToggle, navigateToAllTracks]
+    );
 
     const numTracks = tracks ? tracks.length : 0;
 

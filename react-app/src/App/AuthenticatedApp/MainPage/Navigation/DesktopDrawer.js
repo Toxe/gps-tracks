@@ -7,7 +7,7 @@ const useStyles = makeStyles(() => ({
     drawerPaper: { width: drawerWidth },
 }));
 
-export default function DesktopDrawer({ drawer }) {
+export default React.memo(function DesktopDrawer({ drawer }) {
     const classes = useStyles();
 
     return (
@@ -17,4 +17,4 @@ export default function DesktopDrawer({ drawer }) {
             </Drawer>
         </Hidden>
     );
-}
+});
