@@ -1,7 +1,7 @@
 import React from "react";
 import { Track } from "../../shared";
 
-export default function TracksList({ tracks }) {
+export default React.memo(function TracksList({ tracks }) {
     if (!tracks || tracks.length === 0) {
         return null;
     }
@@ -13,4 +13,4 @@ export default function TracksList({ tracks }) {
             ))}
         </div>
     );
-}
+});
