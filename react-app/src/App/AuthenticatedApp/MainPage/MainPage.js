@@ -13,6 +13,7 @@ export default function MainPage() {
     const {
         mobileNavigationOpen,
         handleMobileNavigationToggle,
+        navigateToRoot,
         navigateToAllTracks,
         navigateToSingleTrack,
         navigateToEditTrack,
@@ -22,7 +23,7 @@ export default function MainPage() {
 
     return (
         <MainPageProviders>
-            <Header handleMobileNavigationToggle={handleMobileNavigationToggle} />
+            <Header handleMobileNavigationToggle={handleMobileNavigationToggle} navigateToRoot={navigateToRoot} />
             <Navigation
                 mobileNavigationOpen={mobileNavigationOpen}
                 handleMobileNavigationToggle={handleMobileNavigationToggle}

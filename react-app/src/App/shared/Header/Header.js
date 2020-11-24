@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useMemo } from "react";
 import { useTranslation } from "react-i18next";
 import { Link as RouterLink } from "react-router-dom";
 import { makeStyles } from "@material-ui/core/styles";
@@ -15,10 +15,15 @@ const useStyles = makeStyles((theme) => ({
     },
 }));
 
-export default React.memo(function Header({ handleMobileNavigationToggle }) {
+export default React.memo(function Header({ handleMobileNavigationToggle, navigateToRoot }) {
     const { t } = useTranslation();
     const classes = useStyles();
     const { authId } = useHeader();
+
+    const userMenu = useMemo(() => (authId ? <UserMenu navigateToRoot={navigateToRoot} /> : null), [
+        authId,
+        navigateToRoot,
+    ]);
 
     return (
         <AppBar position="fixed" className={classes.appBar}>
@@ -39,7 +44,7 @@ export default React.memo(function Header({ handleMobileNavigationToggle }) {
                 </Typography>
                 <Box flexGrow={1} />
                 <LanguageSelection />
-                {authId && <UserMenu />}
+                {userMenu}
                 <Link href="https://github.com/Toxe/gps-tracks" color="inherit" target="_blank" rel="noopener">
                     <Tooltip title={t("github_tooltip")}>
                         <GitHubIcon />

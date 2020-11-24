@@ -1,32 +1,25 @@
-import { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useState, useCallback } from "react";
 import { useAuth } from "../../../../Auth";
 import { useUser } from "../../../AuthenticatedApp/UserProvider";
 
-export default function useUserMenu() {
+export default function useUserMenu(navigateToRoot) {
     const [menuAnchorEl, setMenuAnchorEl] = useState(null);
     const { logout } = useAuth();
     const { user } = useUser();
-    const navigate = useNavigate();
 
-    const handleMenu = (e) => {
-        setMenuAnchorEl(e.currentTarget);
-    };
+    const handleMenu = useCallback((e) => setMenuAnchorEl(e.currentTarget), []);
+    const handleMenuClose = useCallback(() => setMenuAnchorEl(null), []);
 
-    const handleMenuClose = () => {
-        setMenuAnchorEl(null);
-    };
-
-    const handleMenuTracksClick = () => {
+    const handleMenuTracksClick = useCallback(() => {
         handleMenuClose();
-        navigate("/");
-    };
+        navigateToRoot();
+    }, [handleMenuClose, navigateToRoot]);
 
-    const handleMenuLogoutClick = async () => {
+    const handleMenuLogoutClick = useCallback(async () => {
         handleMenuClose();
         await logout();
-        navigate("/");
-    };
+        navigateToRoot();
+    }, [handleMenuClose, navigateToRoot, logout]);
 
     return { user, menuAnchorEl, handleMenu, handleMenuClose, handleMenuTracksClick, handleMenuLogoutClick };
 }

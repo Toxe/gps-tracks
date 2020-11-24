@@ -9,7 +9,7 @@ const useStyles = makeStyles((theme) => ({
     menuButton: { marginRight: theme.spacing(2) },
 }));
 
-export default function UserMenu() {
+export default function UserMenu({ navigateToRoot }) {
     const { t } = useTranslation();
     const classes = useStyles();
     const {
@@ -19,7 +19,7 @@ export default function UserMenu() {
         handleMenuClose,
         handleMenuTracksClick,
         handleMenuLogoutClick,
-    } = useUserMenu();
+    } = useUserMenu(navigateToRoot);
 
     if (!user) {
         return null;

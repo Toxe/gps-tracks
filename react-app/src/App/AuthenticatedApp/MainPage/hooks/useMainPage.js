@@ -14,6 +14,8 @@ export default function useMainPage() {
         setMobileNavigationOpen(!mobileNavigationOpen);
     }, [mobileNavigationOpen]);
 
+    const navigateToRoot = useCallback(() => navigate("/"), [navigate]);
+
     const navigateToAllTracks = useCallback(
         (filterParams, trackDeleted) => {
             const searchParams = filterParams !== null ? `?${new URLSearchParams(filterParams)}` : "";
@@ -45,6 +47,7 @@ export default function useMainPage() {
     return {
         mobileNavigationOpen,
         handleMobileNavigationToggle,
+        navigateToRoot,
         navigateToAllTracks,
         navigateToSingleTrack,
         navigateToEditTrack,
