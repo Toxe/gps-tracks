@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useCallback } from "react";
 
 export default function useList(tracks, tracksPerPage) {
     const [page, setPage] = useState(1);
@@ -6,31 +6,40 @@ export default function useList(tracks, tracksPerPage) {
     const [paginatedTracks, setPaginatedTracks] = useState(null);
     const [showPager, setShowPager] = useState(false);
 
-    useEffect(() => {
-        setPage(1);
-    }, [tracks]);
+    const update = useCallback(
+        (newPage) => {
+            const numTracks = tracks ? tracks.length : 0;
+            const newNumPages = Math.ceil(numTracks / tracksPerPage);
+
+            if (newPage < 1) {
+                newPage = 1;
+            } else if (newPage > newNumPages) {
+                newPage = newNumPages;
+            }
+
+            setPage(newPage);
+            setNumPages(newNumPages);
+            setShowPager(numTracks > tracksPerPage && tracksPerPage > 0);
+
+            if (numTracks > 0 && tracksPerPage > 0) {
+                setPaginatedTracks(tracks.slice((newPage - 1) * tracksPerPage, newPage * tracksPerPage));
+            } else {
+                setPaginatedTracks(null);
+            }
+        },
+        [tracks, tracksPerPage]
+    );
 
     useEffect(() => {
-        if (tracks && tracks.length > 0 && tracksPerPage > 0) {
-            setNumPages(Math.ceil(tracks.length / tracksPerPage));
-            setPaginatedTracks(tracks.slice((page - 1) * tracksPerPage, page * tracksPerPage));
-            setShowPager(tracks.length > tracksPerPage);
-        } else {
-            setNumPages(0);
-            setPaginatedTracks(null);
-            setShowPager(false);
-        }
-    }, [page, tracks, tracksPerPage]);
+        update(1);
+    }, [update]);
 
-    const handleChangePage = (event, newPage) => {
-        if (newPage < 1) {
-            newPage = 1;
-        } else if (newPage > numPages) {
-            newPage = numPages;
-        }
-
-        setPage(newPage);
-    };
+    const handleChangePage = useCallback(
+        (event, newPage) => {
+            update(newPage);
+        },
+        [update]
+    );
 
     return { showPager, numPages, page, paginatedTracks, handleChangePage };
 }
