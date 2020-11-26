@@ -8,7 +8,7 @@ const useStyles = makeStyles((theme) => ({
     },
 }));
 
-export default function Pager({ showPager, numPages, page, handleChangePage }) {
+export default React.memo(function Pager({ showPager, numPages, page, handleChangePage }) {
     const classes = useStyles();
 
     if (!showPager || numPages === 0 || page < 1) {
@@ -16,4 +16,4 @@ export default function Pager({ showPager, numPages, page, handleChangePage }) {
     }
 
     return <Pagination count={numPages} page={page} onChange={handleChangePage} className={classes.pager} />;
-}
+});

@@ -12,7 +12,7 @@ const useStyles = makeStyles((theme) => ({
     },
 }));
 
-export default function List({ tracks, tracksPerPage }) {
+export default React.memo(function List({ tracks, tracksPerPage }) {
     const { t } = useTranslation();
     const classes = useStyles();
     const { showPager, numPages, page, paginatedTracks, handleChangePage } = useList(tracks, tracksPerPage);
@@ -31,4 +31,4 @@ export default function List({ tracks, tracksPerPage }) {
             <TracksList tracks={paginatedTracks} />
         </div>
     );
-}
+});
