@@ -1,36 +1,38 @@
+import { useCallback } from "react";
 import { useURLParamActivity, useURLParamYear } from ".";
 
-export default function useFiltering(tracks) {
+export default function useFiltering() {
     const { activityFilter, handleChangeActivityFilter } = useURLParamActivity();
     const { yearFilter, handleChangeYearFilter } = useURLParamYear();
-    const availableActivities = listAvailableActivities(tracks);
-    const availableYears = listAvailableYears(tracks);
 
-    const filterTracks = () => {
-        if (!tracks || tracks.length === 0) {
-            return [];
-        }
+    const filterTracks = useCallback(
+        (tracks) => {
+            if (!tracks || tracks.length === 0) {
+                return [];
+            }
 
-        let filteredTracks = tracks;
+            let filteredTracks = tracks;
 
-        if (activityFilter !== "" && activityFilter !== "all") {
-            const mode = Number(activityFilter);
-            filteredTracks = filteredTracks.filter((t) => t.activity_mode === mode);
-        }
+            if (activityFilter !== "" && activityFilter !== "all") {
+                const mode = Number(activityFilter);
+                filteredTracks = filteredTracks.filter((t) => t.activity_mode === mode);
+            }
 
-        if (yearFilter !== "" && yearFilter !== "all") {
-            const year = Number(yearFilter);
-            filteredTracks = filteredTracks.filter((t) => new Date(t.time_start).getFullYear() === year);
-        }
+            if (yearFilter !== "" && yearFilter !== "all") {
+                const year = Number(yearFilter);
+                filteredTracks = filteredTracks.filter((t) => new Date(t.time_start).getFullYear() === year);
+            }
 
-        return filteredTracks;
-    };
+            return filteredTracks;
+        },
+        [activityFilter, yearFilter]
+    );
 
     return {
         activityFilter,
         yearFilter,
-        availableActivities,
-        availableYears,
+        listAvailableActivities,
+        listAvailableYears,
         handleChangeActivityFilter,
         handleChangeYearFilter,
         filterTracks,

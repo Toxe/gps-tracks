@@ -9,16 +9,20 @@ export default function useContent(tracks) {
     const {
         activityFilter,
         yearFilter,
-        availableActivities,
-        availableYears,
+        listAvailableActivities,
+        listAvailableYears,
         handleChangeActivityFilter,
         handleChangeYearFilter,
         filterTracks,
-    } = useFiltering(tracks);
+    } = useFiltering();
     const { searchText, handleUpdateSearchText, searchTracks } = useSearching();
     const { sortBy, sortOrder, handleChangeSortBy, handleFlipSortOrder, sortTracks } = useSorting();
 
-    const filteredAndSortedTracks = useMemo(() => sortTracks(searchTracks(filterTracks())), [
+    const availableActivities = useMemo(() => listAvailableActivities(tracks), [tracks, listAvailableActivities]);
+    const availableYears = useMemo(() => listAvailableYears(tracks), [tracks, listAvailableYears]);
+
+    const filteredAndSortedTracks = useMemo(() => sortTracks(searchTracks(filterTracks(tracks))), [
+        tracks,
         filterTracks,
         searchTracks,
         sortTracks,
