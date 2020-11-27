@@ -1,3 +1,4 @@
+import { useCallback } from "react";
 import { useSearchParams } from "react-router-dom";
 import { setOrRemoveDefaultSearchParam } from "../../utils/urlSearchParams";
 import { useURLParamSortBy, useURLParamSortOrder } from ".";
@@ -32,13 +33,13 @@ export default function useSorting() {
     const { sortBy, handleChangeSortBy } = useURLParamSortBy(updateSortByURLParam);
     const { sortOrder, handleFlipSortOrder } = useURLParamSortOrder(updateSortOrderURLParam, defaultSortOrder);
 
-    const sortTracks = (tracks) => {
+    const sortTracks = useCallback((tracks) => {
         if (!tracks || tracks.length === 0) {
             return [];
         }
 
         return [...tracks].sort(compare(sortBy, sortOrder));
-    };
+    }, [sortBy, sortOrder]);
 
     return { sortBy, sortOrder, handleChangeSortBy, handleFlipSortOrder, sortTracks };
 }
