@@ -13,7 +13,7 @@ const useStyles = makeStyles((theme) => ({
     },
 }));
 
-export default function Summary({ tracks }) {
+export default React.memo(function Summary({ tracks }) {
     const classes = useStyles();
     const { stats } = useSummary(tracks);
 
@@ -32,4 +32,4 @@ export default function Summary({ tracks }) {
             </table>
         </Paper>
     );
-}
+});

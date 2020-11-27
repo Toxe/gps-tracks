@@ -3,7 +3,7 @@ import { Box } from "@material-ui/core";
 import FilterActivity from "./FilterActivity";
 import FilterYear from "./FilterYear";
 
-export default function Filter({
+export default React.memo(function Filter({
     activityFilter,
     yearFilter,
     availableActivities,
@@ -25,4 +25,4 @@ export default function Filter({
             />
         </Box>
     );
-}
+});

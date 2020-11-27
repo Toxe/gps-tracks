@@ -7,7 +7,7 @@ import { Search } from "./Search";
 import { Sort } from "./Sort";
 import { useContent } from "./hooks";
 
-export default function Content({ tracks }) {
+export default React.memo(function Content({ tracks }) {
     const {
         filteredAndSortedTracks,
         tracksPerPage,
@@ -49,4 +49,4 @@ export default function Content({ tracks }) {
             <List tracks={filteredAndSortedTracks} tracksPerPage={tracksPerPage} />
         </>
     );
-}
+});
