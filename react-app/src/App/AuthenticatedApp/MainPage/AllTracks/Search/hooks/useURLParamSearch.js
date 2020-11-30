@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useCallback } from "react";
 import { useSearchParams } from "react-router-dom";
 import { getSearchParam, setOrRemoveDefaultSearchParam } from "../../utils/urlSearchParams";
 
@@ -10,10 +10,10 @@ export default function useURLParamSearch() {
         setSearchText(getSearchParam(searchParams, "search", ""));
     }, [searchParams]);
 
-    const handleUpdateSearchText = (text) => {
+    const handleUpdateSearchText = useCallback((text) => {
         setOrRemoveDefaultSearchParam(searchParams, "search", text, "");
         setSearchParams(searchParams);
-    };
+    }, [searchParams, setSearchParams]);
 
     return { searchText, handleUpdateSearchText };
 }

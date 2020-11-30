@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useCallback } from "react";
 import { useSearchParams } from "react-router-dom";
 import { getSearchParam } from "../../utils/urlSearchParams";
 
@@ -11,9 +11,9 @@ export default function useURLParamSortOrder(updateSortOrderURLParam, defaultSor
         setSortOrder(getSearchParam(searchParams, "order", defaultSortOrder[sortBy]));
     }, [searchParams, defaultSortOrder]);
 
-    const handleFlipSortOrder = () => {
+    const handleFlipSortOrder = useCallback(() => {
         updateSortOrderURLParam(sortOrder === "asc" ? "desc" : "asc");
-    };
+    }, [sortOrder, updateSortOrderURLParam]);
 
     return { sortOrder, handleFlipSortOrder };
 }
