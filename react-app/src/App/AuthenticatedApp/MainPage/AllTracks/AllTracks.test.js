@@ -13,27 +13,7 @@ afterEach(() => {
 describe("AllTracks", () => {
     describe("With existing tracks", () => {
         test("When given sample tracks, should show list of 5 tracks", async () => {
-            const filteredAndSortedTracks = sampleTracks();
-            const tracksPerPage = 25;
-            const activityFilter = "";
-            const yearFilter = "";
-            const searchText = "";
-            const sortBy = "date";
-            const sortOrder = "desc";
-            const availableActivities = [];
-            const availableYears = [];
-
-            spyOnHook(useAllTracks).mockReturnValue({
-                filteredAndSortedTracks,
-                tracksPerPage,
-                activityFilter,
-                yearFilter,
-                searchText,
-                sortBy,
-                sortOrder,
-                availableActivities,
-                availableYears,
-            });
+            spyOnHook(useAllTracks).mockReturnValue({ tracks: sampleTracks() });
 
             const { findByRole } = render(
                 <BrowserRouter>
@@ -53,27 +33,7 @@ describe("AllTracks", () => {
 
     describe("Without tracks", () => {
         test('When given no tracks, should show "No tracks found" message', async () => {
-            const filteredAndSortedTracks = null;
-            const tracksPerPage = 25;
-            const activityFilter = "";
-            const yearFilter = "";
-            const searchText = "";
-            const sortBy = "date";
-            const sortOrder = "desc";
-            const availableActivities = [];
-            const availableYears = [];
-
-            spyOnHook(useAllTracks).mockReturnValue({
-                filteredAndSortedTracks,
-                tracksPerPage,
-                activityFilter,
-                yearFilter,
-                searchText,
-                sortBy,
-                sortOrder,
-                availableActivities,
-                availableYears,
-            });
+            spyOnHook(useAllTracks).mockReturnValue({ tracks: null });
 
             const { findByText } = render(
                 <BrowserRouter>
