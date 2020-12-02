@@ -1,4 +1,4 @@
-import React, { useState, useContext, useCallback, useMemo } from "react";
+import React, { useState, useContext, useCallback } from "react";
 
 const LastVisitedAllTracksPageContext = React.createContext();
 
@@ -14,7 +14,7 @@ export function useLastVisitedAllTracksPage() {
 
 export function LastVisitedAllTracksPageProvider({ children }) {
     const [lastVisitedAllTracksPageFilterParams, setLastVisitedAllTracksPageFilterParams] = useState("");
-    const windowLocationSearch = useMemo(() => window.location.search, []);
+    const windowLocationSearch = window.location.search;
 
     const updateLastVisitedAllTracksPage = useCallback(() => {
         setLastVisitedAllTracksPageFilterParams(windowLocationSearch);
