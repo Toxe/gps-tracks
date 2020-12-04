@@ -1,12 +1,21 @@
 import React from "react";
 import { useTranslation } from "react-i18next";
+import { makeStyles } from "@material-ui/core/styles";
 import { Button, Hidden, IconButton, Menu, MenuItem, Tooltip } from "@material-ui/core";
 import TranslateIcon from "@material-ui/icons/Translate";
 import ExpandMoreIcon from "@material-ui/icons/ExpandMore";
+import { Flag } from "./Flag";
 import { useLanguageSelection } from "./hooks";
+
+const useStyles = makeStyles({
+    label: {
+        marginLeft: "0.75em",
+    },
+});
 
 export default function LanguageSelection() {
     const { t } = useTranslation();
+    const classes = useStyles();
     const { languageName, menuAnchorEl, handleMenu, handleMenuClose, handleChangeLanguage } = useLanguageSelection();
 
     return (
@@ -28,8 +37,14 @@ export default function LanguageSelection() {
                 </Tooltip>
             </Hidden>
             <Menu anchorEl={menuAnchorEl} keepMounted open={Boolean(menuAnchorEl)} onClose={handleMenuClose}>
-                <MenuItem onClick={() => handleChangeLanguage("en")}><span role="img" aria-label="English">🇺🇸</span>English</MenuItem>
-                <MenuItem onClick={() => handleChangeLanguage("de")}><span role="img" aria-label="Deutsch">🇩🇪</span>Deutsch</MenuItem>
+                <MenuItem onClick={() => handleChangeLanguage("en")}>
+                    <Flag country="us" title="English" />
+                    <span className={classes.label}>English</span>
+                </MenuItem>
+                <MenuItem onClick={() => handleChangeLanguage("de")}>
+                    <Flag country="de" title="Deutsch" />
+                    <span className={classes.label}>Deutsch</span>
+                </MenuItem>
             </Menu>
         </>
     );
