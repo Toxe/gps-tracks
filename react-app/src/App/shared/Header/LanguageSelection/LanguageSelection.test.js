@@ -1,7 +1,7 @@
 import { render, waitFor } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
-import i18n from "../../../test/i18n";
-import { matchByTextContent } from "../../../test";
+import i18n from "../../../../test/i18n";
+import { matchByTextContent } from "../../../../test";
 import LanguageSelection from "./LanguageSelection";
 
 afterEach(async () => {

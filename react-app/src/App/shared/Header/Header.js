@@ -6,7 +6,7 @@ import { AppBar, Box, Hidden, IconButton, Link, Toolbar, Tooltip, Typography } f
 import GitHubIcon from "@material-ui/icons/GitHub";
 import MenuIcon from "@material-ui/icons/Menu";
 import UserMenu from "./UserMenu";
-import LanguageSelection from "./LanguageSelection";
+import { LanguageSelection } from "./LanguageSelection";
 import { useHeader } from "./hooks";
 
 const useStyles = makeStyles((theme) => ({
