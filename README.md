@@ -22,6 +22,10 @@
   - react-i18next
   - Roboto font
 
+### Special Credits
+
+- SVG country icons and necessary CSS provided by: https://github.com/lipis/flag-icon-css
+
 ## Setup Virtual Environment and install Dependencies
 
 The Python REST API uses [Poetry](https://python-poetry.org) for dependency management and virtual environment.
