@@ -10,7 +10,7 @@ from app.models import GPXFile, User
 def test_gpxfile_static_file_path_returns_correct_filename(app):
     app.config["GPXFILES_FOLDER"] = "gpxfiles"
     gpxfile = GPXFile(id=1, user_id=1, filename="GPXFile 01")
-    assert gpxfile.static_file_path() == "gpxfiles/1.gpx"
+    assert gpxfile.static_file_path() == os.path.join("gpxfiles", "1.gpx")
 
 
 def test_can_delete_gpxfile_static_file(app):
