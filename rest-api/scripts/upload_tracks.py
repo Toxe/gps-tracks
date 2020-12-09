@@ -8,15 +8,13 @@ host = "http://localhost:5000"
 
 
 def login(route, email, password):
-    r = requests.post("{}{}".format(host, route), json={"email": email, "password": password})
+    json = {"email": email, "password": password}
+    r = requests.post("{}{}".format(host, route), json=json)
     if r.status_code < 200 or r.status_code >= 300:
         raise Exception("Request error: %d" % r.status_code)
     data = r.json()
-    return (
-        data["access_token"],
-        data["refresh_token"],
-        jwt.decode(data["access_token"], verify=False).get("identity"),
-    )
+    user_id = jwt.decode(data["access_token"], verify=False).get("identity")
+    return (data["access_token"], user_id)
 
 
 def upload_tracks(filenames, user_id, access_token):
@@ -42,7 +40,11 @@ def eval_args():
     return sys.argv[1:]
 
 
-if __name__ == "__main__":
+def main():
     filenames = eval_args()
-    access_token, refresh_token, user_id = login("/auth/login", "user1@example.com", "password1")
+    access_token, user_id = login("/auth/login", "user1@example.com", "password1")
     upload_tracks(filenames, user_id, access_token)
+
+
+if __name__ == "__main__":
+    main()
