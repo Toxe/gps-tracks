@@ -12,7 +12,11 @@ def login(route, email, password):
     if r.status_code < 200 or r.status_code >= 300:
         raise Exception("Request error: %d" % r.status_code)
     data = r.json()
-    return (data["access_token"], data["refresh_token"], jwt.decode(data["access_token"], verify=False).get("identity"))
+    return (
+        data["access_token"],
+        data["refresh_token"],
+        jwt.decode(data["access_token"], verify=False).get("identity"),
+    )
 
 
 def upload_tracks(filenames, user_id, access_token):
@@ -21,7 +25,11 @@ def upload_tracks(filenames, user_id, access_token):
     count = 0
     for filename in filenames:
         with open(filename) as fp:
-            r = requests.post("{}/api/users/{}/gpxfiles".format(host, user_id), files={"file": fp}, headers=headers)
+            r = requests.post(
+                "{}/api/users/{}/gpxfiles".format(host, user_id),
+                files={"file": fp},
+                headers=headers,
+            )
             if r.status_code != 201:
                 raise Exception("Request error: %d" % r.status_code)
             count += 1
