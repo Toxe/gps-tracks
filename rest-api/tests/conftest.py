@@ -10,7 +10,7 @@ from config import Config
 
 class TestConfig(Config):
     TESTING = True
-    SQLALCHEMY_DATABASE_URI = 'sqlite://'
+    SQLALCHEMY_DATABASE_URI = "sqlite://"
 
     def __init__(self, tmp_dir):
         self.GPXFILES_FOLDER = os.path.join(tmp_dir, "gpxfiles")
@@ -20,6 +20,7 @@ class TestConfig(Config):
 class Authentication:
     def __init__(self, client):
         self.client = client
+
     def login(self, email, password):
         r = self.client.post("/auth/login", json={"email": email, "password": password})
         if r.status_code != 200:
