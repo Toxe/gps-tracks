@@ -20,7 +20,9 @@ def create_thumbnail(track, gpx_track):
 
 
 def generate_thumbnail_content(gpx_track):
-    fig = Figure(figsize=(1, 1), dpi=128, facecolor="white", linewidth=2, tight_layout=True)
+    fig = Figure(
+        figsize=(1, 1), dpi=128, facecolor="white", linewidth=2, tight_layout=True
+    )
     canvas = FigureCanvasAgg(fig)
     ax = fig.add_subplot(aspect="equal")
     ax.set_axis_off()

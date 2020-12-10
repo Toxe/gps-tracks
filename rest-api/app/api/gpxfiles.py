@@ -40,7 +40,9 @@ def upload_user_gpxfile(user_id):
         return error_response(400, "Unable to import uploaded GPX file.")
     response = jsonify(gpxfile_schema.dump(gpxfile))
     response.status_code = 201
-    response.headers["Location"] = url_for("api.get_user_gpxfile", user_id=user.id, gpxfile_id=gpxfile.id)
+    response.headers["Location"] = url_for(
+        "api.get_user_gpxfile", user_id=user.id, gpxfile_id=gpxfile.id
+    )
     return response
 
 
@@ -54,12 +56,19 @@ def delete_user_gpxfile(user_id, gpxfile_id):
     return "", 204
 
 
-@bp.route("/users/<int:user_id>/gpxfiles/<int:gpxfile_id>/download/<filename>", methods=["GET"])
+@bp.route(
+    "/users/<int:user_id>/gpxfiles/<int:gpxfile_id>/download/<filename>",
+    methods=["GET"],
+)
 @jwt_and_matching_user_id_required
 def download_user_gpxfile(user_id, gpxfile_id, filename):
     user = User.query.get_or_404(user_id)
     gpxfile = user.gpxfiles.filter_by(id=gpxfile_id).first_or_404()
-    return send_from_directory(current_app.config["GPXFILES_FOLDER"], "{}.gpx".format(gpxfile.id), mimetype="application/gpx+xml")
+    return send_from_directory(
+        current_app.config["GPXFILES_FOLDER"],
+        "{}.gpx".format(gpxfile.id),
+        mimetype="application/gpx+xml",
+    )
 
 
 def import_gpxfile(user, file):
@@ -85,7 +94,11 @@ def import_track(gpxfile, gpx_track, gpxfile_track_id):
     start_time, end_time = gpx_track.get_time_bounds()
     moving_data = gpx_track.get_moving_data()
     uphill, downhill = gpx_track.get_uphill_downhill()
-    avg_speed = speed_to_kph(moving_data.moving_distance / moving_data.moving_time) if moving_data.moving_time > 0.0 else 0.0
+    avg_speed = (
+        speed_to_kph(moving_data.moving_distance / moving_data.moving_time)
+        if moving_data.moving_time > 0.0
+        else 0.0
+    )
     track = Track(
         owner=gpxfile.owner,
         file=gpxfile,
@@ -109,8 +122,9 @@ def import_track(gpxfile, gpx_track, gpxfile_track_id):
 
 
 def save_uploaded_gpxfile(gpxfile, file):
+    gpxfiles_folder = current_app.config["GPXFILES_FOLDER"]
     file.seek(0)
-    file.save(os.path.join(current_app.config["GPXFILES_FOLDER"], "{}.gpx".format(gpxfile.id)))
+    file.save(os.path.join(gpxfiles_folder, "{}.gpx".format(gpxfile.id)))
 
 
 def speed_to_kph(mps):

@@ -15,33 +15,47 @@ class ActivityMode(IntEnum):
 
 
 class User(db.Model):
-    id       = db.Column(db.Integer, primary_key=True)
+    id = db.Column(db.Integer, primary_key=True)
     username = db.Column(db.String(128), index=True, unique=True)
-    email    = db.Column(db.String(128), index=True, unique=True)
+    email = db.Column(db.String(128), index=True, unique=True)
     password = db.Column(db.String(128))
-    gpxfiles = db.relationship("GPXFile", backref="owner", lazy="dynamic", cascade="all,delete,delete-orphan")
-    tracks   = db.relationship("Track", backref="owner", lazy="dynamic", cascade="all,delete,delete-orphan")
+    gpxfiles = db.relationship(
+        "GPXFile", backref="owner", lazy="dynamic", cascade="all,delete,delete-orphan"
+    )
+    tracks = db.relationship(
+        "Track", backref="owner", lazy="dynamic", cascade="all,delete,delete-orphan"
+    )
+
     def set_password(self, password):
         self.password = generate_password_hash(password)
+
     def check_password(self, password):
         return check_password_hash(self.password, password)
+
     def __repr__(self):
         return "<User:{} {}>".format(self.id, self.username)
 
 
 class GPXFile(db.Model):
     __tablename__ = "gpxfile"
-    id            = db.Column(db.Integer, primary_key=True)
-    user_id       = db.Column(db.Integer, db.ForeignKey("user.id"))
-    filename      = db.Column(db.String(255))
+    id = db.Column(db.Integer, primary_key=True)
+    user_id = db.Column(db.Integer, db.ForeignKey("user.id"))
+    filename = db.Column(db.String(255))
     time_imported = db.Column(db.DateTime, default=datetime.utcnow)
-    tracks        = db.relationship("Track", backref="file", lazy="dynamic", cascade="all,delete,delete-orphan")
+    tracks = db.relationship(
+        "Track", backref="file", lazy="dynamic", cascade="all,delete,delete-orphan"
+    )
+
     def static_file_path(self):
-        return os.path.join(current_app.config["GPXFILES_FOLDER"], "{}.gpx".format(self.id))
+        return os.path.join(
+            current_app.config["GPXFILES_FOLDER"], "{}.gpx".format(self.id)
+        )
+
     def delete_static_file(self):
         filename = self.static_file_path()
         if os.path.isfile(filename):
             os.remove(filename)
+
     def __repr__(self):
         return "<GPXFile:{}>".format(self.id)
 
@@ -53,29 +67,34 @@ def gpxfile_after_delete(mapper, connection, gpxfile):
 
 
 class Track(db.Model):
-    id               = db.Column(db.Integer, primary_key=True)
-    user_id          = db.Column(db.Integer, db.ForeignKey("user.id"))
-    gpxfile_id       = db.Column(db.Integer, db.ForeignKey("gpxfile.id"))
+    id = db.Column(db.Integer, primary_key=True)
+    user_id = db.Column(db.Integer, db.ForeignKey("user.id"))
+    gpxfile_id = db.Column(db.Integer, db.ForeignKey("gpxfile.id"))
     gpxfile_track_id = db.Column(db.Integer)  # id in GPX file tracks[] list
-    title            = db.Column(db.String(255))
-    time_start       = db.Column(db.DateTime)
-    time_end         = db.Column(db.DateTime)
-    length2d         = db.Column(db.Float)
-    length3d         = db.Column(db.Float)
-    max_speed        = db.Column(db.Float)
-    avg_speed        = db.Column(db.Float)
-    total_uphill     = db.Column(db.Float)
-    total_downhill   = db.Column(db.Float)
-    moving_time      = db.Column(db.Float)
-    stopped_time     = db.Column(db.Float)
-    activity_mode    = db.Column(db.SmallInteger, default=ActivityMode.BIKE.value)
-    thumbnail        = db.Column(db.String(36))  # UUID
+    title = db.Column(db.String(255))
+    time_start = db.Column(db.DateTime)
+    time_end = db.Column(db.DateTime)
+    length2d = db.Column(db.Float)
+    length3d = db.Column(db.Float)
+    max_speed = db.Column(db.Float)
+    avg_speed = db.Column(db.Float)
+    total_uphill = db.Column(db.Float)
+    total_downhill = db.Column(db.Float)
+    moving_time = db.Column(db.Float)
+    stopped_time = db.Column(db.Float)
+    activity_mode = db.Column(db.SmallInteger, default=ActivityMode.BIKE.value)
+    thumbnail = db.Column(db.String(36))  # UUID
+
     def thumbnail_path(self):
-        return os.path.join(current_app.config["THUMBNAILS_FOLDER"], "{}.png".format(self.thumbnail))
+        return os.path.join(
+            current_app.config["THUMBNAILS_FOLDER"], "{}.png".format(self.thumbnail)
+        )
+
     def delete_thumbnail_file(self):
         filename = self.thumbnail_path()
         if os.path.isfile(filename):
             os.remove(filename)
+
     def __repr__(self):
         return "<Track:{} gpxfile={}>".format(self.id, self.gpxfile_id)
 
