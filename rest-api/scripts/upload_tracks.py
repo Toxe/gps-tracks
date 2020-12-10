@@ -18,10 +18,10 @@ def login(route, email, password):
     return (data["access_token"], user_id)
 
 
-def override_track_activity(track, activity_mode_override, headers):
-    print(
-        'track "{}": override activity mode: {} --> {}'.format(
-            track["title"], track["activity_mode"], activity_mode_override
+def override_track_activity(track, activity_mode_override, headers, logger):
+    logger(
+        "PUT activity_mode {} --> {}".format(
+            track["activity_mode"], activity_mode_override
         )
     )
     json = {"title": track["title"], "activity_mode": activity_mode_override}
@@ -31,7 +31,8 @@ def override_track_activity(track, activity_mode_override, headers):
         raise Exception("Request error: %d" % r.status_code)
 
 
-def post_file(fp, user_id, headers, activity_mode_override):
+def post_file(fp, user_id, headers, activity_mode_override, logger):
+    logger("POST")
     url = "{}/api/users/{}/gpxfiles".format(host, user_id)
     r = requests.post(url, files={"file": fp}, headers=headers)
     if r.status_code != 201:
@@ -40,17 +41,32 @@ def post_file(fp, user_id, headers, activity_mode_override):
     if activity_mode_override >= 0:
         for track in tracks:
             if track["activity_mode"] != activity_mode_override:
-                override_track_activity(track, activity_mode_override, headers)
+                override_track_activity(track, activity_mode_override, headers, logger)
+
+
+def upload_file(
+    fp, user_id, headers, activity_mode_override, count_files, current_file
+):
+    def logger(text):
+        print("[{}/{}] {}: {}".format(current_file, count_files, fp.name, text))
+
+    post_file(fp, user_id, headers, activity_mode_override, logger)
 
 
 def upload_all_files(filenames, user_id, access_token, activity_mode_override):
     headers = {"Authorization": "Bearer {}".format(access_token)}
-    count_uploaded_files = 0
+    current_file = 1
     for filename in filenames:
         with open(filename) as fp:
-            post_file(fp, user_id, headers, activity_mode_override)
-            count_uploaded_files += 1
-            print("[{}/{}] {}".format(count_uploaded_files, len(filenames), filename))
+            upload_file(
+                fp,
+                user_id,
+                headers,
+                activity_mode_override,
+                len(filenames),
+                current_file,
+            )
+            current_file += 1
 
 
 def determine_activity_mode_override(args):
