@@ -1,4 +1,4 @@
-import sys
+import argparse
 
 import jwt
 import requests
@@ -9,7 +9,8 @@ host = "http://localhost:5000"
 
 def login(route, email, password):
     json = {"email": email, "password": password}
-    r = requests.post("{}{}".format(host, route), json=json)
+    url = "{}{}".format(host, route)
+    r = requests.post(url, json=json)
     if r.status_code < 200 or r.status_code >= 300:
         raise Exception("Request error: %d" % r.status_code)
     data = r.json()
@@ -17,33 +18,68 @@ def login(route, email, password):
     return (data["access_token"], user_id)
 
 
-def upload_tracks(filenames, user_id, access_token):
+def override_track_activity(track, activity_mode_override, headers):
+    print(
+        'track "{}": override activity mode: {} --> {}'.format(
+            track["title"], track["activity_mode"], activity_mode_override
+        )
+    )
+    json = {"title": track["title"], "activity_mode": activity_mode_override}
+    url = "{}{}".format(host, track["links"]["update"])
+    r = requests.put(url, json=json, headers=headers)
+    if r.status_code != 200:
+        raise Exception("Request error: %d" % r.status_code)
+
+
+def post_file(fp, user_id, headers, activity_mode_override):
+    url = "{}/api/users/{}/gpxfiles".format(host, user_id)
+    r = requests.post(url, files={"file": fp}, headers=headers)
+    if r.status_code != 201:
+        raise Exception("Request error: %d" % r.status_code)
+    tracks = r.json().get("tracks")
+    if activity_mode_override >= 0:
+        for track in tracks:
+            if track["activity_mode"] != activity_mode_override:
+                override_track_activity(track, activity_mode_override, headers)
+
+
+def upload_all_files(filenames, user_id, access_token, activity_mode_override):
     headers = {"Authorization": "Bearer {}".format(access_token)}
-    num_files = len(filenames)
-    count = 0
+    count_uploaded_files = 0
     for filename in filenames:
         with open(filename) as fp:
-            r = requests.post(
-                "{}/api/users/{}/gpxfiles".format(host, user_id),
-                files={"file": fp},
-                headers=headers,
-            )
-            if r.status_code != 201:
-                raise Exception("Request error: %d" % r.status_code)
-            count += 1
-            print("[{}/{}] {}".format(count, num_files, filename))
+            post_file(fp, user_id, headers, activity_mode_override)
+            count_uploaded_files += 1
+            print("[{}/{}] {}".format(count_uploaded_files, len(filenames), filename))
+
+
+def determine_activity_mode_override(args):
+    if args.bike:
+        return 0
+    if args.hiking:
+        return 1
+    return -1
 
 
 def eval_args():
-    if len(sys.argv) <= 1:
-        raise Exception("Usage: %s <gpx files>" % sys.argv[0])
-    return sys.argv[1:]
+    parser = argparse.ArgumentParser(description="Import GPX files.")
+    parser.add_argument("filenames", help=".gpx files", nargs="+")
+    activity_mode_group = parser.add_mutually_exclusive_group()
+    activity_mode_group.add_argument(
+        "--bike", help="set activity mode to bike", action="store_true"
+    )
+    activity_mode_group.add_argument(
+        "--hiking", help="set activity mode to hiking", action="store_true"
+    )
+    args = parser.parse_args()
+    activity_mode_override = determine_activity_mode_override(args)
+    return (args.filenames, activity_mode_override)
 
 
 def main():
-    filenames = eval_args()
+    filenames, activity_mode_override = eval_args()
     access_token, user_id = login("/auth/login", "user1@example.com", "password1")
-    upload_tracks(filenames, user_id, access_token)
+    upload_all_files(filenames, user_id, access_token, activity_mode_override)
 
 
 if __name__ == "__main__":
