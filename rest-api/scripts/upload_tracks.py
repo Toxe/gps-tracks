@@ -124,6 +124,18 @@ def eval_args():
         help="REST API server host name and port (default: %(default)s)",
         default="http://localhost:5000",
     )
+    parser.add_argument(
+        "-u",
+        "--user",
+        help="authentication user (default: %(default)s)",
+        default="user1@example.com",
+    )
+    parser.add_argument(
+        "-p",
+        "--password",
+        help="authentication password (default: %(default)s)",
+        default="password1",
+    )
     activity_mode_group = parser.add_mutually_exclusive_group()
     activity_mode_group.add_argument(
         "--bike", help="set activity mode to bike", action="store_true"
@@ -133,13 +145,13 @@ def eval_args():
     )
     args = parser.parse_args()
     activity_mode_override = determine_activity_mode_override(args)
-    return (args.host, args.filenames, activity_mode_override)
+    return (args.host, args.user, args.password, args.filenames, activity_mode_override)
 
 
 def main():
-    host, filenames, activity_mode_override = eval_args()
+    host, user, password, filenames, activity_mode_override = eval_args()
     con = Connection(host)
-    con.login("user1@example.com", "password1")
+    con.login(user, password)
     con.query_user()
     upload_all_files(con, filenames, activity_mode_override)
     con.logout()
