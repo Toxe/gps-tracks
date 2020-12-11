@@ -3,9 +3,10 @@ from tests.example_data_fixtures import example_users
 
 def test_download_thumbnail(client, auth, example_users):
     auth.login("user1@example.com", "password1")
+    auth.queryUser()
     thumbnail_link = None
     with open("tests/example.gpx", "rb") as fp:
-        r = client.post("/api/users/{}/gpxfiles".format(auth.id), headers=auth.headers, data={"file": (fp, "example.gpx")})
+        r = client.post(auth.user["links"]["upload_gpxfile"], headers=auth.headers, data={"file": (fp, "example.gpx")})
         assert r.status_code == 201
         data = r.get_json()
         thumbnail_link = data["tracks"][0]["links"]["thumbnail"]  # first track

@@ -18,6 +18,7 @@ class UserSchema(Schema):
         return {
             "gpxfiles": url_for("api.get_user_gpxfiles", user_id=obj.id),
             "tracks": url_for("api.get_user_tracks", user_id=obj.id),
+            "upload_gpxfile": url_for("api.upload_user_gpxfile", user_id=obj.id),
         }
 
 

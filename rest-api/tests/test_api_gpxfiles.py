@@ -79,8 +79,9 @@ def test_get_gpxfile_returns_list_of_tracks(client, auth, example_users, example
 
 def test_upload_gpxfile(client, auth, example_users):
     auth.login("user1@example.com", "password1")
+    auth.queryUser()
     with open("tests/example.gpx", "rb") as fp:
-        r = client.post("/api/users/{}/gpxfiles".format(auth.id), headers=auth.headers, data={"file": (fp, "example.gpx")})
+        r = client.post(auth.user["links"]["upload_gpxfile"], headers=auth.headers, data={"file": (fp, "example.gpx")})
         assert r.status_code == 201
         assert r.is_json
         data = r.get_json()
@@ -99,7 +100,8 @@ def test_upload_gpxfile(client, auth, example_users):
 
 def test_upload_without_gpxfile_fails(client, auth, example_users):
     auth.login("user1@example.com", "password1")
-    r = client.post("/api/users/{}/gpxfiles".format(auth.id), headers=auth.headers, json={"some": "thing"})
+    auth.queryUser()
+    r = client.post(auth.user["links"]["upload_gpxfile"], headers=auth.headers, json={"some": "thing"})
     assert r.status_code == 400
     assert r.is_json
     assert r.get_json().get("message") == "GPX file missing."
@@ -113,8 +115,9 @@ def test_upload_gpxfile_without_login_fails(client):
 
 def test_upload_with_bad_gpxfile_fails(client, auth, example_users):
     auth.login("user1@example.com", "password1")
+    auth.queryUser()
     fp = BytesIO("not a gpx file".encode("utf8"))
-    r = client.post("/api/users/{}/gpxfiles".format(auth.id), headers=auth.headers, data={"file": (fp, "bad.gpx")})
+    r = client.post(auth.user["links"]["upload_gpxfile"], headers=auth.headers, data={"file": (fp, "bad.gpx")})
     assert r.status_code == 400
     assert r.get_json().get("message") == "Unable to import uploaded GPX file."
     # make sure no database objects or files were created
@@ -126,8 +129,9 @@ def test_upload_with_bad_gpxfile_fails(client, auth, example_users):
 
 def test_upload_with_bad_xml_gpxfile_fails(client, auth, example_users):
     auth.login("user1@example.com", "password1")
+    auth.queryUser()
     fp = BytesIO('<?xml version="1.0" encoding="UTF-8"?><gpx version="1.0">'.encode("utf8"))
-    r = client.post("/api/users/{}/gpxfiles".format(auth.id), headers=auth.headers, data={"file": (fp, "bad.gpx")})
+    r = client.post(auth.user["links"]["upload_gpxfile"], headers=auth.headers, data={"file": (fp, "bad.gpx")})
     assert r.status_code == 400
     assert r.get_json().get("message") == "Unable to import uploaded GPX file."
     # make sure no database objects or files were created
@@ -191,9 +195,10 @@ def test_delete_gpxfile_for_different_user_is_forbidden(client, auth, example_us
 
 def test_download_gpxfile(client, auth, example_users):
     auth.login("user1@example.com", "password1")
+    auth.queryUser()
     download_link = None
     with open("tests/example.gpx", "rb") as fp:
-        r = client.post("/api/users/{}/gpxfiles".format(auth.id), headers=auth.headers, data={"file": (fp, "example.gpx")})
+        r = client.post(auth.user["links"]["upload_gpxfile"], headers=auth.headers, data={"file": (fp, "example.gpx")})
         assert r.status_code == 201
         data = r.get_json()
         download_link = data["links"]["download"]
