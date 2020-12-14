@@ -45,8 +45,8 @@ class Authentication:
         self.user = r.get_json()
 
 
-@pytest.fixture
-def app():
+@pytest.fixture(name="app")
+def fixture_app():
     with TemporaryDirectory() as tmp_dir:
         app = create_app(TestConfig(tmp_dir))
         with app.app_context():
@@ -54,12 +54,12 @@ def app():
             yield app
 
 
-@pytest.fixture
-def client(app):
+@pytest.fixture(name="client")
+def fixture_client(app):
     with app.test_client() as client:
         yield client
 
 
-@pytest.fixture
-def auth(client):
+@pytest.fixture(name="auth")
+def fixture_auth(client):
     return Authentication(client)
