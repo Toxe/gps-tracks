@@ -2,13 +2,14 @@ import argparse
 from collections import namedtuple
 
 import jwt
-import requests
+from requests import Request, Session
 
 
 class Connection:
     User = namedtuple("User", ["id", "links"])
 
     def __init__(self, host):
+        self.session = Session()
         self.host = host
         self.user = self.User(-1, {})
         self.access_token = None
@@ -23,6 +24,28 @@ class Connection:
         else:
             self.headers = None
 
+    def send_request(
+        self, method, route, expected_status_code, headers=None, json=None, files=None
+    ):
+        url = f"{self.host}{route}"
+        req = Request(method, url, headers=headers, json=json, files=files)
+        r = self.session.send(req.prepare())
+        if r.status_code != expected_status_code:
+            raise Exception(f"Request error: {method} {route} --> {r.status_code}")
+        return r.json()
+
+    def get(self, route):
+        return self.send_request("GET", route, 200, headers=self.headers)
+
+    def post(self, route, json):
+        return self.send_request("POST", route, 200, headers=self.headers, json=json)
+
+    def put(self, route, json):
+        return self.send_request("PUT", route, 200, headers=self.headers, json=json)
+
+    def upload(self, route, files):
+        return self.send_request("POST", route, 201, headers=self.headers, files=files)
+
     def login(self, email, password):
         print(f"Login {email}...")
         data = self.post("/auth/login", json={"email": email, "password": password})
@@ -32,14 +55,10 @@ class Connection:
 
     def logout(self):
         print("Logout...")
-        headers = {"Authorization": f"Bearer {self.access_token}"}
-        r = requests.delete(f"{self.host}/auth/logout", headers=headers)
-        if r.status_code != 200:
-            raise Exception("Request error: %d" % r.status_code)
-        headers = {"Authorization": f"Bearer {self.refresh_token}"}
-        r = requests.delete(f"{self.host}/auth/logout2", headers=headers)
-        if r.status_code != 200:
-            raise Exception("Request error: %d" % r.status_code)
+        headers1 = {"Authorization": f"Bearer {self.access_token}"}
+        headers2 = {"Authorization": f"Bearer {self.refresh_token}"}
+        self.send_request("DELETE", "/auth/logout", 200, headers=headers1)
+        self.send_request("DELETE", "/auth/logout2", 200, headers=headers2)
         self.user = self.User(-1, {})
         self.update_headers_and_tokens(None, None)
 
@@ -47,34 +66,6 @@ class Connection:
         print("Query user info...")
         data = self.get(f"/api/users/{self.user.id}")
         self.user = self.User(self.user.id, data["links"])
-
-    def get(self, route):
-        url = f"{self.host}{route}"
-        r = requests.get(url, headers=self.headers)
-        if r.status_code != 200:
-            raise Exception("Request error: %d" % r.status_code)
-        return r.json()
-
-    def post(self, route, json):
-        url = f"{self.host}{route}"
-        r = requests.post(url, json=json, headers=self.headers)
-        if r.status_code < 200 or r.status_code >= 300:
-            raise Exception("Request error: %d" % r.status_code)
-        return r.json()
-
-    def put(self, route, json):
-        url = f"{self.host}{route}"
-        r = requests.put(url, json=json, headers=self.headers)
-        if r.status_code != 200:
-            raise Exception("Request error: %d" % r.status_code)
-        return r.json()
-
-    def upload(self, route, files):
-        url = f"{self.host}{route}"
-        r = requests.post(url, files=files, headers=self.headers)
-        if r.status_code != 201:
-            raise Exception("Request error: %d" % r.status_code)
-        return r.json()
 
 
 def override_track_activity(con, track, activity_mode_override, logger):
