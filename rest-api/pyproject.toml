@@ -35,7 +35,7 @@ requires = ["poetry>=0.12"]
 build-backend = "poetry.masonry.api"
 
 [tool.pylint.format]
-max-line-length = 120
+max-line-length = 88
 
 [tool.pylint.messages]
-disable = ["missing-module-docstring", "missing-function-docstring", "missing-class-docstring", "line-too-long", "invalid-name"]
+disable = ["missing-module-docstring", "missing-function-docstring", "missing-class-docstring", "invalid-name"]
