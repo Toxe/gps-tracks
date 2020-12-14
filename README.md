@@ -57,7 +57,7 @@ For a better `pylint` experience:
     "python.linting.enabled": true,
     "python.linting.pylintArgs": [
         "--rcfile=rest-api/pyproject.toml",
-        "--load-plugins=pylint_flask,pylint_flask_sqlalchemy"
+        "--load-plugins=pylint_flask,pylint_flask_sqlalchemy,pylint_pytest"
     ]
 }
 ```
