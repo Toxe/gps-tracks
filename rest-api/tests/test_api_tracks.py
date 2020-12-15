@@ -8,7 +8,8 @@ from app.models import ActivityMode, Track, User
 
 def test_get_tracks(client, auth, example_users, example_tracks):
     auth.login("user1@example.com", "password1")
-    r = client.get("/api/users/{}/tracks".format(auth.id), headers=auth.headers)
+    auth.queryUser()
+    r = client.get(auth.user["links"]["tracks"], headers=auth.headers)
     assert r.status_code == 200
     assert r.is_json
     assert len(r.get_json()) == 3
