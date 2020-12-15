@@ -45,20 +45,29 @@ FLASK_APP=main
 FLASK_ENV=development
 ```
 
-### Visual Studio Code: `.vscode/settings.json`
+### Visual Studio Code
 
-For a better `pylint` experience:
+- Python Formatting Provider: `black`
 
-- Load the plugins `pylint_flask` and `pylint_flask_sqlalchemy`.
-- Pass the location of `pyproject.toml` to `pylint` to load some config settings.
+#### `.vscode/settings.json`
 
 ```json
 {
-    "python.linting.enabled": true,
+    "eslint.workingDirectories": [
+        {
+            "mode": "auto"
+        }
+    ],
+    "files.exclude": {
+        "**/__pycache__": true
+    },
+    "python.analysis.extraPaths": [
+        "rest-api"
+    ],
     "python.linting.pylintArgs": [
         "--rcfile=rest-api/pyproject.toml",
         "--load-plugins=pylint_flask,pylint_flask_sqlalchemy,pylint_pytest"
-    ]
+    ],
 }
 ```
 
