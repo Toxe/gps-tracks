@@ -87,14 +87,14 @@ $ flask run
 
 ### Tests
 
-Run either:
-
 ```
-pytest
+$ pytest
 ```
 
+Or run multiple tests in parallel with `pytest-xdist`, where `-n` expects the number of workers (for example 4) or `auto`:
+
 ```
-python3 -m pytest
+$ pytest -n 4
 ```
 
 ### Create a new SQLite database with example data
