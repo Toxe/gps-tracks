@@ -65,7 +65,7 @@ class TrackSchema(Schema):
                 "api.delete_user_track", user_id=obj.user_id, track_id=obj.id
             ),
             "thumbnail": url_for(
-                "thumbnails.get_thumbnail", filename="{}.png".format(obj.thumbnail)
+                "thumbnails.get_thumbnail", filename=f"{obj.thumbnail}.png"
             ),
             "download": self.download_link(obj),
         }

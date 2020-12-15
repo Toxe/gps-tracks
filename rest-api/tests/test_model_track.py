@@ -65,7 +65,7 @@ def test_track_thumbnail_path_returns_correct_filename(app):
     app.config["THUMBNAILS_FOLDER"] = "thumbnails"
     uuid = str(uuid4())
     track = Track(thumbnail=uuid)
-    assert track.thumbnail_path() == os.path.join("thumbnails", "{}.png".format(uuid))
+    assert track.thumbnail_path() == os.path.join("thumbnails", f"{uuid}.png")
 
 
 def test_can_delete_track_thumbnail(app):

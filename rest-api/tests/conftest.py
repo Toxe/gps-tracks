@@ -34,7 +34,7 @@ class Authentication:
         data = r.get_json()
         self.access_token = data["access_token"]
         self.refresh_token = data["refresh_token"]
-        self.headers = {"Authorization": "Bearer {}".format(self.access_token)}
+        self.headers = {"Authorization": f"Bearer {self.access_token}"}
         self.id = decode_token(self.access_token).get("identity")
 
     def queryUser(self):

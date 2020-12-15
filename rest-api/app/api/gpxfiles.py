@@ -66,7 +66,7 @@ def download_user_gpxfile(user_id, gpxfile_id, filename):
     gpxfile = user.gpxfiles.filter_by(id=gpxfile_id).first_or_404()
     return send_from_directory(
         current_app.config["GPXFILES_FOLDER"],
-        "{}.gpx".format(gpxfile.id),
+        f"{gpxfile.id}.gpx",
         mimetype="application/gpx+xml",
     )
 
@@ -124,7 +124,7 @@ def import_track(gpxfile, gpx_track, gpxfile_track_id):
 def save_uploaded_gpxfile(gpxfile, file):
     gpxfiles_folder = current_app.config["GPXFILES_FOLDER"]
     file.seek(0)
-    file.save(os.path.join(gpxfiles_folder, "{}.gpx".format(gpxfile.id)))
+    file.save(os.path.join(gpxfiles_folder, f"{gpxfile.id}.gpx"))
 
 
 def speed_to_kph(mps):

@@ -33,7 +33,7 @@ class User(db.Model):
         return check_password_hash(self.password, password)
 
     def __repr__(self):
-        return "<User:{} {}>".format(self.id, self.username)
+        return f"<User:{self.id} {self.username}>"
 
 
 class GPXFile(db.Model):
@@ -47,9 +47,7 @@ class GPXFile(db.Model):
     )
 
     def static_file_path(self):
-        return os.path.join(
-            current_app.config["GPXFILES_FOLDER"], "{}.gpx".format(self.id)
-        )
+        return os.path.join(current_app.config["GPXFILES_FOLDER"], f"{self.id}.gpx")
 
     def delete_static_file(self):
         filename = self.static_file_path()
@@ -57,7 +55,7 @@ class GPXFile(db.Model):
             os.remove(filename)
 
     def __repr__(self):
-        return "<GPXFile:{}>".format(self.id)
+        return f"<GPXFile:{self.id}>"
 
 
 # automatically remove the physical GPX file after a GPXFile database entry has been deleted
@@ -87,7 +85,7 @@ class Track(db.Model):
 
     def thumbnail_path(self):
         return os.path.join(
-            current_app.config["THUMBNAILS_FOLDER"], "{}.png".format(self.thumbnail)
+            current_app.config["THUMBNAILS_FOLDER"], f"{self.thumbnail}.png"
         )
 
     def delete_thumbnail_file(self):
@@ -96,7 +94,7 @@ class Track(db.Model):
             os.remove(filename)
 
     def __repr__(self):
-        return "<Track:{} gpxfile={}>".format(self.id, self.gpxfile_id)
+        return f"<Track:{self.id} gpxfile={self.gpxfile_id}>"
 
 
 # automatically remove the physical thumbnail file after a Track database entry has been deleted
