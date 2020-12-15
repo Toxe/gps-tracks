@@ -2,10 +2,10 @@ import os
 from tempfile import TemporaryDirectory
 
 import pytest
-from flask_jwt_extended import decode_token
-
 from app import create_app, db
 from config import Config
+from flask import url_for
+from flask_jwt_extended import decode_token
 
 
 class TestConfig(Config):
@@ -27,7 +27,8 @@ class Authentication:
         self.headers = None
 
     def login(self, email, password):
-        r = self.client.post("/auth/login", json={"email": email, "password": password})
+        json = {"email": email, "password": password}
+        r = self.client.post(url_for("auth.login"), json=json)
         if r.status_code != 200:
             raise RuntimeError("Login failed")
         data = r.get_json()
@@ -39,7 +40,7 @@ class Authentication:
     def queryUser(self):
         if self.id is None:
             raise RuntimeError("No authenticated user")
-        r = self.client.get("/api/users/{}".format(self.id))
+        r = self.client.get(url_for("api.get_user", user_id=self.id))
         if r.status_code != 200:
             raise RuntimeError("Unable to query data of logged-in user")
         self.user = r.get_json()

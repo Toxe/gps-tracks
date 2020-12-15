@@ -1,9 +1,10 @@
 import os
 
+from app.models import ActivityMode, Track, User
+from flask import url_for
+
 from tests.example_data_fixtures import example_gpxfiles, example_tracks, example_users
 from tests.util import create_empty_file
-
-from app.models import ActivityMode, Track, User
 
 
 def test_get_tracks(client, auth, example_users, example_tracks):
@@ -17,7 +18,9 @@ def test_get_tracks(client, auth, example_users, example_tracks):
 
 def test_get_track(client, auth, example_users, example_tracks):
     auth.login("user1@example.com", "password1")
-    r = client.get("/api/users/{}/tracks/1".format(auth.id), headers=auth.headers)
+    r = client.get(
+        url_for("api.get_user_track", user_id=auth.id, track_id=1), headers=auth.headers
+    )
     assert r.status_code == 200
     assert r.is_json
     assert r.get_json().get("id") == 1
@@ -25,27 +28,27 @@ def test_get_track(client, auth, example_users, example_tracks):
 
 def test_get_missing_track(client, auth, example_users, example_tracks):
     auth.login("user1@example.com", "password1")
-    assert (
-        client.get(
-            "/api/users/{}/tracks/99".format(auth.id), headers=auth.headers
-        ).status_code
-        == 404
+    r = client.get(
+        url_for("api.get_user_track", user_id=auth.id, track_id=99),
+        headers=auth.headers,
     )
+    assert r.status_code == 404
 
 
 def test_get_tracks_without_login(client, example_users, example_tracks):
-    assert client.get("/api/users/1/tracks").status_code == 401
+    assert client.get(url_for("api.get_user_tracks", user_id=1)).status_code == 401
 
 
 def test_get_track_without_login(client, example_users, example_tracks):
-    assert client.get("/api/users/1/tracks/1").status_code == 401
+    r = client.get(url_for("api.get_user_track", user_id=1, track_id=1))
+    assert r.status_code == 401
 
 
 def test_get_tracks_for_different_user_is_forbidden(
     client, auth, example_users, example_tracks
 ):
     auth.login("user1@example.com", "password1")
-    r = client.get("/api/users/2/tracks", headers=auth.headers)
+    r = client.get(url_for("api.get_user_tracks", user_id=2), headers=auth.headers)
     assert r.status_code == 403
     assert r.is_json
     assert r.get_json().get("message") == "Access to user resource denied."
@@ -55,7 +58,9 @@ def test_get_track_for_different_user_is_forbidden(
     client, auth, example_users, example_tracks
 ):
     auth.login("user1@example.com", "password1")
-    r = client.get("/api/users/2/tracks/1", headers=auth.headers)
+    r = client.get(
+        url_for("api.get_user_track", user_id=2, track_id=1), headers=auth.headers
+    )
     assert r.status_code == 403
     assert r.is_json
     assert r.get_json().get("message") == "Access to user resource denied."
@@ -74,30 +79,25 @@ def test_get_track_returns_valid_links(client, auth, example_users):
         assert r.status_code == 201
         track_id = r.get_json().get("id")
     r = client.get(
-        "/api/users/{}/tracks/{}".format(auth.id, track_id), headers=auth.headers
+        url_for("api.get_user_track", user_id=auth.id, track_id=track_id),
+        headers=auth.headers,
     )
     assert r.status_code == 200
-    data = r.get_json()
-    assert len(data["links"]) == 7
-    assert "update" in data["links"]
-    assert "delete" in data["links"]
-    assert client.get(data["links"]["file"], headers=auth.headers).status_code == 200
-    assert client.get(data["links"]["owner"], headers=auth.headers).status_code == 200
-    assert (
-        client.get(data["links"]["segments"], headers=auth.headers).status_code == 200
-    )
-    assert (
-        client.get(data["links"]["thumbnail"], headers=auth.headers).status_code == 200
-    )
-    assert (
-        client.get(data["links"]["download"], headers=auth.headers).status_code == 200
-    )
+    links = r.get_json().get("links")
+    assert len(links) == 7
+    assert "update" in links
+    assert "delete" in links
+    assert client.get(links["file"], headers=auth.headers).status_code == 200
+    assert client.get(links["owner"], headers=auth.headers).status_code == 200
+    assert client.get(links["segments"], headers=auth.headers).status_code == 200
+    assert client.get(links["thumbnail"], headers=auth.headers).status_code == 200
+    assert client.get(links["download"], headers=auth.headers).status_code == 200
 
 
 def test_update_track(client, auth, example_users, example_tracks):
     auth.login("user1@example.com", "password1")
     r = client.put(
-        "/api/users/{}/tracks/1".format(auth.id),
+        url_for("api.update_user_track", user_id=auth.id, track_id=1),
         headers=auth.headers,
         json={"activity_mode": ActivityMode.HIKING.value, "title": "new title"},
     )
@@ -112,80 +112,68 @@ def test_update_track_fails_with_missing_fields(
     client, auth, example_users, example_tracks
 ):
     auth.login("user1@example.com", "password1")
-    assert (
-        client.put(
-            "/api/users/{}/tracks/1".format(auth.id), headers=auth.headers, json={}
-        ).status_code
-        == 400
+    r = client.put(
+        url_for("api.update_user_track", user_id=auth.id, track_id=1),
+        headers=auth.headers,
+        json={},
     )
-    assert (
-        client.put(
-            "/api/users/{}/tracks/1".format(auth.id),
-            headers=auth.headers,
-            json={"activity_mode": ActivityMode.HIKING.value},
-        ).status_code
-        == 400
+    assert r.status_code == 400
+    r = client.put(
+        url_for("api.update_user_track", user_id=auth.id, track_id=1),
+        headers=auth.headers,
+        json={"activity_mode": ActivityMode.HIKING.value},
     )
-    assert (
-        client.put(
-            "/api/users/{}/tracks/1".format(auth.id),
-            headers=auth.headers,
-            json={"title": "new title"},
-        ).status_code
-        == 400
+    assert r.status_code == 400
+    r = client.put(
+        url_for("api.update_user_track", user_id=auth.id, track_id=1),
+        headers=auth.headers,
+        json={"title": "new title"},
     )
+    assert r.status_code == 400
 
 
 def test_update_track_fails_with_unknown_fields(
     client, auth, example_users, example_tracks
 ):
     auth.login("user1@example.com", "password1")
-    assert (
-        client.put(
-            "/api/users/{}/tracks/1".format(auth.id),
-            headers=auth.headers,
-            json={
-                "unknown_field": "some value",
-                "activity_mode": ActivityMode.HIKING.value,
-                "title": "new title",
-            },
-        ).status_code
-        == 400
+    r = client.put(
+        url_for("api.update_user_track", user_id=auth.id, track_id=1),
+        headers=auth.headers,
+        json={
+            "unknown_field": "some value",
+            "activity_mode": ActivityMode.HIKING.value,
+            "title": "new title",
+        },
     )
+    assert r.status_code == 400
 
 
 def test_update_track_without_login(client, example_users, example_tracks):
-    assert (
-        client.put(
-            "/api/users/1/tracks/1",
-            json={"activity_mode": ActivityMode.HIKING.value, "title": "new title"},
-        ).status_code
-        == 401
+    r = client.put(
+        url_for("api.update_user_track", user_id=1, track_id=1),
+        json={"activity_mode": ActivityMode.HIKING.value, "title": "new title"},
     )
+    assert r.status_code == 401
 
 
 def test_update_missing_track(client, auth, example_users, example_tracks):
     auth.login("user1@example.com", "password1")
-    assert (
-        client.put(
-            "/api/users/{}/tracks/99".format(auth.id),
-            headers=auth.headers,
-            json={"activity_mode": ActivityMode.HIKING.value, "title": "new title"},
-        ).status_code
-        == 404
+    r = client.put(
+        url_for("api.update_user_track", user_id=auth.id, track_id=99),
+        headers=auth.headers,
+        json={"activity_mode": ActivityMode.HIKING.value, "title": "new title"},
     )
+    assert r.status_code == 404
 
 
 def test_update_track_for_different_user(client, auth, example_users, example_tracks):
     auth.login("user2@example.com", "password2")
-    assert (
-        client.put(
-            "/api/users/1/tracks/1",
-            headers=auth.headers,
-            json={"activity_mode": ActivityMode.HIKING.value, "title": "new title"},
-        ).status_code
-        == 403
+    r = client.put(
+        url_for("api.update_user_track", user_id=1, track_id=1),
+        headers=auth.headers,
+        json={"activity_mode": ActivityMode.HIKING.value, "title": "new title"},
     )
+    assert r.status_code == 403
 
 
 def test_delete_track_automatically_removes_gpxfile(
@@ -202,7 +190,8 @@ def test_delete_track_automatically_removes_gpxfile(
     assert os.path.isfile(gpxfile.static_file_path())
     assert os.path.isfile(track.thumbnail_path())
     r = client.delete(
-        "/api/users/{}/tracks/{}".format(auth.id, track.id), headers=auth.headers
+        url_for("api.delete_user_track", user_id=auth.id, track_id=track.id),
+        headers=auth.headers,
     )
     assert r.status_code == 204
     # make sure the static files and database objects (including gpxfile) were deleted
@@ -227,7 +216,8 @@ def test_delete_track_does_not_removes_gpxfile_with_multiple_tracks(
     assert os.path.isfile(gpxfile.static_file_path())
     assert os.path.isfile(track.thumbnail_path())
     r = client.delete(
-        "/api/users/{}/tracks/{}".format(auth.id, track.id), headers=auth.headers
+        url_for("api.delete_user_track", user_id=auth.id, track_id=track.id),
+        headers=auth.headers,
     )
     assert r.status_code == 204
     # make sure the thumbnail file and track database object were deleted
@@ -241,19 +231,25 @@ def test_delete_track_does_not_removes_gpxfile_with_multiple_tracks(
 
 def test_delete_missing_track(client, auth, example_users, example_tracks):
     auth.login("user1@example.com", "password1")
-    r = client.delete("/api/users/{}/tracks/99".format(auth.id), headers=auth.headers)
+    r = client.delete(
+        url_for("api.delete_user_track", user_id=auth.id, track_id=99),
+        headers=auth.headers,
+    )
     assert r.status_code == 404
 
 
 def test_delete_track_without_login(client, example_users, example_tracks):
-    assert client.delete("/api/users/1/tracks/1").status_code == 401
+    r = client.delete(url_for("api.delete_user_track", user_id=1, track_id=1))
+    assert r.status_code == 401
 
 
 def test_delete_track_for_different_user_is_forbidden(
     client, auth, example_users, example_tracks
 ):
     auth.login("user1@example.com", "password1")
-    r = client.get("/api/users/2/tracks/3", headers=auth.headers)
+    r = client.delete(
+        url_for("api.delete_user_track", user_id=2, track_id=3), headers=auth.headers
+    )
     assert r.status_code == 403
     assert r.is_json
     assert r.get_json().get("message") == "Access to user resource denied."
