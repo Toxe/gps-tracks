@@ -271,35 +271,34 @@ def test_download_gpxfile_from_different_user_is_forbidden(
 
 
 def test_gpxfile_download_filenames_are_secure(app):
-    with app.test_request_context():
-        g1 = GPXFile(id=1, user_id=1, filename="GPXFile 01.gpx")
-        g2 = GPXFile(id=2, user_id=1, filename="GPXFile/02.gpx")
-        g3 = GPXFile(id=3, user_id=1, filename="GPX:File 03 Test?.gpx")
-        g4 = GPXFile(id=4, user_id=1, filename="GPXFile <04>.gpx")
-        assert (
-            gpxfile_schema.dump(g1)
-            .get("links")
-            .get("download")
-            .endswith("/download/GPXFile_01.gpx")
-        )
-        assert (
-            gpxfile_schema.dump(g2)
-            .get("links")
-            .get("download")
-            .endswith("/download/GPXFile_02.gpx")
-        )
-        assert (
-            gpxfile_schema.dump(g3)
-            .get("links")
-            .get("download")
-            .endswith("/download/GPXFile_03_Test.gpx")
-        )
-        assert (
-            gpxfile_schema.dump(g4)
-            .get("links")
-            .get("download")
-            .endswith("/download/GPXFile_04.gpx")
-        )
+    g1 = GPXFile(id=1, user_id=1, filename="GPXFile 01.gpx")
+    g2 = GPXFile(id=2, user_id=1, filename="GPXFile/02.gpx")
+    g3 = GPXFile(id=3, user_id=1, filename="GPX:File 03 Test?.gpx")
+    g4 = GPXFile(id=4, user_id=1, filename="GPXFile <04>.gpx")
+    assert (
+        gpxfile_schema.dump(g1)
+        .get("links")
+        .get("download")
+        .endswith("/download/GPXFile_01.gpx")
+    )
+    assert (
+        gpxfile_schema.dump(g2)
+        .get("links")
+        .get("download")
+        .endswith("/download/GPXFile_02.gpx")
+    )
+    assert (
+        gpxfile_schema.dump(g3)
+        .get("links")
+        .get("download")
+        .endswith("/download/GPXFile_03_Test.gpx")
+    )
+    assert (
+        gpxfile_schema.dump(g4)
+        .get("links")
+        .get("download")
+        .endswith("/download/GPXFile_04.gpx")
+    )
 
 
 def test_speed_to_kph_works():

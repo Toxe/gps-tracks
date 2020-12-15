@@ -50,8 +50,9 @@ def fixture_app():
     with TemporaryDirectory() as tmp_dir:
         app = create_app(TestConfig(tmp_dir))
         with app.app_context():
-            db.create_all()
-            yield app
+            with app.test_request_context():
+                db.create_all()
+                yield app
 
 
 @pytest.fixture(name="client")
