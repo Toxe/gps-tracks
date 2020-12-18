@@ -50,5 +50,9 @@ export default function useSingleTrack(navigateToAllTracks, navigateToEditTrack)
         navigateToEditTrack(trackId);
     };
 
-    return { track, requestError, handleDownloadTrack, handleDeleteTrack, handleEditTrack };
+    const handleBackToTracks = () => {
+        returnToLastVisitedAllTracksPage(navigateToAllTracks, false);
+    };
+
+    return { track, requestError, handleDownloadTrack, handleDeleteTrack, handleEditTrack, handleBackToTracks };
 }

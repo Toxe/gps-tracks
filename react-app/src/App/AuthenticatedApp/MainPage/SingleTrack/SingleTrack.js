@@ -6,13 +6,18 @@ import TrackMap from "./TrackMap";
 import TrackDetails from "./TrackDetails";
 import EditTrackButton from "./EditTrackButton";
 import DeleteTrackButton from "./DeleteTrackButton";
+import BackToTracksButton from "./BackToTracksButton";
 import { useSingleTrack } from "./hooks";
 
 export default function SingleTrack({ navigateToAllTracks, navigateToEditTrack }) {
-    const { track, requestError, handleDownloadTrack, handleDeleteTrack, handleEditTrack } = useSingleTrack(
-        navigateToAllTracks,
-        navigateToEditTrack
-    );
+    const {
+        track,
+        requestError,
+        handleDownloadTrack,
+        handleDeleteTrack,
+        handleEditTrack,
+        handleBackToTracks,
+    } = useSingleTrack(navigateToAllTracks, navigateToEditTrack);
 
     if (!track) {
         return <TrackNotFound />;
@@ -20,6 +25,7 @@ export default function SingleTrack({ navigateToAllTracks, navigateToEditTrack }
 
     return (
         <div>
+            <BackToTracksButton handleBackToTracks={handleBackToTracks} />
             <Track track={track} />
             <Box mb={4} display="flex" justifyContent="flex-end">
                 <TrackDetails track={track} />

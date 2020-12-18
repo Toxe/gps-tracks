@@ -1,6 +1,7 @@
 {
     "activity_bike": "Fahrrad",
     "activity_hiking": "Wandern",
+    "button_back_to_list_of_tracks": "Zurück zur Streckenliste",
     "button_cancel": "Abbrechen",
     "button_delete_track": "Löschen",
     "button_download_track": "Herunterladen",

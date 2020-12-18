@@ -1,6 +1,7 @@
 {
     "activity_bike": "Bike",
     "activity_hiking": "Hiking",
+    "button_back_to_list_of_tracks": "Back to list of tracks",
     "button_cancel": "Cancel",
     "button_delete_track": "Delete",
     "button_download_track": "Download",

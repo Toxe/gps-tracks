@@ -104,4 +104,14 @@ describe("useSingleTrack()", () => {
             expect(navigateToEditTrack).toHaveBeenCalled();
         });
     });
+
+    describe("Navigate back to list of tracks", () => {
+        test("When handleBackToTracks() is called, should call navigateToEditTrack", () => {
+            const { result, navigateToAllTracks } = renderSingleTrackHook(21, null);
+
+            act(() => result.current.handleBackToTracks());
+
+            expect(navigateToAllTracks).toHaveBeenCalled();
+        });
+    });
 });
