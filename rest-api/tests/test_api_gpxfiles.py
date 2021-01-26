@@ -349,5 +349,8 @@ def test_determine_default_activity_mode():
     assert determine_default_activity_mode(3.0) == ActivityMode.HIKING.value
     assert determine_default_activity_mode(4.999) == ActivityMode.HIKING.value
     assert determine_default_activity_mode(5.0) == ActivityMode.HIKING.value
-    assert determine_default_activity_mode(5.1) == ActivityMode.BIKE.value
+    assert determine_default_activity_mode(5.1) == ActivityMode.HIKING.value
+    assert determine_default_activity_mode(5.999) == ActivityMode.HIKING.value
+    assert determine_default_activity_mode(6.0) == ActivityMode.HIKING.value
+    assert determine_default_activity_mode(6.1) == ActivityMode.BIKE.value
     assert determine_default_activity_mode(10.0) == ActivityMode.BIKE.value

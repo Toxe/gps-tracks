@@ -132,7 +132,6 @@ def speed_to_kph(mps):
 
 
 def determine_default_activity_mode(avg_speed):
-    if avg_speed > 0.0 and avg_speed <= 5.0:
+    if avg_speed > 0.0 and avg_speed <= 6.0:
         return ActivityMode.HIKING.value
-    else:
-        return ActivityMode.BIKE.value
+    return ActivityMode.BIKE.value
