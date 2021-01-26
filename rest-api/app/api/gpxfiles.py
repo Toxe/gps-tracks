@@ -114,7 +114,7 @@ def import_track(gpxfile, gpx_track, gpxfile_track_id):
         stopped_time=moving_data.stopped_time,
         total_uphill=uphill,
         total_downhill=downhill,
-        activity_mode=determine_default_activity_mode(avg_speed),
+        activity_mode=default_activity_mode_from_average_speed(avg_speed),
         thumbnail=str(uuid4()),
     )
     db.session.add(track)
@@ -131,7 +131,7 @@ def speed_to_kph(mps):
     return mps * 3.6
 
 
-def determine_default_activity_mode(avg_speed):
+def default_activity_mode_from_average_speed(avg_speed):
     if avg_speed > 0.0 and avg_speed <= 6.0:
         return ActivityMode.HIKING.value
     return ActivityMode.BIKE.value
